@@ -1,10 +1,14 @@
 (() => {
     try {
-        // ----------------------------------------------------------
+        // -----------------------------------------------------------------------
         // lol
-        // ---------------------------------------------------------
-        let papagianneosFinaleEnabled = false;
-        // ---------------------------------------------------------
+        // ----------------------------------------------------------------------
+        let papagianneosFinaleEnabled = false,
+            startedAngryEffect = false,
+            papagianneosFinaleMusic = new Audio('./audio/papagianneos_finale.mp3');
+
+        papagianneosFinaleMusic.loop = true;
+        // ------------------------------------------------------------------------
 
         // ----------------------------------------------------------
         // Σπέσιαλ Κάρτες.
@@ -131,227 +135,247 @@
         // ================================================================================
 
         // ΤΥΧΑΙΑ Σχήματα/σχέδια καρτών (2 κάρτες από καθεμιά άρα αντιγραφή τα στοιχεία)
-        let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£".split(''),
-            generatedPalette = [],
-            SHAPE_PALETTES = [],
-            chosenCombination = '';
+        const startGame = () => {
+            let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£".split(''),
+                generatedPalette = [],
+                SHAPE_PALETTES = [],
+                chosenCombination = '';
 
-        // φτιάξε τυχαία λίστα με τυχαία σχήματα/κείμενο/αριθμούς
-        for (var k = 0; k < 4; k++) {
-            generatedPalette = [];
-            for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
-                chosenCombination = randomChoice(CHARACTERS_SET);
-                CHARACTERS_SET.splice(CHARACTERS_SET.indexOf(chosenCombination), 1);
-                generatedPalette.push(chosenCombination);
+            // φτιάξε τυχαία λίστα με τυχαία σχήματα/κείμενο/αριθμούς
+            for (var k = 0; k < 4; k++) {
+                generatedPalette = [];
+                for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
+                    chosenCombination = randomChoice(CHARACTERS_SET);
+                    CHARACTERS_SET.splice(CHARACTERS_SET.indexOf(chosenCombination), 1);
+                    generatedPalette.push(chosenCombination);
 
-                // bug fix
-                /* if (generatedPalette.includes(undefined)) {
-                     const buggedCharacterIndex = generatedPalette.indexOf(undefined);
- 
-                     chosenCombination = randomChoice(CHARACTERS_SET);
-                     CHARACTERS_SET.splice(CHARACTERS_SET.indexOf(chosenCombination), 1);
-                     generatedPalette[buggedCharacterIndex] = chosenCombination;
-                 }*/
+                    // bug fix
+                    /* if (generatedPalette.includes(undefined)) {
+                         const buggedCharacterIndex = generatedPalette.indexOf(undefined);
+     
+                         chosenCombination = randomChoice(CHARACTERS_SET);
+                         CHARACTERS_SET.splice(CHARACTERS_SET.indexOf(chosenCombination), 1);
+                         generatedPalette[buggedCharacterIndex] = chosenCombination;
+                     }*/
+                }
+                SHAPE_PALETTES.push(generatedPalette);
             }
-            SHAPE_PALETTES.push(generatedPalette);
-        }
-        /* const SHAPE_PALETTES = [
-             ['A', 'B', 'C', 'D', 'E', 'F'],
-             ['0', '1', '2', '3', '4', '5'],
-             ['G', 'H', 'I', 'J', 'K', 'L'],
-             ['M', 'N', 'O', 'P', 'Q', 'R'],
-             ['S', 'T', 'U', 'V', 'W', 'X'],
-             ['Y', 'Z', '6', '7', '8', '9'],
-             ['?', '{', '$', '#', '@', ']']
-         ];*/
-        // ================================================================================
+            /* const SHAPE_PALETTES = [
+                 ['A', 'B', 'C', 'D', 'E', 'F'],
+                 ['0', '1', '2', '3', '4', '5'],
+                 ['G', 'H', 'I', 'J', 'K', 'L'],
+                 ['M', 'N', 'O', 'P', 'Q', 'R'],
+                 ['S', 'T', 'U', 'V', 'W', 'X'],
+                 ['Y', 'Z', '6', '7', '8', '9'],
+                 ['?', '{', '$', '#', '@', ']']
+             ];*/
+            // ================================================================================
 
-        let cardShapes = randomChoice(SHAPE_PALETTES);
+            let cardShapes = randomChoice(SHAPE_PALETTES);
 
-        // ----------------------------------------------------------------------------------------------
-        // Σπεσιαλ Κάρτες: Βάλτες στην λίστα αντικαταστώντας το τελευταίο γράμμα
-        // ----------------------------------------------------------------------------------------------
-        if (specialCardsEnabled) {
-            // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
-            // αν δεν παίζει ο παίχτης το FINALE.
-            if (!papagianneosFinaleEnabled) {
-                let randomlyChosenSpecialCard = randomChoice(specialCards);
-                cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard;
-            }
+            // ----------------------------------------------------------------------------------------------
+            // Σπεσιαλ Κάρτες: Βάλτες στην λίστα αντικαταστώντας το τελευταίο γράμμα
+            // ----------------------------------------------------------------------------------------------
+            if (specialCardsEnabled) {
+                // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
+                // αν δεν παίζει ο παίχτης το FINALE.
+                if (!papagianneosFinaleEnabled) {
+                    let randomlyChosenSpecialCard = randomChoice(specialCards);
+                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard;
+                }
 
-            // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE
-            else {
-                for (var specialCard_ of specialCards) {
-                    cardShapes.push(specialCard_);
-                    AMOUNT_OF_CARDS += 2;
+                // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE
+                else {
+                    for (var specialCard_ of specialCards) {
+                        cardShapes.push(specialCard_);
+                        AMOUNT_OF_CARDS += 2;
+                    }
                 }
             }
-        }
-        // ----------------------------------------------------------------------------------------------
+            // ----------------------------------------------------------------------------------------------
 
-        cardShapes.push(...cardShapes); // duplicate
+            cardShapes.push(...cardShapes); // duplicate
 
-        // ΤΥΧΑΙΑ Χρώματα καρτών (2 κάρτες από καθεμιά άρα αντιγραφή)
-        let COLOR_PALETTES = [],
-            generatedColorPalette = [];
+            // ΤΥΧΑΙΑ Χρώματα καρτών (2 κάρτες από καθεμιά άρα αντιγραφή)
+            let COLOR_PALETTES = [],
+                generatedColorPalette = [];
 
-        for (var n = 0; n < 4; n++) {
-            generatedColorPalette = [];
-            for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
-                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
-                generatedColorPalette.push(randomColor);
-
-                // -------------------------------------------------------------
-                // BUG FIX: Διαγραφή αντιγράφων
-                // -------------------------------------------------------------
-                generatedColorPalette = [...new Set(generatedColorPalette)];
-
-                let checkDuplicateColorInterval = setInterval(() => {
+            for (var n = 0; n < 4; n++) {
+                generatedColorPalette = [];
+                for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
                     const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
                     generatedColorPalette.push(randomColor);
+
+                    // -------------------------------------------------------------
+                    // BUG FIX: Διαγραφή αντιγράφων
+                    // -------------------------------------------------------------
                     generatedColorPalette = [...new Set(generatedColorPalette)];
 
-                    if (generatedColorPalette.length == 6) {
-                        clearInterval(checkDuplicateColorInterval);
-                    }
-                }, 10);
-                // -------------------------------------------------------------
+                    let checkDuplicateColorInterval = setInterval(() => {
+                        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+                        generatedColorPalette.push(randomColor);
+                        generatedColorPalette = [...new Set(generatedColorPalette)];
 
-            }
-            COLOR_PALETTES.push(generatedColorPalette);
-        }
+                        if (generatedColorPalette.length == 6) {
+                            clearInterval(checkDuplicateColorInterval);
+                        }
+                    }, 10);
+                    // -------------------------------------------------------------
 
-        let cardColors = randomChoice(COLOR_PALETTES);
-        cardColors.push(...cardColors); // duplicate
-
-        // check cards length
-        if (cardShapes.length != AMOUNT_OF_CARDS || cardColors.length != AMOUNT_OF_CARDS) {
-            throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.')
-        }
-
-        for (var j = 0; j < AMOUNT_OF_CARDS; j++) {
-            const card = {
-                shape: cardShapes[j],
-                color: cardColors[j],
-                specialCard: false,
-                specialCardEffect: () => { }
+                }
+                COLOR_PALETTES.push(generatedColorPalette);
             }
 
-            // --------------------------------------------------------
-            // Οι σπέσιαλ κάρτες έχουν συγκεκριμένο σταθερό χρώμα.
-            // --------------------------------------------------------
-            if (specialCardsEnabled) {
-                // SOS συνάρτηση
-                const addToSpecialCardsArray = (shape) => {
-                    currentSpecialCards.push(shape);
-                    removedSpecialCardsFromFullCount.push(false);
+            let cardColors = randomChoice(COLOR_PALETTES);
+            cardColors.push(...cardColors); // duplicate
+
+            // check cards length
+            if (cardShapes.length != AMOUNT_OF_CARDS || cardColors.length != AMOUNT_OF_CARDS) {
+                throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.')
+            }
+
+            for (var j = 0; j < AMOUNT_OF_CARDS; j++) {
+                const card = {
+                    shape: cardShapes[j],
+                    color: cardColors[j],
+                    specialCard: false,
+                    specialCardEffect: () => { }
                 }
 
-                switch (card.shape) {
-                    case specialCards[0]: // 10 Score (++)
-                        addToSpecialCardsArray(specialCards[0]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(darkgreen, white)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/special_score.mp3');
-                            score += 10;
-                        }
-                        break;
+                // --------------------------------------------------------
+                // Οι σπέσιαλ κάρτες έχουν συγκεκριμένο σταθερό χρώμα.
+                // --------------------------------------------------------
+                if (specialCardsEnabled) {
+                    // SOS συνάρτηση
+                    const addToSpecialCardsArray = (shape) => {
+                        currentSpecialCards.push(shape);
+                        removedSpecialCardsFromFullCount.push(false);
+                    }
 
-                    case specialCards[1]: // x2 Score
-                        addToSpecialCardsArray(specialCards[1]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(#8a8c16, #8a8c16, gold)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/special_score.mp3');
-                            score *= 2;
-                        }
-                        break;
-
-                    case specialCards[2]: // Half Score
-                        addToSpecialCardsArray(specialCards[2]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(cyan, red)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/κακό_λάθος.mp3');
-                            score /= 2;
-                        }
-                        break;
-
-                    case specialCards[3]: // 2 λιγότερες προσπάθειες
-                        addToSpecialCardsArray(specialCards[3]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(#00fc82, #84b89f)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/special_score.mp3');
-                            tries -= 2;
-                            updateTries();
-                        }
-                        break;
-
-                    case specialCards[4]: // 10 λιγότερο score
-                        addToSpecialCardsArray(specialCards[4]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(black, #4a1313)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/κακό_λάθος.mp3');
-                            score -= 10;
-                        }
-                        break;
-
-                    case specialCards[5]: // Πάει χάθηκε το παιχνίδι
-                        addToSpecialCardsArray(specialCards[5]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(#1c0b0e, #b8707d)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/κακό_λάθος.mp3');
-                            lostByDeathCard = true;
-                        }
-                        break;
-
-                    case specialCards[6]: // PAPAGIANNEOS SPEECH
-                        addToSpecialCardsArray(specialCards[6]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(#adfff1, #265175)';
-                        card.specialCardEffect = () => {
-                            if (startedExtremeModeMusic) {
-                                extremeModeGameMusic.pause();
+                    switch (card.shape) {
+                        case specialCards[0]: // 10 Score (++)
+                            addToSpecialCardsArray(specialCards[0]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(darkgreen, white)';
+                            card.specialCardEffect = () => {
+                                playSound('./audio/special_score.mp3');
+                                score += 10;
                             }
-                            else {
-                                gameMusic.pause();
+                            break;
+
+                        case specialCards[1]: // x2 Score
+                            addToSpecialCardsArray(specialCards[1]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(#8a8c16, #8a8c16, gold)';
+                            card.specialCardEffect = () => {
+                                playSound('./audio/special_score.mp3');
+                                score *= 2;
                             }
-                            playSound('./audio/papagianneos_wow.mp3');
-                            setTimeout(() => {
+                            break;
+
+                        case specialCards[2]: // Half Score
+                            addToSpecialCardsArray(specialCards[2]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(cyan, red)';
+                            card.specialCardEffect = () => {
+                                playSound('./audio/κακό_λάθος.mp3');
+                                score /= 2;
+                            }
+                            break;
+
+                        case specialCards[3]: // 2 λιγότερες προσπάθειες
+                            addToSpecialCardsArray(specialCards[3]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(#00fc82, #84b89f)';
+                            card.specialCardEffect = () => {
+                                playSound('./audio/special_score.mp3');
+                                tries -= 2;
+                                updateTries();
+                            }
+                            break;
+
+                        case specialCards[4]: // 10 λιγότερο score
+                            addToSpecialCardsArray(specialCards[4]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(black, #4a1313)';
+                            card.specialCardEffect = () => {
+                                playSound('./audio/κακό_λάθος.mp3');
+                                score -= 10;
+                            }
+                            break;
+
+                        case specialCards[5]: // Πάει χάθηκε το παιχνίδι
+                            addToSpecialCardsArray(specialCards[5]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(#1c0b0e, #b8707d)';
+                            card.specialCardEffect = () => {
+                                if (!papagianneosFinaleEnabled) {
+                                    playSound('./audio/κακό_λάθος.mp3');
+                                }
+                                lostByDeathCard = true;
+                            }
+                            break;
+
+                        case specialCards[6]: // PAPAGIANNEOS SPEECH
+                            addToSpecialCardsArray(specialCards[6]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(#adfff1, #265175)';
+                            card.specialCardEffect = () => {
                                 if (startedExtremeModeMusic) {
-                                    extremeModeGameMusic.play();
+                                    extremeModeGameMusic.pause();
                                 }
                                 else {
-                                    gameMusic.play();
+                                    if (papagianneosFinaleEnabled) {
+                                        papagianneosFinaleMusic.pause();
+                                    }
+                                    else gameMusic.pause();
                                 }
-                            }, 3e3);
-                        }
-                        break;
+                                playSound('./audio/papagianneos_wow.mp3');
+                                setTimeout(() => {
+                                    if (startedExtremeModeMusic) {
+                                        extremeModeGameMusic.play();
+                                    }
+                                    else {
+                                        if (papagianneosFinaleEnabled) {
+                                            papagianneosFinaleMusic.play();
+                                        }
+                                        else gameMusic.play();
+                                    }
+                                }, 3e3);
+                            }
+                            break;
 
-                    case specialCards[7]: // for my friend :)
-                        addToSpecialCardsArray(specialCards[7]);
-                        card.specialCard = true;
-                        card.color = 'radial-gradient(#ac86b0, #781f82)';
-                        card.specialCardEffect = () => {
-                            playSound('./audio/special_score.mp3');
-                            wonBySpecialCard = true;
-                        }
-                        break;
+                        case specialCards[7]: // for my friend :)
+                            addToSpecialCardsArray(specialCards[7]);
+                            card.specialCard = true;
+                            card.color = 'radial-gradient(#ac86b0, #781f82)';
+                            card.specialCardEffect = () => {
+                                if (!papagianneosFinaleEnabled) {
+                                    playSound('./audio/special_score.mp3');
+                                    wonBySpecialCard = true;
+                                }
+                                else {
+                                    papagianneosFinaleMusic.pause();
+                                    playSound('./audio/papagianneos_troll.mp3');
+                                    setTimeout(() => {
+                                        papagianneosFinaleMusic.play();
+                                        document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                    }, 4e3);
+                                }
+                            }
+                            break;
+                    }
                 }
+                // --------------------------------------------------------
+
+                cardsData.push(card);
             }
-            // --------------------------------------------------------
 
-            cardsData.push(card);
+            // ανακάτεψε τις κάρτες
+            cardsData.sort(() => {
+                return Math.random() - 0.5;
+            });
         }
-
-        // ανακάτεψε τις κάρτες
-        cardsData.sort(() => {
-            return Math.random() - 0.5;
-        });
         // ========================================================================
 
         // =====================================================================
@@ -417,231 +441,244 @@
         }
 
         // Δημιουργία καρτών
+
+        // Συνάρτηση που δημιουργεί κάρτα
+        const createCard = (data) => {
+            let card = data;
+
+            // <div> για κάθε κάρτα
+            let div = document.createElement('div');
+            div.className = 'card';
+            div.style.background = card.color;
+
+            if (card.specialCard) {
+                div.specialCard = true;
+                div.specialCardEffect = card.specialCardEffect;
+            }
+
+            // αποθήκευσε το χρώμα της κάρτας..
+            div.savedBackgroundColor = card.color;
+
+            // κείμενο για το σχέδιο/σχήμα της κάρτας
+            let cardShapeTxt = document.createElement('h1');
+            cardShapeTxt.appendChild(document.createTextNode(card.shape));
+            div.savedText = card.shape; // αποθήκευσε και το κείμενο
+            div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
+
+            // =======================================================
+            // Mouse event listeners setup & game setup
+            // =======================================================
+
+            // Όταν γίνει click σε αυτό.
+            div.onclick = () => {
+
+                // -------------------------------------------------------------------------------------------------------
+                // BUG FIX: Αν έγινε click στην ίδια κάρτα..
+                // -------------------------------------------------------------------------------------------------------
+                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
+                div.setAttribute('egineclick', 'nai');
+                // -------------------------------------------------------------------------------------------------------
+
+                // ----------------------------------
+                // Ήχος κάρτας.
+                // ----------------------------------
+                playSound('./audio/κλικ_κάρτας.mp3');
+                // ----------------------------------
+
+                // ------------------------------------------
+                // ANIMATION.
+                // ------------------------------------------
+                div.style.transform = 'rotateY(360deg)';
+                // -------------------------------------------
+
+                // Εμφάνισε την κάρτα στον παίχτη
+                if (currentSelected.length <= 1) {
+                    div.style.background = div.savedBackgroundColor;
+                    div.innerHTML = div.savedText;
+                    currentSelected.push(div);
+                }
+
+                // Αν άνοιξε 2 κάρτες ο παίχτης
+                if (currentSelected.length >= 2) {
+                    let firstCard = currentSelected[0],
+                        secondCard = currentSelected[1];
+
+                    // αν είναι διαφορετικές οι κάρτες, επαναφορά
+                    if (firstCard.savedText !== secondCard.savedText) {
+
+                        // ----------------------------------------------------------------------------------------
+                        // "Challenge" mode setup.
+                        // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
+                        // -----------------------------------------------------------------------------------------
+                        if (challengeModeEnabled) {
+                            //const SEISMOS_SETUP_STRING = `animation: seismos ${tries == 0 ? .5 : (tries / 10)}s linear infinite;`
+
+                            // -------------------------------------------------------------------
+                            // Κάθε 2 γύρους, νέο effect. (3 γιατί ξεκινάμε από το 1 άρα 2)
+                            // -------------------------------------------------------------------
+                            challengeModeEffectTurn++; // challengeModeEffectTurn += 1;
+
+                            if (challengeModeEffectTurn == 3) {
+                                document.getElementById('cardsHolder').removeAttribute('style');
+                                challengeModeEffectTurn = 0;
+                            }
+                            // -------------------------------------------------------------------
+
+                            if (challengeModeEffectTurn == 1) {
+                                const EFFECT_IDs = [
+                                    'ROTATION',
+                                    'NO_COLORS',
+                                    'SCALE',
+                                    'BLUR',
+                                    'BLIND',
+                                    'NO_TEXT',
+                                    'SEISMOS'
+                                ];
+
+                                let chosenEffect = randomChoice(EFFECT_IDs),
+                                    CSS_ATTRIBUTE_CONTENTS = '';
+
+                                switch (chosenEffect) {
+
+                                    // Τυχαία περιστροφή της ιστοσελίδας.
+                                    case 'ROTATION':
+                                        CSS_ATTRIBUTE_CONTENTS += `transform:rotate(180deg);`;
+                                        break;
+
+                                    // Αφαίρεση Χρωμάτων
+                                    case 'NO_COLORS':
+                                        CSS_ATTRIBUTE_CONTENTS += `filter:grayscale(100%);`;
+                                        break;
+
+                                    // Αφαίρεση Κειμένου.
+                                    case 'NO_TEXT':
+                                        CSS_ATTRIBUTE_CONTENTS += `filter:invert(50%);`;
+                                        break;
+
+                                    // Αλλαγή Μέγεθους σε τυχαίο
+                                    case 'SCALE':
+                                        const chosenScale = randomChoice([.5, .2, .15, .05]);
+                                        CSS_ATTRIBUTE_CONTENTS += `transform:scale(${chosenScale});`
+                                        break;
+
+                                    // Φωτεινότητα.
+                                    case 'BLIND':
+                                        CSS_ATTRIBUTE_CONTENTS += `filter:opacity(6%);`;
+                                        break;
+
+                                    // Θόλωμα.
+                                    case 'BLUR':
+                                        const chosenBlur = randomChoice([2, 3, 5, 6]);
+                                        CSS_ATTRIBUTE_CONTENTS += `filter:blur(${chosenBlur}px);`
+                                        break;
+
+                                    // Σεισμός.
+                                    case 'SEISMOS':
+                                        CSS_ATTRIBUTE_CONTENTS += 'animation: seismos .02s linear infinite';
+                                        break;
+                                }
+
+                                document.getElementById('cardsHolder').setAttribute('style', CSS_ATTRIBUTE_CONTENTS);
+                            }
+                        }
+                        // ----------------------------------------------------------------------------------------
+
+                        // ----------------------------------------------------------------------------------------
+                        // "Δύσκολο" mode setup
+                        // Ανακάτεμα των καρτών κάθε φορά που κάνει λάθος ο παίχτης.
+                        // ----------------------------------------------------------------------------------------
+                        if (hardModeEnabled) {
+                            playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+
+                            // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
+                            let cardsListToShuffle = [],
+                                scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                            for (var e = 0; e < parentDiv.children.length; e++) {
+                                let child = parentDiv.children[e];
+                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                if (child.className == 'card') {
+                                    cardsListToShuffle.push(child);
+                                }
+                            }
+
+                            cardsListToShuffle.sort(() => {
+                                return Math.random() - 0.5;
+                            });
+
+                            cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                            cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                            parentDiv.replaceChildren(...cardsListToShuffle);
+                        }
+                        // ----------------------------------------------------------------------------------------
+
+                        currentSelected = [];
+
+                        if (!hardModeEnabled) {
+                            playSound('./audio/λάθος.mp3');
+                        }
+
+                        blockClicks = true;
+                        setTimeout(() => {
+                            resetCards();
+                            blockClicks = false;
+                        }, 5e2);
+                    }
+
+                    // αν είναι ίδιες οι κάρτες, δώσε score
+                    else if (firstCard.savedText == secondCard.savedText) {
+                        if (firstCard.specialCard && secondCard.specialCard) {
+                            firstCard.specialCardEffect();
+                        }
+
+                        // Αν είναι μία απλή κάρτα
+                        else {
+                            const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
+                            score += (scoreReceived != 0 ? scoreReceived : 1);
+
+                            // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
+                            if (!firstCard.specialCard && !secondCard.specialCard) {
+                                playSound(hardModeEnabled || extremeModeEnabled ? './audio/δύσκολο_score.mp3' : './audio/score.mp3');
+                            }
+                        }
+
+                        currentSelected = [];
+                        updateScore();
+
+                        // --------------------------------------------
+                        // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
+                        // δεν χρειάζεται έλεγχος.
+                        // --------------------------------------------
+                        firstCard.setAttribute('anoixthcarta', 'nai');
+                        secondCard.setAttribute('anoixthcarta', 'nai');
+                        // --------------------------------------------
+                    }
+                }
+            }
+            // =======================================================
+
+            // βάλε την κάρτα στο parentDiv
+            parentDiv.appendChild(div);
+        }
         const createCards = () => {
 
-            // ----------------
+            // ---------------------------------
             // Μουσική
-            // -----------------
-            gameMusic.play();
-            // -----------------
+            // ----------------------------------
+            if (!papagianneosFinaleEnabled) {
+                gameMusic.play();
+            }
+            else {
+                papagianneosFinaleMusic.play();
+            }
+            // ----------------------------------
 
             for (var i = 0; i < cardsData.length; i++) {
                 let card = cardsData[i];
 
-                // <div> για κάθε κάρτα
-                let div = document.createElement('div');
-                div.className = 'card';
-                div.style.background = card.color;
-
-                if (card.specialCard) {
-                    div.specialCard = true;
-                    div.specialCardEffect = card.specialCardEffect;
-                }
-
-                // αποθήκευσε το χρώμα της κάρτας..
-                div.savedBackgroundColor = card.color;
-
-                // κείμενο για το σχέδιο/σχήμα της κάρτας
-                let cardShapeTxt = document.createElement('h1');
-                cardShapeTxt.appendChild(document.createTextNode(card.shape));
-                div.savedText = card.shape; // αποθήκευσε και το κείμενο
-                div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
-
-                // =======================================================
-                // Mouse event listeners setup & game setup
-                // =======================================================
-
-                // Όταν γίνει click σε αυτό.
-                div.onclick = () => {
-
-                    // -------------------------------------------------------------------------------------------------------
-                    // BUG FIX: Αν έγινε click στην ίδια κάρτα..
-                    // -------------------------------------------------------------------------------------------------------
-                    if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
-                    div.setAttribute('egineclick', 'nai');
-                    // -------------------------------------------------------------------------------------------------------
-
-                    // ----------------------------------
-                    // Ήχος κάρτας.
-                    // ----------------------------------
-                    playSound('./audio/κλικ_κάρτας.mp3');
-                    // ----------------------------------
-
-                    // ------------------------------------------
-                    // ANIMATION.
-                    // ------------------------------------------
-                    div.style.transform = 'rotateY(360deg)';
-                    // -------------------------------------------
-
-                    // Εμφάνισε την κάρτα στον παίχτη
-                    if (currentSelected.length <= 1) {
-                        div.style.background = div.savedBackgroundColor;
-                        div.innerHTML = div.savedText;
-                        currentSelected.push(div);
-                    }
-
-                    // Αν άνοιξε 2 κάρτες ο παίχτης
-                    if (currentSelected.length >= 2) {
-                        let firstCard = currentSelected[0],
-                            secondCard = currentSelected[1];
-
-                        // αν είναι διαφορετικές οι κάρτες, επαναφορά
-                        if (firstCard.savedText !== secondCard.savedText) {
-
-                            // ----------------------------------------------------------------------------------------
-                            // "Challenge" mode setup.
-                            // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
-                            // -----------------------------------------------------------------------------------------
-                            if (challengeModeEnabled) {
-                                //const SEISMOS_SETUP_STRING = `animation: seismos ${tries == 0 ? .5 : (tries / 10)}s linear infinite;`
-
-                                // -------------------------------------------------------------------
-                                // Κάθε 2 γύρους, νέο effect. (3 γιατί ξεκινάμε από το 1 άρα 2)
-                                // -------------------------------------------------------------------
-                                challengeModeEffectTurn++; // challengeModeEffectTurn += 1;
-
-                                if (challengeModeEffectTurn == 3) {
-                                    document.getElementById('cardsHolder').removeAttribute('style');
-                                    challengeModeEffectTurn = 0;
-                                }
-                                // -------------------------------------------------------------------
-
-                                if (challengeModeEffectTurn == 1) {
-                                    const EFFECT_IDs = [
-                                        'ROTATION',
-                                        'NO_COLORS',
-                                        'SCALE',
-                                        'BLUR',
-                                        'BLIND',
-                                        'NO_TEXT',
-                                        'SEISMOS'
-                                    ];
-
-                                    let chosenEffect = randomChoice(EFFECT_IDs),
-                                        CSS_ATTRIBUTE_CONTENTS = '';
-
-                                    switch (chosenEffect) {
-
-                                        // Τυχαία περιστροφή της ιστοσελίδας.
-                                        case 'ROTATION':
-                                            CSS_ATTRIBUTE_CONTENTS += `transform:rotate(180deg);`;
-                                            break;
-
-                                        // Αφαίρεση Χρωμάτων
-                                        case 'NO_COLORS':
-                                            CSS_ATTRIBUTE_CONTENTS += `filter:grayscale(100%);`;
-                                            break;
-
-                                        // Αφαίρεση Κειμένου.
-                                        case 'NO_TEXT':
-                                            CSS_ATTRIBUTE_CONTENTS += `filter:invert(50%);`;
-                                            break;
-
-                                        // Αλλαγή Μέγεθους σε τυχαίο
-                                        case 'SCALE':
-                                            const chosenScale = randomChoice([.5, .2, .15, .05]);
-                                            CSS_ATTRIBUTE_CONTENTS += `transform:scale(${chosenScale});`
-                                            break;
-
-                                        // Φωτεινότητα.
-                                        case 'BLIND':
-                                            CSS_ATTRIBUTE_CONTENTS += `filter:opacity(6%);`;
-                                            break;
-
-                                        // Θόλωμα.
-                                        case 'BLUR':
-                                            const chosenBlur = randomChoice([2, 3, 5, 6]);
-                                            CSS_ATTRIBUTE_CONTENTS += `filter:blur(${chosenBlur}px);`
-                                            break;
-
-                                        // Σεισμός.
-                                        case 'SEISMOS':
-                                            CSS_ATTRIBUTE_CONTENTS += 'animation: seismos .02s linear infinite';
-                                            break;
-                                    }
-
-                                    document.getElementById('cardsHolder').setAttribute('style', CSS_ATTRIBUTE_CONTENTS);
-                                }
-                            }
-                            // ----------------------------------------------------------------------------------------
-
-                            // ----------------------------------------------------------------------------------------
-                            // "Δύσκολο" mode setup
-                            // Ανακάτεμα των καρτών κάθε φορά που κάνει λάθος ο παίχτης.
-                            // ----------------------------------------------------------------------------------------
-                            if (hardModeEnabled) {
-                                playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
-
-                                // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
-                                let cardsListToShuffle = [],
-                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
-
-                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                for (var e = 0; e < parentDiv.children.length; e++) {
-                                    let child = parentDiv.children[e];
-                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className == 'card') {
-                                        cardsListToShuffle.push(child);
-                                    }
-                                }
-
-                                cardsListToShuffle.sort(() => {
-                                    return Math.random() - 0.5;
-                                });
-
-                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                                parentDiv.replaceChildren(...cardsListToShuffle);
-                            }
-                            // ----------------------------------------------------------------------------------------
-
-                            currentSelected = [];
-
-                            if (!hardModeEnabled) {
-                                playSound('./audio/λάθος.mp3');
-                            }
-
-                            blockClicks = true;
-                            setTimeout(() => {
-                                resetCards();
-                                blockClicks = false;
-                            }, 5e2);
-                        }
-
-                        // αν είναι ίδιες οι κάρτες, δώσε score
-                        else if (firstCard.savedText == secondCard.savedText) {
-                            if (firstCard.specialCard && secondCard.specialCard) {
-                                firstCard.specialCardEffect();
-                            }
-
-                            // Αν είναι μία απλή κάρτα
-                            else {
-                                const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
-                                score += (scoreReceived != 0 ? scoreReceived : 1);
-
-                                // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
-                                if (!firstCard.specialCard && !secondCard.specialCard) {
-                                    playSound(hardModeEnabled || extremeModeEnabled ? './audio/δύσκολο_score.mp3' : './audio/score.mp3');
-                                }
-                            }
-
-                            currentSelected = [];
-                            updateScore();
-
-                            // --------------------------------------------
-                            // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
-                            // δεν χρειάζεται έλεγχος.
-                            // --------------------------------------------
-                            firstCard.setAttribute('anoixthcarta', 'nai');
-                            secondCard.setAttribute('anoixthcarta', 'nai');
-                            // --------------------------------------------
-                        }
-                    }
-                }
-                // =======================================================
-
-                // βάλε την κάρτα στο parentDiv
-                parentDiv.appendChild(div);
+                // στείλε τις πληροφορίες στην συνάρτηση
+                createCard(card);
             }
         }
 
@@ -725,9 +762,9 @@
                 button.style.margin = '5px';
                 button.style.background = bgColor;
                 if (mode == 'papagianneosFinale') {
-                    button.setAttribute('disabled', 'true');
-                    button.style.background = 'grey';
-                    button.style.cursor = 'not-allowed';
+                    /* button.setAttribute('disabled', 'true');
+                     button.style.background = 'grey';
+                     button.style.cursor = 'not-allowed';*/
                     button.style.width = '500px';
                 }
 
@@ -736,9 +773,7 @@
 
                 // Event-Listener. (για τα κλικ)
                 button.onclick = () => {
-                    if (mode == 'papagianneosFinale') return;
-                    createCards();
-
+                    //  if (mode == 'papagianneosFinale') return;
                     switch (mode) {
                         case 'hard': // Δύσκολο
                             hardModeEnabled = true;
@@ -754,15 +789,22 @@
 
                         case 'papagianneosFinale': // LOL WHY I MADE THIS
                             MAX_TRIES = 69;
+                            AMOUNT_OF_CARDS = 26;
                             challengeModeEnabled = true;
                             extremeModeEnabled = true;
                             papagianneosFinaleEnabled = true;
+                            document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
                             break;
                     }
 
+                    startGame();
+                    createCards();
                     playSound('./audio/click.mp3');
 
-                    document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
+                    if (mode != 'papagianneosFinale') {
+                        document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
+                    }
+
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                     document.body.appendChild(parentDiv);
 
@@ -822,11 +864,11 @@
                     }
                 }
 
-                // --------------------------------------------------------------------------------------------
+                // --------------------------------------------------------------------------------------------------------------------
                 // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
                 // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
                 // με τις κανονικές κάρτες.
-                // --------------------------------------------------------------------------------------------
+                // --------------------------------------------------------------------------------------------------------------------
                 for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
 
                     openedCards = openedCards.filter(_card => { return _card.innerHTML != currentSpecialCards[specialCardShapeIndex] });
@@ -835,13 +877,12 @@
                         removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
                     }
                 }
-                // --------------------------------------------------------------------------------------------
+                // --------------------------------------------------------------------------------------------------------------------
 
                 // ---------------------------------------------------------------------------------------
-                // Σεισμικό Effect για το "δύσκολο" mode
+                // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
                 // ---------------------------------------------------------------------------------------
-                if (hardModeEnabled) {
-
+                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled)) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -850,11 +891,92 @@
                         }
                     }
 
+                    // -------------------------------------------------------------------------
+                    // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
+                    // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
+                    // με τις κανονικές κάρτες.
+                    // -------------------------------------------------------------------------
+                    closedCards = closedCards.filter(_card => { return !_card.specialCard });
+                    console.log(closedCards.length);
+                    // -------------------------------------------------------------------------
+
 
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
-                    if (closedCards.length <= 6) {
-                        document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                    if (closedCards.length <= 6 && gameStarted) {
+                        startedAngryEffect = true;
+
+                        if (!papagianneosFinaleEnabled) {
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                        }
+
+                        else { // papagianneos is angry
+                            // σταμάτα την μουσική για λίγο
+                            if (!startedExtremeModeMusic) {
+                                papagianneosFinaleMusic.pause();
+                            }
+                            else {
+                                extremeModeGameMusic.pause();
+                            }
+                            playSound('./audio/ENOUGH.mp3');
+                            setTimeout(() => {
+                                playSound('./audio/papagianneos_now.mp3');
+                            }, 2e3);
+
+                            // ξαναάρχισε την μουσική
+                            setTimeout(() => {
+                                // Φτιάξε "death" κάρτες
+                                playSound('./audio/papagianneos_sabotage.mp3');
+                                setTimeout(() => {
+                                    for (var index = 0; index < 5; index++) {
+                                        createCard({
+                                            shape: specialCards[5],
+                                            color: 'radial-gradient(#1c0b0e, #b8707d)',
+                                            specialCard: true,
+                                            specialCardEffect: () => {
+                                                if (!papagianneosFinaleEnabled) {
+                                                    playSound('./audio/κακό_λάθος.mp3');
+                                                }
+                                                lostByDeathCard = true;
+                                            }
+                                        });
+                                        resetCards();
+                                    }
+
+                                    document.getElementById('cardsHolder').style.transition = '1s';
+                                    document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
+
+                                    if (!startedExtremeModeMusic) {
+                                        papagianneosFinaleMusic.play();
+                                    }
+                                    else {
+                                        extremeModeGameMusic.play();
+                                    }
+
+                                    playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                                    // ανακάτεψε τις κάρτες
+                                    let cardsListToShuffle = [],
+                                        scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                    // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                    for (var e = 0; e < parentDiv.children.length; e++) {
+                                        let child = parentDiv.children[e];
+                                        // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                        if (child.className == 'card') {
+                                            cardsListToShuffle.push(child);
+                                        }
+                                    }
+
+                                    cardsListToShuffle.sort(() => {
+                                        return Math.random() - 0.5;
+                                    });
+
+                                    cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                    cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                    parentDiv.replaceChildren(...cardsListToShuffle);
+                                }, 5e3);
+                            }, 5e3);
+                        }
                     }
                 }
                 // ---------------------------------------------------------------------------------------
@@ -874,6 +996,11 @@
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
+                            // papagianneos mad mode
+                            if (papagianneosFinaleEnabled) {
+                                papagianneosFinaleMusic.pause();
+                                document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(maroon, black)';
+                            }
                             gameMusic.pause();
                             extremeModeGameMusic.play();
                         }
@@ -881,8 +1008,14 @@
 
                     // Δες αν έχασε ο παίχτης
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || (tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
+                        gameStarted = false;
                         if (lostByDeathCard) {
                             gameMusic.pause();
+                        }
+
+                        if (papagianneosFinaleEnabled) {
+                            papagianneosFinaleMusic.pause();
+                            playSound('./audio/papagianneos_laugh.mp3');
                         }
 
                         extremeModeGameMusic.pause();
@@ -892,7 +1025,7 @@
                         loseScreen.id = 'screen';
 
                         let loseScreenText = document.createElement('h1');
-                        loseScreenText.appendChild(document.createTextNode('. . .'));
+                        loseScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? 'Χάχα!' : '. . .'));
 
                         // Με πόσες κάρτες έπαιξε ο παίχτης;
                         let totalCardsPlayed = document.createElement('h1');
@@ -928,16 +1061,21 @@
                 // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
                 if (wonBySpecialCard || (openedCards.length / 2) >= (AMOUNT_OF_CARDS / 2)) {
 
-                    // ---------------------------
+                    // ---------------------------------
                     // Μουσική
-                    // ----------------------------
+                    // ---------------------------------
                     gameMusic.pause();
 
                     // Αν άρχισε η extreme μουσική
                     if (startedExtremeModeMusic) {
                         extremeModeGameMusic.pause();
                     }
-                    // ----------------------------
+
+                    // Αν papagianneos finale
+                    if (papagianneosFinaleEnabled) {
+                        papagianneosFinaleMusic.pause();
+                    }
+                    // -----------------------------------
 
                     clearInterval(gameLoop);
                     playSound('./audio/νίκη.mp3');
@@ -949,7 +1087,7 @@
                     winScreen.id = 'screen';
 
                     let winScreenText = document.createElement('h1');
-                    winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+                    winScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
 
                     // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
                     let scoreTextWinScreen = document.createElement('h1'),
