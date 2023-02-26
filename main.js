@@ -701,7 +701,7 @@
             // Μουσική Credits (Soundimage.org)
             let musicCredit = document.createElement('h1');
             musicCredit.style.fontSize = '20px';
-            musicCredit.innerHTML = `Μουσική από: <a href="https://soundimage.org/">Soundimage.org</a>`;
+            musicCredit.innerHTML = `Μουσική από: <a href="https://soundimage.org/">Soundimage.org</a> και <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
             // For my friends :)
             let friendsWebsite = document.createElement('h1');
