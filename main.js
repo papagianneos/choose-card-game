@@ -7,7 +7,7 @@
             startedAngryEffect = false,
             papagianneosFinaleMusic = new Audio('./audio/papagianneos_finale.mp3');
 
-        papagianneosFinaleMusic.loop = true;
+        //papagianneosFinaleMusic.loop = true;
         // ------------------------------------------------------------------------
 
         // ----------------------------------------------------------
@@ -460,8 +460,6 @@
             div.savedBackgroundColor = card.color;
 
             // κείμενο για το σχέδιο/σχήμα της κάρτας
-            let cardShapeTxt = document.createElement('h1');
-            cardShapeTxt.appendChild(document.createTextNode(card.shape));
             div.savedText = card.shape; // αποθήκευσε και το κείμενο
             div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
 
@@ -942,6 +940,7 @@
                                         resetCards();
                                     }
 
+                                    document.getElementById('cardsHolder').style.animation = 'none';
                                     document.getElementById('cardsHolder').style.transition = '1s';
                                     document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
 
