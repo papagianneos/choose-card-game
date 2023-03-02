@@ -902,7 +902,9 @@
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
                     if (closedCards.length <= 6 && gameStarted) {
                         startedAngryEffect = true;
-                        blockClicks = true;
+                        if (papagianneosFinaleEnabled) {
+                            blockClicks = false;
+                        }
 
                         if (!papagianneosFinaleEnabled) {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
@@ -969,7 +971,9 @@
                                 cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                 parentDiv.replaceChildren(...cardsListToShuffle);
-                                blockClicks = false;
+                                if (papagianneosFinaleEnabled) {
+                                    blockClicks = false;
+                                }
                             }, 10e3);
                         }
                     }
