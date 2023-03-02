@@ -903,7 +903,7 @@
                     if (closedCards.length <= 6 && gameStarted) {
                         startedAngryEffect = true;
                         if (papagianneosFinaleEnabled) {
-                            blockClicks = false;
+                            blockClicks = true;
                         }
 
                         if (!papagianneosFinaleEnabled) {
@@ -971,10 +971,10 @@
                                 cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                 parentDiv.replaceChildren(...cardsListToShuffle);
-                                if (papagianneosFinaleEnabled) {
-                                    blockClicks = false;
-                                }
-                            }, 10e3);
+                                blockClicks = false;
+                                tries -= 5; // χρειάζεται
+                                updateTries();
+                            }, 12e3);
                         }
                     }
                 }
