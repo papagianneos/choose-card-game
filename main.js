@@ -764,7 +764,7 @@
                     /* button.setAttribute('disabled', 'true');
                      button.style.background = 'grey';
                      button.style.cursor = 'not-allowed';*/
-                    button.style.width = '500px';
+                    button.style.fontSize = '40px';
                 }
 
                 // Κείμενο στο κουμπί
