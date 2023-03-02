@@ -350,11 +350,12 @@
                             card.specialCard = true;
                             card.color = 'radial-gradient(#ac86b0, #781f82)';
                             card.specialCardEffect = () => {
-                                if (!papagianneosFinaleEnabled) {
+                                // να μην επιτρέπεται στο papagianneos finale
+                                if (!papagianneosFinaleEnabled) { // αν δεν είναι finale
                                     playSound('./audio/special_score.mp3');
                                     wonBySpecialCard = true;
                                 }
-                                else {
+                                else { // αλλιώς, αν ΕΙΝΑΙ finale
                                     papagianneosFinaleMusic.pause();
                                     playSound('./audio/papagianneos_troll.mp3');
                                     setTimeout(() => {
@@ -901,6 +902,7 @@
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
                     if (closedCards.length <= 6 && gameStarted) {
                         startedAngryEffect = true;
+                        blockClicks = true;
 
                         if (!papagianneosFinaleEnabled) {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
@@ -915,65 +917,60 @@
                             else {
                                 extremeModeGameMusic.pause();
                             }
-                            playSound('./audio/ENOUGH.mp3');
-                            setTimeout(() => {
-                                playSound('./audio/papagianneos_now.mp3');
-                            }, 2e3);
+                            playSound('./audio/papagianneos_final_moment.mp3');
 
-                            // ξαναάρχισε την μουσική
+                            // Φτιάξε "death" κάρτες
                             setTimeout(() => {
-                                // Φτιάξε "death" κάρτες
-                                playSound('./audio/papagianneos_sabotage.mp3');
-                                setTimeout(() => {
-                                    for (var index = 0; index < 5; index++) {
-                                        createCard({
-                                            shape: specialCards[5],
-                                            color: 'radial-gradient(#1c0b0e, #b8707d)',
-                                            specialCard: true,
-                                            specialCardEffect: () => {
-                                                if (!papagianneosFinaleEnabled) {
-                                                    playSound('./audio/κακό_λάθος.mp3');
-                                                }
-                                                lostByDeathCard = true;
+                                for (var index = 0; index < 5; index++) {
+                                    createCard({
+                                        shape: specialCards[5],
+                                        color: 'radial-gradient(#1c0b0e, #b8707d)',
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            if (!papagianneosFinaleEnabled) {
+                                                playSound('./audio/κακό_λάθος.mp3');
                                             }
-                                        });
-                                        resetCards();
-                                    }
-
-                                    document.getElementById('cardsHolder').style.animation = 'none';
-                                    document.getElementById('cardsHolder').style.transition = '1s';
-                                    document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
-
-                                    if (!startedExtremeModeMusic) {
-                                        papagianneosFinaleMusic.play();
-                                    }
-                                    else {
-                                        extremeModeGameMusic.play();
-                                    }
-
-                                    playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
-                                    // ανακάτεψε τις κάρτες
-                                    let cardsListToShuffle = [],
-                                        scoreAndTriesTextHolderChild = parentDiv.children[0];
-
-                                    // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                    for (var e = 0; e < parentDiv.children.length; e++) {
-                                        let child = parentDiv.children[e];
-                                        // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                        if (child.className == 'card') {
-                                            cardsListToShuffle.push(child);
+                                            lostByDeathCard = true;
                                         }
-                                    }
-
-                                    cardsListToShuffle.sort(() => {
-                                        return Math.random() - 0.5;
                                     });
+                                    resetCards();
+                                }
 
-                                    cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                                    cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                                    parentDiv.replaceChildren(...cardsListToShuffle);
-                                }, 5e3);
-                            }, 5e3);
+                                document.getElementById('cardsHolder').style.animation = 'none';
+                                document.getElementById('cardsHolder').style.transition = '1s';
+                                document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
+
+                                // ξαναάρχισε την μουσική
+                                if (!startedExtremeModeMusic) {
+                                    papagianneosFinaleMusic.play();
+                                }
+                                else {
+                                    extremeModeGameMusic.play();
+                                }
+
+                                playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className == 'card') {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
+
+                                cardsListToShuffle.sort(() => {
+                                    return Math.random() - 0.5;
+                                });
+
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
+                                blockClicks = false;
+                            }, 10e3);
                         }
                     }
                 }
@@ -1013,7 +1010,8 @@
 
                         if (papagianneosFinaleEnabled) {
                             papagianneosFinaleMusic.pause();
-                            playSound('./audio/papagianneos_laugh.mp3');
+                            // Παίξε έναν τυχαίο ήχο..
+                            playSound('./audio/' + randomChoice(['papagianneos_laugh.mp3', 'papagianneos_laugh.mp3', 'papagianneos_laugh_2.mp3']));
                         }
 
                         extremeModeGameMusic.pause();
@@ -1052,6 +1050,7 @@
                         document.body.appendChild(loseScreen);
 
                         lostExtremeModeEnabled = true;
+                        extremeModeEnabled = false; // σπάσε την επανάληψη
                     }
                 }
                 // --------------------------------------------------------------------
@@ -1086,6 +1085,11 @@
 
                     let winScreenText = document.createElement('h1');
                     winScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+
+                    // αν papagianneos finale, σπεσιαλ μήνυμα
+                    if (papagianneosFinaleEnabled) {
+                        playSound('./audio/papagianneos_msg.mp3')
+                    }
 
                     // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
                     let scoreTextWinScreen = document.createElement('h1'),
