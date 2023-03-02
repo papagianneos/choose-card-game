@@ -86,7 +86,7 @@
     let specialCardsHTPWrapper = document.createElement('div');
     specialCardsHTPWrapper.style.border = '2px dotted green';
     specialCardsHTPWrapper.style.width = '100%';
-    specialCardsHTPWrapper.style.height = '600px';
+    specialCardsHTPWrapper.style.height = 'auto';
 
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
