@@ -206,7 +206,7 @@
 
         // lol
         if (gameModeObj.label == 'Papagianneos FINALE') {
-            gameModeBox.style.width = '500px';
+            gameModeBox.style.fontSize = '40px';
         }
 
         let hiddenGameModeInfoTxT = document.createElement('div');
