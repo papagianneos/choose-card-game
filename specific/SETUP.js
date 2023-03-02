@@ -1,6 +1,8 @@
 (() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
+    let playedRecording = false;
+
     let ambientSound = new Audio('../audio/wind.mp3');
 
     ambientSound.loop = true;
@@ -25,6 +27,22 @@
     title_.innerHTML = `Game Status: ${HTML_KEIMENO}`;
     title_.style.animationDirection = 'alternate';
 
+    let playRecordingButton = document.createElement('button');
+    playRecordingButton.innerHTML = 'RADIO v2.3';
+    playRecordingButton.style.backgroundColor = 'grey';
+    playRecordingButton.onclick = () => {
+        if (playedRecording) return;
+        playRecordingButton.style.backgroundColor = 'green';
+        playRecordingButton.innerHTML = 'Playing..';
+        new Audio('../audio/lore_recording.mp3').play();
+        playedRecording = true;
+        setTimeout(() => {
+            playedRecording = false;
+            playRecordingButton.style.backgroundColor = 'grey';
+            playRecordingButton.innerHTML = 'RADIO v2.3';
+        }, 28e3);
+    }
+
     let cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     cardDiv.style.pointerEvents = 'none';
@@ -43,6 +61,7 @@
         button.style.display = 'none';
         ambientSound.play();
         cardWrapper.style.display = 'block';
+        mainWrapper.appendChild(playRecordingButton);
     }
     mainWrapper.appendChild(button);
     // ------------------------------------------------------
