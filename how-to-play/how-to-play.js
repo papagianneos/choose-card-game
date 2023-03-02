@@ -150,7 +150,7 @@
     let gamemodesInfoBox = document.createElement('div');
     gamemodesInfoBox.style.border = '2px dotted green';
     gamemodesInfoBox.style.width = '100%';
-    gamemodesInfoBox.style.height = '600px';
+    gamemodesInfoBox.style.height = 'auto';
 
     // ΤΙΤΛΟΣ
     let gamemodesBoxTitle = document.createElement('h1');
