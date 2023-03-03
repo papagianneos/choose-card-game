@@ -7,6 +7,26 @@ body {
     font: bold 5vh Montserrat, sans-serif;
 }
 
+@-webkit-keyframes displace {
+    from {
+        background-position: left center;
+    }
+
+    to {
+        background-position: 200% center;
+    }
+}
+
+@keyframes displace {
+    from {
+        background-position: left center;
+    }
+
+    to {
+        background-position: 200% center;
+    }
+}
+
 #cardsHolder,
 .mainBox {
     width: 100%;
@@ -23,7 +43,8 @@ body {
     visibility: hidden;
 }
 
-.card, .howToPlayInfoCard {
+.card,
+.howToPlayInfoCard {
     transition: .25s;
     display: inline-flex;
     width: 150px;
@@ -38,8 +59,8 @@ body {
     font-size: 60px;
 }
 
-.howToPlayInfoCard:hover + .hidden,
-.gameModeBoxForHowToPlay:hover + .hidden {
+.howToPlayInfoCard:hover+.hidden,
+.gameModeBoxForHowToPlay:hover+.hidden {
     visibility: visible;
 }
 
