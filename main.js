@@ -852,7 +852,7 @@
             let playButton = createButton('Παίξε Απλό', 'green'), // Κουμπί για να παίξει ο παίχτης "απλό" mode
                 playButtonHard = createButton('Παίξε Δύσκολο', 'maroon', 'hard'), // Κουμπί για να παίξει ο παίχτης "δύσκολο" mode
                 playButtonChallenge = createButton('Παίξε Challenge', 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
-                playButtonExtreme = createButton('Πάιξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
+                playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
