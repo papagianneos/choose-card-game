@@ -460,12 +460,14 @@
             div.style.background = card.color;
 
             // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
-            div.style.borderRadius = playersEffect.borderRadius;
-            div.style.fontSize = playersEffect.fontSize;
-            div.style.fontFamily = playersEffect.fontFamily;
-            div.style.textDecorationThickness = playersEffect.textDecorationThickness;
-            div.style.textDecorationLine = playersEffect.textDecorationLine;
-            div.style.textDecorationStyle = playersEffect.textDecorationStyle;
+            if (playersEffect != null) {
+                div.style.borderRadius = playersEffect.borderRadius;
+                div.style.fontSize = playersEffect.fontSize;
+                div.style.fontFamily = playersEffect.fontFamily;
+                div.style.textDecorationThickness = playersEffect.textDecorationThickness;
+                div.style.textDecorationLine = playersEffect.textDecorationLine;
+                div.style.textDecorationStyle = playersEffect.textDecorationStyle;
+            }
 
             if (card.specialCard) {
                 div.specialCard = true;
