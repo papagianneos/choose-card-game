@@ -4,10 +4,11 @@ body {
     background-color: black;
     background-size: cover;
     color: white;
-    font: bold 5vh Montserrat, sans-serif;
+    font: bold 5vh Montserrat, Fantasy;
 }
 
-#cardsHolder {
+#cardsHolder,
+.mainBox {
     width: 100%;
     height: 100%;
     background-color: transparent;
@@ -135,7 +136,7 @@ button:hover {
     }
 }
 
-.achievementsBox {
+/*.achievementsBox {
     display: none;
     width: 100%;
     height: 85%;
@@ -165,4 +166,4 @@ button:hover {
 .locked {
     background-color: grey;
     opacity: .5;
-}
+}*/
