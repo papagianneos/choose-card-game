@@ -1,5 +1,12 @@
 (() => {
     try {
+
+        // -----------------------------------------------------------------------
+        // Διάβασε τα εφέ που επέλεξε ο χρήστης.
+        // ------------------------------------------------------------------------
+        const playersEffect = JSON.parse(localStorage.getItem('customizeEffect'));
+        // ------------------------------------------------------------------------
+
         // -----------------------------------------------------------------------
         // lol
         // ----------------------------------------------------------------------
@@ -452,6 +459,14 @@
             div.className = 'card';
             div.style.background = card.color;
 
+            // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
+            div.style.borderRadius = playersEffect.borderRadius;
+            div.style.fontSize = playersEffect.fontSize;
+            div.style.fontFamily = playersEffect.fontFamily;
+            div.style.textDecorationThickness = playersEffect.textDecorationThickness;
+            div.style.textDecorationLine = playersEffect.textDecorationLine;
+            div.style.textDecorationStyle = playersEffect.textDecorationStyle;
+
             if (card.specialCard) {
                 div.specialCard = true;
                 div.specialCardEffect = card.specialCardEffect;
@@ -712,6 +727,10 @@
             howToPlayTxtt.style.fontSize = '25px';
             howToPlayTxtt.innerHTML = `Δες <a href="/how-to-play">εδώ</a> αν δεν ξέρεις πώς να παίξεις`;
 
+            let customizePageLink = document.createElement('h1');
+            customizePageLink.style.fontSize = '40px';
+            customizePageLink.innerHTML = `<a href="/customize">Προσάρμοσε το εφέ του παιχνιδιού σου εδώ!</a>`;
+
             let screenLogo = document.createElement('img');
             screenLogo.src = './img/game-logo.png';
 
@@ -845,6 +864,7 @@
             startScreen.appendChild(developerNameLol); // λολ
             startScreen.appendChild(friendsWebsite); // for my friends :)
             startScreen.appendChild(musicCredit); // για credit στο Soundimage.org για την μουσική του παιχνιδιού
+            startScreen.appendChild(customizePageLink);
             startScreen.appendChild(howToPlayTxtt); // How to play link
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
