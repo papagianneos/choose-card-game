@@ -4,7 +4,7 @@ body {
     background-color: black;
     background-size: cover;
     color: white;
-    font: bold 5vh Montserrat, Fantasy;
+    font: bold 5vh Montserrat, sans-serif;
 }
 
 #cardsHolder,
