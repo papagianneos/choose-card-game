@@ -28,6 +28,7 @@
     previewCard.style.pointerEvents = 'none';
     previewCard.appendChild(document.createTextNode('A'));
     previewCard.style.backgroundColor = 'grey';
+
     customizeBox.appendChild(previewCard);
 
     // ------------------------------------------------------------------------
@@ -119,7 +120,7 @@
                     name: 'Διακεκομμένο',
                     value: 'dashed'
                 },
-                
+
                 {
                     name: 'Διάσπαρτο',
                     value: 'dotted'
@@ -224,7 +225,7 @@
             case 'select': {
                 let selectField = document.createElement('select');
                 selectField.id = toolSetting.id;
-                
+
                 const optionsConfig = toolSetting.optionSetup;
 
                 optionsConfig.forEach(optionSetting => {
@@ -284,4 +285,24 @@
 
     // Αφού τελείωσες, ενσωμάτωσέ το στο σώμα της ιστοσελίδας (<body>)
     document.body.appendChild(mainBox);
+
+    // Φόρτωσε τα default εφέ
+    document.getElementById('cardShape').value = '5';
+    document.getElementById('cardTextSize').value = '60';
+    const playersEffect = {
+        borderRadius: `${document.getElementById('cardShape').value}px`,
+        fontSize: `${document.getElementById('cardTextSize').value}px`,
+        textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
+        textDecorationLine: document.getElementById('cardTextDecoration').value,
+        textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
+        fontFamily: document.getElementById('cardTextFontFamily').value
+    }
+
+    previewCard.style.borderRadius = playersEffect.borderRadius;
+    previewCard.style.fontSize = playersEffect.fontSize;
+    previewCard.style.fontFamily = playersEffect.fontFamily;
+    previewCard.style.textDecorationThickness = playersEffect.textDecorationThickness;
+    previewCard.style.textDecorationLine = playersEffect.textDecorationLine;
+    previewCard.style.textDecorationStyle = playersEffect.textDecorationStyle;
+
 })();
