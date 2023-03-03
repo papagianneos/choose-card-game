@@ -1,4 +1,6 @@
 (() => {
+    document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
+    document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     try {
 
         // -----------------------------------------------------------------------
@@ -793,6 +795,8 @@
 
                 // Event-Listener. (για τα κλικ)
                 button.onclick = () => {
+                    document.getElementsByTagName('body')[0].style.animation = 'none';
+                    document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
                     //  if (mode == 'papagianneosFinale') return;
                     switch (mode) {
                         case 'hard': // Δύσκολο
