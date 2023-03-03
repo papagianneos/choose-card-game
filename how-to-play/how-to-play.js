@@ -1,4 +1,11 @@
 (() => {
+
+    // -----------------------------------------------------------------------
+    // Διάβασε τα εφέ που επέλεξε ο χρήστης.
+    // ------------------------------------------------------------------------
+    const playersEffect = JSON.parse(localStorage.getItem('customizeEffect'));
+    // ------------------------------------------------------------------------
+
     let specialCardsConfig = [
         {
             shape: '++',
@@ -116,6 +123,14 @@
         cardDiv.className = 'howToPlayInfoCard';
         cardDiv.style.background = card.color;
         cardDiv.style.cursor = 'help';
+
+        // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
+        cardDiv.style.borderRadius = playersEffect.borderRadius;
+        cardDiv.style.fontSize = playersEffect.fontSize;
+        cardDiv.style.fontFamily = playersEffect.fontFamily;
+        cardDiv.style.textDecorationThickness = playersEffect.textDecorationThickness;
+        cardDiv.style.textDecorationLine = playersEffect.textDecorationLine;
+        cardDiv.style.textDecorationStyle = playersEffect.textDecorationStyle;
 
         // ------------------------------------------------------------
         // Κείμενο για τις πληροφορίες της σπεσιαλ κάρτας
