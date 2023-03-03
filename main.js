@@ -21,7 +21,7 @@
         // Σπέσιαλ Κάρτες.
         // ----------------------------------------------------------
         let specialCardsEnabled = true,
-            specialCards = ['++', 'x2', '¹/₂', 'T - 2', '--', '†', 'Pgn', 'Κ'],
+            specialCards = ['++', 'x2', '¹/₂', 'T-2', '--', '†', 'Pgn', 'Κ'],
             currentSpecialCards = [],
             lostByDeathCard = false,
             wonBySpecialCard = false,
