@@ -26,7 +26,7 @@
         },
 
         {
-            shape: 'T - 2',
+            shape: 'T-2',
             color: 'radial-gradient(#00fc82, #84b89f)',
             info: '2 Λιγότερες Προσπάθειες'
         },
