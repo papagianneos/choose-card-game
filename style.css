@@ -1,4 +1,30 @@
 /* CSS */
+
+/* ------------------------------------ */
+/* BUG FIX: για τις γραμματοσειρές */
+/* που δεν υπάρχουν στα κινητά τηλέφωνα */
+/* ------------------------------------ */
+@font-face {
+    font-family: αρχαίο;
+    src: url(fonts/αρχαίο.ttf);
+}
+
+@font-face {
+    font-family: φανταστικό;
+    src: url(fonts/φανταστικό.ttf);
+}
+
+@font-face {
+    font-family: cartoon;
+    src: url(fonts/cartoon.ttf);
+}
+
+@font-face {
+    font-family: παράξενο;
+    src: url(fonts/παράξενο.ttf);
+}
+/* ------------------------------------ */
+
 body {
     background-image: url(./img/game_bg.png);
     background-color: black;
