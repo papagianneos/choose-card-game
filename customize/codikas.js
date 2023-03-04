@@ -158,7 +158,7 @@
 
                 {
                     name: 'Φανταστικό',
-                    value: 'Fantasy'
+                    value: 'φανταστικό'
                 },
 
                 {
@@ -168,22 +168,17 @@
 
                 {
                     name: 'Αρχαίο',
-                    value: 'papyrus'
+                    value: 'αρχαίο'
                 },
 
                 {
                     name: 'Παράξενο',
-                    value: 'Ink Free'
+                    value: 'παράξενο'
                 },
 
                 {
-                    name: 'Comic Sans MS',
-                    value: 'Comic Sans MS'
-                },
-
-                {
-                    name: 'lol',
-                    value: 'Copperplate Gothic Light'
+                    name: 'Καρτούν',
+                    value: 'cartoon'
                 }
             ],
             setup: (value) => {
