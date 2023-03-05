@@ -132,6 +132,12 @@
             cardDiv.style.textDecorationThickness = playersEffect.textDecorationThickness;
             cardDiv.style.textDecorationLine = playersEffect.textDecorationLine;
             cardDiv.style.textDecorationStyle = playersEffect.textDecorationStyle;
+
+            if (playersEffect.neonMode) {
+                cardDiv.style.border = cardDiv.style.background;
+                cardDiv.style.borderStyle = 'solid';
+                cardDiv.style.background = 'none';
+            }
         }
 
         // ------------------------------------------------------------
