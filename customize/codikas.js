@@ -27,7 +27,7 @@
     previewCard.style.transition = 'none';
     previewCard.style.pointerEvents = 'none';
     previewCard.appendChild(document.createTextNode('A'));
-    previewCard.style.backgroundColor = 'grey';
+    previewCard.style.background = 'grey';
 
     customizeBox.appendChild(previewCard);
 
@@ -37,6 +37,24 @@
     let toolsBox = document.createElement('div');
 
     const toolsConfig = [
+        {
+            name: "Νέον Κάρτα",
+            id: "neonCard",
+            type: 'checkbox',
+            setup: (checked) => {
+                if (checked) {
+                    previewCard.style.borderColor = previewCard.style.background;
+                    previewCard.style.borderStyle = 'solid';
+                    previewCard.style.borderWidth = '5px';
+                    previewCard.style.background = 'none';
+                }
+
+                else {
+                    previewCard.style.background = previewCard.style.borderColor;
+                    previewCard.style.border = 'none';
+                }
+            }
+        },
         {
             name: "Σχήμα Κάρτας",
             id: "cardShape",
@@ -203,6 +221,18 @@
 
         switch (toolSetting.type) {
 
+            case 'checkbox': {
+                let checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = toolSetting.id;
+                checkbox.setAttribute('draggable', 'false');
+                checkbox.onclick = () => {
+                    toolSetting.setup(checkbox.checked);
+                };
+                settingHolder.appendChild(checkbox);
+            }
+                break;
+
             case 'range': {
                 let inputField = document.createElement('input');
                 inputField.type = 'range';
@@ -266,6 +296,7 @@
     saveButton.onclick = () => {
         new Audio('../audio/click.mp3').play();
         const effect = {
+            neonMode: document.getElementById("neonCard").checked,
             borderRadius: `${document.getElementById('cardShape').value}px`,
             fontSize: `${document.getElementById('cardTextSize').value}px`,
             textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
@@ -285,6 +316,7 @@
     document.getElementById('cardShape').value = '5';
     document.getElementById('cardTextSize').value = '60';
     const playersEffect = {
+        neonMode: document.getElementById("neonCard").checked,
         borderRadius: `${document.getElementById('cardShape').value}px`,
         fontSize: `${document.getElementById('cardTextSize').value}px`,
         textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
