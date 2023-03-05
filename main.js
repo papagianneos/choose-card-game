@@ -442,7 +442,7 @@
 
                 // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
                 if (!card.getAttribute('anoixthcarta')) {
-                    card.style.background = 'grey';
+                    playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey';
                     card.innerHTML = '​'; // κενό/whitespace
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
@@ -469,6 +469,13 @@
                 div.style.textDecorationThickness = playersEffect.textDecorationThickness;
                 div.style.textDecorationLine = playersEffect.textDecorationLine;
                 div.style.textDecorationStyle = playersEffect.textDecorationStyle;
+
+                if (playersEffect.neonMode) {
+                    div.style.borderWidth = '5px';
+                    div.style.borderColor = div.style.background;
+                    div.style.borderStyle = 'solid';
+                    div.style.background = 'none';
+                }
             }
 
             if (card.specialCard) {
@@ -511,7 +518,7 @@
 
                 // Εμφάνισε την κάρτα στον παίχτη
                 if (currentSelected.length <= 1) {
-                    div.style.background = div.savedBackgroundColor;
+                    playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
                     div.innerHTML = div.savedText;
                     currentSelected.push(div);
                 }
