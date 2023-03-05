@@ -1,335 +1,260 @@
 (() => {
+
+    // -----------------------------------------------------------------------
+    // Διάβασε τα εφέ που επέλεξε ο χρήστης.
+    // ------------------------------------------------------------------------
+    const playersEffect = JSON.parse(localStorage.getItem('customizeEffect'));
+    // ------------------------------------------------------------------------
+
+    let specialCardsConfig = [
+        {
+            shape: '++',
+            color: 'radial-gradient(darkgreen, white)',
+            info: '+10 Score'
+        },
+
+        {
+            shape: 'x2',
+            color: 'radial-gradient(#8a8c16, #8a8c16, gold)',
+            info: 'Διπλό Score'
+        },
+
+        {
+            shape: '¹/₂',
+            color: 'radial-gradient(cyan, red)',
+            info: 'Μισό Score'
+        },
+
+        {
+            shape: 'T-2',
+            color: 'radial-gradient(#00fc82, #84b89f)',
+            info: '2 Λιγότερες Προσπάθειες'
+        },
+
+        {
+            shape: '--',
+            color: 'radial-gradient(black, #4a1313)',
+            info: '-10 Score'
+        },
+
+        {
+            shape: '†',
+            color: 'radial-gradient(#1c0b0e, #b8707d)',
+            info: 'Πάει έχασες το παιχνίδι'
+        },
+
+        {
+            shape: 'Pgn',
+            color: 'radial-gradient(#adfff1, #265175)',
+            info: 'PAPAGIANNEOS SPEECH'
+        },
+
+        {
+            shape: 'Κ',
+            color: 'radial-gradient(#ac86b0, #781f82)',
+            info: '???'
+        },
+    ]
+
+    let mainHTPDiv = document.createElement('div');
+    mainHTPDiv.id = 'cardsHolder';
+    mainHTPDiv.style.display = 'block';
+
+    // Για να φαίνεται καλύτερα βγάλε την εικόνα του φόντου της ιστοσελίδας.
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
-    // Το κέντρο που κρατάει τα πάντα
-    let mainBox = document.createElement('div');
-    mainBox.className = 'mainBox';
-    mainBox.style.display = 'block';
-    mainBox.style.border = '3px dotted darkgreen';
-
     // Τίτλος Ιστοσελίδας.
-    let websiteHeader = document.createElement('h1');
-    websiteHeader.appendChild(document.createTextNode('ΣΤΥΛ ΚΑΡΤΑΣ'));
-    mainBox.appendChild(websiteHeader);
+    let specialCardsHTPTitle = document.createElement('h1');
+    specialCardsHTPTitle.appendChild(document.createTextNode('How to play?'));
+    mainHTPDiv.appendChild(specialCardsHTPTitle);
 
-    // Τα "εργαλεία" που μπορεί να χρησιμοποιεί ο παίχτης.
-    let customizeBox = document.createElement('div');
-    customizeBox.style.width = '100%';
-    customizeBox.style.alignItems = 'center';
-    customizeBox.style.textAlign = 'center';
-    customizeBox.style.justifyContent = 'center';
-    customizeBox.style.height = 'auto'; // για να λειτουργεί και σε κινητά τηλέφωνα
-    customizeBox.style.display = 'inline-flex';
+    // ---------------------------------------------------------------------
+    // Φτιάξε κουμπί για να επιστρέψει ο χρήστης στο παιχνίδι.
+    // ---------------------------------------------------------------------
+    let goBackBtnWrapper = document.createElement('div');
+    goBackBtnWrapper.style.marginBottom = '100px';
 
-    // Ψεύτικη κάρτα για να βλέπει ο χρήστης το πώς φαίνεται το νέο στυλ
-    let previewCard = document.createElement('div');
-    previewCard.className = 'card';
-    previewCard.style.transition = 'none';
-    previewCard.style.pointerEvents = 'none';
-    previewCard.appendChild(document.createTextNode('A'));
-    previewCard.style.background = 'grey';
+    let goBackBtn = document.createElement('button');
+    goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
+    goBackBtn.onclick = () => {
+        window.location.href = '/';
+    }
+    goBackBtnWrapper.appendChild(goBackBtn);
+    mainHTPDiv.appendChild(goBackBtnWrapper);
+    // ---------------------------------------------------------------------
 
-    customizeBox.appendChild(previewCard);
+    // Πληροφορία για το πώς να κερδίσεις κ.λπ.
+    let specialCardsHTPTitle2 = document.createElement('h1');
+    specialCardsHTPTitle2.appendChild(document.createTextNode('Για να κερδίσεις πρέπει να βρείς όλα τα ζευγάρια καρτών, χωρίς τις σπεσιαλ κάρτες.'));
+    specialCardsHTPTitle2.style.fontSize = '20px';
+    mainHTPDiv.appendChild(specialCardsHTPTitle2);
 
-    // ------------------------------------------------------------------------
-    // Εργαλεία και ρυθμίσεις για τον χρήστη.
-    // ------------------------------------------------------------------------
-    let toolsBox = document.createElement('div');
+    // Σπεσιαλ Κάρτες Τίτλος.
+    let specialCardsHTPWrapper = document.createElement('div');
+    specialCardsHTPWrapper.style.border = '2px dotted green';
+    specialCardsHTPWrapper.style.width = '100%';
+    specialCardsHTPWrapper.style.height = 'auto';
 
-    const toolsConfig = [
-        {
-            name: "Νέον Κάρτα",
-            id: "neonCard",
-            type: 'checkbox',
-            setup: (checked) => {
-                if (checked) {
-                    previewCard.style.borderColor = previewCard.style.background;
-                    previewCard.style.borderStyle = 'solid';
-                    previewCard.style.borderWidth = '5px';
-                    previewCard.style.background = 'none';
-                }
 
-                else {
-                    previewCard.style.background = previewCard.style.borderColor;
-                    previewCard.style.border = 'none';
-                }
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // ΣΠΕΣΙΑΛ ΚΑΡΤΕΣ ΠΛΗΡΟΦΟΡΙΕΣ
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    let specialCardsHTPSpecialCardsTitle = document.createElement('h1');
+    specialCardsHTPSpecialCardsTitle.appendChild(document.createTextNode('ΣΠΕΣΙΑΛ ΚΑΡΤΕΣ'));
+    specialCardsHTPWrapper.appendChild(specialCardsHTPSpecialCardsTitle);
+
+    // Λίγες πληροφορίες ακόμα.
+    let specialCardsHTPSmallInfo = document.createElement('h1');
+    specialCardsHTPSmallInfo.appendChild(document.createTextNode('Μόνο 1 από τις παρακάτω υπάρχει σε κάθε παιχνίδι! Δεν μετράνε στο σύνολο και δεν χρειάζεται να τις βρεις μαζί με τις άλλες απλές κάρτες για να κερδίσεις. Πρέπει να βρεις το ζευγάρι τις καθεμιάς για να τις λειτουργήσεις.'));
+    specialCardsHTPSmallInfo.style.fontSize = '16px';
+    specialCardsHTPWrapper.appendChild(specialCardsHTPSmallInfo);
+
+    for (var card of specialCardsConfig) {
+        // Για τα positions
+        let cardDivWrapper = document.createElement('div');
+        cardDivWrapper.style.display = 'inline-block';
+        cardDivWrapper.style.verticalAlign = 'top';
+        cardDivWrapper.style.alignItems = 'center';
+        cardDivWrapper.style.justifyContent = 'center';
+        cardDivWrapper.style.textAlign = 'center';
+
+        // Κάρτα PLACEHOLDER
+        let cardDiv = document.createElement('div');
+        cardDiv.className = 'howToPlayInfoCard';
+        cardDiv.style.background = card.color;
+        cardDiv.style.cursor = 'help';
+
+        // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
+        if (playersEffect != null) {
+            cardDiv.style.borderRadius = playersEffect.borderRadius;
+            cardDiv.style.fontSize = playersEffect.fontSize;
+            cardDiv.style.fontFamily = playersEffect.fontFamily;
+            cardDiv.style.textDecorationThickness = playersEffect.textDecorationThickness;
+            cardDiv.style.textDecorationLine = playersEffect.textDecorationLine;
+            cardDiv.style.textDecorationStyle = playersEffect.textDecorationStyle;
+
+            if (playersEffect.neonMode) {
+                cardDiv.style.border = cardDiv.style.background;
+                cardDiv.style.borderStyle = 'solid';
+                cardDiv.style.background = 'none';
             }
-        },
+        }
+
+        // ------------------------------------------------------------
+        // Κείμενο για τις πληροφορίες της σπεσιαλ κάρτας
+        // ------------------------------------------------------------
+        cardDiv.appendChild(document.createTextNode(card.shape));
+
+        let hiddenInfoTxTWrapper = document.createElement('div');
+        hiddenInfoTxTWrapper.className = 'hidden';
+        hiddenInfoTxTWrapper.style.fontSize = '20px';
+        hiddenInfoTxTWrapper.style.width = '150px'; // το μέγεθος κάθε κάρτας
+        hiddenInfoTxTWrapper.style.marginLeft = '10px';
+        hiddenInfoTxTWrapper.appendChild(document.createTextNode(card.info));
+        // ------------------------------------------------------------
+
+        cardDivWrapper.appendChild(cardDiv);
+        cardDivWrapper.appendChild(hiddenInfoTxTWrapper);
+        specialCardsHTPWrapper.appendChild(cardDivWrapper);
+    }
+
+    specialCardsHTPWrapper.style.marginBottom = '100px';
+    mainHTPDiv.appendChild(specialCardsHTPWrapper);
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------
+    // GAMEMODES Πληροφορίες
+    // -------------------------------------------------------------------------------
+    let gameModesSmallInfo = document.createElement('h1');
+    gameModesSmallInfo.appendChild(document.createTextNode('Μπορείς να παίξεις επίσης και με διαφορετικά gamemodes!'));
+    gameModesSmallInfo.style.fontSize = '20px';
+    mainHTPDiv.appendChild(gameModesSmallInfo);
+
+    let gamemodesInfoBox = document.createElement('div');
+    gamemodesInfoBox.style.border = '2px dotted green';
+    gamemodesInfoBox.style.width = '100%';
+    gamemodesInfoBox.style.height = 'auto';
+
+    // ΤΙΤΛΟΣ
+    let gamemodesBoxTitle = document.createElement('h1');
+    gamemodesBoxTitle.appendChild(document.createTextNode('GAMEMODES'));
+    gamemodesInfoBox.appendChild(gamemodesBoxTitle);
+
+    const gamemodesInfoConfig = [
         {
-            name: "Σχήμα Κάρτας",
-            id: "cardShape",
-            type: 'range',
-            min: 0,
-            max: 100,
-            setup: (value) => {
-                previewCard.style.borderRadius = value;
-            }
-        },
-
-        {
-            name: "Μέγεθος Γραμματοσειράς",
-            id: "cardTextSize",
-            type: 'range',
-            min: 40,
-            max: 100,
-            setup: (value) => {
-                previewCard.style.fontSize = value;
-            }
-        },
-
-        {
-            name: "Μέγεθος Γραμμής",
-            id: "cardTextDecorationThicc",
-            type: 'range',
-            min: 1,
-            max: 15,
-            setup: (value) => {
-                previewCard.style.textDecorationThickness = value;
-            }
-        },
-
-        {
-            name: "Διακόσμηση Γραμματοσειράς (Γραμμή)",
-            id: "cardTextDecoration",
-            type: 'select',
-            optionSetup: [
-                {
-                    name: 'Τίποτα',
-                    value: 'none'
-                },
-
-                {
-                    name: 'Υπεργράμμιση',
-                    value: 'overline'
-                },
-
-                {
-                    name: 'Υπογράμμιση',
-                    value: 'underline'
-                },
-
-                {
-                    name: 'Γραμμή-μέσω',
-                    value: 'line-through'
-                },
-
-                {
-                    name: 'Πάνω-Κάτω Γραμμή',
-                    value: 'overline underline'
-                },
-            ],
-            setup: (value) => {
-                previewCard.style.textDecorationLine = value;
-                previewCard.style.textDecorationThickness = `${document.getElementById('cardTextDecorationThicc').value}px`;
-            }
-        },
-
-        {
-            name: "Είδος Γραμμής",
-            id: "cardTextDecorationLine",
-            type: 'select',
-            optionSetup: [
-                {
-                    name: 'Κανονικό',
-                    value: 'solid'
-                },
-
-                {
-                    name: 'Διακεκομμένο',
-                    value: 'dashed'
-                },
-
-                {
-                    name: 'Διάσπαρτο',
-                    value: 'dotted'
-                },
-
-                {
-                    name: 'Κυματιστό',
-                    value: 'wavy'
-                },
-
-                {
-                    name: 'Διπλό',
-                    value: 'double'
-                }
-            ],
-            setup: (value) => {
-                previewCard.style.textDecorationStyle = value;
-            }
+            label: 'Απλό',
+            color: 'green',
+            info: 'Απλό και εύκολο.'
         },
 
         {
-            name: "Είδος Γραμματοσειράς",
-            id: "cardTextFontFamily",
-            type: 'select',
-            optionSetup: [
-                {
-                    name: 'Κανονικό',
-                    value: 'sans-serif'
-                },
+            label: 'Δύσκολο',
+            color: 'red',
+            info: 'Κάνε λάθος και.. αλλάζουν όλες οι κάρτες θέση!'
+        },
 
-                {
-                    name: 'Παλιό',
-                    value: 'serif'
-                },
+        {
+            label: 'Challenge',
+            color: 'purple',
+            info: 'Κάνε λάθος και.. νέο εφέ!'
+        },
 
-                {
-                    name: 'Φανταστικό',
-                    value: 'φανταστικό'
-                },
+        {
+            label: 'EXTREME',
+            color: 'radial-gradient(maroon, black)',
+            info: 'Μπορείς να κερδίσεις με συγκεκριμένες προσπάθειες;'
+        },
 
-                {
-                    name: 'Επιστημονικό',
-                    value: 'monospace'
-                },
-
-                {
-                    name: 'Αρχαίο',
-                    value: 'αρχαίο'
-                },
-
-                {
-                    name: 'Παράξενο',
-                    value: 'παράξενο'
-                },
-
-                {
-                    name: 'Καρτούν',
-                    value: 'cartoon'
-                }
-            ],
-            setup: (value) => {
-                previewCard.style.fontFamily = value;
-            }
+        {
+            label: 'Papagianneos FINALE',
+            color: 'radial-gradient(green, black)',
+            info: '? ? ?'
         }
     ];
 
-    // Δημιουργεία της κάθε ρύθμισης
-    toolsConfig.forEach(toolSetting => {
-        let settingWrapper = document.createElement('div');
-        settingWrapper.style.display = 'block';
+    for (var gameModeObj of gamemodesInfoConfig) {
+        let gameModeBoxWrapper = document.createElement('div');
+        gameModeBoxWrapper.style.display = 'inline-block';
+        gameModeBoxWrapper.style.verticalAlign = 'top';
+        gameModeBoxWrapper.style.alignItems = 'center';
+        gameModeBoxWrapper.style.justifyContent = 'center';
+        gameModeBoxWrapper.style.textAlign = 'center';
 
-        let settingHolder = document.createElement('div');
-        settingHolder.style.display = 'inline-flex';
+        let gameModeBox = document.createElement('button');
+        gameModeBox.appendChild(document.createTextNode(gameModeObj.label));
+        gameModeBox.style.background = gameModeObj.color;
+        gameModeBox.style.margin = '10px';
+        gameModeBox.style.cursor = 'help';
+        gameModeBox.className = 'gameModeBoxForHowToPlay';
 
-        let inputFieldLabel = document.createElement('label');
-        inputFieldLabel.htmlFor = toolSetting.id;
-        inputFieldLabel.appendChild(document.createTextNode(toolSetting.name));
-        inputFieldLabel.style.fontSize = '15px';
-        settingHolder.appendChild(inputFieldLabel);
-
-        switch (toolSetting.type) {
-
-            case 'checkbox': {
-                let checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = toolSetting.id;
-                checkbox.setAttribute('draggable', 'false');
-                checkbox.onclick = () => {
-                    toolSetting.setup(checkbox.checked);
-                };
-                settingHolder.appendChild(checkbox);
-            }
-                break;
-
-            case 'range': {
-                let inputField = document.createElement('input');
-                inputField.type = 'range';
-                inputField.max = toolSetting.max;
-                inputField.min = toolSetting.min;
-                inputField.id = toolSetting.id;
-                inputField.setAttribute('draggable', 'false');
-                inputField.addEventListener('input', () => {
-                    toolSetting.setup(`${inputField.value}px`);
-                });
-                settingHolder.appendChild(inputField);
-            }
-                break;
-
-            case 'select': {
-                let selectField = document.createElement('select');
-                selectField.id = toolSetting.id;
-
-                const optionsConfig = toolSetting.optionSetup;
-
-                optionsConfig.forEach(optionSetting => {
-                    let option = document.createElement('option');
-                    option.value = optionSetting.value;
-                    option.text = optionSetting.name;
-
-                    selectField.appendChild(option);
-                });
-
-                selectField.onchange = () => {
-                    toolSetting.setup(selectField.value);
-                }
-
-                settingHolder.appendChild(selectField);
-            }
-                break;
-
-        } // end of switch
-
-        // Βάλε κενό ανάμεσα στα γράμματα και το slider
-        for (var childIndex = 0; childIndex < settingHolder.children.length; childIndex++) {
-            settingHolder.children[childIndex].style.margin = '5px';
+        // lol
+        if (gameModeObj.label == 'Papagianneos FINALE') {
+            gameModeBox.style.fontSize = '40px';
         }
 
-        settingWrapper.appendChild(settingHolder);
-        toolsBox.appendChild(settingWrapper);
-    });
+        let hiddenGameModeInfoTxT = document.createElement('div');
+        hiddenGameModeInfoTxT.className = 'hidden';
+        hiddenGameModeInfoTxT.style.fontSize = '20px';
+        hiddenGameModeInfoTxT.style.width = gameModeObj.label == 'Papagianneos FINALE' ? '500px' : '300px'; // το μέγεθος
+        hiddenGameModeInfoTxT.style.marginLeft = '10px';
+        hiddenGameModeInfoTxT.appendChild(document.createTextNode(gameModeObj.info));
 
-    // Λίγο ακόμα..
-
-
-    customizeBox.appendChild(toolsBox);
-    // ------------------------------------------------------------------------
-
-    mainBox.appendChild(customizeBox);
-
-    // Το κουμπί
-    let saveButton = document.createElement('button');
-    saveButton.appendChild(document.createTextNode('Save'));
-    saveButton.style.marginTop = '50px';
-    saveButton.style.marginBottom = '50px';
-    saveButton.onclick = () => {
-        new Audio('../audio/click.mp3').play();
-        const effect = {
-            neonMode: document.getElementById("neonCard").checked,
-            borderRadius: `${document.getElementById('cardShape').value}px`,
-            fontSize: `${document.getElementById('cardTextSize').value}px`,
-            textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
-            textDecorationLine: document.getElementById('cardTextDecoration').value,
-            textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
-            fontFamily: document.getElementById('cardTextFontFamily').value
-        }
-        localStorage.setItem('customizeEffect', JSON.stringify(effect));
-        window.location.href = '/';
-    }
-    mainBox.appendChild(saveButton);
-
-    // Αφού τελείωσες, ενσωμάτωσέ το στο σώμα της ιστοσελίδας (<body>)
-    document.body.appendChild(mainBox);
-
-    // Φόρτωσε τα default εφέ
-    document.getElementById('cardShape').value = '5';
-    document.getElementById('cardTextSize').value = '60';
-    const playersEffect = {
-        neonMode: document.getElementById("neonCard").checked,
-        borderRadius: `${document.getElementById('cardShape').value}px`,
-        fontSize: `${document.getElementById('cardTextSize').value}px`,
-        textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
-        textDecorationLine: document.getElementById('cardTextDecoration').value,
-        textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
-        fontFamily: document.getElementById('cardTextFontFamily').value
+        gameModeBoxWrapper.appendChild(gameModeBox);
+        gameModeBoxWrapper.appendChild(hiddenGameModeInfoTxT);
+        gamemodesInfoBox.appendChild(gameModeBoxWrapper);
     }
 
-    previewCard.style.borderRadius = playersEffect.borderRadius;
-    previewCard.style.fontSize = playersEffect.fontSize;
-    previewCard.style.fontFamily = playersEffect.fontFamily;
-    previewCard.style.textDecorationThickness = playersEffect.textDecorationThickness;
-    previewCard.style.textDecorationLine = playersEffect.textDecorationLine;
-    previewCard.style.textDecorationStyle = playersEffect.textDecorationStyle;
+    mainHTPDiv.appendChild(gamemodesInfoBox);
+    // -------------------------------------------------------------------------------
 
+    // ------------------------------------------------------------------------------
+    // Ευχαριστώ.
+    // ------------------------------------------------------------------------------
+    let thanksText = document.createElement('h1');
+    thanksText.appendChild(document.createTextNode('Επιμέλεια: Σωτήριος Παπαγιάννης'));
+    thanksText.style.fontSize = '20px';
+    mainHTPDiv.appendChild(thanksText);
+    // ------------------------------------------------------------------------------
+
+    document.body.appendChild(mainHTPDiv);
 })();
