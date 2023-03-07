@@ -3,6 +3,9 @@
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     try {
 
+        // Φτιάξε το menu του παιχνιδιού
+        let mainMenuDiv = document.createElement('div');
+
         // -----------------------------------------------------------------------
         // Διάβασε τα εφέ που επέλεξε ο χρήστης.
         // ------------------------------------------------------------------------
@@ -719,6 +722,7 @@
             // Τίτλος
             let startScreenText = document.createElement('h1');
             startScreenText.appendChild(document.createTextNode('ΒΡΕΣ ΤΗΝ ΣΩΣΤΗ ΚΑΡΤΑ'));
+            startScreenText.style.margin = '0';
 
             // λολ
             let developerNameLol = document.createElement('h1');
@@ -736,13 +740,33 @@
             friendsWebsite.innerHTML = `Επίσης τσέκαρε: <a href="https://2x05.surge.sh/">2x05</a>`;
 
             // Τελευταία Τροποποίηση
-            let howToPlayTxtt = document.createElement('h1');
-            howToPlayTxtt.style.fontSize = '25px';
-            howToPlayTxtt.innerHTML = `Δες <a href="/how-to-play">εδώ</a> αν δεν ξέρεις πώς να παίξεις`;
+            let howToPlayBtn = document.createElement('button');
+            howToPlayBtn.style.fontSize = '25px';
+            howToPlayBtn.appendChild(document.createTextNode('How To Play'));
+            howToPlayBtn.onclick = () => {
+                playSound('./audio/click.mp3');
+                setTimeout(() => {
+                    window.location.href = '/how-to-play';
+                }, 5e2);
+            }
 
-            let customizePageLink = document.createElement('h1');
-            customizePageLink.style.fontSize = '40px';
-            customizePageLink.innerHTML = `<a href="/customize">Προσάρμοσε το εφέ του παιχνιδιού σου εδώ!</a>`;
+            let creditsBtn = document.createElement('button');
+            creditsBtn.style.fontSize = '25px';
+            creditsBtn.appendChild(document.createTextNode('Πληροφορίες'));
+            creditsBtn.onclick = () => {
+                playSound('./audio/click.mp3');
+                document.body.appendChild(infoHolder);
+            }
+
+            let customizePageLink = document.createElement('button');
+            customizePageLink.style.fontSize = '25px';
+            customizePageLink.appendChild(document.createTextNode('Ρυθμίσεις'));
+            customizePageLink.onclick = () => {
+                playSound('./audio/click.mp3');
+                setTimeout(() => {
+                    window.location.href = '/customize';
+                }, 5e2);
+            }
 
             let screenLogo = document.createElement('img');
             screenLogo.src = './img/game-logo.png';
@@ -790,7 +814,6 @@
                 let button = document.createElement('button');
 
                 // CSS.
-                button.style.margin = '5px';
                 button.style.background = bgColor;
                 if (mode == 'papagianneosFinale') {
                     /* button.setAttribute('disabled', 'true');
@@ -847,12 +870,25 @@
                     document.body.removeChild(startScreen);
                 }
 
-                // special for extreme mode
-                if (mode == 'extreme') {
-                    button.style.animation = 'seismos 1s linear infinite';
-                }
-
                 return button;
+            }
+
+            // Πληροφορίες του παιχνιδιού
+            let infoHolder = document.createElement('div');
+            infoHolder.className = 'modalBox';
+
+            // Τίτλος μενού πληροφοριών
+            let modalBoxTitle = document.createElement('h1');
+            modalBoxTitle.appendChild(document.createTextNode('ΠΛΗΡΟΦΟΡΙΕΣ'));
+            infoHolder.appendChild(modalBoxTitle);
+
+            // Κουμπί για να "σβήνει" το μενού με τις πληροφορίες.
+            let closeInfoHolderBtn = document.createElement('button');
+            closeInfoHolderBtn.appendChild(document.createTextNode('Κλείσιμο'));
+            closeInfoHolderBtn.style.fontSize = '25px';
+            closeInfoHolderBtn.onclick = () => {
+                playSound('./audio/click.mp3');
+                document.body.removeChild(infoHolder);
             }
 
             // Κουμπί για να παίξει ο παίχτης
@@ -874,13 +910,20 @@
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             // ----------------------------------------------------
 
+            let settingsHolder = document.createElement('div');
+            settingsHolder.style.display = 'block';
+            settingsHolder.style.marginBottom = '50px';
+
             startScreen.appendChild(screenLogo); // Logo
             startScreen.appendChild(startScreenText); // Τίτλος
-            startScreen.appendChild(developerNameLol); // λολ
-            startScreen.appendChild(friendsWebsite); // for my friends :)
-            startScreen.appendChild(musicCredit); // για credit στο Soundimage.org για την μουσική του παιχνιδιού
-            startScreen.appendChild(customizePageLink);
-            startScreen.appendChild(howToPlayTxtt); // How to play link
+            infoHolder.appendChild(developerNameLol); // λολ
+            infoHolder.appendChild(friendsWebsite); // for my friends :)
+            infoHolder.appendChild(musicCredit); // για credit στο Soundimage.org για την μουσική του παιχνιδιού
+            infoHolder.appendChild(closeInfoHolderBtn);
+            settingsHolder.appendChild(customizePageLink);
+            settingsHolder.appendChild(creditsBtn); // Credits
+            settingsHolder.appendChild(howToPlayBtn); // How to play link
+            startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
 
