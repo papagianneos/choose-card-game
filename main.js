@@ -64,56 +64,6 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
             lostExtremeModeEnabled = false;
         // ----------------------------------------
 
-        // ------------------------------------------------------------------------
-        // Επιτεύγματα (TO DO)
-        // ------------------------------------------------------------------------
-        /*let achievementsLocalDefault = [
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false, false, false, false,
-            false, false
-        ];
-
-        let fetchedAchievementsData = [
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[0] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[1] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[2] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[3] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[4] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[5] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[6] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[7] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[8] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[9] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[10] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[11] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[12] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[13] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[14] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[15] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[16] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[17] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[18] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[19] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[20] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[21] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[22] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[23] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[24] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[25] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[26] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[27] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[28] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[29] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[30] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[31] : false,
-            localStorage.getItem("επιτεύγματα") != null ? JSON.parse(localStorage.getItem("επιτεύγματα"))[32] : false,
-        ];*/
-        // ------------------------------------------------------------------------
-
         // -----------------------------------
         const irandom = i => {
             let max = Math.floor(i);
