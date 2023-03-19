@@ -1,4 +1,7 @@
+import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achievenent-functions.js";
+
 (() => {
+
     document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     try {
@@ -19,7 +22,7 @@
             startedAngryEffect = false,
             papagianneosFinaleMusic = new Audio('./audio/papagianneos_finale.mp3');
 
-        //papagianneosFinaleMusic.loop = true;
+        papagianneosFinaleMusic.loop = true;
         // ------------------------------------------------------------------------
 
         // ----------------------------------------------------------
@@ -272,6 +275,8 @@
                             card.specialCardEffect = () => {
                                 playSound('./audio/special_score.mp3');
                                 score += 10;
+                                // Επίτευγμα: "Εκατοστάρα στη μάπα"
+                                unlockAchievement('ach_score_100', 10);
                             }
                             break;
 
@@ -362,6 +367,9 @@
                             card.specialCard = true;
                             card.color = 'radial-gradient(#ac86b0, #781f82)';
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: ":)"
+                                unlockAchievement('ach_special_K_card');
+
                                 // να μην επιτρέπεται στο papagianneos finale
                                 if (!papagianneosFinaleEnabled) { // αν δεν είναι finale
                                     playSound('./audio/special_score.mp3');
@@ -535,6 +543,14 @@
 
                     // αν είναι διαφορετικές οι κάρτες, επαναφορά
                     if (firstCard.savedText !== secondCard.savedText) {
+                        // Επίτευγμα: "Το μοιραίο λάθος"
+                        unlockAchievement('ach_10_tries');
+
+                        // Επίτευγμα: "Λίγο ακόμα και.."
+                        unlockAchievement('ach_50_tries');
+
+                        // Επίτευγμα: "AAAAAAAAAAAAA"
+                        unlockAchievement('ach_100_tries');
 
                         // ----------------------------------------------------------------------------------------
                         // "Challenge" mode setup.
@@ -660,12 +676,27 @@
                     else if (firstCard.savedText == secondCard.savedText) {
                         if (firstCard.specialCard && secondCard.specialCard) {
                             firstCard.specialCardEffect();
+
+                            // Επίτευγμα: "Τι ήταν αυτό;"
+                            unlockAchievement('ach_first_special_card');
                         }
 
                         // Αν είναι μία απλή κάρτα
                         else {
+                            // Επίτευγμα: "Τα κατάφερα;"
+                            unlockAchievement('ach_first_combination');
+
+                            // Επίτευγμα: "Αρχάριος"
+                            unlockAchievement('ach_beginner');
+
+                            // Επίτευγμα: "Έμπειρος"
+                            unlockAchievement('ach_somewhat_experienced');
+
                             const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
                             score += (scoreReceived != 0 ? scoreReceived : 1);
+
+                            // Επίτευγμα: "Εκατοστάρα στη μάπα"
+                            unlockAchievement('ach_score_100', score);
 
                             // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
                             if (!firstCard.specialCard && !secondCard.specialCard) {
@@ -827,6 +858,8 @@
 
                 // Event-Listener. (για τα κλικ)
                 button.onclick = () => {
+                    // Επίτευγμα: "Νέος Παίχτης"
+                    unlockAchievement('ach_new_player');
                     document.getElementsByTagName('body')[0].style.animation = 'none';
                     document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
                     //  if (mode == 'papagianneosFinale') return;
@@ -1139,6 +1172,45 @@
 
                 // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
                 if (wonBySpecialCard || (openedCards.length / 2) >= (AMOUNT_OF_CARDS / 2)) {
+
+                    // -------------------------------------------------------------------
+                    // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
+                    // κάρτα.
+                    // -------------------------------------------------------------------
+                    if (!wonBySpecialCard) {
+                        // Επίτευγμα: "Τέρμα η μνήμη RAM"
+                        unlockAchievement('ach_win_any_20');
+
+                        let achievementIDToCheckForUnlock = '';
+                        switch (true) {
+                            // Δύσκολο
+                            case hardModeEnabled:
+                                achievementIDToCheckForUnlock = 'ach_hard_mode_win';
+                                break;
+
+                            // Challenge
+                            case (challengeModeEnabled && !papagianneosFinaleEnabled):
+                                achievementIDToCheckForUnlock = 'ach_challenge_mode_win';
+                                break;
+
+                            // Extreme
+                            case (extremeModeEnabled && !papagianneosFinaleEnabled):
+                                achievementIDToCheckForUnlock = 'ach_extreme_mode_win';
+                                break;
+
+                            // Papagianneos Finale
+                            case papagianneosFinaleEnabled:
+                                achievementIDToCheckForUnlock = 'ach_pgn_finale_win';
+                                break;
+
+                            // Απλό
+                            default:
+                                achievementIDToCheckForUnlock = 'ach_normal_mode_win';
+                                break;
+                        }
+                        unlockAchievement(achievementIDToCheckForUnlock);
+                    }
+                    // -------------------------------------------------------------------
 
                     // ---------------------------------
                     // Μουσική
