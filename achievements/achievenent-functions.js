@@ -229,6 +229,7 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
     achievementNotifDesc.style.fontSize = '20px';
 
     setTimeout(() => {
+        new Audio('./audio/achievement.mp3').play();
         tempDiv.appendChild(achievementNotifTitle);
         achievementNotifBox.appendChild(tempDiv);
         achievementNotifBox.appendChild(achievementNotifDesc);
