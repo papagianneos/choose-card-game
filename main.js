@@ -781,6 +781,17 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 }, 5e2);
             }
 
+            // Επιτεύγματα
+            let achievementsMenuBtn = document.createElement('button');
+            achievementsMenuBtn.style.fontSize = '25px';
+            achievementsMenuBtn.appendChild(document.createTextNode('Επιτεύγματα'));
+            achievementsMenuBtn.onclick = () => {
+                playSound('./audio/click.mp3');
+                setTimeout(() => {
+                    window.location.href = '/achievements';
+                }, 5e2);
+            }
+
             let creditsBtn = document.createElement('button');
             creditsBtn.style.fontSize = '25px';
             creditsBtn.appendChild(document.createTextNode('Πληροφορίες'));
@@ -956,6 +967,7 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
             settingsHolder.appendChild(customizePageLink);
             settingsHolder.appendChild(creditsBtn); // Credits
             settingsHolder.appendChild(howToPlayBtn); // How to play link
+            settingsHolder.appendChild(achievementsMenuBtn);
             startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
