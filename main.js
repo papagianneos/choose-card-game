@@ -6,6 +6,9 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     try {
 
+        let secretSettingEnabled = false,
+            rot_ = 360;
+
         // Φτιάξε το menu του παιχνιδιού
         let mainMenuDiv = document.createElement('div');
 
@@ -404,7 +407,12 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
                 if (!card.getAttribute('anoixthcarta')) {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
-                    playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
+                    if (!secretSettingEnabled) {
+                        playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
+                    }
+                    else {
+                        card.style.background = 'radial-gradient(#240907, black)';
+                    }
                     card.innerHTML = '​'; // κενό/whitespace
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
@@ -584,6 +592,14 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                         // Ανακάτεμα των καρτών κάθε φορά που κάνει λάθος ο παίχτης.
                         // ----------------------------------------------------------------------------------------
                         if (hardModeEnabled) {
+
+                            if (secretSettingEnabled) {
+                                rot_ += 360;
+                                document.getElementById('cardsHolder').style.animation = 'none';
+                                document.getElementById('cardsHolder').style.transition = '1s';
+                                document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
+                            }
+
                             playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
 
                             // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
@@ -815,14 +831,17 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 }
 
                 // Κείμενο στο κουμπί
-                button.appendChild(document.createTextNode(label));
+                button.innerHTML = label;
 
                 // Event-Listener. (για τα κλικ)
                 button.onclick = () => {
                     // Επίτευγμα: "Νέος Παίχτης"
                     unlockAchievement('ach_new_player');
-                    document.getElementsByTagName('body')[0].style.animation = 'none';
-                    document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
+
+                    if (mode != '???') {
+                        document.getElementsByTagName('body')[0].style.animation = 'none';
+                        document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
+                    }
                     //  if (mode == 'papagianneosFinale') return;
                     switch (mode) {
                         case 'hard': // Δύσκολο
@@ -845,13 +864,21 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             papagianneosFinaleEnabled = true;
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
                             break;
+
+                        case '???':
+                            hardModeEnabled = true;
+                            secretSettingEnabled = true;
+                            extremeModeEnabled = true;
+                            MAX_TRIES += 15;
+                            document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
+                            break;
                     }
 
                     startGame();
                     createCards();
                     playSound('./audio/click.mp3');
 
-                    if (mode != 'papagianneosFinale') {
+                    if (!['papagianneosFinale', '???'].includes(mode)) {
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
                     }
 
@@ -892,6 +919,7 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 playButtonHard = createButton('Παίξε Δύσκολο', 'maroon', 'hard'), // Κουμπί για να παίξει ο παίχτης "δύσκολο" mode
                 playButtonChallenge = createButton('Παίξε Challenge', 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
                 playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
+                playButtonSecretMode = createButton('???? ?????', 'radial-gradient(#240907, black)', '???'), // Κουμπί για να παίξει ο παίχτης "???" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
@@ -902,6 +930,7 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
             buttonsWrapper.appendChild(playButtonChallenge);
             buttonsWrapper.appendChild(playButtonExtreme);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
+            buttonsWrapper.appendChild(playButtonSecretMode);
             // ----------------------------------------------------
 
             let settingsHolder = document.createElement('div');
@@ -954,7 +983,7 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 // ---------------------------------------------------------------------------------------
                 // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
                 // ---------------------------------------------------------------------------------------
-                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled)) {
+                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled) && !secretSettingEnabled) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -1063,8 +1092,11 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                     // Εφέ για τις προσπάθειες του παίχτη.
                     if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                         triesText.style.animation = 'seismos .3s linear infinite';
-                        document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+
+                        if (!secretSettingEnabled) {
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                        }
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
