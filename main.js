@@ -4,6 +4,7 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
 
     document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
+    document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
 
         let secretSettingEnabled = false,
@@ -279,6 +280,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             card.specialCard = true;
                             card.color = 'radial-gradient(#1c0b0e, #b8707d)';
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: 'Rest in pepperoni'
+                                unlockAchievement('ach_cross_card_found');
                                 if (!papagianneosFinaleEnabled) {
                                     playSound('./audio/κακό_λάθος.mp3');
                                 }
@@ -291,6 +294,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             card.specialCard = true;
                             card.color = 'radial-gradient(#adfff1, #265175)';
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: "Ουάου"
+                                unlockAchievement('ach_pgn_card_found');
                                 if (startedExtremeModeMusic) {
                                     extremeModeGameMusic.pause();
                                 }
@@ -658,6 +663,9 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             // Επίτευγμα: "Έμπειρος"
                             unlockAchievement('ach_somewhat_experienced');
 
+                            // Επίτευγμα: "Ειδικός"
+                            unlockAchievement('ach_expert');
+
                             const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
                             score += (scoreReceived != 0 ? scoreReceived : 1);
 
@@ -735,6 +743,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
             let friendsWebsite = document.createElement('h1');
             friendsWebsite.style.fontSize = '20px';
             friendsWebsite.innerHTML = `Επίσης τσέκαρε: <a href="https://2x05.surge.sh/">2x05</a>`;
+            // Επίτευγμα: "Κάπου το θυμάμαι αυτό.."
+            friendsWebsite.onclick = () => unlockAchievement('ach_2x05');
 
             // Τελευταία Τροποποίηση
             let howToPlayBtn = document.createElement('button');
@@ -1172,6 +1182,11 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                     // κάρτα.
                     // -------------------------------------------------------------------
                     if (!wonBySpecialCard) {
+                        // Eπίτευγμα: "Skill Issue"
+                        if (tries < 10) {
+                            unlockAchievement('ach_skill_issue');
+                        }
+
                         // Επίτευγμα: "Τέρμα η μνήμη RAM"
                         unlockAchievement('ach_win_any_20');
 
