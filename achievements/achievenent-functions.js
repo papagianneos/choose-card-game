@@ -28,7 +28,9 @@ const checkForMemoryRead = () => {
     // ===================================================================================================================
 }
 
+// ------------------------------------------------------------------------------------------------------------------
 // Επιτεύγματα Setup.
+// ------------------------------------------------------------------------------------------------------------------
 export let achievementsConfig = [
     {
         name: 'Νέος Παίχτης',
@@ -170,8 +172,53 @@ export let achievementsConfig = [
         requiredProgress: 50,
         color: '#211026',
         unlocked: false
+    },
+
+    {
+        name: "Κάπου το θυμάμαι αυτό..",
+        desc: '???',
+        id: 'ach_2x05',
+        color: 'linear-gradient(to right top, #7c6280, #6d4d72, #5e3964, #502457, #410d49)',
+        unlocked: false
+    },
+
+    {
+        name: "Ειδικός",
+        desc: 'Βρες 100 κάρτες',
+        id: 'ach_expert',
+        progress: 0,
+        requiredProgress: 100,
+        color: '#88a690',
+        unlocked: false
+    },
+
+    {
+        name: "Rest in pepperoni",
+        desc: "Βρες την κάρτα με τον σταυρό",
+        id: 'ach_cross_card_found',
+        color: 'radial-gradient(#1c0b0e, #b8707d)',
+        unlocked: false
+    },
+
+    {
+        name: "Ουάου",
+        desc: "Ο τίτλος το εξηγεί όλο",
+        id: "ach_pgn_card_found",
+        color: 'radial-gradient(#adfff1, #265175)',
+        unlocked: false
+    },
+
+    {
+        name: "Skill Issue",
+        desc: "Κέρδισε 3 φορές με λιγότερο από 10 προσπάθειες.",
+        id: "ach_skill_issue",
+        progress: 0,
+        requiredProgress: 3,
+        color: '#1c2e2a',
+        unlocked: false
     }
 ];
+// ------------------------------------------------------------------------------------------------------------------
 
 // Συνάρτηση που ξεκλειδώνει ένα συγκεκριμένο επίτευγμα με βάση την ταυτότητά του.
 export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
