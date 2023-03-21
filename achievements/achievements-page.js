@@ -40,12 +40,12 @@ import { achievementsConfig, unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from 
         // Τίτλος επιτεύγματος
         let achievementTitle = document.createElement('h1');
         achievementTitle.style.fontSize = '20px';
-        achievementTitle.appendChild(document.createTextNode(achievement.unlocked ? achievement.name : '???'));
+        achievementTitle.appendChild(document.createTextNode(achievement.name));
 
         // Πληροφορίες επιτεύγματος
         let achievementDescription = document.createElement('h1');
         achievementDescription.style.fontSize = '15px';
-        achievementDescription.innerHTML = achievement.unlocked ? achievement.desc : '<br>';
+        achievementDescription.innerHTML = achievement.unlocked ? achievement.desc : '???';
 
         achievementDivHolder.appendChild(achievementTitle);
         achievementDivHolder.appendChild(achievementDescription);
