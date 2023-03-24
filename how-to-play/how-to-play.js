@@ -1,3 +1,5 @@
+import { specialCardsConfig } from "../modules/specialCardsConfig.js";
+
 (() => {
 
     // -----------------------------------------------------------------------
@@ -5,56 +7,6 @@
     // ------------------------------------------------------------------------
     const playersEffect = JSON.parse(localStorage.getItem('customizeEffect'));
     // ------------------------------------------------------------------------
-
-    let specialCardsConfig = [
-        {
-            shape: '++',
-            color: 'radial-gradient(darkgreen, white)',
-            info: '+10 Score'
-        },
-
-        {
-            shape: 'x2',
-            color: 'radial-gradient(#8a8c16, #8a8c16, gold)',
-            info: 'Διπλό Score'
-        },
-
-        {
-            shape: '¹/₂',
-            color: 'radial-gradient(cyan, red)',
-            info: 'Μισό Score'
-        },
-
-        {
-            shape: 'T-2',
-            color: 'radial-gradient(#00fc82, #84b89f)',
-            info: '2 Λιγότερες Προσπάθειες'
-        },
-
-        {
-            shape: '--',
-            color: 'radial-gradient(black, #4a1313)',
-            info: '-10 Score'
-        },
-
-        {
-            shape: '†',
-            color: 'radial-gradient(#1c0b0e, #b8707d)',
-            info: 'Πάει έχασες το παιχνίδι'
-        },
-
-        {
-            shape: 'Pgn',
-            color: 'radial-gradient(#adfff1, #265175)',
-            info: 'PAPAGIANNEOS SPEECH'
-        },
-
-        {
-            shape: 'Κ',
-            color: 'radial-gradient(#ac86b0, #781f82)',
-            info: '???'
-        },
-    ]
 
     let mainHTPDiv = document.createElement('div');
     mainHTPDiv.id = 'cardsHolder';
