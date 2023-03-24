@@ -373,6 +373,47 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 parentDiv.replaceChildren(...cardsListToShuffle);
                             }
                             break;
+
+                        case specialCardsConfig[9].shape: // X-Ray
+                            specialCardIndex = 9;
+
+                            // Εμφάνισε τις κάρτες για 1.8 δευτερόλεπτα.
+                            card.specialCardEffect = () => {
+                                blockClicks = true;
+
+                                // Επίτευγμα: "Χάκερ!!11"
+                                unlockAchievement('ach_xray_card_found');
+
+                                for (var card_ of document.getElementsByClassName('card')) {
+                                    if (!card_.getAttribute('anoixthcarta')) {
+                                        card_.innerHTML = card_.savedText;
+                                        card_.style.background = card_.savedBackgroundColor;
+                                    }
+                                }
+
+                                setTimeout(() => {
+                                    resetCards();
+                                    blockClicks = false;
+                                    document.getElementById('cardsHolder').style.transition = '1s';
+                                    document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
+                                }, 1800);
+                            }
+                            break;
+
+                        case specialCardsConfig[10].shape: // The Eye
+                            specialCardIndex = 10;
+                            card.specialCardEffect = () => {
+                                let question = confirm('The Eye wants to know your location.');
+
+                                if (question) {
+                                    window.location.href = '/specific';
+                                }
+
+                                else {
+                                    alert('T H E  E Y E  W A N T S  T O  K N O W  Y O U R  L O C A T I O N .');
+                                }
+                            }
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -688,6 +729,8 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                     // αν είναι ίδιες οι κάρτες, δώσε score
                     else if (firstCard.savedText == secondCard.savedText) {
+
+                        // Αν είναι σπέσιαλ κάρτα..
                         if (firstCard.specialCard && secondCard.specialCard) {
                             firstCard.specialCardEffect();
 
@@ -714,6 +757,9 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                             // Επίτευγμα: "Εκατοστάρα στη μάπα"
                             unlockAchievement('ach_score_100', score);
+
+                            // Επίτευγμα: "Δεν με ξέρεις καλά.."
+                            unlockAchievement('ach_score_1k', score);
 
                             // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
                             if (!firstCard.specialCard && !secondCard.specialCard) {
@@ -890,6 +936,9 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 button.onclick = () => {
                     // Επίτευγμα: "Νέος Παίχτης"
                     unlockAchievement('ach_new_player');
+
+                    // Επίτευγμα: "bals?!?!?"
+                    unlockAchievement('ach_bals');
 
                     if (mode != '???') {
                         document.getElementsByTagName('body')[0].style.animation = 'none';
@@ -1261,6 +1310,11 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 break;
                         }
                         unlockAchievement(achievementIDToCheckForUnlock);
+
+                        // Επίτευγμα.
+                        if (papagianneosFinaleEnabled) {
+                            unlockAchievement('ach_pgn_finale_twice');
+                        }
                     }
                     // -------------------------------------------------------------------
 
