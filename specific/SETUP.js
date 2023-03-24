@@ -46,8 +46,8 @@
     let cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     cardDiv.style.pointerEvents = 'none';
-    cardDiv.style.background = 'radial-gradient(black, black, maroon)';
-    cardDiv.appendChild(document.createTextNode(':_'));
+    cardDiv.style.background = 'radial-gradient(black, black, white)';
+    cardDiv.appendChild(document.createTextNode('👁'));
 
     cardWrapper.appendChild(title_);
     cardWrapper.appendChild(cardDiv);
