@@ -52,6 +52,17 @@ export const specialCardsConfig = [
         shape: '▲',
         color: 'radial-gradient(orange, red)',
         info: 'ΠΡΟΣΟΧΗ EΚΡΗΞΗ',
-        fatSymbol: true
+    },
+
+    {
+        shape: 'Ω',
+        color: 'radial-gradient(gold, gold, gold, brown, brown)',
+        info: 'Ορατός... ή.. αόρατος.',
+    },
+
+    {
+        shape: '👁',
+        color: 'radial-gradient(black, black, white)',
+        info: 'The eye sees..'
     }
 ];
