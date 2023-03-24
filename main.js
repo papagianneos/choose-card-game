@@ -1,4 +1,5 @@
-import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achievenent-functions.js";
+import { unlockAchievement } from "./modules/achievenent-functions.js";
+import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
 (() => {
 
@@ -33,7 +34,6 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
         // Σπέσιαλ Κάρτες.
         // ----------------------------------------------------------
         let specialCardsEnabled = true,
-            specialCards = ['++', 'x2', '¹/₂', 'T-2', '--', '†', 'Pgn', 'Κ'],
             currentSpecialCards = [],
             lostByDeathCard = false,
             wonBySpecialCard = false,
@@ -149,14 +149,14 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                 // αν δεν παίζει ο παίχτης το FINALE.
                 if (!papagianneosFinaleEnabled) {
-                    let randomlyChosenSpecialCard = randomChoice(specialCards);
-                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard;
+                    let randomlyChosenSpecialCard = randomChoice(specialCardsConfig);
+                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
                 }
 
                 // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE
                 else {
-                    for (var specialCard_ of specialCards) {
-                        cardShapes.push(specialCard_);
+                    for (var specialCard_ of specialCardsConfig) {
+                        cardShapes.push(specialCard_.shape);
                         AMOUNT_OF_CARDS += 2;
                     }
                 }
@@ -215,17 +215,27 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                 // Οι σπέσιαλ κάρτες έχουν συγκεκριμένο σταθερό χρώμα.
                 // --------------------------------------------------------
                 if (specialCardsEnabled) {
+                    let specialCardDetected = false,
+                        specialCardIndex = undefined;
+
                     // SOS συνάρτηση
                     const addToSpecialCardsArray = (shape) => {
                         currentSpecialCards.push(shape);
                         removedSpecialCardsFromFullCount.push(false);
                     }
 
+                    // Ψάξε για σπεσιαλ κάρτες
+                    for (var specialCardData of specialCardsConfig) {
+                        if (specialCardData.shape == card.shape) {
+                            specialCardDetected = true;
+                            break;
+                        }
+                    }
+
+                    // Όρισε το εφέ με βάση το σύμβολο της σπεσιαλ κάρτας.
                     switch (card.shape) {
-                        case specialCards[0]: // 10 Score (++)
-                            addToSpecialCardsArray(specialCards[0]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(darkgreen, white)';
+                        case specialCardsConfig[0].shape: // 10 Score (++)
+                            specialCardIndex = 0;
                             card.specialCardEffect = () => {
                                 playSound('./audio/special_score.mp3');
                                 score += 10;
@@ -234,30 +244,24 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             }
                             break;
 
-                        case specialCards[1]: // x2 Score
-                            addToSpecialCardsArray(specialCards[1]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(#8a8c16, #8a8c16, gold)';
+                        case specialCardsConfig[1].shape: // x2 Score
+                            specialCardIndex = 1;
                             card.specialCardEffect = () => {
                                 playSound('./audio/special_score.mp3');
                                 score *= 2;
                             }
                             break;
 
-                        case specialCards[2]: // Half Score
-                            addToSpecialCardsArray(specialCards[2]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(cyan, red)';
+                        case specialCardsConfig[2].shape: // Half Score
+                            specialCardIndex = 2;
                             card.specialCardEffect = () => {
                                 playSound('./audio/κακό_λάθος.mp3');
                                 score /= 2;
                             }
                             break;
 
-                        case specialCards[3]: // 2 λιγότερες προσπάθειες
-                            addToSpecialCardsArray(specialCards[3]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(#00fc82, #84b89f)';
+                        case specialCardsConfig[3].shape: // 2 λιγότερες προσπάθειες
+                            specialCardIndex = 3;
                             card.specialCardEffect = () => {
                                 playSound('./audio/special_score.mp3');
                                 tries -= 2;
@@ -265,20 +269,16 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             }
                             break;
 
-                        case specialCards[4]: // 10 λιγότερο score
-                            addToSpecialCardsArray(specialCards[4]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(black, #4a1313)';
+                        case specialCardsConfig[4].shape: // 10 λιγότερο score
+                            specialCardIndex = 4;
                             card.specialCardEffect = () => {
                                 playSound('./audio/κακό_λάθος.mp3');
                                 score -= 10;
                             }
                             break;
 
-                        case specialCards[5]: // Πάει χάθηκε το παιχνίδι
-                            addToSpecialCardsArray(specialCards[5]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(#1c0b0e, #b8707d)';
+                        case specialCardsConfig[5].shape: // Πάει χάθηκε το παιχνίδι
+                            specialCardIndex = 5;
                             card.specialCardEffect = () => {
                                 // Επίτευγμα: 'Rest in pepperoni'
                                 unlockAchievement('ach_cross_card_found');
@@ -289,10 +289,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             }
                             break;
 
-                        case specialCards[6]: // PAPAGIANNEOS SPEECH
-                            addToSpecialCardsArray(specialCards[6]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(#adfff1, #265175)';
+                        case specialCardsConfig[6].shape: // PAPAGIANNEOS SPEECH
+                            specialCardIndex = 6;
                             card.specialCardEffect = () => {
                                 // Επίτευγμα: "Ουάου"
                                 unlockAchievement('ach_pgn_card_found');
@@ -320,10 +318,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             }
                             break;
 
-                        case specialCards[7]: // for my friend :)
-                            addToSpecialCardsArray(specialCards[7]);
-                            card.specialCard = true;
-                            card.color = 'radial-gradient(#ac86b0, #781f82)';
+                        case specialCardsConfig[7].shape: // for my friend :)
+                            specialCardIndex = 7;
                             card.specialCardEffect = () => {
                                 // Επίτευγμα: ":)"
                                 unlockAchievement('ach_special_K_card');
@@ -343,6 +339,53 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                                 }
                             }
                             break;
+
+                        case specialCardsConfig[8].shape: // KABOOOM
+                            specialCardIndex = 8;
+                            card.specialCardEffect = () => {
+                                // Επίτευγμα: 'T r i a n g l e'
+                                unlockAchievement('ach_boom_card_found');
+
+                                playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className == 'card') {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
+
+                                cardsListToShuffle.sort(() => {
+                                    return Math.random() - 0.5;
+                                });
+
+                                cardsListToShuffle = cardsListToShuffle.filter(elem => {
+                                    return elem.innerHTML != specialCardsConfig[8].shape;
+                                });
+
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
+                            }
+                            break;
+                    }
+
+                    // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
+                    if (specialCardDetected) {
+                        console.log(specialCardIndex);
+                        addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
+                        card.color = specialCardsConfig[specialCardIndex].color;
+                        card.specialCard = true;
+
+                        // Σε περίπτωση που υπάρχει μεγάλο σύμβολο.
+                        if (specialCardsConfig[specialCardIndex].fatSymbol) {
+                            card.fatSymbol = true;
+                        }
                     }
                 }
                 // --------------------------------------------------------
@@ -1037,8 +1080,8 @@ import { unlockAchievement, FETCHED_ACHIEVEMENT_DATA } from "./achievements/achi
                             setTimeout(() => {
                                 for (var index = 0; index < 5; index++) {
                                     createCard({
-                                        shape: specialCards[5],
-                                        color: 'radial-gradient(#1c0b0e, #b8707d)',
+                                        shape: specialCardsConfig[5].shape,
+                                        color: specialCardsConfig[5].color,
                                         specialCard: true,
                                         specialCardEffect: () => {
                                             if (!papagianneosFinaleEnabled) {
