@@ -225,6 +225,44 @@ export let achievementsConfig = [
         color: 'radial-gradient(orange, red)',
         unlocked: false
     },
+
+    {
+        name: 'Χάκερ!!11',
+        desc: "ΓΙΑΤΙΙΙ ΧΑΚΑΡΕΣ ΤΟ GAME ΜΟΥΥΥΥΥ!!11",
+        id: "ach_xray_card_found",
+        color: 'radial-gradient(gold, gold, gold, brown, brown)',
+        unlocked: false
+    },
+
+    {
+        name: 'Δεν με ξέρεις καλά..',
+        desc: "Κάνε 1000 score.",
+        id: "ach_score_1k",
+        progress: 0,
+        requiredProgress: 1e3,
+        color: 'firebrick',
+        unlocked: false
+    },
+
+    {
+        name: 'bals?!?!?',
+        desc: 'b a l',
+        id: "ach_bals",
+        progress: 0,
+        requiredProgress: 69,
+        color: '#1b4035',
+        unlocked: false
+    },
+
+    {
+        name: 'Η Επιστροφή του Pgn',
+        desc: 'Νίκησε το "finale" mode για δεύτερη φορά.',
+        id: "ach_pgn_finale_twice",
+        progress: 0,
+        requiredProgress: 2,
+        color: 'radial-gradient(maroon, #1b4035)',
+        unlocked: false
+    }
 ];
 // ------------------------------------------------------------------------------------------------------------------
 
