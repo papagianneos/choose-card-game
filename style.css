@@ -1,5 +1,24 @@
 /* CSS */
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+
 /* ------------------------------------ */
 /* BUG FIX: για τις γραμματοσειρές */
 /* που δεν υπάρχουν στα κινητά τηλέφωνα */
