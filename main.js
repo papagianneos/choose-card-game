@@ -39,7 +39,7 @@ import { music, sounds } from "./modules/sounds.js";
             let countedTrolls = 0;
 
             for (let searchShape of cardShapes_revived) {
-                if (searchShape == specialCardsConfig[11].shape) countedTrolls++;
+                if (searchShape == specialCardsConfig[12].shape) countedTrolls++;
             }
 
             return countedTrolls;
@@ -179,7 +179,7 @@ import { music, sounds } from "./modules/sounds.js";
                     cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
 
                     // Δες αν υπάρχει troll κάρτα..
-                    if (cardShapes[cardShapes.length - 1] == specialCardsConfig[11].shape) {
+                    if (cardShapes[cardShapes.length - 1] == specialCardsConfig[12].shape) {
                         trollCardExists = true;
                     }
                 }
@@ -234,7 +234,7 @@ import { music, sounds } from "./modules/sounds.js";
             // ---------------------------------------------------------------------
             // Σβήσε το ένα από το ζευγάρι
             if (trollCardExists) {
-                let index = cardShapes.indexOf(specialCardsConfig[11].shape);
+                let index = cardShapes.indexOf(specialCardsConfig[12].shape);
                 cardShapes.splice(index, 1);
                 cardColors.splice(index, 1);
             }
@@ -458,23 +458,8 @@ import { music, sounds } from "./modules/sounds.js";
                             }
                             break;
 
-                        case specialCardsConfig[11].shape: // The Fake Card
+                        case specialCardsConfig[11].shape: // NULL
                             specialCardIndex = 11;
-                            card.specialCardEffect = () => {
-                                let question = confirm('The Eye wants to know your location.');
-
-                                if (question) {
-                                    window.location.href = '/specific';
-                                }
-
-                                else {
-                                    alert('T H E  E Y E  W A N T S  T O  K N O W  Y O U R  L O C A T I O N .');
-                                }
-                            }
-                            break;
-
-                        case specialCardsConfig[12].shape: // NULL
-                            specialCardIndex = 12;
                             card.specialCardEffect = () => {
                                 underNullEffect = true;
                                 sounds.null.play();
@@ -488,6 +473,21 @@ import { music, sounds } from "./modules/sounds.js";
                                         cardElem.setAttribute('infectedWithVirus', 'yes');
                                     }
                                 }, 10);
+                            }
+                            break;
+
+                        case specialCardsConfig[12].shape: // The Fake Card
+                            specialCardIndex = 12;
+                            card.specialCardEffect = () => {
+                                let question = confirm('The Eye wants to know your location.');
+
+                                if (question) {
+                                    window.location.href = '/specific';
+                                }
+
+                                else {
+                                    alert('T H E  E Y E  W A N T S  T O  K N O W  Y O U R  L O C A T I O N .');
+                                }
                             }
                             break;
                     }
