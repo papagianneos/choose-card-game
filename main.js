@@ -2,12 +2,19 @@ import { unlockAchievement } from "./modules/achievenent-functions.js";
 import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 
+// TO DO: NULL CARD
+
 (() => {
 
     document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
+
+        // NULL κάρτα
+        let underNullEffect = false,
+            turnsToRemoveNullEffect = 0,
+            nullEffectLoop;
 
         // bug fix για το αν υπάρχει troll κάρτα
         let trollCardExists = false;
@@ -465,6 +472,24 @@ import { music, sounds } from "./modules/sounds.js";
                                 }
                             }
                             break;
+
+                        case specialCardsConfig[12].shape: // NULL
+                            specialCardIndex = 12;
+                            card.specialCardEffect = () => {
+                                underNullEffect = true;
+                                sounds.null.play();
+
+                                nullEffectLoop = setInterval(() => {
+                                    document.getElementById('cardsHolder').style.filter = 'blur(5px)';
+
+                                    for (var cardElem of document.getElementsByClassName('card')) {
+                                        cardElem.style.backgroundColor = 'black';
+                                        cardElem.style.color = 'green';
+                                        cardElem.setAttribute('infectedWithVirus', 'yes');
+                                    }
+                                }, 10);
+                            }
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -618,6 +643,26 @@ import { music, sounds } from "./modules/sounds.js";
 
             // Όταν γίνει click σε αυτό.
             div.onclick = () => {
+
+                // --------------------------------------------------------
+                // NULL Effect
+                // --------------------------------------------------------
+                if (underNullEffect) {
+                    turnsToRemoveNullEffect += 1;
+
+                    if (turnsToRemoveNullEffect > 10) {
+                        underNullEffect = false;
+                        sounds.null.play();
+                        clearInterval(nullEffectLoop);
+                        for (var cardElem of document.getElementsByClassName('card')) {
+                            if (cardElem.getAttribute('infectedWithVirus')) {
+                                cardElem.removeAttribute('style');
+                            }
+                        }
+                        document.getElementById('cardsHolder').removeAttribute('style');
+                    }
+                }
+                // --------------------------------------------------------
 
                 // -------------------------------------------------------------------------------------------------------
                 // BUG FIX: Αν έγινε click στην ίδια κάρτα..
@@ -1259,7 +1304,7 @@ import { music, sounds } from "./modules/sounds.js";
                                         specialCard: true,
                                         specialCardEffect: () => {
                                             if (!papagianneosFinaleEnabled) {
-                                                sounds.loss.play()
+                                                sounds.loss.play();
                                             }
                                             lostByDeathCard = true;
                                         }
