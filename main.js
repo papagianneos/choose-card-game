@@ -1,5 +1,6 @@
 import { unlockAchievement } from "./modules/achievenent-functions.js";
 import { specialCardsConfig } from "./modules/specialCardsConfig.js";
+import { music, sounds } from "./modules/sounds.js";
 
 (() => {
 
@@ -8,11 +9,38 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
 
+        // bug fix για το αν υπάρχει troll κάρτα
+        let trollCardExists = false;
+
+        // ----------------------------------------------------------------------
+        // Συνάρτηση που μετράει πόσες troll κάρτες υπάρχουν (αν υπάρχουν)
+        // ----------------------------------------------------------------------
+        function countTrollCards(cardShapes) {
+            let cardShapes_revived = cardShapes != undefined ? cardShapes : [];
+
+            if (cardShapes_revived.length == 0) {
+                cardShapes_revived = [];
+
+                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                for (var e = 0; e < parentDiv.children.length; e++) {
+                    let child = parentDiv.children[e];
+                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                    cardShapes_revived.push(child.realShape);
+                }
+            }
+
+            let countedTrolls = 0;
+
+            for (let searchShape of cardShapes_revived) {
+                if (searchShape == specialCardsConfig[11].shape) countedTrolls++;
+            }
+
+            return countedTrolls;
+        }
+        // ----------------------------------------------------------------------
+
         let secretSettingEnabled = false,
             rot_ = 360;
-
-        // Φτιάξε το menu του παιχνιδιού
-        let mainMenuDiv = document.createElement('div');
 
         // -----------------------------------------------------------------------
         // Διάβασε τα εφέ που επέλεξε ο χρήστης.
@@ -24,10 +52,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
         // lol
         // ----------------------------------------------------------------------
         let papagianneosFinaleEnabled = false,
-            startedAngryEffect = false,
-            papagianneosFinaleMusic = new Audio('./audio/papagianneos_finale.mp3');
-
-        papagianneosFinaleMusic.loop = true;
+            startedAngryEffect = false;
         // ------------------------------------------------------------------------
 
         // ----------------------------------------------------------
@@ -50,15 +75,9 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
         // -----------------------------------------------------------------------------------------
         // Μουσική για το παιχνίδι
         // -----------------------------------------------------------------------------------------
-        let gameMusic = new Audio('./audio/μουσική.mp3');
-        gameMusic.loop = true;
-
         // Extreme mode μουσικη
         let startedExtremeModeMusic = false,
-            gameStarted = false,
-            extremeModeGameMusic = new Audio('./audio/extreme_mode_music.mp3');
-
-        extremeModeGameMusic.loop = true;
+            gameStarted = false;
         // -----------------------------------------------------------------------------------------
 
         // ---------------------------------------
@@ -151,6 +170,11 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 if (!papagianneosFinaleEnabled) {
                     let randomlyChosenSpecialCard = randomChoice(specialCardsConfig);
                     cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
+
+                    // Δες αν υπάρχει troll κάρτα..
+                    if (cardShapes[cardShapes.length - 1] == specialCardsConfig[11].shape) {
+                        trollCardExists = true;
+                    }
                 }
 
                 // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE
@@ -198,14 +222,26 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             let cardColors = randomChoice(COLOR_PALETTES);
             cardColors.push(...cardColors); // duplicate
 
+            // ----------------------------------------------------------------------
+            // Δεν πρέπει να έχει ζευγάρι η troll card
+            // ---------------------------------------------------------------------
+            // Σβήσε το ένα από το ζευγάρι
+            if (trollCardExists) {
+                let index = cardShapes.indexOf(specialCardsConfig[11].shape);
+                cardShapes.splice(index, 1);
+                cardColors.splice(index, 1);
+            }
+            // -----------------------------------------------------------------------
+
             // check cards length
-            if (cardShapes.length != AMOUNT_OF_CARDS || cardColors.length != AMOUNT_OF_CARDS) {
+            if ((trollCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (trollCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
                 throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.')
             }
 
-            for (var j = 0; j < AMOUNT_OF_CARDS; j++) {
+            for (var j = 0; j < (countTrollCards(cardShapes) != 0 ? (AMOUNT_OF_CARDS - 1) : AMOUNT_OF_CARDS); j++) {
                 const card = {
                     shape: cardShapes[j],
+                    realShape: cardShapes[j],
                     color: cardColors[j],
                     specialCard: false,
                     specialCardEffect: () => { }
@@ -237,7 +273,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         case specialCardsConfig[0].shape: // 10 Score (++)
                             specialCardIndex = 0;
                             card.specialCardEffect = () => {
-                                playSound('./audio/special_score.mp3');
+                                sounds.specialScore.play()
                                 score += 10;
                                 // Επίτευγμα: "Εκατοστάρα στη μάπα"
                                 unlockAchievement('ach_score_100', 10);
@@ -247,7 +283,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         case specialCardsConfig[1].shape: // x2 Score
                             specialCardIndex = 1;
                             card.specialCardEffect = () => {
-                                playSound('./audio/special_score.mp3');
+                                sounds.specialScore.play()
                                 score *= 2;
                             }
                             break;
@@ -255,7 +291,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         case specialCardsConfig[2].shape: // Half Score
                             specialCardIndex = 2;
                             card.specialCardEffect = () => {
-                                playSound('./audio/κακό_λάθος.mp3');
+                                sounds.loss.play()
                                 score /= 2;
                             }
                             break;
@@ -263,7 +299,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         case specialCardsConfig[3].shape: // 2 λιγότερες προσπάθειες
                             specialCardIndex = 3;
                             card.specialCardEffect = () => {
-                                playSound('./audio/special_score.mp3');
+                                sounds.specialScore.play()
                                 tries -= 2;
                                 updateTries();
                             }
@@ -272,7 +308,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         case specialCardsConfig[4].shape: // 10 λιγότερο score
                             specialCardIndex = 4;
                             card.specialCardEffect = () => {
-                                playSound('./audio/κακό_λάθος.mp3');
+                                sounds.loss.play()
                                 score -= 10;
                             }
                             break;
@@ -283,7 +319,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 // Επίτευγμα: 'Rest in pepperoni'
                                 unlockAchievement('ach_cross_card_found');
                                 if (!papagianneosFinaleEnabled) {
-                                    playSound('./audio/κακό_λάθος.mp3');
+                                    sounds.loss.play()
                                 }
                                 lostByDeathCard = true;
                             }
@@ -295,24 +331,24 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 // Επίτευγμα: "Ουάου"
                                 unlockAchievement('ach_pgn_card_found');
                                 if (startedExtremeModeMusic) {
-                                    extremeModeGameMusic.pause();
+                                    music.extremeModeGameMusic.pause();
                                 }
                                 else {
                                     if (papagianneosFinaleEnabled) {
-                                        papagianneosFinaleMusic.pause();
+                                        music.papagianneosFinaleMusic.pause();
                                     }
-                                    else gameMusic.pause();
+                                    else music.gameMusic.pause();
                                 }
-                                playSound('./audio/papagianneos_wow.mp3');
+                                sounds.wow.play();
                                 setTimeout(() => {
                                     if (startedExtremeModeMusic) {
-                                        extremeModeGameMusic.play();
+                                        music.extremeModeGameMusic.play();
                                     }
                                     else {
                                         if (papagianneosFinaleEnabled) {
-                                            papagianneosFinaleMusic.play();
+                                            music.papagianneosFinaleMusic.play();
                                         }
-                                        else gameMusic.play();
+                                        else music.gameMusic.play();
                                     }
                                 }, 3e3);
                             }
@@ -326,14 +362,14 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                                 // να μην επιτρέπεται στο papagianneos finale
                                 if (!papagianneosFinaleEnabled) { // αν δεν είναι finale
-                                    playSound('./audio/special_score.mp3');
+                                    sounds.specialScore.play()
                                     wonBySpecialCard = true;
                                 }
                                 else { // αλλιώς, αν ΕΙΝΑΙ finale
-                                    papagianneosFinaleMusic.pause();
-                                    playSound('./audio/papagianneos_troll.mp3');
+                                    music.papagianneosFinaleMusic.pause();
+                                    sounds.pgnFinaleKCardEffect.play();
                                     setTimeout(() => {
-                                        papagianneosFinaleMusic.play();
+                                        music.papagianneosFinaleMusic.play();
                                         document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     }, 4e3);
                                 }
@@ -346,7 +382,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 // Επίτευγμα: 'T r i a n g l e'
                                 unlockAchievement('ach_boom_card_found');
 
-                                playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                                sounds.cardOpenHardMode.play();
                                 // ανακάτεψε τις κάρτες
                                 let cardsListToShuffle = [],
                                     scoreAndTriesTextHolderChild = parentDiv.children[0];
@@ -414,18 +450,42 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 }
                             }
                             break;
+
+                        case specialCardsConfig[11].shape: // The Fake Card
+                            specialCardIndex = 11;
+                            card.specialCardEffect = () => {
+                                let question = confirm('The Eye wants to know your location.');
+
+                                if (question) {
+                                    window.location.href = '/specific';
+                                }
+
+                                else {
+                                    alert('T H E  E Y E  W A N T S  T O  K N O W  Y O U R  L O C A T I O N .');
+                                }
+                            }
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
                     if (specialCardDetected) {
-                        console.log(specialCardIndex);
                         addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
                         card.color = specialCardsConfig[specialCardIndex].color;
                         card.specialCard = true;
 
-                        // Σε περίπτωση που υπάρχει μεγάλο σύμβολο.
-                        if (specialCardsConfig[specialCardIndex].fatSymbol) {
-                            card.fatSymbol = true;
+                        // Σε περίπτωση που είναι η troll card
+                        if (specialCardsConfig[specialCardIndex].shape == '[?]') {
+                            let fakeCardShapes = cardShapes;
+
+                            // Δημιούργησε μία ψεύτικη λίστα με τα σχήματα όλων των καρτών εκτός από το troll
+                            fakeCardShapes = fakeCardShapes.filter(card2lShape => {
+                                return card2lShape != '[?]'
+                            });
+
+                            // Επέλεξε τυχαίο σχήμα.
+                            card.shape = randomChoice(fakeCardShapes);
+                            card.impostorCard = true;
+                            trollCardExists = true;
                         }
                     }
                 }
@@ -542,11 +602,14 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 div.specialCardEffect = card.specialCardEffect;
             }
 
+            if (card.impostorCard) div.impostorCard = true;
+
             // αποθήκευσε το χρώμα της κάρτας..
             div.savedBackgroundColor = card.color;
 
             // κείμενο για το σχέδιο/σχήμα της κάρτας
             div.savedText = card.shape; // αποθήκευσε και το κείμενο
+            div.realShape = card.realShape;
             div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
 
             // =======================================================
@@ -566,7 +629,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 // ----------------------------------
                 // Ήχος κάρτας.
                 // ----------------------------------
-                playSound('./audio/κλικ_κάρτας.mp3');
+                sounds.cardOpen.play();
                 // ----------------------------------
 
                 // ------------------------------------------
@@ -689,7 +752,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                 document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
                             }
 
-                            playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                            sounds.cardOpenHardMode.play();
 
                             // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
                             let cardsListToShuffle = [],
@@ -717,10 +780,39 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         currentSelected = [];
 
                         if (!hardModeEnabled) {
-                            playSound('./audio/λάθος.mp3');
+                            sounds.wrong.play();
                         }
 
                         blockClicks = true;
+                        setTimeout(() => {
+                            resetCards();
+                            blockClicks = false;
+                        }, 420);
+                    }
+
+                    // Αν είναι η troll κάρτα
+                    else if (firstCard.impostorCard || secondCard.impostorCard) {
+                        // Επίτευγμα: "SkinWalker"
+                        unlockAchievement('ach_impostor_card_found');
+
+                        // Αφαίρεσε την troll κάρτα από το παιχνίδι αν βρέθηκε
+                        let cardsList = [];
+
+                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                        for (var e = 0; e < parentDiv.children.length; e++) {
+                            let child = parentDiv.children[e];
+                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                            cardsList.push(child);
+                        }
+
+                        cardsList = cardsList.filter(elem => {
+                            return !elem.impostorCard;
+                        });
+
+                        parentDiv.replaceChildren(...cardsList);
+                        currentSelected = [];
+                        blockClicks = true;
+                        sounds.cardOpenHardMode.play();
                         setTimeout(() => {
                             resetCards();
                             blockClicks = false;
@@ -729,6 +821,37 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                     // αν είναι ίδιες οι κάρτες, δώσε score
                     else if (firstCard.savedText == secondCard.savedText) {
+
+                        // --------------------------------------------------------------------------------------------------
+                        // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
+                        // --------------------------------------------------------------------------------------------------
+                        if (trollCardExists) {
+                            let cardShapes_revived = [],
+                                cardsList = [];
+
+                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                            for (var e = 0; e < parentDiv.children.length; e++) {
+                                let child = parentDiv.children[e];
+                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                cardShapes_revived.push(child.savedText);
+                                cardsList.push(child);
+                            }
+
+                            for (var cardElem of cardsList) {
+                                if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
+                                    let fakeCardShapes = cardShapes_revived;
+
+                                    // Να μην χρησημοποιηθεί το ίδιο σχήμα
+                                    fakeCardShapes = fakeCardShapes.filter(item => {
+                                        return item != cardElem.savedText && item != undefined;
+                                    });
+
+                                    // Επέλεξε τυχαίο σχήμα.
+                                    cardElem.savedText = randomChoice(fakeCardShapes);
+                                }
+                            }
+                        }
+                        // --------------------------------------------------------------------------------------------------
 
                         // Αν είναι σπέσιαλ κάρτα..
                         if (firstCard.specialCard && secondCard.specialCard) {
@@ -763,7 +886,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                             // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
                             if (!firstCard.specialCard && !secondCard.specialCard) {
-                                playSound(hardModeEnabled || extremeModeEnabled ? './audio/δύσκολο_score.mp3' : './audio/score.mp3');
+                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
                             }
                         }
 
@@ -790,11 +913,13 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             // ---------------------------------
             // Μουσική
             // ----------------------------------
+            music.menuMusic.pause();
+
             if (!papagianneosFinaleEnabled) {
-                gameMusic.play();
+                music.gameMusic.play();
             }
             else {
-                papagianneosFinaleMusic.play();
+                music.papagianneosFinaleMusic.play();
             }
             // ----------------------------------
 
@@ -840,7 +965,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             howToPlayBtn.style.fontSize = '25px';
             howToPlayBtn.appendChild(document.createTextNode('How To Play'));
             howToPlayBtn.onclick = () => {
-                playSound('./audio/click.mp3');
+                sounds.buttonClick.play();
                 setTimeout(() => {
                     window.location.href = '/how-to-play';
                 }, 5e2);
@@ -851,7 +976,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             achievementsMenuBtn.style.fontSize = '25px';
             achievementsMenuBtn.appendChild(document.createTextNode('Επιτεύγματα'));
             achievementsMenuBtn.onclick = () => {
-                playSound('./audio/click.mp3');
+                sounds.buttonClick.play();
                 setTimeout(() => {
                     window.location.href = '/achievements';
                 }, 5e2);
@@ -861,7 +986,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             creditsBtn.style.fontSize = '25px';
             creditsBtn.appendChild(document.createTextNode('Πληροφορίες'));
             creditsBtn.onclick = () => {
-                playSound('./audio/click.mp3');
+                sounds.buttonClick.play();
                 document.body.appendChild(infoHolder);
             }
 
@@ -869,7 +994,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             customizePageLink.style.fontSize = '25px';
             customizePageLink.appendChild(document.createTextNode('Ρυθμίσεις'));
             customizePageLink.onclick = () => {
-                playSound('./audio/click.mp3');
+                sounds.buttonClick.play();
                 setTimeout(() => {
                     window.location.href = '/customize';
                 }, 5e2);
@@ -978,7 +1103,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                     startGame();
                     createCards();
-                    playSound('./audio/click.mp3');
+                    sounds.buttonClick.play();
 
                     if (!['papagianneosFinale', '???'].includes(mode)) {
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
@@ -1010,7 +1135,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
             closeInfoHolderBtn.appendChild(document.createTextNode('Κλείσιμο'));
             closeInfoHolderBtn.style.fontSize = '25px';
             closeInfoHolderBtn.onclick = () => {
-                playSound('./audio/click.mp3');
+                sounds.buttonClick.play();
                 document.body.removeChild(infoHolder);
             }
 
@@ -1074,7 +1199,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 // --------------------------------------------------------------------------------------------------------------------
                 for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
 
-                    openedCards = openedCards.filter(_card => { return _card.innerHTML != currentSpecialCards[specialCardShapeIndex] });
+                    openedCards = openedCards.filter(_card => { return _card.realShape != currentSpecialCards[specialCardShapeIndex] });
                     if (!removedSpecialCardsFromFullCount[specialCardShapeIndex]) {
                         AMOUNT_OF_CARDS -= 1;
                         removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
@@ -1118,12 +1243,12 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         else { // papagianneos is angry
                             // σταμάτα την μουσική για λίγο
                             if (!startedExtremeModeMusic) {
-                                papagianneosFinaleMusic.pause();
+                                music.papagianneosFinaleMusic.pause();
                             }
                             else {
-                                extremeModeGameMusic.pause();
+                                music.extremeModeGameMusic.pause();
                             }
-                            playSound('./audio/papagianneos_final_moment.mp3');
+                            sounds.angryPgn.play();
 
                             // Φτιάξε "death" κάρτες
                             setTimeout(() => {
@@ -1134,7 +1259,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                                         specialCard: true,
                                         specialCardEffect: () => {
                                             if (!papagianneosFinaleEnabled) {
-                                                playSound('./audio/κακό_λάθος.mp3');
+                                                sounds.loss.play()
                                             }
                                             lostByDeathCard = true;
                                         }
@@ -1148,13 +1273,13 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                                 // ξαναάρχισε την μουσική
                                 if (!startedExtremeModeMusic) {
-                                    papagianneosFinaleMusic.play();
+                                    music.papagianneosFinaleMusic.play();
                                 }
                                 else {
-                                    extremeModeGameMusic.play();
+                                    music.extremeModeGameMusic.play();
                                 }
 
-                                playSound('./audio/δύσκολο_κλικ_κάρτας.mp3');
+                                sounds.cardOpenHardMode.play();
                                 // ανακάτεψε τις κάρτες
                                 let cardsListToShuffle = [],
                                     scoreAndTriesTextHolderChild = parentDiv.children[0];
@@ -1204,11 +1329,11 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                             startedExtremeModeMusic = true;
                             // papagianneos mad mode
                             if (papagianneosFinaleEnabled) {
-                                papagianneosFinaleMusic.pause();
+                                music.papagianneosFinaleMusic.pause();
                                 document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(maroon, black)';
                             }
-                            gameMusic.pause();
-                            extremeModeGameMusic.play();
+                            music.gameMusic.pause();
+                            music.extremeModeGameMusic.play();
                         }
                     }
 
@@ -1216,16 +1341,17 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || (tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
                         if (lostByDeathCard) {
-                            gameMusic.pause();
+                            music.gameMusic.pause();
                         }
 
                         if (papagianneosFinaleEnabled) {
-                            papagianneosFinaleMusic.pause();
+                            music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
-                            playSound('./audio/' + randomChoice(['papagianneos_laugh.mp3', 'papagianneos_laugh.mp3', 'papagianneos_laugh_2.mp3']));
+                            let which = randomChoice([1, 1, 2]);
+                            which == 1 ? sounds.pgnLaugh1.play() : sounds.pgnLaugh2.play();
                         }
 
-                        extremeModeGameMusic.pause();
+                        music.extremeModeGameMusic.pause();
 
                         // Εμφάνισε "Κέρδισες!" οθόνη.
                         let loseScreen = document.createElement('div');
@@ -1246,7 +1372,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                         playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
                         playAgainButton.style.backgroundColor = 'maroon';
                         playAgainButton.onclick = () => {
-                            playSound('./audio/click.mp3');
+                            sounds.buttonClick.play();
                             // για να προλάβει να παίξει ο ήχος..
                             setTimeout(() => {
                                 window.location.reload();
@@ -1267,7 +1393,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                 // --------------------------------------------------------------------
 
                 // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
-                if (wonBySpecialCard || (openedCards.length / 2) >= (AMOUNT_OF_CARDS / 2)) {
+                if (wonBySpecialCard || ((trollCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
 
                     // -------------------------------------------------------------------
                     // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
@@ -1321,21 +1447,21 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                     // ---------------------------------
                     // Μουσική
                     // ---------------------------------
-                    gameMusic.pause();
+                    music.gameMusic.pause();
 
                     // Αν άρχισε η extreme μουσική
                     if (startedExtremeModeMusic) {
-                        extremeModeGameMusic.pause();
+                        music.extremeModeGameMusic.pause();
                     }
 
                     // Αν papagianneos finale
                     if (papagianneosFinaleEnabled) {
-                        papagianneosFinaleMusic.pause();
+                        music.papagianneosFinaleMusic.pause();
                     }
                     // -----------------------------------
 
                     clearInterval(gameLoop);
-                    playSound('./audio/νίκη.mp3');
+                    sounds.win.play();
 
                     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
 
@@ -1348,7 +1474,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 
                     // αν papagianneos finale, σπεσιαλ μήνυμα
                     if (papagianneosFinaleEnabled) {
-                        playSound('./audio/papagianneos_msg.mp3')
+                        sounds.pgnFinaleWin.play();
                     }
 
                     // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
@@ -1372,7 +1498,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
                     let playAgainButton = document.createElement('button');
                     playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
                     playAgainButton.onclick = () => {
-                        playSound('./audio/click.mp3');
+                        sounds.buttonClick.play();
                         // για να προλάβει να παίξει ο ήχος..
                         setTimeout(() => {
                             window.location.reload();
