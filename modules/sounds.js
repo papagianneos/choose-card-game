@@ -21,7 +21,7 @@ export const music = {
     }),
 
     papagianneosFinaleMusic: new Howl({
-        src: ['./audio/papagianneos_finale.mp3'],
+        src: ['./audio/papagianneos_finale_music_v2.mp3'],
         loop: true
     })
 }
@@ -90,6 +90,10 @@ export const sounds = {
 
     pgnLaugh2: new Howl({
         src: ['./audio/papagianneos_laugh_2.mp3'],
+    }),
+
+    null: new Howl({
+        src: ['./audio/null.mp3']
     })
 }
 
