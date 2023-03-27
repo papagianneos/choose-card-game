@@ -70,5 +70,11 @@ export const specialCardsConfig = [
         shape: '[?]',
         color: 'transparent',
         info: 'Αλλάζω μορφή.. booo'
+    },
+
+    {// NULL
+        shape: 'Ø',
+        color: 'radial-gradient(black, green, black)',
+        info: 'null'
     }
 ];
