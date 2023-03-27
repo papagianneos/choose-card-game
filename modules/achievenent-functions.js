@@ -262,6 +262,14 @@ export let achievementsConfig = [
         requiredProgress: 2,
         color: 'radial-gradient(maroon, #1b4035)',
         unlocked: false
+    },
+
+    {
+        name: 'SkinWalker',
+        desc: 'ΤΙ ΦΑΣΗ ΜΕ ΑΥΤΗ ΤΗ ΚΑΡΤΑ',
+        id: "ach_impostor_card_found",
+        color: 'radial-gradient(lime, green, cyan)',
+        unlocked: false
     }
 ];
 // ------------------------------------------------------------------------------------------------------------------
