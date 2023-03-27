@@ -64,5 +64,11 @@ export const specialCardsConfig = [
         shape: '👁',
         color: 'radial-gradient(black, black, white)',
         info: 'The eye sees..'
+    },
+
+    {
+        shape: '[?]',
+        color: 'transparent',
+        info: 'Αλλάζω μορφή.. booo'
     }
 ];
