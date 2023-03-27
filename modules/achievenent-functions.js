@@ -1,3 +1,5 @@
+import { sounds } from "./sounds.js";
+
 // Διάβασε πληροφορίες αρχικά
 export let FETCHED_ACHIEVEMENT_DATA = localStorage.getItem('achievementData') != null ? JSON.parse(localStorage.getItem('achievementData')) : [];
 
@@ -330,7 +332,7 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
     achievementNotifDesc.style.fontSize = '20px';
 
     setTimeout(() => {
-        new Audio('./audio/achievement.mp3').play();
+        sounds.achievement.play();
         tempDiv.appendChild(achievementNotifTitle);
         achievementNotifBox.appendChild(tempDiv);
         achievementNotifBox.appendChild(achievementNotifDesc);
