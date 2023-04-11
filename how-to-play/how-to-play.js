@@ -158,6 +158,12 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
         },
 
         {
+            label: 'TIMED',
+            color: 'radial-gradient(yellow, gold)',
+            info: 'Ταχύτητα = Νίκη'
+        },
+
+        {
             label: 'Papagianneos FINALE',
             color: 'radial-gradient(green, black)',
             info: '? ? ?'
