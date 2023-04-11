@@ -264,6 +264,7 @@ progress {
     margin: 0 auto;
     border-radius: 2.5px;
     transform: skew(30deg);
+    display: none;
 }
 
 /*.achievementsBox {
