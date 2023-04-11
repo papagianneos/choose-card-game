@@ -11,6 +11,19 @@ import { music, sounds } from "./modules/sounds.js";
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
 
+        // -----------------------------------------------------
+        // TIMED mode
+        // -----------------------------------------------------
+        let timedModeEnabled = false,
+            timedModeStyleTagMade = false;
+
+        const makePercentage = (partialValue, totalValue) => {
+            return (100 * partialValue) / totalValue;
+        }
+        // -----------------------------------------------------
+
+        let streak = 0;
+
         // NULL κάρτα
         let underNullEffect = false,
             turnsToRemoveNullEffect = 0,
@@ -118,6 +131,13 @@ import { music, sounds } from "./modules/sounds.js";
         // 1 - Σχήμα/σχέδιο και χρώμα των καρτών setup
         // ========================================================================
         let AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]); // μέγιστο είναι 36 κάρτες.
+
+        // ----------------------------------------------------
+        // TIMED Gamemode
+        // -----------------------------------------------------
+        let standardTimeLeft = AMOUNT_OF_CARDS > 16 ? 850 : 750,
+            timeLeft = standardTimeLeft;
+        // ------------------------------------------------------
 
         // ----------------------------------------
         // Extreme Gamemode
@@ -536,6 +556,18 @@ import { music, sounds } from "./modules/sounds.js";
         // Κείμενο που γράφει τις προσπάθειες και το score του παίχτη.
         let scoreAndTriesHolder = document.createElement('div');
 
+        // -----------------------------------------------------------------
+        // TIMED Mode
+        // -----------------------------------------------------------------
+        let timeBar;
+
+        timeBar = document.createElement('progress');
+
+        timeBar.id = 'timeBar';
+        timeBar.setAttribute("max", standardTimeLeft);
+        timeBar.setAttribute("value", timeLeft.toFixed(2));
+        // -----------------------------------------------------------------
+
         let scoreText = document.createElement('h1'),
             triesText = document.createElement('h1');
 
@@ -549,6 +581,7 @@ import { music, sounds } from "./modules/sounds.js";
 
         scoreAndTriesHolder.appendChild(scoreText);
         scoreAndTriesHolder.appendChild(triesText);
+        scoreAndTriesHolder.appendChild(timeBar);
         parentDiv.appendChild(scoreAndTriesHolder);
 
         // Συναρτήσεις που ενημερώνουν το score και τις προσπάθειες του παίχτη
@@ -613,6 +646,8 @@ import { music, sounds } from "./modules/sounds.js";
                 div.style.textDecorationThickness = playersEffect.textDecorationThickness;
                 div.style.textDecorationLine = playersEffect.textDecorationLine;
                 div.style.textDecorationStyle = playersEffect.textDecorationStyle;
+                div.style.width = JSON.parse(playersEffect.widthAndHeight)[0];
+                div.style.height = JSON.parse(playersEffect.widthAndHeight)[1];
 
                 if (playersEffect.neonMode) {
                     div.style.borderWidth = '5px';
@@ -698,6 +733,8 @@ import { music, sounds } from "./modules/sounds.js";
 
                     // αν είναι διαφορετικές οι κάρτες, επαναφορά
                     if (firstCard.savedText !== secondCard.savedText) {
+                        if (streak != 0) streak = 0;
+
                         // Επίτευγμα: "Το μοιραίο λάθος"
                         unlockAchievement('ach_10_tries');
 
@@ -867,6 +904,10 @@ import { music, sounds } from "./modules/sounds.js";
                     // αν είναι ίδιες οι κάρτες, δώσε score
                     else if (firstCard.savedText == secondCard.savedText) {
 
+                        // Επίτευγμα: "Just Like Peter"
+                        streak += 1;
+                        if (streak == 3) unlockAchievement('ach_peter');
+
                         // --------------------------------------------------------------------------------------------------
                         // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
                         // --------------------------------------------------------------------------------------------------
@@ -960,12 +1001,13 @@ import { music, sounds } from "./modules/sounds.js";
             // ----------------------------------
             music.menuMusic.pause();
 
-            if (!papagianneosFinaleEnabled) {
-                music.gameMusic.play();
+            if (timedModeEnabled) {
+                music.timeLevelMusic.play();
             }
-            else {
+            else if (papagianneosFinaleEnabled) {
                 music.papagianneosFinaleMusic.play();
             }
+            else music.gameMusic.play();
             // ----------------------------------
 
             for (var i = 0; i < cardsData.length; i++) {
@@ -1128,6 +1170,10 @@ import { music, sounds } from "./modules/sounds.js";
                             extremeModeEnabled = true;
                             break;
 
+                        case 'timed': // Timed.
+                            timedModeEnabled = true;
+                            break;
+
                         case 'papagianneosFinale': // LOL WHY I MADE THIS
                             MAX_TRIES = 69;
                             AMOUNT_OF_CARDS = 26;
@@ -1191,6 +1237,7 @@ import { music, sounds } from "./modules/sounds.js";
                 playButtonHard = createButton('Παίξε Δύσκολο', 'maroon', 'hard'), // Κουμπί για να παίξει ο παίχτης "δύσκολο" mode
                 playButtonChallenge = createButton('Παίξε Challenge', 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
                 playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
+                playButtonTimed = createButton('Παίξε TIMED', 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton('???? ?????', 'radial-gradient(#240907, black)', '???'), // Κουμπί για να παίξει ο παίχτης "???" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
@@ -1201,6 +1248,7 @@ import { music, sounds } from "./modules/sounds.js";
             buttonsWrapper.appendChild(playButtonHard);
             buttonsWrapper.appendChild(playButtonChallenge);
             buttonsWrapper.appendChild(playButtonExtreme);
+            buttonsWrapper.appendChild(playButtonTimed);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             // ----------------------------------------------------
@@ -1225,6 +1273,67 @@ import { music, sounds } from "./modules/sounds.js";
 
             // game loop
             const gameLoop = setInterval(() => {
+
+                // ---------------------------------------------------------------
+                // TIMED Mode
+                // ---------------------------------------------------------------
+                if (timedModeEnabled && gameStarted) {
+                    // Μείωσε τον χρόνο
+                    timeLeft -= 1;
+                    timeBar.setAttribute("value", timeLeft.toFixed(2));
+
+                    let timeLeftPerc = makePercentage(timeLeft, standardTimeLeft);
+
+                    // Μπάρα χρόνου
+                    if (document.getElementById('timeBar')) {
+                        document.getElementById('timeBar').style.display = 'block';
+
+                        // Χρώμα της μπάρας του χρόνου
+                        let color__ = 'green';
+
+                        if (timeLeftPerc > 60) {
+                            color__ = 'green';
+                        }
+                        else if (timeLeftPerc <= 60 && color__ != 'red') {
+                            color__ = 'gold';
+                        }
+                        if (timeLeftPerc <= 35) {
+                            color__ = 'red';
+                            if (!startedExtremeModeMusic) {
+                                startedExtremeModeMusic = true;
+                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                                music.timeLevelMusic.pause();
+                                music.extremeModeGameMusic.play();
+                            }
+                        }
+
+                        // -----------------------------------------------------------------------------------------------------------
+                        // Η CSS δεν αφήνει να γίνει αλλαγεί στο χρώμα τύπου "progress", για αυτό δημιούργησε ένα ψεύτικο CSS tag και
+                        // τοποθέτησε τις πληροφορίες χρωμάτων εκεί.
+                        // -----------------------------------------------------------------------------------------------------------
+                        if (!timedModeStyleTagMade) {
+                            let tempStyleTag = document.createElement('style');
+                            tempStyleTag.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${color__}; }`));
+                            document.head.appendChild(tempStyleTag);
+                            timedModeStyleTagMade = true;
+                        }
+
+                        else {
+                            document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${color__}; }`;
+                        }
+                        // -----------------------------------------------------------------------------------------------------------
+
+                    }
+
+                    // Κάνε τον παίχτη να χάσει αν τελείωσε ο χρόνος
+                    if (timeLeft <= 0) {
+                        lostByDeathCard = true;
+                        sounds.loss.play();
+                    }
+                }
+                // ---------------------------------------------------------------
+
                 // --------------------------------------------------------
                 // Μέτρα πόσες ανοιχτές κάρτες υπάρχουν/έχουν βρεθεί
                 // και τέλειωσε το παιχνίδι αν έχουν βρεθεί όλες.
@@ -1475,6 +1584,11 @@ import { music, sounds } from "./modules/sounds.js";
                                 achievementIDToCheckForUnlock = 'ach_pgn_finale_win';
                                 break;
 
+                            // Timed
+                            case timedModeEnabled:
+                                achievementIDToCheckForUnlock = 'ach_timed_mode_win';
+                                break;
+
                             // Απλό
                             default:
                                 achievementIDToCheckForUnlock = 'ach_normal_mode_win';
@@ -1515,7 +1629,7 @@ import { music, sounds } from "./modules/sounds.js";
                     winScreen.id = 'screen';
 
                     let winScreenText = document.createElement('h1');
-                    winScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+                    winScreenText.appendChild(document.createTextNode(timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
 
                     // αν papagianneos finale, σπεσιαλ μήνυμα
                     if (papagianneosFinaleEnabled) {
