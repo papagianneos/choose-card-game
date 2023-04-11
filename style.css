@@ -1,23 +1,5 @@
 /* CSS */
 
-::-webkit-scrollbar {
-    width: 6px;
-    height: 0;
-    display: none;
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 0.15);
-    display: none;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
-}
-
 
 /* ------------------------------------ */
 /* BUG FIX: για τις γραμματοσειρές */
@@ -271,6 +253,17 @@ button:hover {
     text-align: center;
     color: white;
     border-bottom: 2px solid black;
+}
+
+progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;    
+    width: 325px;
+    height: 30px;
+    margin: 0 auto;
+    border-radius: 2.5px;
+    transform: skew(30deg);
 }
 
 /*.achievementsBox {
