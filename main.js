@@ -1636,7 +1636,7 @@ import { music, sounds } from "./modules/sounds.js";
                     winScreen.id = 'screen';
 
                     let winScreenText = document.createElement('h1');
-                    winScreenText.appendChild(document.createTextNode(timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : wonBySpecialCard ? 'Σε έσωσα!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+                    winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
 
                     // αν papagianneos finale, σπεσιαλ μήνυμα
                     if (papagianneosFinaleEnabled) {
