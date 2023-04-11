@@ -67,6 +67,37 @@
         },
 
         {
+            name: "Τετράπλευρο Κάρτας",
+            id: "cardOutsideShape",
+            type: 'select',
+            optionSetup: [
+                {
+                    name: 'Τετράγωνο',
+                    value: JSON.stringify(['150px', '150px'])
+                },
+
+                {
+                    name: 'Ορθογώνιο (Οριζόντιο)',
+                    value: JSON.stringify(['250px', '150px'])
+                },
+
+                {
+                    name: 'Ορθογώνιο (Κάθετο)',
+                    value: JSON.stringify(['150px', '250px'])
+                },
+
+                {
+                    name: 'B I G',
+                    value: JSON.stringify(['300px', '300px'])
+                },
+            ],
+            setup: (value) => {
+                previewCard.style.width = JSON.parse(value)[0];
+                previewCard.style.height = JSON.parse(value)[1];
+            }
+        },
+
+        {
             name: "Μέγεθος Γραμματοσειράς",
             id: "cardTextSize",
             type: 'range',
@@ -297,6 +328,7 @@
         new Audio('../audio/click.mp3').play();
         const effect = {
             neonMode: document.getElementById("neonCard").checked,
+            widthAndHeight: document.getElementById("cardOutsideShape").value,
             borderRadius: `${document.getElementById('cardShape').value}px`,
             fontSize: `${document.getElementById('cardTextSize').value}px`,
             textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
@@ -317,6 +349,7 @@
     document.getElementById('cardTextSize').value = '60';
     const playersEffect = {
         neonMode: document.getElementById("neonCard").checked,
+        widthAndHeight: document.getElementById("cardOutsideShape").value,
         borderRadius: `${document.getElementById('cardShape').value}px`,
         fontSize: `${document.getElementById('cardTextSize').value}px`,
         textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
@@ -331,5 +364,7 @@
     previewCard.style.textDecorationThickness = playersEffect.textDecorationThickness;
     previewCard.style.textDecorationLine = playersEffect.textDecorationLine;
     previewCard.style.textDecorationStyle = playersEffect.textDecorationStyle;
+    previewCard.style.width = playersEffect.widthAndHeight[0];
+    previewCard.style.height = playersEffect.widthAndHeight[1];
 
 })();
