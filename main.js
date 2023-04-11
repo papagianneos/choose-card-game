@@ -1303,8 +1303,6 @@ import { music, sounds } from "./modules/sounds.js";
                                 startedExtremeModeMusic = true;
                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                 document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                                music.timeLevelMusic.pause();
-                                music.extremeModeGameMusic.play();
                             }
                         }
 
