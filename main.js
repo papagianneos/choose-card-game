@@ -361,7 +361,10 @@ import { music, sounds } from "./modules/sounds.js";
                                     music.extremeModeGameMusic.pause();
                                 }
                                 else {
-                                    if (papagianneosFinaleEnabled) {
+                                    if (timedModeEnabled) {
+                                        music.timeLevelMusic.pause();
+                                    }
+                                    else if (papagianneosFinaleEnabled) {
                                         music.papagianneosFinaleMusic.pause();
                                     }
                                     else music.gameMusic.pause();
@@ -369,10 +372,13 @@ import { music, sounds } from "./modules/sounds.js";
                                 sounds.wow.play();
                                 setTimeout(() => {
                                     if (startedExtremeModeMusic) {
-                                        music.extremeModeGameMusic.play();
+                                        music.extremeModeGameMusic.pause();
                                     }
                                     else {
-                                        if (papagianneosFinaleEnabled) {
+                                        if (timedModeEnabled) {
+                                            music.timeLevelMusic.play();
+                                        }
+                                        else if (papagianneosFinaleEnabled) {
                                             music.papagianneosFinaleMusic.play();
                                         }
                                         else music.gameMusic.play();
@@ -1299,11 +1305,8 @@ import { music, sounds } from "./modules/sounds.js";
                         }
                         if (timeLeftPerc <= 35) {
                             color__ = 'red';
-                            if (!startedExtremeModeMusic) {
-                                startedExtremeModeMusic = true;
-                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                            }
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
                         }
 
                         // -----------------------------------------------------------------------------------------------------------
@@ -1494,6 +1497,7 @@ import { music, sounds } from "./modules/sounds.js";
                         gameStarted = false;
                         if (lostByDeathCard) {
                             music.gameMusic.pause();
+                            music.timeLevelMusic.pause();
                         }
 
                         if (papagianneosFinaleEnabled) {
@@ -1605,6 +1609,11 @@ import { music, sounds } from "./modules/sounds.js";
                     // Μουσική
                     // ---------------------------------
                     music.gameMusic.pause();
+
+                    // Timed mode
+                    if (timedModeEnabled) {
+                        music.timeLevelMusic.pause();
+                    }
 
                     // Αν άρχισε η extreme μουσική
                     if (startedExtremeModeMusic) {
