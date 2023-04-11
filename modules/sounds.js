@@ -23,6 +23,11 @@ export const music = {
     papagianneosFinaleMusic: new Howl({
         src: ['./audio/papagianneos_finale_music_v2.mp3'],
         loop: true
+    }),
+
+    timeLevelMusic: new Howl({
+        src: ['./audio/time_level_music.mp3'],
+        loop: true,
     })
 }
 
