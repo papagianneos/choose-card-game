@@ -272,6 +272,30 @@ export let achievementsConfig = [
         id: "ach_impostor_card_found",
         color: 'radial-gradient(lime, green, cyan)',
         unlocked: false
+    },
+
+    {
+        name: 'Σαν τον Πέτρο',
+        desc: 'Βρες 3 σωστές κάρτες στη σειρά',
+        id: 'ach_peter',
+        color: 'cyan',
+        unlocked: false
+    },
+    
+    {
+        name: 'SREEEEEEED',
+        desc: 'Κέρδισε το Timed mode.',
+        id: 'ach_timed_mode_win',
+        color: 'radial-gradient(gold, yellow)',
+        unlocked: false
+    },
+
+    {
+        name: '[REDACTED]',
+        desc: 'She is the best',
+        id: 'ach_redacted',
+        color: 'radial-gradient(black, black, white)',
+        unlocked: false
     }
 ];
 // ------------------------------------------------------------------------------------------------------------------
