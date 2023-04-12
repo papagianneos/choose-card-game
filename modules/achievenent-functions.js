@@ -284,9 +284,24 @@ export let achievementsConfig = [
     
     {
         name: 'SREEEEEEED',
-        desc: 'Κέρδισε το Timed mode.',
+        desc: 'Κέρδισε το "timed" mode.',
         id: 'ach_timed_mode_win',
         color: 'radial-gradient(gold, yellow)',
+        unlocked: false
+    },
+
+    {
+        name: 'Χελωνάρας',
+        desc: 'Βρες την σπέσιαλ κάρτα που κάνει τον χρόνο αργότερο',
+        id: 'ach_timed_mode_slow_card',
+        color: 'radial-gradient(#0800ff, #00ff77)'
+    },
+
+    {
+        name: 'Τι ρολόι είναι αυτό ρε;',
+        desc: 'Βρες τη χρονική σπέσιαλ κάρτα',
+        id: 'ach_timed_special_card',
+        color: 'radial-gradient(#3d1406, #8ca7cf)',
         unlocked: false
     },
 
