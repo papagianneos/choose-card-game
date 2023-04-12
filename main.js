@@ -475,7 +475,7 @@ import { music, sounds } from "./modules/sounds.js";
                                 }
 
                                 setTimeout(() => {
-                                    resetCards();
+                                    resetCards(false);
                                     blockClicks = false;
                                     document.getElementById('cardsHolder').style.transition = '1s';
                                     document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
@@ -558,7 +558,7 @@ import { music, sounds } from "./modules/sounds.js";
                                 }
                                 
                                 setTimeout(() => {
-                                    resetCards();
+                                    resetCards(false);
                                 }, 420);
                             }
                             break;
@@ -950,7 +950,7 @@ import { music, sounds } from "./modules/sounds.js";
                         blockClicks = true;
                         sounds.cardOpenHardMode.play();
                         setTimeout(() => {
-                            resetCards();
+                            resetCards(false);
                             blockClicks = false;
                         }, 5e2);
                     }
@@ -1467,7 +1467,7 @@ import { music, sounds } from "./modules/sounds.js";
                                             lostByDeathCard = true;
                                         }
                                     });
-                                    resetCards();
+                                    resetCards(false);
                                 }
 
                                 document.getElementById('cardsHolder').style.animation = 'none';
@@ -1504,8 +1504,6 @@ import { music, sounds } from "./modules/sounds.js";
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                 parentDiv.replaceChildren(...cardsListToShuffle);
                                 blockClicks = false;
-                                tries -= 5; // χρειάζεται
-                                updateTries();
                             }, 12e3);
                         }
                     }
