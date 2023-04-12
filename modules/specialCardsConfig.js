@@ -77,5 +77,13 @@ export const specialCardsConfig = [
         shape: '[?]',
         color: 'transparent',
         info: 'Αλλάζω μορφή.. booo'
-    }
+    },
+
+    // time card
+    {
+        shape: '◕',
+        color: 'radial-gradient(#3d1406, #8ca7cf)',
+        info: '+30sec Χρόνος',
+        noSpawnInFinale: true
+    },
 ];
