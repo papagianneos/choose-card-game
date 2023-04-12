@@ -103,6 +103,10 @@ export const sounds = {
 
     timeCardEffect: new Howl({
         src: ['./audio/time_card_effect.mp3']
+    }),
+
+    timeSlower: new Howl({
+        src: ['./audio/time_slower.mp3']
     })
 }
 
