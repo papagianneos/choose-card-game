@@ -524,6 +524,9 @@ import { music, sounds } from "./modules/sounds.js";
                         case specialCardsConfig[13].shape: // +60sec TIME Card
                             specialCardIndex = 13;
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: "Τι ρολόι είναι αυτό ρε;"
+                                unlockAchievement('ach_timed_special_card');
+
                                 timeLeft += 60;
                                 sounds.timeCardEffect.play();
                             }
@@ -531,7 +534,11 @@ import { music, sounds } from "./modules/sounds.js";
 
                         case specialCardsConfig[14].shape: // Αργότερος Χρόνος
                             specialCardIndex = 14;
+
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: "Χελωνάρας"
+                                unlockAchievement('ach_timed_mode_slow_card');
+
                                 sounds.timeSlower.play();
                                 decreaseTimeBy = .33;
                             }
