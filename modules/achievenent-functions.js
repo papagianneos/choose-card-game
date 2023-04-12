@@ -281,7 +281,7 @@ export let achievementsConfig = [
         color: 'cyan',
         unlocked: false
     },
-    
+
     {
         name: 'SREEEEEEED',
         desc: 'Κέρδισε το "timed" mode.',
@@ -310,6 +310,14 @@ export let achievementsConfig = [
         desc: 'She is the best',
         id: 'ach_redacted',
         color: 'radial-gradient(black, black, white)',
+        unlocked: false
+    },
+
+    {
+        name: 'Απώλεια Μνήμης',
+        desc: 'Σφάλμα 404',
+        id: 'ach_memory_loss',
+        color: 'radial-gradient(#98AFC7, #0C090A)',
         unlocked: false
     }
 ];
