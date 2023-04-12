@@ -1,4 +1,5 @@
 import { specialCardsConfig } from "../modules/specialCardsConfig.js";
+import { sounds } from "../modules/sounds.js";
 
 (() => {
 
@@ -29,7 +30,10 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
     let goBackBtn = document.createElement('button');
     goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
     goBackBtn.onclick = () => {
-        window.location.href = '/';
+        sounds.buttonClick.play();
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 5e2);
     }
     goBackBtnWrapper.appendChild(goBackBtn);
     mainHTPDiv.appendChild(goBackBtnWrapper);
