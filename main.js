@@ -15,7 +15,8 @@ import { music, sounds } from "./modules/sounds.js";
         // TIMED mode
         // -----------------------------------------------------
         let timedModeEnabled = false,
-            timedModeStyleTagMade = false;
+            timedModeStyleTagMade = false,
+            decreaseTimeBy = 1;
 
         const makePercentage = (partialValue, totalValue) => {
             return (100 * partialValue) / totalValue;
@@ -195,7 +196,9 @@ import { music, sounds } from "./modules/sounds.js";
                 // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                 // αν δεν παίζει ο παίχτης το FINALE.
                 if (!papagianneosFinaleEnabled) {
-                    let randomlyChosenSpecialCard = randomChoice(specialCardsConfig);
+                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.noSpawnInFinale })
+
+                    let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
                     cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
 
                     // Δες αν υπάρχει troll κάρτα..
@@ -205,7 +208,10 @@ import { music, sounds } from "./modules/sounds.js";
 
                     // Χρειάζεται timed card στο TIMED mode
                     if (timedModeEnabled) {
-                        cardShapes.push(specialCardsConfig[13].shape);
+                        // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
+                        const timeModeCards = specialCardsConfig.filter(carde => { return carde.noSpawnInFinale })
+
+                        cardShapes.push(randomChoice(timeModeCards).shape);
                         AMOUNT_OF_CARDS += 2;
                     }
                 }
@@ -515,10 +521,19 @@ import { music, sounds } from "./modules/sounds.js";
                             specialCardIndex = 12;
                             break;
 
-                        case specialCardsConfig[13].shape: // TIME Card
+                        case specialCardsConfig[13].shape: // +60sec TIME Card
                             specialCardIndex = 13;
                             card.specialCardEffect = () => {
-                                timeLeft += 30;
+                                timeLeft += 60;
+                                sounds.timeCardEffect.play();
+                            }
+                            break;
+
+                        case specialCardsConfig[14].shape: // Αργότερος Χρόνος
+                            specialCardIndex = 14;
+                            card.specialCardEffect = () => {
+                                sounds.timeSlower.play();
+                                decreaseTimeBy = .33;
                             }
                             break;
                     }
@@ -1290,7 +1305,7 @@ import { music, sounds } from "./modules/sounds.js";
                 // ---------------------------------------------------------------
                 if (timedModeEnabled && gameStarted) {
                     // Μείωσε τον χρόνο
-                    timeLeft -= 1;
+                    timeLeft -= decreaseTimeBy;
                     timeBar.setAttribute("value", timeLeft.toFixed(2));
 
                     let timeLeftPerc = makePercentage(timeLeft, standardTimeLeft);
