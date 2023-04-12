@@ -52,7 +52,7 @@ import { music, sounds } from "./modules/sounds.js";
             let countedTrolls = 0;
 
             for (let searchShape of cardShapes_revived) {
-                if (searchShape == specialCardsConfig[12].shape) countedTrolls++;
+                if (searchShape == '[?]') countedTrolls++;
             }
 
             return countedTrolls;
@@ -199,16 +199,24 @@ import { music, sounds } from "./modules/sounds.js";
                     cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
 
                     // Δες αν υπάρχει troll κάρτα..
-                    if (cardShapes[cardShapes.length - 1] == specialCardsConfig[12].shape) {
+                    if (cardShapes[cardShapes.length - 1] == '[?]') {
                         trollCardExists = true;
+                    }
+
+                    // Χρειάζεται timed card στο TIMED mode
+                    if (timedModeEnabled) {
+                        cardShapes.push(specialCardsConfig[13].shape);
+                        AMOUNT_OF_CARDS += 2;
                     }
                 }
 
-                // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE
+                // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE (εκτός αν είναι noSpawnInFinale)
                 else {
                     for (var specialCard_ of specialCardsConfig) {
-                        cardShapes.push(specialCard_.shape);
-                        AMOUNT_OF_CARDS += 2;
+                        if (!specialCard_.noSpawnInFinale) {
+                            cardShapes.push(specialCard_.shape);
+                            AMOUNT_OF_CARDS += 2;
+                        }
                     }
                 }
             }
@@ -254,7 +262,7 @@ import { music, sounds } from "./modules/sounds.js";
             // ---------------------------------------------------------------------
             // Σβήσε το ένα από το ζευγάρι
             if (trollCardExists) {
-                let index = cardShapes.indexOf(specialCardsConfig[12].shape);
+                let index = cardShapes.indexOf('[?]');
                 cardShapes.splice(index, 1);
                 cardColors.splice(index, 1);
             }
@@ -503,17 +511,14 @@ import { music, sounds } from "./modules/sounds.js";
                             break;
 
                         case specialCardsConfig[12].shape: // The Fake Card
+                            // δεν κάνει τίποτα λολ
                             specialCardIndex = 12;
+                            break;
+
+                        case specialCardsConfig[13].shape: // TIME Card
+                            specialCardIndex = 13;
                             card.specialCardEffect = () => {
-                                let question = confirm('The Eye wants to know your location.');
-
-                                if (question) {
-                                    window.location.href = '/specific';
-                                }
-
-                                else {
-                                    alert('T H E  E Y E  W A N T S  T O  K N O W  Y O U R  L O C A T I O N .');
-                                }
+                                timeLeft += 30;
                             }
                             break;
                     }
