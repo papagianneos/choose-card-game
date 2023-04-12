@@ -99,6 +99,10 @@ export const sounds = {
 
     null: new Howl({
         src: ['./audio/null.mp3']
+    }),
+
+    timeCardEffect: new Howl({
+        src: ['./audio/time_card_effect.mp3']
     })
 }
 
