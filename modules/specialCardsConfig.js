@@ -94,4 +94,10 @@ export const specialCardsConfig = [
         info: 'Αργότερος Χρόνος',
         noSpawnInFinale: true
     },
+
+    {
+        shape: 'Λ',
+        color: 'radial-gradient(#98AFC7, #0C090A)',
+        info: 'Θα σου βγάλω την ψυχή',
+    },
 ];
