@@ -543,6 +543,25 @@ import { music, sounds } from "./modules/sounds.js";
                                 decreaseTimeBy = .33;
                             }
                             break;
+
+                        case specialCardsConfig[15].shape: // Κρύβει τις κάρτες
+                            specialCardIndex = 15;
+
+                            card.specialCardEffect = () => {
+                                sounds.loss.play();
+
+                                // Επίτευγμα: "Απώλεια Μνήμης"
+                                unlockAchievement('ach_memory_loss');
+
+                                for (var cardDivElem of document.getElementsByClassName('card')) {
+                                    cardDivElem.removeAttribute('anoixthcarta');
+                                }
+                                
+                                setTimeout(() => {
+                                    resetCards();
+                                }, 420);
+                            }
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -638,9 +657,11 @@ import { music, sounds } from "./modules/sounds.js";
         }
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
-        const resetCards = () => {
-            tries += 1; // προσπάθειες του παίχτη
-            updateTries();
+        const resetCards = (addTries = true) => {
+            if (addTries) {
+                tries += 1; // προσπάθειες του παίχτη
+                updateTries();
+            }
             for (var card of document.getElementsByClassName('card')) {
                 // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
 
