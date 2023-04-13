@@ -196,10 +196,10 @@ import { music, sounds } from "./modules/sounds.js";
                 // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                 // αν δεν παίζει ο παίχτης το FINALE.
                 if (!papagianneosFinaleEnabled) {
-                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.noSpawnInFinale })
+                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard })
 
                     let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
-                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
+                    cardShapes[cardShapes.length - 1] = specialCardsConfig[16].shape;//randomlyChosenSpecialCard.shape;
 
                     // Δες αν υπάρχει troll κάρτα..
                     if (cardShapes[cardShapes.length - 1] == '[?]') {
@@ -209,7 +209,7 @@ import { music, sounds } from "./modules/sounds.js";
                     // Χρειάζεται timed card στο TIMED mode
                     if (timedModeEnabled) {
                         // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
-                        const timeModeCards = specialCardsConfig.filter(carde => { return carde.noSpawnInFinale })
+                        const timeModeCards = specialCardsConfig.filter(carde => { return carde.timeCard })
 
                         cardShapes.push(randomChoice(timeModeCards).shape);
                         AMOUNT_OF_CARDS += 2;
@@ -556,10 +556,22 @@ import { music, sounds } from "./modules/sounds.js";
                                 for (var cardDivElem of document.getElementsByClassName('card')) {
                                     cardDivElem.removeAttribute('anoixthcarta');
                                 }
-                                
+
                                 setTimeout(() => {
                                     resetCards(false);
                                 }, 420);
+                            }
+                            break;
+
+                        case specialCardsConfig[16].shape: // Σ (sigma)
+                            specialCardIndex = 16;
+                            card.specialCardEffect = () => {
+                                for (var cardChildElem of document.getElementsByClassName('card')) {
+                                    if (cardChildElem.savedText != specialCardsConfig[16].shape) {
+                                        cardChildElem.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+                                    }
+                                    else cardChildElem.style.animation = 'none';
+                                }
                             }
                             break;
                     }
@@ -677,6 +689,11 @@ import { music, sounds } from "./modules/sounds.js";
                     card.innerHTML = '​'; // κενό/whitespace
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
+
+                    // Ειδική περίπτωση: "Σ" κάρτα.
+                    if (card.savedText == specialCardsConfig[16].shape) {
+                        card.style.animation = 'none';
+                    }
                 }
             }
         }
@@ -691,6 +708,11 @@ import { music, sounds } from "./modules/sounds.js";
             let div = document.createElement('div');
             div.className = 'card';
             div.style.background = card.color;
+
+            // Η "Σ" κάρτα είναι πολύχρωμη.
+            if (card.shape == specialCardsConfig[16].shape) {
+                div.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+            }
 
             // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
             if (playersEffect != null) {
@@ -720,6 +742,11 @@ import { music, sounds } from "./modules/sounds.js";
 
             // αποθήκευσε το χρώμα της κάρτας..
             div.savedBackgroundColor = card.color;
+
+            // Ειδική περίπτωση: "Σ" κάρτα.
+            if (card.shape == specialCardsConfig[16].shape) {
+                div.savedAnimation = div.style.animation;
+            }
 
             // κείμενο για το σχέδιο/σχήμα της κάρτας
             div.savedText = card.shape; // αποθήκευσε και το κείμενο
@@ -777,6 +804,12 @@ import { music, sounds } from "./modules/sounds.js";
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
                     playersEffect ? playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
                     div.innerHTML = div.savedText;
+
+                    // Ειδική περίπτωση: "Σ" κάρτα.
+                    if (div.savedText == specialCardsConfig[16].shape) {
+                        div.style.animation = div.savedAnimation;
+                    }
+
                     currentSelected.push(div);
                 }
 
