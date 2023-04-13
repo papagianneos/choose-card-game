@@ -78,6 +78,12 @@ import { sounds } from "../modules/sounds.js";
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
         cardDiv.style.background = card.color;
+
+        // Η "Σ" κάρτα είναι πολύχρωμη.
+        if (card.shape == specialCardsConfig[16].shape) {
+            cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+        }
+
         cardDiv.style.cursor = 'help';
 
         // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
