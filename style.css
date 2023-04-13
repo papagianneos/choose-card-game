@@ -258,13 +258,65 @@ button:hover {
 progress {
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;    
+    appearance: none;
     width: 325px;
     height: 30px;
     margin: 0 auto;
     border-radius: 2.5px;
     transform: skew(30deg);
     display: none;
+}
+
+@keyframes rainbowSigmaCard {
+
+    100%,
+    0% {
+        background-color: rgb(255, 0, 0);
+    }
+
+    8% {
+        background-color: rgb(255, 127, 0);
+    }
+
+    16% {
+        background-color: rgb(255, 255, 0);
+    }
+
+    25% {
+        background-color: rgb(127, 255, 0);
+    }
+
+    33% {
+        background-color: rgb(0, 255, 0);
+    }
+
+    41% {
+        background-color: rgb(0, 255, 127);
+    }
+
+    50% {
+        background-color: rgb(0, 255, 255);
+    }
+
+    58% {
+        background-color: rgb(0, 127, 255);
+    }
+
+    66% {
+        background-color: rgb(0, 0, 255);
+    }
+
+    75% {
+        background-color: rgb(127, 0, 255);
+    }
+
+    83% {
+        background-color: rgb(255, 0, 255);
+    }
+
+    91% {
+        background-color: rgb(255, 0, 127);
+    }
 }
 
 /*.achievementsBox {
