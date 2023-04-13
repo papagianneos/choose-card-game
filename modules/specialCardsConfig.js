@@ -84,7 +84,8 @@ export const specialCardsConfig = [
         shape: '◕',
         color: 'radial-gradient(#3d1406, #8ca7cf)',
         info: '+60sec Χρόνος',
-        noSpawnInFinale: true
+        noSpawnInFinale: true,
+        timeCard: true
     },
 
     // slow down time
@@ -92,7 +93,8 @@ export const specialCardsConfig = [
         shape: '<<',
         color: 'radial-gradient(#0800ff, #00ff77)',
         info: 'Αργότερος Χρόνος',
-        noSpawnInFinale: true
+        noSpawnInFinale: true,
+        timeCard: true
     },
 
     {
@@ -100,4 +102,11 @@ export const specialCardsConfig = [
         color: 'radial-gradient(#98AFC7, #0C090A)',
         info: 'Θα σου βγάλω την ψυχή',
     },
+
+    {
+        shape: '∑',
+        color: 'animation color lol',
+        info: 'Κάποιες φορές σκέφτομαι.. ΠΟΛΥΧΡΩΜΟΣ!',
+        noSpawnInFinale: true
+    }
 ];
