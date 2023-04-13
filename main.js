@@ -199,7 +199,7 @@ import { music, sounds } from "./modules/sounds.js";
                     const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard })
 
                     let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
-                    cardShapes[cardShapes.length - 1] = specialCardsConfig[16].shape;//randomlyChosenSpecialCard.shape;
+                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
 
                     // Δες αν υπάρχει troll κάρτα..
                     if (cardShapes[cardShapes.length - 1] == '[?]') {
