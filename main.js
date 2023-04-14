@@ -421,9 +421,9 @@ import { music, sounds } from "./modules/sounds.js";
 
                                 // να μην επιτρέπεται στο papagianneos finale
                                 if (papagianneosFinaleEnabled || voidModeEnabled) { // αν ΕΙΝΑΙ finale
-                                    if (!voidModeEnabled) music.papagianneosFinaleMusic.pause();
+                                    if (papagianneosFinaleEnabled) music.papagianneosFinaleMusic.pause();
                                     sounds.pgnFinaleKCardEffect.play();
-                                    if (!voidModeEnabled) {
+                                    if (papagianneosFinaleEnabled) {
                                         setTimeout(() => {
                                             music.papagianneosFinaleMusic.play();
                                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
@@ -1842,7 +1842,8 @@ import { music, sounds } from "./modules/sounds.js";
                                     break;
 
                                 case 5: // Papagianneos FINALE (Easy edition)
-                                    triesText.style.color = 'white';
+                                    triesText.style.color = 'white'; // βγάλε τα εφέ από το extreme
+                                    triesText.style.animation = 'none';
                                     tries = savedTries_voidMode;
                                     papagianneosFinaleEnabled = true;
                                     extremeModeEnabled = false;
