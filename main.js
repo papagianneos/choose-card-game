@@ -12,6 +12,15 @@ import { music, sounds } from "./modules/sounds.js";
     try {
 
         // -----------------------------------------------------
+        // "VOID" mode
+        // -----------------------------------------------------
+        let voidModeEnabled = false,
+            voidModeLevelsBeaten = 0,
+            savedTries_voidMode = 0,
+            musicStarted = false;
+        // -----------------------------------------------------
+
+        // -----------------------------------------------------
         // TIMED mode
         // -----------------------------------------------------
         let timedModeEnabled = false,
@@ -60,8 +69,8 @@ import { music, sounds } from "./modules/sounds.js";
         }
         // ----------------------------------------------------------------------
 
-        let secretSettingEnabled = false,
-            rot_ = 360;
+        //secretSettingEnabled = false,
+        let rot_ = 360;
 
         // -----------------------------------------------------------------------
         // Διάβασε τα εφέ που επέλεξε ο χρήστης.
@@ -408,17 +417,17 @@ import { music, sounds } from "./modules/sounds.js";
                                 unlockAchievement('ach_special_K_card');
 
                                 // να μην επιτρέπεται στο papagianneos finale
-                                if (!papagianneosFinaleEnabled) { // αν δεν είναι finale
-                                    sounds.specialScore.play()
-                                    wonBySpecialCard = true;
-                                }
-                                else { // αλλιώς, αν ΕΙΝΑΙ finale
+                                if (papagianneosFinaleEnabled || voidModeEnabled) { // αν ΕΙΝΑΙ finale
                                     music.papagianneosFinaleMusic.pause();
                                     sounds.pgnFinaleKCardEffect.play();
                                     setTimeout(() => {
                                         music.papagianneosFinaleMusic.play();
                                         document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     }, 4e3);
+                                }
+                                else { // αλλιώς, αν δεν είναι finale
+                                    sounds.specialScore.play()
+                                    wonBySpecialCard = true;
                                 }
                             }
                             break;
@@ -680,12 +689,12 @@ import { music, sounds } from "./modules/sounds.js";
                 // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
                 if (!card.getAttribute('anoixthcarta')) {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
-                    if (!secretSettingEnabled) {
-                        playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
-                    }
-                    else {
-                        card.style.background = 'radial-gradient(#240907, black)';
-                    }
+                    //if (!secretSettingEnabled) {
+                    playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
+                    //}
+                    //else {
+                    //    card.style.background = 'radial-gradient(#240907, black)';
+                    //}
                     card.innerHTML = '​'; // κενό/whitespace
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
@@ -914,12 +923,12 @@ import { music, sounds } from "./modules/sounds.js";
                         // ----------------------------------------------------------------------------------------
                         if (hardModeEnabled) {
 
-                            if (secretSettingEnabled) {
-                                rot_ += 360;
-                                document.getElementById('cardsHolder').style.animation = 'none';
-                                document.getElementById('cardsHolder').style.transition = '1s';
-                                document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
-                            }
+                            // if (secretSettingEnabled) {
+                            //     rot_ += 360;
+                            //     document.getElementById('cardsHolder').style.animation = 'none';
+                            //     document.getElementById('cardsHolder').style.transition = '1s';
+                            //     document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
+                            // }
 
                             sounds.cardOpenHardMode.play();
 
@@ -1086,15 +1095,18 @@ import { music, sounds } from "./modules/sounds.js";
             // ---------------------------------
             // Μουσική
             // ----------------------------------
-            music.menuMusic.pause();
+            if (!musicStarted) {
+                music.menuMusic.pause();
 
-            if (timedModeEnabled) {
-                music.timeLevelMusic.play();
+                if (timedModeEnabled) {
+                    music.timeLevelMusic.play();
+                }
+                else if (papagianneosFinaleEnabled) {
+                    music.papagianneosFinaleMusic.play();
+                }
+                else music.gameMusic.play();
+                musicStarted = true;
             }
-            else if (papagianneosFinaleEnabled) {
-                music.papagianneosFinaleMusic.play();
-            }
-            else music.gameMusic.play();
             // ----------------------------------
 
             for (var i = 0; i < cardsData.length; i++) {
@@ -1239,7 +1251,7 @@ import { music, sounds } from "./modules/sounds.js";
                     // Επίτευγμα: "bals?!?!?"
                     unlockAchievement('ach_bals');
 
-                    if (mode != '???') {
+                    if (mode != 'void') {
                         document.getElementsByTagName('body')[0].style.animation = 'none';
                         document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
                     }
@@ -1270,11 +1282,15 @@ import { music, sounds } from "./modules/sounds.js";
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
                             break;
 
-                        case '???':
+                        /*case '???':
                             hardModeEnabled = true;
                             secretSettingEnabled = true;
                             extremeModeEnabled = true;
                             MAX_TRIES += 15;
+                            document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
+                            break;*/
+                        case 'void': // Void.
+                            voidModeEnabled = true;
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
                             break;
                     }
@@ -1283,7 +1299,7 @@ import { music, sounds } from "./modules/sounds.js";
                     createCards();
                     sounds.buttonClick.play();
 
-                    if (!['papagianneosFinale', '???'].includes(mode)) {
+                    if (!['papagianneosFinale', 'void'].includes(mode)) {
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
                     }
 
@@ -1325,7 +1341,7 @@ import { music, sounds } from "./modules/sounds.js";
                 playButtonChallenge = createButton('Παίξε Challenge', 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
                 playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton('Παίξε TIMED', 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
-                playButtonSecretMode = createButton('???? ?????', 'radial-gradient(#240907, black)', '???'), // Κουμπί για να παίξει ο παίχτης "???" mode
+                playButtonSecretMode = createButton('Παίξε VOID', 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
@@ -1446,7 +1462,7 @@ import { music, sounds } from "./modules/sounds.js";
                 // ---------------------------------------------------------------------------------------
                 // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
                 // ---------------------------------------------------------------------------------------
-                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled) && !secretSettingEnabled) {
+                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled)/* && !secretSettingEnabled*/) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -1554,10 +1570,10 @@ import { music, sounds } from "./modules/sounds.js";
                     if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                         triesText.style.animation = 'seismos .3s linear infinite';
 
-                        if (!secretSettingEnabled) {
-                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                        }
+                        //  if (!secretSettingEnabled) {
+                        //      document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                        //      document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                        //  }
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
@@ -1630,135 +1646,225 @@ import { music, sounds } from "./modules/sounds.js";
                 // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
                 if (wonBySpecialCard || ((trollCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
 
-                    // -------------------------------------------------------------------
-                    // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
-                    // κάρτα.
-                    // -------------------------------------------------------------------
-                    if (!wonBySpecialCard) {
-                        // Eπίτευγμα: "Skill Issue"
-                        if (tries < 10) {
-                            unlockAchievement('ach_skill_issue');
+                    // Αν δεν είναι VOID mode.
+                    if (!voidModeEnabled) {
+
+                        // -------------------------------------------------------------------
+                        // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
+                        // κάρτα.
+                        // -------------------------------------------------------------------
+                        if (!wonBySpecialCard) {
+                            // Eπίτευγμα: "Skill Issue"
+                            if (tries < 10) {
+                                unlockAchievement('ach_skill_issue');
+                            }
+
+                            // Επίτευγμα: "Τέρμα η μνήμη RAM"
+                            unlockAchievement('ach_win_any_20');
+
+                            let achievementIDToCheckForUnlock = '';
+                            switch (true) {
+                                // Δύσκολο
+                                case hardModeEnabled:
+                                    achievementIDToCheckForUnlock = 'ach_hard_mode_win';
+                                    break;
+
+                                // Challenge
+                                case (challengeModeEnabled && !papagianneosFinaleEnabled):
+                                    achievementIDToCheckForUnlock = 'ach_challenge_mode_win';
+                                    break;
+
+                                // Extreme
+                                case (extremeModeEnabled && !papagianneosFinaleEnabled):
+                                    achievementIDToCheckForUnlock = 'ach_extreme_mode_win';
+                                    break;
+
+                                // Papagianneos Finale
+                                case papagianneosFinaleEnabled:
+                                    achievementIDToCheckForUnlock = 'ach_pgn_finale_win';
+                                    break;
+
+                                // Timed
+                                case timedModeEnabled:
+                                    achievementIDToCheckForUnlock = 'ach_timed_mode_win';
+                                    break;
+
+                                // Void.
+                                case voidModeEnabled:
+                                    achievementIDToCheckForUnlock = 'ach_redacted';
+                                    break;
+
+                                // Απλό
+                                default:
+                                    achievementIDToCheckForUnlock = 'ach_normal_mode_win';
+                                    break;
+                            }
+                            unlockAchievement(achievementIDToCheckForUnlock);
+
+                            // Επίτευγμα.
+                            if (papagianneosFinaleEnabled) {
+                                unlockAchievement('ach_pgn_finale_twice');
+                            }
+                        }
+                        // -------------------------------------------------------------------
+
+                        // ---------------------------------
+                        // Μουσική
+                        // ---------------------------------
+                        music.gameMusic.pause();
+
+                        if (voidModeEnabled) {
+                            music.papagianneosFinaleMusic.pause();
                         }
 
-                        // Επίτευγμα: "Τέρμα η μνήμη RAM"
-                        unlockAchievement('ach_win_any_20');
-
-                        let achievementIDToCheckForUnlock = '';
-                        switch (true) {
-                            // Δύσκολο
-                            case hardModeEnabled:
-                                achievementIDToCheckForUnlock = 'ach_hard_mode_win';
-                                break;
-
-                            // Challenge
-                            case (challengeModeEnabled && !papagianneosFinaleEnabled):
-                                achievementIDToCheckForUnlock = 'ach_challenge_mode_win';
-                                break;
-
-                            // Extreme
-                            case (extremeModeEnabled && !papagianneosFinaleEnabled):
-                                achievementIDToCheckForUnlock = 'ach_extreme_mode_win';
-                                break;
-
-                            // Papagianneos Finale
-                            case papagianneosFinaleEnabled:
-                                achievementIDToCheckForUnlock = 'ach_pgn_finale_win';
-                                break;
-
-                            // Timed
-                            case timedModeEnabled:
-                                achievementIDToCheckForUnlock = 'ach_timed_mode_win';
-                                break;
-
-                            // Απλό
-                            default:
-                                achievementIDToCheckForUnlock = 'ach_normal_mode_win';
-                                break;
+                        // Timed mode
+                        if (timedModeEnabled) {
+                            music.timeLevelMusic.pause();
                         }
-                        unlockAchievement(achievementIDToCheckForUnlock);
 
-                        // Επίτευγμα.
+                        // Αν άρχισε η extreme μουσική
+                        if (startedExtremeModeMusic) {
+                            music.extremeModeGameMusic.pause();
+                        }
+
+                        // Αν papagianneos finale
                         if (papagianneosFinaleEnabled) {
-                            unlockAchievement('ach_pgn_finale_twice');
+                            music.papagianneosFinaleMusic.pause();
                         }
+                        // -----------------------------------
+
+                        clearInterval(gameLoop);
+                        sounds.win.play();
+
+                        document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
+
+                        // Εμφάνισε "Κέρδισες!" οθόνη.
+                        let winScreen = document.createElement('div');
+                        winScreen.id = 'screen';
+
+                        let winScreenText = document.createElement('h1');
+                        winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : voidModeEnabled ? 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+
+                        // αν papagianneos finale, σπεσιαλ μήνυμα
+                        if (papagianneosFinaleEnabled) {
+                            sounds.pgnFinaleWin.play();
+                        }
+
+                        // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
+                        let scoreTextWinScreen = document.createElement('h1'),
+                            triesTextWinScreen = document.createElement('h1'),
+                            totalCardsPlayed = document.createElement('h1');
+
+                        // Φτιάξε το κείμενο για score και προσπάθειες
+                        scoreTextWinScreen.appendChild(document.createTextNode(`Score: ${score}`));
+                        triesTextWinScreen.appendChild(document.createTextNode(`Προσπάθειες: ${tries}`));
+
+                        // Με πόσες κάρτες έπαιξε ο παίχτης;
+                        totalCardsPlayed.appendChild(document.createTextNode(`Σύνολο Καρτών: ${AMOUNT_OF_CARDS}`));
+
+                        // Άλλαξε το μέγεθος της γραμματοσειράς.
+                        scoreTextWinScreen.style.fontSize = '25px';
+                        triesTextWinScreen.style.fontSize = '25px';
+                        totalCardsPlayed.style.fontSize = '25px';
+
+                        // Κουμπί για να παίξει ξανά ο παίχτης
+                        let playAgainButton = document.createElement('button');
+                        playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
+                        playAgainButton.onclick = () => {
+                            sounds.buttonClick.play();
+                            // για να προλάβει να παίξει ο ήχος..
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 5e2);
+                        }
+
+                        winScreen.appendChild(screenLogo);
+                        winScreen.appendChild(winScreenText);
+                        winScreen.appendChild(scoreTextWinScreen);
+                        winScreen.appendChild(triesTextWinScreen);
+                        winScreen.appendChild(totalCardsPlayed);
+                        winScreen.appendChild(playAgainButton);
+                        document.body.removeChild(parentDiv);
+                        document.body.appendChild(winScreen);
+                        wonBySpecialCard = false;
                     }
-                    // -------------------------------------------------------------------
+                    else {
 
-                    // ---------------------------------
-                    // Μουσική
-                    // ---------------------------------
-                    music.gameMusic.pause();
+                        hardModeEnabled = false;
+                        challengeModeEnabled = false;
+                        timedModeEnabled = false;
+                        papagianneosFinaleEnabled = false;
 
-                    // Timed mode
-                    if (timedModeEnabled) {
-                        music.timeLevelMusic.pause();
+                        // Στο void mode, ο παίχτης πρέπει να κερδίσει ΟΛΑ τα modes στη σειρά (εκτός απο Finale)
+                        if (voidModeLevelsBeaten < 6) {
+                            voidModeLevelsBeaten++;
+
+                            // Animation. (Void mode)
+                            rot_ += 360;
+                            document.getElementById('cardsHolder').style.animation = 'none';
+                            document.getElementById('cardsHolder').style.transition = '1s';
+                            document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
+
+                            let cardsListToShuffle = [],
+                                scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                            cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                            parentDiv.replaceChildren(...cardsListToShuffle);
+
+                            switch (voidModeLevelsBeaten) {
+                                case 1: // Hard Mode
+                                    hardModeEnabled = true;
+                                    break;
+
+                                case 2: // Challenge Mode.
+                                    challengeModeEnabled = true;
+                                    break;
+
+                                case 3: // TIMED mode.
+                                    document.getElementById('cardsHolder').removeAttribute('style');
+                                    timedModeEnabled = true;
+                                    music.gameMusic.pause();
+                                    music.timeLevelMusic.play();
+                                    break;
+
+                                case 4: // Extreme mode.
+                                    document.getElementById('timeBar').style.display = 'none';
+                                    music.timeLevelMusic.pause();
+                                    music.gameMusic.play();
+                                    savedTries_voidMode = tries;
+                                    tries = 0;
+                                    updateTries();
+                                    extremeModeEnabled = true;
+                                    break;
+
+                                case 5: // Papagianneos FINALE (Easy edition)
+                                    tries = savedTries_voidMode;
+                                    papagianneosFinaleEnabled = true;
+                                    extremeModeEnabled = false;
+                                    document.getElementsByTagName('body')[0].style.animation = 'none';
+                                    document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
+                                    if (startedExtremeModeMusic) {
+                                        music.extremeModeGameMusic.pause();
+                                    }
+                                    else music.gameMusic.pause();
+                                    music.papagianneosFinaleMusic.play();
+                                    break;
+                            }
+
+                            cardsData = [];
+                            currentSelected = [];
+                            AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]);
+                            if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2);
+                            if (timedModeEnabled) { // Ξαναόρισε τον χρόνο στο TIMED διότι αλλάζει ο αριθμός καρτών
+                                timeLeft = AMOUNT_OF_CARDS > 16 ? 850 : 750;
+                            }
+                            startGame();
+                            createCards();
+                            resetCards(false);
+                        }
+
+                        else voidModeEnabled = false; // Όρισε το σε false για να ισχύει η συνθήκη νίκης.
                     }
-
-                    // Αν άρχισε η extreme μουσική
-                    if (startedExtremeModeMusic) {
-                        music.extremeModeGameMusic.pause();
-                    }
-
-                    // Αν papagianneos finale
-                    if (papagianneosFinaleEnabled) {
-                        music.papagianneosFinaleMusic.pause();
-                    }
-                    // -----------------------------------
-
-                    clearInterval(gameLoop);
-                    sounds.win.play();
-
-                    document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
-
-                    // Εμφάνισε "Κέρδισες!" οθόνη.
-                    let winScreen = document.createElement('div');
-                    winScreen.id = 'screen';
-
-                    let winScreenText = document.createElement('h1');
-                    winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
-
-                    // αν papagianneos finale, σπεσιαλ μήνυμα
-                    if (papagianneosFinaleEnabled) {
-                        sounds.pgnFinaleWin.play();
-                    }
-
-                    // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
-                    let scoreTextWinScreen = document.createElement('h1'),
-                        triesTextWinScreen = document.createElement('h1'),
-                        totalCardsPlayed = document.createElement('h1');
-
-                    // Φτιάξε το κείμενο για score και προσπάθειες
-                    scoreTextWinScreen.appendChild(document.createTextNode(`Score: ${score}`));
-                    triesTextWinScreen.appendChild(document.createTextNode(`Προσπάθειες: ${tries}`));
-
-                    // Με πόσες κάρτες έπαιξε ο παίχτης;
-                    totalCardsPlayed.appendChild(document.createTextNode(`Σύνολο Καρτών: ${AMOUNT_OF_CARDS}`));
-
-                    // Άλλαξε το μέγεθος της γραμματοσειράς.
-                    scoreTextWinScreen.style.fontSize = '25px';
-                    triesTextWinScreen.style.fontSize = '25px';
-                    totalCardsPlayed.style.fontSize = '25px';
-
-                    // Κουμπί για να παίξει ξανά ο παίχτης
-                    let playAgainButton = document.createElement('button');
-                    playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
-                    playAgainButton.onclick = () => {
-                        sounds.buttonClick.play();
-                        // για να προλάβει να παίξει ο ήχος..
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 5e2);
-                    }
-
-                    winScreen.appendChild(screenLogo);
-                    winScreen.appendChild(winScreenText);
-                    winScreen.appendChild(scoreTextWinScreen);
-                    winScreen.appendChild(triesTextWinScreen);
-                    winScreen.appendChild(totalCardsPlayed);
-                    winScreen.appendChild(playAgainButton);
-                    document.body.removeChild(parentDiv);
-                    document.body.appendChild(winScreen);
-                    wonBySpecialCard = false;
                 }
                 // --------------------------------------------------------
             }, 10);
