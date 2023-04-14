@@ -15,7 +15,7 @@ import { music, sounds } from "./modules/sounds.js";
         // "VOID" mode
         // -----------------------------------------------------
         let voidModeEnabled = false,
-            voidModeOver = false,
+            voidModeOver = true,
             voidModeLevelsBeaten = 0,
             savedTries_voidMode = 0,
             musicStarted = false;
@@ -1297,6 +1297,7 @@ import { music, sounds } from "./modules/sounds.js";
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
                             break;*/
                         case 'void': // Void.
+                            voidModeOver = false;
                             voidModeEnabled = true;
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
                             break;
