@@ -154,6 +154,8 @@ import { music, sounds } from "./modules/sounds.js";
         // Extreme Gamemode
         // ----------------------------------------
         let MAX_TRIES = (AMOUNT_OF_CARDS / 2);
+
+        if (specialCardsEnabled) MAX_TRIES += 2;
         // ----------------------------------------
 
         // ================================================================================
