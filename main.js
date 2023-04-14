@@ -99,9 +99,6 @@ import { music, sounds } from "./modules/sounds.js";
         // ------------------------------------
         // Ήχος.
         // ------------------------------------
-        const playSound = src => {
-            new Audio(src).play();
-        }
 
         // -----------------------------------------------------------------------------------------
         // Μουσική για το παιχνίδι
@@ -211,6 +208,7 @@ import { music, sounds } from "./modules/sounds.js";
                     const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard })
 
                     let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
+
                     //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
                     cardShapes.push(randomlyChosenSpecialCard.shape);
                     AMOUNT_OF_CARDS += 2;
@@ -1796,7 +1794,6 @@ import { music, sounds } from "./modules/sounds.js";
                     else {
 
                         // Κάνε reset τα πάντα
-                        trollCardExists = false;
                         hardModeEnabled = false;
                         challengeModeEnabled = false;
                         timedModeEnabled = false;
@@ -1867,6 +1864,8 @@ import { music, sounds } from "./modules/sounds.js";
                             if (timedModeEnabled) { // Ξαναόρισε τον χρόνο στο TIMED διότι αλλάζει ο αριθμός καρτών
                                 timeLeft = AMOUNT_OF_CARDS > 16 ? 850 : 750;
                             }
+
+                            trollCardExists = false; // PLEASE WORK
                             startGame();
                             createCards();
                             resetCards(false);
