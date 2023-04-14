@@ -213,14 +213,14 @@ import { music, sounds } from "./modules/sounds.js";
                     AMOUNT_OF_CARDS += 2;
 
                     // Δες αν υπάρχει troll κάρτα..
-                    if (cardShapes[cardShapes.length - 1] == '[?]') {
+                    if (cardShapes.includes('[?]')) {
                         trollCardExists = true;
                     }
 
                     // Χρειάζεται timed card στο TIMED mode
                     if (timedModeEnabled) {
                         // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
-                        const timeModeCards = specialCardsConfig.filter(carde => { return carde.timeCard })
+                        const timeModeCards = specialCardsConfig.filter(carde1 => { return carde1.timeCard })
 
                         cardShapes.push(randomChoice(timeModeCards).shape);
                         AMOUNT_OF_CARDS += 2;
@@ -1858,7 +1858,7 @@ import { music, sounds } from "./modules/sounds.js";
                             cardsData = [];
                             currentSelected = [];
                             AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]);
-                            if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2) + 5;
+                            if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2) + 2;
                             if (timedModeEnabled) { // Ξαναόρισε τον χρόνο στο TIMED διότι αλλάζει ο αριθμός καρτών
                                 timeLeft = AMOUNT_OF_CARDS > 16 ? 850 : 750;
                             }
