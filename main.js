@@ -418,12 +418,14 @@ import { music, sounds } from "./modules/sounds.js";
 
                                 // να μην επιτρέπεται στο papagianneos finale
                                 if (papagianneosFinaleEnabled || voidModeEnabled) { // αν ΕΙΝΑΙ finale
-                                    music.papagianneosFinaleMusic.pause();
+                                    if (!voidModeEnabled) music.papagianneosFinaleMusic.pause();
                                     sounds.pgnFinaleKCardEffect.play();
-                                    setTimeout(() => {
-                                        music.papagianneosFinaleMusic.play();
-                                        document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                    }, 4e3);
+                                    if (!voidModeEnabled) {
+                                        setTimeout(() => {
+                                            music.papagianneosFinaleMusic.play();
+                                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                        }, 4e3);
+                                    }
                                 }
                                 else { // αλλιώς, αν δεν είναι finale
                                     sounds.specialScore.play()
