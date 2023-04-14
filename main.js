@@ -15,6 +15,7 @@ import { music, sounds } from "./modules/sounds.js";
         // "VOID" mode
         // -----------------------------------------------------
         let voidModeEnabled = false,
+            voidModeOver = false,
             voidModeLevelsBeaten = 0,
             savedTries_voidMode = 0,
             musicStarted = false;
@@ -1648,7 +1649,7 @@ import { music, sounds } from "./modules/sounds.js";
                 if (wonBySpecialCard || ((trollCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
 
                     // Αν δεν είναι VOID mode.
-                    if (!voidModeEnabled) {
+                    if (voidModeOver) {
 
                         // -------------------------------------------------------------------
                         // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
@@ -1867,7 +1868,7 @@ import { music, sounds } from "./modules/sounds.js";
                             resetCards(false);
                         }
 
-                        else voidModeEnabled = false; // Όρισε το σε false για να ισχύει η συνθήκη νίκης.
+                        else voidModeOver = true;
                     }
                 }
                 // --------------------------------------------------------
