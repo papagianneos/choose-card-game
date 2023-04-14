@@ -208,7 +208,9 @@ import { music, sounds } from "./modules/sounds.js";
                     const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard })
 
                     let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
-                    cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape;
+                    //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
+                    cardShapes.push(randomlyChosenSpecialCard.shape);
+                    AMOUNT_OF_CARDS += 2;
 
                     // Δες αν υπάρχει troll κάρτα..
                     if (cardShapes[cardShapes.length - 1] == '[?]') {
@@ -1856,7 +1858,7 @@ import { music, sounds } from "./modules/sounds.js";
                             cardsData = [];
                             currentSelected = [];
                             AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]);
-                            if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2);
+                            if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2) + 5;
                             if (timedModeEnabled) { // Ξαναόρισε τον χρόνο στο TIMED διότι αλλάζει ο αριθμός καρτών
                                 timeLeft = AMOUNT_OF_CARDS > 16 ? 850 : 750;
                             }
