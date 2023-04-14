@@ -1573,11 +1573,8 @@ import { music, sounds } from "./modules/sounds.js";
                     // Εφέ για τις προσπάθειες του παίχτη.
                     if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                         triesText.style.animation = 'seismos .3s linear infinite';
-
-                        //  if (!secretSettingEnabled) {
-                        //      document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                        //      document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                        //  }
+                        document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
