@@ -1842,6 +1842,7 @@ import { music, sounds } from "./modules/sounds.js";
                                     break;
 
                                 case 5: // Papagianneos FINALE (Easy edition)
+                                    triesText.style.color = 'white';
                                     tries = savedTries_voidMode;
                                     papagianneosFinaleEnabled = true;
                                     extremeModeEnabled = false;
