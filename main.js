@@ -1791,6 +1791,8 @@ import { music, sounds } from "./modules/sounds.js";
                     }
                     else {
 
+                        // Κάνε reset τα πάντα
+                        trollCardExists = false;
                         hardModeEnabled = false;
                         challengeModeEnabled = false;
                         timedModeEnabled = false;
