@@ -174,9 +174,9 @@ import { sounds } from "../modules/sounds.js";
         },
 
         {
-            label: 'Papagianneos FINALE',
-            color: 'radial-gradient(green, black)',
-            info: '? ? ?'
+            label: 'VOID',
+            color: 'radial-gradient(#240907, black)',
+            info: 'Η τελική μάχη'
         }
     ];
 
