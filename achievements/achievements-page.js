@@ -23,18 +23,6 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
     let achievementsMainHolder = document.createElement('div');
     achievementsMainHolder.className = 'achievementsHolder'; // CSS
 
-    // Κουμπί για επιστροφή στο παιχνίδι
-    let goBackBtnWrapper = document.createElement('div');
-    goBackBtnWrapper.style.width = '100%';
-
-    let goBackBtn = document.createElement('button');
-    goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
-    goBackBtn.style.width = '100%';
-    goBackBtn.onclick = () => window.location.href = '/';
-
-    goBackBtnWrapper.appendChild(goBackBtn);
-    mainDivHolder.appendChild(goBackBtnWrapper);
-
     // Δημιούργησε το κάθε επίτευγμα
     achievementsConfig.forEach(achievement => {
         // Δες αν το έχει ξεκλειδώσει ο παίχτης.
@@ -65,5 +53,18 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
     });
 
     mainDivHolder.appendChild(achievementsMainHolder);
+
+    // Κουμπί για επιστροφή στο παιχνίδι
+    let goBackBtnWrapper = document.createElement('div');
+    goBackBtnWrapper.style.width = '100%';
+
+    let goBackBtn = document.createElement('button');
+    goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
+    goBackBtn.style.width = 'auto';
+    goBackBtn.onclick = () => window.location.href = '/';
+
+    goBackBtnWrapper.appendChild(goBackBtn);
+    mainDivHolder.appendChild(goBackBtnWrapper);
+
     document.body.appendChild(mainDivHolder);
 })();
