@@ -1,6 +1,8 @@
-import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achievenent-functions.js";
+import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searchForAchievement } from "../modules/achievenent-functions.js";
 
 (() => {
+    checkForMemoryRead();
+
     // Συνάρτηση ελέγχου ξεκλειδώματος επιτεύγματος
     const checkUnlock = achievementID => {
         if (FETCHED_ACHIEVEMENT_DATA.length != 0) { // Αν υπάρχει υλικό από τη μνήμη.
@@ -15,6 +17,7 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
         return false;
     }
 
+
     let mainDivHolder = document.createElement('div');
     mainDivHolder.className = 'mainBox';
     mainDivHolder.style.display = 'block';
@@ -22,6 +25,11 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
 
     let achievementsMainHolder = document.createElement('div');
     achievementsMainHolder.className = 'achievementsHolder'; // CSS
+
+    // ΤΡΟΠΑΙΑ
+    let trophiesMainHolder = document.createElement('div');
+    trophiesMainHolder.className = 'achievementsHolder'; // CSS
+    trophiesMainHolder.style.display = 'none';
 
     // Δημιούργησε το κάθε επίτευγμα
     achievementsConfig.forEach(achievement => {
@@ -45,18 +53,64 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
         // Πληροφορίες επιτεύγματος
         let achievementDescription = document.createElement('h1');
         achievementDescription.style.fontSize = '15px';
-        achievementDescription.innerHTML = achievement.unlocked ? achievement.desc : '???';
+        achievementDescription.innerHTML = achievement.desc;
+
+        if (!achievement.dontShowProgress) {
+            if (achievement.requiredProgress) {
+                let achievementFromStorage = searchForAchievement(achievement);
+                achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">(${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress})</keimeno>`;
+            }
+            else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
+        }
 
         achievementDivHolder.appendChild(achievementTitle);
         achievementDivHolder.appendChild(achievementDescription);
-        achievementsMainHolder.appendChild(achievementDivHolder);
+
+        // Αν δεν είναι τρόπαιο, βάλτο στα επιτεύγματα, αλλιώς στα τρόπαια.
+        if (!achievement.trophy) {
+            achievementsMainHolder.appendChild(achievementDivHolder);
+        }
+        else trophiesMainHolder.appendChild(achievementDivHolder);
     });
 
     mainDivHolder.appendChild(achievementsMainHolder);
+    mainDivHolder.appendChild(trophiesMainHolder);
+
+    // ------------------------------------------------------------------
+    // Κουμπί για εναλλαγή τροπαίων - επιτευγμάτων
+    // ------------------------------------------------------------------
+    let openedTrophies = false; // flag
+
+    let trophiesBtnWrapper = document.createElement('div');
+    trophiesBtnWrapper.style.display = 'inline';
+
+    let trophiesBtn = document.createElement('button');
+    trophiesBtn.appendChild(document.createTextNode('Τρόπαια'));
+    trophiesBtn.style.width = 'auto';
+    trophiesBtn.onclick = () => {
+        if (!openedTrophies) {
+            trophiesBtn.innerHTML = 'Επιτεύγματα';
+            achievementsMainHolder.style.display = 'none';
+            trophiesMainHolder.style.display = '';
+            openedTrophies = true;
+        }
+        else {
+            trophiesBtn.innerHTML = 'Τρόπαια';
+            achievementsMainHolder.style.display = '';
+            trophiesMainHolder.style.display = 'none';
+            openedTrophies = false;
+        }
+    }
+    trophiesBtnWrapper.appendChild(trophiesBtn);
+    // ------------------------------------------------------------------
+
+    let anotherDivHolderForPositionsLol = document.createElement('div');
+    anotherDivHolderForPositionsLol.style.width = '100%';
 
     // Κουμπί για επιστροφή στο παιχνίδι
     let goBackBtnWrapper = document.createElement('div');
-    goBackBtnWrapper.style.width = '100%';
+    goBackBtnWrapper.style.width = '50%';
+    goBackBtnWrapper.style.display = 'inline';
 
     let goBackBtn = document.createElement('button');
     goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
@@ -64,7 +118,9 @@ import { achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achieve
     goBackBtn.onclick = () => window.location.href = '/';
 
     goBackBtnWrapper.appendChild(goBackBtn);
-    mainDivHolder.appendChild(goBackBtnWrapper);
+    anotherDivHolderForPositionsLol.appendChild(goBackBtnWrapper);
+    anotherDivHolderForPositionsLol.appendChild(trophiesBtnWrapper);
+    mainDivHolder.appendChild(anotherDivHolderForPositionsLol);
 
     document.body.appendChild(mainDivHolder);
 })();
