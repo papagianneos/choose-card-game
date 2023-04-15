@@ -845,6 +845,9 @@ import { music, sounds } from "./modules/sounds.js";
                         // Επίτευγμα: "AAAAAAAAAAAAA"
                         unlockAchievement('ach_100_tries');
 
+                        // Τρόπαιο: "Τσαλαπετεινός"
+                        unlockAchievement('tr_10k_tries');
+
                         // ----------------------------------------------------------------------------------------
                         // "Challenge" mode setup.
                         // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
@@ -1062,6 +1065,9 @@ import { music, sounds } from "./modules/sounds.js";
                             // Επίτευγμα: "Ειδικός"
                             unlockAchievement('ach_expert');
 
+                            // Τρόπαιο: "Δάσκαλος των Καρτών"
+                            unlockAchievement('tr_master_of_cards');
+
                             const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
                             score += (scoreReceived != 0 ? scoreReceived : 1);
 
@@ -1070,6 +1076,9 @@ import { music, sounds } from "./modules/sounds.js";
 
                             // Επίτευγμα: "Δεν με ξέρεις καλά.."
                             unlockAchievement('ach_score_1k', score);
+
+                            // Τρόπαιο: "Εκατομμυριούχος"
+                            unlockAchievement('tr_million_score', score);
 
                             // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
                             if (!firstCard.specialCard && !secondCard.specialCard) {
