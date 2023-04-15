@@ -4,7 +4,7 @@ import { sounds } from "./sounds.js";
 export let FETCHED_ACHIEVEMENT_DATA = localStorage.getItem('achievementData') != null ? JSON.parse(localStorage.getItem('achievementData')) : [];
 
 // Αν δεν διάβασε τίποτα στη μνήμη βάλε δικές σου πληροφορίες (default)
-const checkForMemoryRead = () => {
+export const checkForMemoryRead = () => {
     if (FETCHED_ACHIEVEMENT_DATA.length == 0) {
         achievementsConfig.forEach(achievement => {
             FETCHED_ACHIEVEMENT_DATA.push(achievement);
@@ -28,6 +28,14 @@ const checkForMemoryRead = () => {
         localStorage.setItem('achievementData', JSON.stringify(FETCHED_ACHIEVEMENT_DATA));
     }
     // ===================================================================================================================
+}
+
+export const searchForAchievement = (achievementSearchTerm) => {
+    for (var achievementData of FETCHED_ACHIEVEMENT_DATA) {
+        if (achievementSearchTerm.id == achievementData.id) {
+            return achievementData;
+        }
+    }
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -253,7 +261,8 @@ export let achievementsConfig = [
         progress: 0,
         requiredProgress: 69,
         color: '#1b4035',
-        unlocked: false
+        unlocked: false,
+        dontShowProgress: true
     },
 
     {
@@ -263,7 +272,8 @@ export let achievementsConfig = [
         progress: 0,
         requiredProgress: 2,
         color: 'radial-gradient(maroon, #1b4035)',
-        unlocked: false
+        unlocked: false,
+        dontShowProgress: true
     },
 
     {
@@ -319,7 +329,44 @@ export let achievementsConfig = [
         id: 'ach_memory_loss',
         color: 'radial-gradient(#98AFC7, #0C090A)',
         unlocked: false
+    },
+
+    // ----------------------------------------------
+    // ΤΡΟΠΑΙΑ
+    // ----------------------------------------------
+    {
+        name: 'Δάσκαλος των Καρτών',
+        desc: 'Βρες 10000 Κάρτες',
+        id: 'tr_master_of_cards',
+        progress: 0,
+        requiredProgress: 1e4,
+        color: 'radial-gradient(#f5d505, #d67400)',
+        trophy: true,
+        unlocked: false
+    },
+
+    {
+        name: 'Εκατομμυριούχος',
+        desc: 'Κάνε 1000000 Score',
+        id: 'tr_million_score',
+        progress: 0,
+        requiredProgress: 1e6,
+        color: 'radial-gradient(#f5d505, #d67400)',
+        trophy: true,
+        unlocked: false
+    },
+
+    {
+        name: 'Τσαλαπετεινός',
+        desc: 'Παίξε 10000 προσπάθειες',
+        id: 'tr_10k_tries',
+        progress: 0,
+        requiredProgress: 1e4,
+        color: 'radial-gradient(#f5d505, #d67400)',
+        trophy: true,
+        unlocked: false
     }
+    // -----------------------------------------------
 ];
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -370,7 +417,7 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
 
     // Τίτλος (που λέει ότι ξεκλειδώθηκε)
     let achievementNotifTitle = document.createElement('h1');
-    achievementNotifTitle.appendChild(document.createTextNode('ΝΕΟ ΕΠΙΤΕΥΓΜΑ!'));
+    achievementNotifTitle.appendChild(document.createTextNode(`ΝΕΟ ${achievementThatWasUnlocked.trophy ? 'ΤΡΟΠΑΙΟ' : 'ΕΠΙΤΕΥΓΜΑ'}!`));
     achievementNotifTitle.style.fontSize = '25px';
 
     // Δείξε ποιό επίτευγμα ξεκλειδώθηκε.
