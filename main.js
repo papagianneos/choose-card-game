@@ -5,7 +5,6 @@ import { music, sounds } from "./modules/sounds.js";
 // TO DO: NULL CARD
 
 (() => {
-
     document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
@@ -73,11 +72,11 @@ import { music, sounds } from "./modules/sounds.js";
         //secretSettingEnabled = false,
         let rot_ = 360;
 
-        // -----------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------------------------------------
         // Διάβασε τα εφέ που επέλεξε ο χρήστης.
-        // ------------------------------------------------------------------------
-        const playersEffect = JSON.parse(localStorage.getItem('customizeEffect'));
-        // ------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------------------------------------------------------
+        const playersEffect = JSON.parse(localStorage.getItem('customizeEffect')) == null ? null : JSON.parse(localStorage.getItem('customizeEffect'))[0];
+        // -----------------------------------------------------------------------------------------------------------------------------------------------
 
         // -----------------------------------------------------------------------
         // lol
@@ -100,13 +99,18 @@ import { music, sounds } from "./modules/sounds.js";
         // Ήχος.
         // ------------------------------------
 
-        // -----------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------
         // Μουσική για το παιχνίδι
-        // -----------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------
+        let menuMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
+            gameMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
+
+        menuMusic.play();
+
         // Extreme mode μουσικη
         let startedExtremeModeMusic = false,
             gameStarted = false;
-        // -----------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------
 
         // ---------------------------------------
         // Extreme Gamemode
@@ -386,29 +390,14 @@ import { music, sounds } from "./modules/sounds.js";
                                 if (startedExtremeModeMusic) {
                                     music.extremeModeGameMusic.pause();
                                 }
-                                else {
-                                    if (timedModeEnabled) {
-                                        music.timeLevelMusic.pause();
-                                    }
-                                    else if (papagianneosFinaleEnabled) {
-                                        music.papagianneosFinaleMusic.pause();
-                                    }
-                                    else music.gameMusic.pause();
-                                }
+                                else gameMusic.pause();
+
                                 sounds.wow.play();
                                 setTimeout(() => {
                                     if (startedExtremeModeMusic) {
                                         music.extremeModeGameMusic.pause();
                                     }
-                                    else {
-                                        if (timedModeEnabled) {
-                                            music.timeLevelMusic.play();
-                                        }
-                                        else if (papagianneosFinaleEnabled) {
-                                            music.papagianneosFinaleMusic.play();
-                                        }
-                                        else music.gameMusic.play();
-                                    }
+                                    else gameMusic.play();
                                 }, 3e3);
                             }
                             break;
@@ -1110,15 +1099,16 @@ import { music, sounds } from "./modules/sounds.js";
             // Μουσική
             // ----------------------------------
             if (!musicStarted) {
-                music.menuMusic.pause();
+                menuMusic.pause();
 
                 if (timedModeEnabled) {
-                    music.timeLevelMusic.play();
+                    gameMusic = music.timeLevelMusic;
                 }
                 else if (papagianneosFinaleEnabled) {
-                    music.papagianneosFinaleMusic.play();
+                    gameMusic = music.papagianneosFinaleMusic;
                 }
-                else music.gameMusic.play();
+
+                gameMusic.play();
                 musicStarted = true;
             }
             // ----------------------------------
@@ -1151,7 +1141,7 @@ import { music, sounds } from "./modules/sounds.js";
             // Μουσική Credits (Soundimage.org)
             let musicCredit = document.createElement('h1');
             musicCredit.style.fontSize = '20px';
-            musicCredit.innerHTML = `Μουσική από: <a href="https://soundimage.org/">Soundimage.org</a> και <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
+            musicCredit.innerHTML = `Μουσική από: Petercraft#7530, <a href="https://soundimage.org/">Soundimage.org</a> και <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
             // For my friends :)
             let friendsWebsite = document.createElement('h1');
@@ -1594,7 +1584,7 @@ import { music, sounds } from "./modules/sounds.js";
                                 music.papagianneosFinaleMusic.pause();
                                 document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(maroon, black)';
                             }
-                            music.gameMusic.pause();
+                            gameMusic.pause();
                             music.extremeModeGameMusic.play();
                         }
                     }
@@ -1603,8 +1593,7 @@ import { music, sounds } from "./modules/sounds.js";
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || (tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
                         if (lostByDeathCard) {
-                            music.gameMusic.pause();
-                            music.timeLevelMusic.pause();
+                            gameMusic.pause();
                         }
 
                         if (papagianneosFinaleEnabled) {
@@ -1723,7 +1712,7 @@ import { music, sounds } from "./modules/sounds.js";
                         // ---------------------------------
                         // Μουσική
                         // ---------------------------------
-                        music.gameMusic.pause();
+                        gameMusic.pause();
 
                         if (voidModeEnabled) {
                             music.papagianneosFinaleMusic.pause();
@@ -1836,14 +1825,14 @@ import { music, sounds } from "./modules/sounds.js";
                                 case 3: // TIMED mode.
                                     document.getElementById('cardsHolder').removeAttribute('style');
                                     timedModeEnabled = true;
-                                    music.gameMusic.pause();
+                                    gameMusic.pause();
                                     music.timeLevelMusic.play();
                                     break;
 
                                 case 4: // Extreme mode.
                                     document.getElementById('timeBar').style.display = 'none';
                                     music.timeLevelMusic.pause();
-                                    music.gameMusic.play();
+                                    gameMusic.play();
                                     savedTries_voidMode = tries;
                                     tries = 0;
                                     updateTries();
@@ -1861,7 +1850,7 @@ import { music, sounds } from "./modules/sounds.js";
                                     if (startedExtremeModeMusic) {
                                         music.extremeModeGameMusic.pause();
                                     }
-                                    else music.gameMusic.pause();
+                                    else gameMusic.pause();
                                     music.papagianneosFinaleMusic.play();
                                     break;
                             }
