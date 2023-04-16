@@ -233,7 +233,25 @@
             setup: (value) => {
                 previewCard.style.fontFamily = value;
             }
-        }
+        },
+
+        {
+            name: "Είδος Μουσικής",
+            id: "musicType",
+            type: 'select',
+            optionSetup: [
+                {
+                    name: 'Κανονικό (Petercraft)',
+                    value: 'normal'
+                },
+
+                {
+                    name: 'Παλιό (OG) (Soundimage.org)',
+                    value: 'OG'
+                }
+            ],
+            setup: () => { }
+        },
     ];
 
     // Δημιουργεία της κάθε ρύθμισης
@@ -326,7 +344,7 @@
     saveButton.style.marginBottom = '50px';
     saveButton.onclick = () => {
         new Audio('../audio/click.mp3').play();
-        const effect = {
+        const effect = [{
             neonMode: document.getElementById("neonCard").checked,
             widthAndHeight: document.getElementById("cardOutsideShape").value,
             borderRadius: `${document.getElementById('cardShape').value}px`,
@@ -334,8 +352,9 @@
             textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
             textDecorationLine: document.getElementById('cardTextDecoration').value,
             textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
-            fontFamily: document.getElementById('cardTextFontFamily').value
-        }
+            fontFamily: document.getElementById('cardTextFontFamily').value,
+            musicType: document.getElementById('musicType').value
+        }]
         localStorage.setItem('customizeEffect', JSON.stringify(effect));
         window.location.href = '/';
     }
@@ -347,7 +366,8 @@
     // Φόρτωσε τα default εφέ
     document.getElementById('cardShape').value = '5';
     document.getElementById('cardTextSize').value = '60';
-    const playersEffect = {
+
+    const playersEffect = [{
         neonMode: document.getElementById("neonCard").checked,
         widthAndHeight: document.getElementById("cardOutsideShape").value,
         borderRadius: `${document.getElementById('cardShape').value}px`,
@@ -355,8 +375,9 @@
         textDecorationThickness: `${document.getElementById('cardTextDecorationThicc').value}px`,
         textDecorationLine: document.getElementById('cardTextDecoration').value,
         textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
-        fontFamily: document.getElementById('cardTextFontFamily').value
-    }
+        fontFamily: document.getElementById('cardTextFontFamily').value,
+        musicType: document.getElementById('musicType').value
+    }][0]
 
     previewCard.style.borderRadius = playersEffect.borderRadius;
     previewCard.style.fontSize = playersEffect.fontSize;
