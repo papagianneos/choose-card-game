@@ -5,12 +5,21 @@
 // Μουσικές
 export const music = {
     menuMusic: new Howl({
+        src: ['./audio/Main_Menu.mp3'],
+        loop: false,
+    }),
+
+    menuMusicOG: new Howl({
         src: ['./audio/gameMenuMusic.mp3'],
         loop: true,
-        autoplay: true
     }),
 
     gameMusic: new Howl({
+        src: ['./audio/music.mp3'],
+        loop: true
+    }),
+
+    gameMusicOG: new Howl({
         src: ['./audio/μουσική.mp3'],
         loop: true
     }),
