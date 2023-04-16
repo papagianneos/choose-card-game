@@ -1365,6 +1365,47 @@ import { music, sounds } from "./modules/sounds.js";
             settingsHolder.style.display = 'block';
             settingsHolder.style.marginBottom = '50px';
 
+            // ---------------------------------------------------------------------
+            // Featured Youtuber
+            // ---------------------------------------------------------------------
+            let featuredYoutuberHolder = document.createElement('div');
+            featuredYoutuberHolder.className = 'featuredYoutuber';
+
+            let youtubeIcon = document.createElement('img');
+            youtubeIcon.setAttribute('width', '50');
+            youtubeIcon.setAttribute('height', '30');
+            youtubeIcon.setAttribute('draggable', 'false');
+            youtubeIcon.src = './img/youtube-icon.png';
+            youtubeIcon.className = 'featuredYoutuberStat';
+
+            let featuredYoutuberText = document.createElement('h1');
+            featuredYoutuberText.className = 'featuredYoutuberStat';
+            featuredYoutuberText.innerHTML = 'Featured Youtuber: ';
+
+            const FEATURED_YOUTUBERS = [
+                {
+                    name: 'Engood',
+                    link: 'https://www.youtube.com/channel/UCUPk_7ASBWn_NvQqwJyc8mA'
+                },
+
+                {
+                    name: 'Petercraft',
+                    link: 'https://www.youtube.com/channel/UCKy57fKpaKYOifflNOMOtUA',
+                },
+
+                {
+                    name: 'SkyGamerGR',
+                    link: 'https://www.youtube.com/@skygamergrofficial2317'
+                }
+            ]
+
+            let featuredYoutuber = randomChoice(FEATURED_YOUTUBERS);
+            featuredYoutuberText.innerHTML += `<a href="${featuredYoutuber.link}">${featuredYoutuber.name}</a>`;
+
+            featuredYoutuberHolder.appendChild(youtubeIcon);
+            featuredYoutuberHolder.appendChild(featuredYoutuberText);
+            // ---------------------------------------------------------------------
+
             startScreen.appendChild(screenLogo); // Logo
             startScreen.appendChild(startScreenText); // Τίτλος
             infoHolder.appendChild(developerNameLol); // λολ
@@ -1375,6 +1416,7 @@ import { music, sounds } from "./modules/sounds.js";
             settingsHolder.appendChild(creditsBtn); // Credits
             settingsHolder.appendChild(howToPlayBtn); // How to play link
             settingsHolder.appendChild(achievementsMenuBtn);
+            startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
             startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
