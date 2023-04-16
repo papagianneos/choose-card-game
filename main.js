@@ -1396,6 +1396,11 @@ import { music, sounds } from "./modules/sounds.js";
                 {
                     name: 'SkyGamerGR',
                     link: 'https://www.youtube.com/@skygamergrofficial2317'
+                },
+
+                {
+                    name: 'Tsismanidis',
+                    link: 'https://www.youtube.com/@tsismanidis2140'
                 }
             ]
 
