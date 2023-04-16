@@ -1,6 +1,7 @@
 import { unlockAchievement } from "./modules/achievenent-functions.js";
 import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
+import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
 // TO DO: NULL CARD
 
@@ -1382,30 +1383,8 @@ import { music, sounds } from "./modules/sounds.js";
             featuredYoutuberText.className = 'featuredYoutuberStat';
             featuredYoutuberText.innerHTML = 'Featured Youtuber: ';
 
-            const FEATURED_YOUTUBERS = [
-                {
-                    name: 'Engood',
-                    link: 'https://www.youtube.com/channel/UCUPk_7ASBWn_NvQqwJyc8mA'
-                },
-
-                {
-                    name: 'Petercraft',
-                    link: 'https://www.youtube.com/channel/UCKy57fKpaKYOifflNOMOtUA',
-                },
-
-                {
-                    name: 'SkyGamerGR',
-                    link: 'https://www.youtube.com/@skygamergrofficial2317'
-                },
-
-                {
-                    name: 'Tsismanidis',
-                    link: 'https://www.youtube.com/@tsismanidis2140'
-                }
-            ]
-
             let featuredYoutuber = randomChoice(FEATURED_YOUTUBERS);
-            featuredYoutuberText.innerHTML += `<a href="${featuredYoutuber.link}">${featuredYoutuber.name}</a>`;
+            featuredYoutuberText.innerHTML += `<a style="text-decoration:none;" href="${featuredYoutuber.link}">${featuredYoutuber.name}</a>`;
 
             featuredYoutuberHolder.appendChild(youtubeIcon);
             featuredYoutuberHolder.appendChild(featuredYoutuberText);
