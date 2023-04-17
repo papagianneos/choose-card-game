@@ -433,7 +433,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                         document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
                                         document.getElementById('cardsHolder').children[0].style.color = 'white';
                                         for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'none';
-                                    }, 5e3);
+                                    }, 20e3);
                                 }
 
                                 if (startedExtremeModeMusic) {
