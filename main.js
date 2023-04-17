@@ -412,6 +412,30 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                             card.specialCardEffect = () => {
                                 // Επίτευγμα: "Ουάου"
                                 unlockAchievement('ach_pgn_card_found');
+
+                                // Για 20 δευτερόλεπτα.. ένα cool εφέ :D
+                                if (!papagianneosFinaleEnabled && !voidModeEnabled) {
+                                    $('#cardsHolder')
+                                        .fadeOut(300)
+                                        .fadeIn(300);
+                                    extremeModeTriesTextColor = '#ba0909';
+                                    warningColorOfBodyTag = '#b85858';
+                                    document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
+                                    document.getElementById('cardsHolder').children[0].style.color = 'black';
+                                    for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
+                                    setTimeout(() => {
+                                        $('#cardsHolder')
+                                            .fadeIn(300)
+                                            .fadeOut(300)
+                                        .fadeIn(300);
+                                        extremeModeTriesTextColor = 'red';
+                                        warningColorOfBodyTag = 'rgb(25, 0, 0)';
+                                        document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
+                                        document.getElementById('cardsHolder').children[0].style.color = 'white';
+                                        for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'none';
+                                    }, 5e3);
+                                }
+
                                 if (startedExtremeModeMusic) {
                                     music.extremeModeGameMusic.pause();
                                 }
