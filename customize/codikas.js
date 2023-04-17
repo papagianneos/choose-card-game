@@ -9,7 +9,7 @@
 
     // Τίτλος Ιστοσελίδας.
     let websiteHeader = document.createElement('h1');
-    websiteHeader.appendChild(document.createTextNode('ΣΤΥΛ ΚΑΡΤΑΣ'));
+    websiteHeader.appendChild(document.createTextNode('ΡΥΘΜΙΣΕΙΣ'));
     mainBox.appendChild(websiteHeader);
 
     // Τα "εργαλεία" που μπορεί να χρησιμοποιεί ο παίχτης.
@@ -55,6 +55,24 @@
                 }
             }
         },
+
+        {
+            name: "Light Mode",
+            id: "improvedGraphics",
+            type: 'checkbox',
+            setup: (checked) => {
+                if (checked) {
+                    document.getElementsByTagName('body').style.backgroundColor = 'white';
+                    previewCard.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
+                }
+
+                else {
+                    document.getElementsByTagName('body').style.backgroundColor = 'black';
+                    previewCard.style.boxShadow = 'none';
+                }
+            }
+        },
+
         {
             name: "Σχήμα Κάρτας",
             id: "cardShape",
@@ -278,7 +296,19 @@
                 checkbox.onclick = () => {
                     toolSetting.setup(checkbox.checked);
                 };
+
                 settingHolder.appendChild(checkbox);
+
+                if (toolSetting.id == 'improvedGraphics') {
+                    let warnTip = document.createElement('span'),
+                        warnTipDesc = document.createElement('span');
+
+                    warnTip.className = "warntip";
+                    warnTipDesc.appendChild(document.createTextNode('ΠΡΟΣΟΧΗ! Αυτή η ρύθμιση ενδέχεται να σου μειώσει τα FPS.'));
+                    warnTipDesc.id = "warntipDesc";
+                    warnTip.appendChild(warnTipDesc);
+                    settingHolder.appendChild(warnTip);
+                }
             }
                 break;
 
@@ -292,6 +322,7 @@
                 inputField.addEventListener('input', () => {
                     toolSetting.setup(`${inputField.value}px`);
                 });
+
                 settingHolder.appendChild(inputField);
             }
                 break;
@@ -322,7 +353,7 @@
 
         // Βάλε κενό ανάμεσα στα γράμματα και το slider
         for (var childIndex = 0; childIndex < settingHolder.children.length; childIndex++) {
-            settingHolder.children[childIndex].style.margin = '5px';
+            settingHolder.children[childIndex].style.margin = `${settingHolder.children[childIndex].className != 'warntip' ? 5 : 7}px`;
         }
 
         settingWrapper.appendChild(settingHolder);
@@ -353,7 +384,8 @@
             textDecorationLine: document.getElementById('cardTextDecoration').value,
             textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
             fontFamily: document.getElementById('cardTextFontFamily').value,
-            musicType: document.getElementById('musicType').value
+            musicType: document.getElementById('musicType').value,
+            improvedGraphics: document.getElementById("improvedGraphics").checked
         }]
         localStorage.setItem('customizeEffect', JSON.stringify(effect));
         window.location.href = '/';
@@ -364,7 +396,7 @@
     document.body.appendChild(mainBox);
 
     // Φόρτωσε τα default εφέ
-    document.getElementById('cardShape').value = '5';
+    document.getElementById('cardShape').value = '2.5';
     document.getElementById('cardTextSize').value = '60';
 
     const playersEffect = [{
@@ -376,7 +408,8 @@
         textDecorationLine: document.getElementById('cardTextDecoration').value,
         textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
         fontFamily: document.getElementById('cardTextFontFamily').value,
-        musicType: document.getElementById('musicType').value
+        musicType: document.getElementById('musicType').value,
+        improvedGraphics: document.getElementById("improvedGraphics").checked
     }][0]
 
     previewCard.style.borderRadius = playersEffect.borderRadius;
