@@ -331,6 +331,64 @@ export let achievementsConfig = [
         unlocked: false
     },
 
+    {
+        name: 'Κυνηγός',
+        desc: 'Βρες 15 σπέσιαλ κάρτες',
+        id: 'ach_hunter',
+        progress: 0,
+        requiredProgress: 15,
+        color: 'radial-gradient(red, magenta)',
+        unlocked: false
+    },
+
+    {
+        name: 'Σ.. από.. Σωτήρης;',
+        desc: 'Βρες το σπάνιο Σ.',
+        id: 'ach_sigma_card',
+        color: 'radial-gradient(brown, black)',
+        unlocked: false
+    },
+
+    {
+        name: 'Απατεών',
+        desc: 'Βρες 50 σπέσιαλ κάρτες',
+        id: 'ach_deceiver',
+        progress: 0,
+        requiredProgress: 50,
+        color: '#82edc6',
+        unlocked: false
+    },
+
+    {
+        name: 'Παίχτης από Κουρδιστάν',
+        desc: 'Κέρδισε 50 φορές',
+        id: 'ach_win_any_50',
+        progress: 0,
+        requiredProgress: 50,
+        color: '#2a2b15',
+        unlocked: false
+    },
+
+    {
+        name: 'Τι σκατά ρε',
+        desc: 'Χάσε 10 φορές',
+        id: 'ach_lose_10',
+        progress: 0,
+        requiredProgress: 10,
+        color: '#000738',
+        unlocked: false
+    },
+
+    {
+        name: 'Ξέρω την αλφάβητο!',
+        desc: 'Χάσε 50 φορές',
+        id: 'ach_lose_50',
+        progress: 0,
+        requiredProgress: 50,
+        color: '#381600',
+        unlocked: false
+    },
+
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
@@ -365,7 +423,18 @@ export let achievementsConfig = [
         color: 'radial-gradient(#f5d505, #d67400)',
         trophy: true,
         unlocked: false
-    }
+    },
+
+    {
+        name: 'Βρες τον σωστό δάσκαλο',
+        desc: 'Κέρδισε 1000 φορές',
+        id: 'tr_win_any_1k',
+        progress: 0,
+        requiredProgress: 1e3,
+        color: 'radial-gradient(#f5d505, #d67400)',
+        trophy: true,
+        unlocked: false
+    },
     // -----------------------------------------------
 ];
 // ------------------------------------------------------------------------------------------------------------------
