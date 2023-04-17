@@ -750,7 +750,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 div.style.width = JSON.parse(playersEffect.widthAndHeight)[0];
                 div.style.height = JSON.parse(playersEffect.widthAndHeight)[1];
 
-                if (playersEffect.improvedGraphics && !papagianneosFinaleEnabled) div.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
+                if (playersEffect.improvedGraphics && !papagianneosFinaleEnabled && !voidModeEnabled) div.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
 
                 if (playersEffect.neonMode) {
                     div.style.borderWidth = '5px';
@@ -1339,8 +1339,8 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                         // Νέα γραφικά
                         if (playersEffect) if (playersEffect.improvedGraphics) {
-                                document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
-                                scoreAndTriesHolder.style.color = 'black';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
+                            scoreAndTriesHolder.style.color = 'black';
                         }
                     }
 
@@ -1422,7 +1422,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
             featuredYoutuberText.innerHTML += featuredYoutuber.name;
 
             featuredYoutuberHolder.onclick = () => {
-                window.location.href = featuredYoutuber.link
+                sounds.buttonClick.play();
+                // για να προλάβει να παίξει ο ήχος..
+                setTimeout(() => {
+                    window.location.href = featuredYoutuber.link;
+                }, 5e2);
+
             }
 
             featuredYoutuberHolder.appendChild(youtubeIcon);
