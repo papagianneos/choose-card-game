@@ -113,6 +113,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
         // Ήχος.
         // ------------------------------------
 
+        // Λάθος κάρτα
+        let wrongSound = playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
+
+        // TIMED mode music
+        let timedModeMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
+
         // ------------------------------------------------------------------------------------------------------------------------
         // Μουσική για το παιχνίδι
         // ------------------------------------------------------------------------------------------------------------------------
@@ -979,7 +985,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         currentSelected = [];
 
                         if (!hardModeEnabled) {
-                            sounds.wrong.play();
+                            wrongSound.play();
                         }
 
                         blockClicks = true;
@@ -1132,7 +1138,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 menuMusic.pause();
 
                 if (timedModeEnabled) {
-                    gameMusic = music.timeLevelMusic;
+                    gameMusic = timedModeMusic;
                 }
                 else if (papagianneosFinaleEnabled) {
                     gameMusic = music.papagianneosFinaleMusic;
@@ -1339,7 +1345,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                         // Νέα γραφικά
                         if (playersEffect) if (playersEffect.improvedGraphics) {
-                            document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
                             scoreAndTriesHolder.style.color = 'black';
                         }
                     }
@@ -1478,7 +1484,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         if (timeLeftPerc <= 35) {
                             color__ = 'red';
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
                         }
 
                         // -----------------------------------------------------------------------------------------------------------
@@ -1803,7 +1809,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                         // Timed mode
                         if (timedModeEnabled) {
-                            music.timeLevelMusic.pause();
+                            timeLevelMusic.pause();
                         }
 
                         // Αν άρχισε η extreme μουσική
@@ -1910,12 +1916,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                     document.getElementById('cardsHolder').removeAttribute('style');
                                     timedModeEnabled = true;
                                     gameMusic.pause();
-                                    music.timeLevelMusic.play();
+                                    timeLevelMusic.play();
                                     break;
 
                                 case 4: // Extreme mode.
                                     document.getElementById('timeBar').style.display = 'none';
-                                    music.timeLevelMusic.pause();
+                                    timeLevelMusic.pause();
                                     gameMusic.play();
                                     savedTries_voidMode = tries;
                                     tries = 0;
