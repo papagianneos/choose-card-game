@@ -241,6 +241,11 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                             AMOUNT_OF_CARDS += 2;
                         }
                     }
+
+                    // Δες αν υπάρχει troll κάρτα..
+                    if (cardShapes.includes('[?]')) {
+                        trollCardExists = true;
+                    }
                 }
             }
             // ----------------------------------------------------------------------------------------------
