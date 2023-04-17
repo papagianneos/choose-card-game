@@ -79,6 +79,19 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
         const playersEffect = JSON.parse(localStorage.getItem('customizeEffect')) == null ? null : JSON.parse(localStorage.getItem('customizeEffect'))[0];
         // -----------------------------------------------------------------------------------------------------------------------------------------------
 
+        // -------------------------------------------------------------
+        // Καλύτερα Γραφικά (Light Mode)
+        // ---------------------------------------------------------------
+        let extremeModeTriesTextColor = 'red',
+            warningColorOfBodyTag = 'rgb(25, 0, 0)';
+
+        // Χρώματα γραμματοσειράς και φόντου του extreme mode.
+        if (playersEffect) if (playersEffect.improvedGraphics) {
+            extremeModeTriesTextColor = '#ba0909';
+            warningColorOfBodyTag = '#b85858';
+        }
+        // -------------------------------------------------------------
+
         // -----------------------------------------------------------------------
         // lol
         // ----------------------------------------------------------------------
@@ -737,6 +750,8 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 div.style.width = JSON.parse(playersEffect.widthAndHeight)[0];
                 div.style.height = JSON.parse(playersEffect.widthAndHeight)[1];
 
+                if (playersEffect.improvedGraphics && !papagianneosFinaleEnabled) div.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
+
                 if (playersEffect.neonMode) {
                     div.style.borderWidth = '5px';
                     div.style.borderColor = div.style.background;
@@ -1321,6 +1336,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                     if (!['papagianneosFinale', 'void'].includes(mode)) {
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
+
+                        // Νέα γραφικά
+                        if (playersEffect) if (playersEffect.improvedGraphics) {
+                                document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
+                                scoreAndTriesHolder.style.color = 'black';
+                        }
                     }
 
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
@@ -1398,7 +1419,11 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
             featuredYoutuberText.innerHTML = 'Featured Youtuber: ';
 
             let featuredYoutuber = randomChoice(FEATURED_YOUTUBERS);
-            featuredYoutuberText.innerHTML += `<a style="text-decoration:none;" href="${featuredYoutuber.link}">${featuredYoutuber.name}</a>`;
+            featuredYoutuberText.innerHTML += featuredYoutuber.name;
+
+            featuredYoutuberHolder.onclick = () => {
+                window.location.href = featuredYoutuber.link
+            }
 
             featuredYoutuberHolder.appendChild(youtubeIcon);
             featuredYoutuberHolder.appendChild(featuredYoutuberText);
@@ -1609,13 +1634,13 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 // ------------------------------------------------------------------
                 if (lostByDeathCard || extremeModeEnabled) {
                     // Άλλαξε το χρώμα της γραμματοσειράς σε κόκκινο.
-                    triesText.style.color = 'red';
+                    triesText.style.color = extremeModeTriesTextColor;
 
                     // Εφέ για τις προσπάθειες του παίχτη.
                     if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                         triesText.style.animation = 'seismos .3s linear infinite';
                         document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                        document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                        document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
@@ -1791,6 +1816,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         sounds.win.play();
 
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
+                        document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
 
                         // Εμφάνισε "Κέρδισες!" οθόνη.
                         let winScreen = document.createElement('div');
