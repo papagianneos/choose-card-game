@@ -1809,7 +1809,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                         // Timed mode
                         if (timedModeEnabled) {
-                            timeLevelMusic.pause();
+                            timedModeMusic.pause();
                         }
 
                         // Αν άρχισε η extreme μουσική
@@ -1916,12 +1916,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                     document.getElementById('cardsHolder').removeAttribute('style');
                                     timedModeEnabled = true;
                                     gameMusic.pause();
-                                    timeLevelMusic.play();
+                                    timedModeMusic.play();
                                     break;
 
                                 case 4: // Extreme mode.
                                     document.getElementById('timeBar').style.display = 'none';
-                                    timeLevelMusic.pause();
+                                    timedModeMusic.pause();
                                     gameMusic.play();
                                     savedTries_voidMode = tries;
                                     tries = 0;
