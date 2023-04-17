@@ -575,6 +575,9 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         case specialCardsConfig[16].shape: // Σ (sigma)
                             specialCardIndex = 16;
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: "Σ.. από.. Σωτήρης;"
+                                unlockAchievement('ach_sigma_card');
+
                                 for (var cardChildElem of document.getElementsByClassName('card')) {
                                     if (cardChildElem.savedText != specialCardsConfig[16].shape) {
                                         cardChildElem.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
@@ -1044,6 +1047,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                             // Επίτευγμα: "Τι ήταν αυτό;"
                             unlockAchievement('ach_first_special_card');
+
+                            // Επίτευγμα: "Κυνηγός"
+                            unlockAchievement('ach_hunter');
+
+                            // Επίτευγμα: "Απατεών"
+                            unlockAchievement('ach_deceiver');
                         }
 
                         // Αν είναι μία απλή κάρτα
@@ -1623,6 +1632,13 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                     // Δες αν έχασε ο παίχτης
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || (tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
+
+                        // Επίτευγμα: "Τι σκατά"
+                        unlockAchievement('ach_lose_10');
+
+                        // Επίτευγμα: "Ξέρω την αλφάβητο!"
+                        unlockAchievement('ach_lose_50');
+
                         if (lostByDeathCard) {
                             gameMusic.pause();
                         }
@@ -1693,6 +1709,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                             // Επίτευγμα: "Τέρμα η μνήμη RAM"
                             unlockAchievement('ach_win_any_20');
+
+                            // Επίτευγμα: "Παίχτης από Κουρδιστάν"
+                            unlockAchievement('ach_win_any_50');
+
+                            // Τρόπαιο: "Βρες τον σωστό δάσκαλο"
+                            unlockAchievement('tr_win_any_1k');
 
                             let achievementIDToCheckForUnlock = '';
                             switch (true) {
