@@ -413,8 +413,8 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                 // Επίτευγμα: "Ουάου"
                                 unlockAchievement('ach_pgn_card_found');
 
-                                // Για 20 δευτερόλεπτα.. ένα cool εφέ :D
-                                if (!papagianneosFinaleEnabled && !voidModeEnabled) {
+                                // (SCAPPED) Για 20 δευτερόλεπτα.. ένα cool εφέ :D
+                                /*if (!papagianneosFinaleEnabled && !voidModeEnabled) {
                                     $('#cardsHolder')
                                         .fadeOut(300)
                                         .fadeIn(300);
@@ -434,7 +434,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                         document.getElementById('cardsHolder').children[0].style.color = 'white';
                                         for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'none';
                                     }, 20e3);
-                                }
+                                }*/
 
                                 if (startedExtremeModeMusic) {
                                     music.extremeModeGameMusic.pause();
