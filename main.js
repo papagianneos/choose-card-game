@@ -1431,7 +1431,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 sounds.buttonClick.play();
                 // για να προλάβει να παίξει ο ήχος..
                 setTimeout(() => {
-                    window.location.href = featuredYoutuber.link;
+                    window.open(featuredYoutuber.link);
                 }, 5e2);
 
             }
