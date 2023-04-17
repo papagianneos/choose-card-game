@@ -413,7 +413,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                 // Επίτευγμα: "Ουάου"
                                 unlockAchievement('ach_pgn_card_found');
 
-                                // (SCAPPED) Για 20 δευτερόλεπτα.. ένα cool εφέ :D
+                                // (SCRAPPED) Για 20 δευτερόλεπτα.. ένα cool εφέ :D
                                 /*if (!papagianneosFinaleEnabled && !voidModeEnabled) {
                                     $('#cardsHolder')
                                         .fadeOut(300)
