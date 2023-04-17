@@ -35,9 +35,14 @@ export const music = {
     }),
 
     timeLevelMusic: new Howl({
+        src: ['./audio/timed_mode_level_petercraft.mp3'],
+        loop: true,
+    }),
+
+    timeLevelMusicOG: new Howl({
         src: ['./audio/time_level_music.mp3'],
         loop: true,
-    })
+    }),
 }
 
 // Ήχοι Παιχνιδιού
@@ -75,6 +80,10 @@ export const sounds = {
     }),
 
     wrong: new Howl({
+        src: ['./audio/Wrong.mp3']
+    }),
+
+    wrongOG: new Howl({
         src: ['./audio/λάθος.mp3']
     }),
 
