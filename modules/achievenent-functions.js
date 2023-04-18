@@ -389,6 +389,14 @@ export let achievementsConfig = [
         unlocked: false
     },
 
+    {
+        name: 'Λίγη κολλητική ταινία δε βλάπτει',
+        desc: 'Νίκησε το "virus" mode.',
+        id: 'ach_win_virus',
+        color: 'radial-gradient(red, black)',
+        unlocked: false
+    },
+
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
