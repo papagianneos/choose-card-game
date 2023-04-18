@@ -171,6 +171,12 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
             label: 'VOID',
             color: 'radial-gradient(#240907, black)',
             info: 'Η τελική μάχη'
+        },
+
+        {
+            label: 'Virus',
+            color: 'radial-gradient(red, black)',
+            info: 'Κάνε λάθος και χάσε τα πάντα.'
         }
     ];
 
