@@ -153,6 +153,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
         let cardsData = [],
             hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
             challengeModeEnabled = false,
+            virusModeEnabled = false,
             challengeModeEffectTurn = 0,
             currentSelected = [],
             score = 0,
@@ -891,6 +892,28 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         // Τρόπαιο: "Τσαλαπετεινός"
                         unlockAchievement('tr_10k_tries');
 
+                        // ------------------------------------------------------------------------------------------------------
+                        // "Virus" mode setup (made by Petercraft)
+                        // Κάθε φορά που γίνεται λάθος κλείνουν όλες οι ανοιχτές κάρτες.
+                        // ------------------------------------------------------------------------------------------------------
+                        if (virusModeEnabled) {
+                            // μην παίξεις τον ήχο αν δεν υπάρχουν ανοιχτές κάρτες
+                            let countedOpenedCards = 0;
+
+                            for (var cardDivElem of document.getElementsByClassName('card')) {
+                                if (cardDivElem.getAttribute('anoixthcarta')) countedOpenedCards++;
+                            }
+
+                            if (countedOpenedCards > 0) sounds.loss.play();
+
+                            for (var cardDivElem of document.getElementsByClassName('card')) cardDivElem.removeAttribute('anoixthcarta');
+
+                            setTimeout(() => {
+                                resetCards(false);
+                            }, 420);
+                        }
+                        // ------------------------------------------------------------------------------------------------------
+
                         // ----------------------------------------------------------------------------------------
                         // "Challenge" mode setup.
                         // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
@@ -1321,6 +1344,10 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                     }
                     //  if (mode == 'papagianneosFinale') return;
                     switch (mode) {
+                        case 'virus': // Virus
+                            virusModeEnabled = true;
+                            break;
+
                         case 'hard': // Δύσκολο
                             hardModeEnabled = true;
                             break;
@@ -1413,6 +1440,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                 playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton('Παίξε TIMED', 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton('Παίξε VOID', 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
+                playButtonVirus= createButton('Παίξε Virus', 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
@@ -1425,6 +1453,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
             buttonsWrapper.appendChild(playButtonTimed);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
+            buttonsWrapper.appendChild(playButtonVirus);
             // ----------------------------------------------------
 
             let settingsHolder = document.createElement('div');
@@ -1808,6 +1837,11 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                                     achievementIDToCheckForUnlock = 'ach_redacted';
                                     break;
 
+                                // Virus (made by Petercraft)
+                                case virusModeEnabled:
+                                    achievementIDToCheckForUnlock = 'ach_win_virus';
+                                    break;
+
                                 // Απλό
                                 default:
                                     achievementIDToCheckForUnlock = 'ach_normal_mode_win';
@@ -1858,7 +1892,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         winScreen.id = 'screen';
 
                         let winScreenText = document.createElement('h1');
-                        winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : voidModeEnabled ? 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+                        winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : virusModeEnabled ? 'Κέρδισες τον ιό.. μπράβο.' : voidModeEnabled ? 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
 
                         // αν papagianneos finale, σπεσιαλ μήνυμα
                         if (papagianneosFinaleEnabled) {
