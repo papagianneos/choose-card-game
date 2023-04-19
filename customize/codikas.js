@@ -92,17 +92,17 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Τετράγωνο',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].square,
                     value: JSON.stringify(['150px', '150px'])
                 },
 
                 {
-                    name: 'Ορθογώνιο (Οριζόντιο)',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].rectangle_horizontal,
                     value: JSON.stringify(['250px', '150px'])
                 },
 
                 {
-                    name: 'Ορθογώνιο (Κάθετο)',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].rectangle_vertical,
                     value: JSON.stringify(['150px', '250px'])
                 },
 
@@ -145,27 +145,27 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Τίποτα',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].none,
                     value: 'none'
                 },
 
                 {
-                    name: 'Υπεργράμμιση',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].overline,
                     value: 'overline'
                 },
 
                 {
-                    name: 'Υπογράμμιση',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].underline,
                     value: 'underline'
                 },
 
                 {
-                    name: 'Γραμμή-μέσω',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].line_through,
                     value: 'line-through'
                 },
 
                 {
-                    name: 'Πάνω-Κάτω Γραμμή',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].overline_and_underline,
                     value: 'overline underline'
                 },
             ],
@@ -181,27 +181,27 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Κανονικό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].default,
                     value: 'solid'
                 },
 
                 {
-                    name: 'Διακεκομμένο',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].dashed,
                     value: 'dashed'
                 },
 
                 {
-                    name: 'Διάσπαρτο',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].dotted,
                     value: 'dotted'
                 },
 
                 {
-                    name: 'Κυματιστό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].wavy,
                     value: 'wavy'
                 },
 
                 {
-                    name: 'Διπλό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].double,
                     value: 'double'
                 }
             ],
@@ -216,37 +216,37 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Κανονικό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].default,
                     value: 'sans-serif'
                 },
 
                 {
-                    name: 'Παλιό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].old,
                     value: 'serif'
                 },
 
                 {
-                    name: 'Φανταστικό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].fantasy,
                     value: 'φανταστικό'
                 },
 
                 {
-                    name: 'Επιστημονικό',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].scientific,
                     value: 'monospace'
                 },
 
                 {
-                    name: 'Αρχαίο',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].ancient,
                     value: 'αρχαίο'
                 },
 
                 {
-                    name: 'Παράξενο',
+                    name: LANGUAGE_DATA[LANGUAGE_INDEX].weird,
                     value: 'παράξενο'
                 },
 
                 {
-                    name: 'Καρτούν',
+                    name: 'Cartoon',
                     value: 'cartoon'
                 }
             ],
@@ -261,12 +261,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Κανονικό (Petercraft)',
+                    name: `${LANGUAGE_DATA[LANGUAGE_INDEX].default} (Petercraft)`,
                     value: 'normal'
                 },
 
                 {
-                    name: 'Παλιό (OG) (Soundimage.org)',
+                    name: `${LANGUAGE_DATA[LANGUAGE_INDEX].default} (OG) (Soundimage.org)`,
                     value: 'OG'
                 }
             ],
@@ -324,7 +324,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
                         warnTipDesc = document.createElement('span');
 
                     warnTip.className = "warntip";
-                    warnTipDesc.appendChild(document.createTextNode('ΠΡΟΣΟΧΗ! Αυτή η ρύθμιση ενδέχεται να σου μειώσει τα FPS.'));
+                    warnTipDesc.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].light_mode_warning));
                     warnTipDesc.id = "warntipDesc";
                     warnTip.appendChild(warnTipDesc);
                     settingHolder.appendChild(warnTip);
