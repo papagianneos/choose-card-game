@@ -1,3 +1,5 @@
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
+
 (() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
@@ -9,7 +11,7 @@
 
     // Τίτλος Ιστοσελίδας.
     let websiteHeader = document.createElement('h1');
-    websiteHeader.appendChild(document.createTextNode('ΡΥΘΜΙΣΕΙΣ'));
+    websiteHeader.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_settings_page));
     mainBox.appendChild(websiteHeader);
 
     // Τα "εργαλεία" που μπορεί να χρησιμοποιεί ο παίχτης.
@@ -38,7 +40,7 @@
 
     const toolsConfig = [
         {
-            name: "Νέον Κάρτα",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_neonCard,
             id: "neonCard",
             type: 'checkbox',
             setup: (checked) => {
@@ -74,7 +76,7 @@
         },
 
         {
-            name: "Σχήμα Κάρτας",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardShape,
             id: "cardShape",
             type: 'range',
             min: 0,
@@ -85,7 +87,7 @@
         },
 
         {
-            name: "Τετράπλευρο Κάρτας",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardOutsideShape,
             id: "cardOutsideShape",
             type: 'select',
             optionSetup: [
@@ -116,7 +118,7 @@
         },
 
         {
-            name: "Μέγεθος Γραμματοσειράς",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_fontSize,
             id: "cardTextSize",
             type: 'range',
             min: 40,
@@ -127,7 +129,7 @@
         },
 
         {
-            name: "Μέγεθος Γραμμής",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardTextDecorationThicc,
             id: "cardTextDecorationThicc",
             type: 'range',
             min: 1,
@@ -138,7 +140,7 @@
         },
 
         {
-            name: "Διακόσμηση Γραμματοσειράς (Γραμμή)",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardTextDecoration,
             id: "cardTextDecoration",
             type: 'select',
             optionSetup: [
@@ -174,7 +176,7 @@
         },
 
         {
-            name: "Είδος Γραμμής",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardTextDecorationLine,
             id: "cardTextDecorationLine",
             type: 'select',
             optionSetup: [
@@ -209,7 +211,7 @@
         },
 
         {
-            name: "Είδος Γραμματοσειράς",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_cardTextFontFamily,
             id: "cardTextFontFamily",
             type: 'select',
             optionSetup: [
@@ -254,7 +256,7 @@
         },
 
         {
-            name: "Είδος Μουσικής",
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_musicType,
             id: "musicType",
             type: 'select',
             optionSetup: [
@@ -270,6 +272,24 @@
             ],
             setup: () => { }
         },
+
+        {
+            name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_language,
+            id: "language",
+            type: 'select',
+            optionSetup: [
+                {
+                    name: 'Ελληνικά (Greek)',
+                    value: 0
+                },
+
+                {
+                    name: 'Αγγλικά (English)',
+                    value: 1
+                }
+            ],
+            setup: (languageIndexVal) => LANGUAGE_INDEX = languageIndexVal
+        }
     ];
 
     // Δημιουργεία της κάθε ρύθμισης
@@ -385,7 +405,8 @@
             textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
             fontFamily: document.getElementById('cardTextFontFamily').value,
             musicType: document.getElementById('musicType').value,
-            improvedGraphics: document.getElementById("improvedGraphics").checked
+            improvedGraphics: document.getElementById("improvedGraphics").checked,
+            languageID: document.getElementById("language").value
         }]
         localStorage.setItem('customizeEffect', JSON.stringify(effect));
         window.location.href = '/';
@@ -409,7 +430,8 @@
         textDecorationStyle: document.getElementById('cardTextDecorationLine').value,
         fontFamily: document.getElementById('cardTextFontFamily').value,
         musicType: document.getElementById('musicType').value,
-        improvedGraphics: document.getElementById("improvedGraphics").checked
+        improvedGraphics: document.getElementById("improvedGraphics").checked,
+        languageID: document.getElementById("language").value
     }][0]
 
     previewCard.style.borderRadius = playersEffect.borderRadius;
