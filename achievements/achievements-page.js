@@ -1,4 +1,5 @@
 import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searchForAchievement } from "../modules/achievenent-functions.js";
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
 (() => {
     checkForMemoryRead();
@@ -85,17 +86,17 @@ import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searc
     trophiesBtnWrapper.style.display = 'inline';
 
     let trophiesBtn = document.createElement('button');
-    trophiesBtn.appendChild(document.createTextNode('Τρόπαια'));
+    trophiesBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_trophies));
     trophiesBtn.style.width = 'auto';
     trophiesBtn.onclick = () => {
         if (!openedTrophies) {
-            trophiesBtn.innerHTML = 'Επιτεύγματα';
+            trophiesBtn.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].label_achievements;
             achievementsMainHolder.style.display = 'none';
             trophiesMainHolder.style.display = '';
             openedTrophies = true;
         }
         else {
-            trophiesBtn.innerHTML = 'Τρόπαια';
+            trophiesBtn.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].label_trophies;
             achievementsMainHolder.style.display = '';
             trophiesMainHolder.style.display = 'none';
             openedTrophies = false;
@@ -113,7 +114,7 @@ import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searc
     goBackBtnWrapper.style.display = 'inline';
 
     let goBackBtn = document.createElement('button');
-    goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
+    goBackBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_button_go_back));
     goBackBtn.style.width = 'auto';
     goBackBtn.onclick = () => window.location.href = '/';
 
