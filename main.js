@@ -1760,7 +1760,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Κουμπί για να παίξει ξανά ο παίχτης
                         let playAgainButton = document.createElement('button');
-                        playAgainButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].play_again));
+                        playAgainButton.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].play_again;
                         playAgainButton.style.backgroundColor = 'maroon';
                         playAgainButton.onclick = () => {
                             sounds.buttonClick.play();
@@ -1933,7 +1933,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Κουμπί για να παίξει ξανά ο παίχτης
                         let playAgainButton = document.createElement('button');
-                        playAgainButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].play_again));
+                        playAgainButton.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].play_again;
                         playAgainButton.onclick = () => {
                             sounds.buttonClick.play();
                             // για να προλάβει να παίξει ο ήχος..
