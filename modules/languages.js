@@ -9,6 +9,9 @@ export let LANGUAGE_DATA = [
         // Άλλα πράγματα της σελίδας
         // --------------------------------------
         "page_title": "Βρες την σωστή κάρτα",
+        "play_again": "Παίξε Ξανά",
+        "amount_of_cards": 'Σύνολο Καρτών',
+        "haha": 'Χάχα',
         "tries": 'Προσπάθειες',
         "developer": 'Προγραμματιστής: Σωτήριος Παπαγιάννης',
         "title_game_name": 'ΒΡΕΣ ΤΗΝ ΣΩΣΤΗ ΚΑΡΤΑ',
@@ -115,6 +118,9 @@ export let LANGUAGE_DATA = [
         // Άλλα πράγματα της σελίδας
         // --------------------------------------
         "page_title": "Find the right card",
+        "play_again": "Play Again",
+        "amount_of_cards": 'Amount of cards',
+        "haha": 'Haha',
         "tries": "Tries",
         "developer": 'Developer: Sotirios Papagiannis',
         "title_game_name": 'FIND THE RIGHT CARD',
