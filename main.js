@@ -1749,18 +1749,18 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         loseScreen.id = 'screen';
 
                         let loseScreenText = document.createElement('h1');
-                        loseScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? 'Χάχα!' : '. . .'));
+                        loseScreenText.appendChild(document.createTextNode(papagianneosFinaleEnabled ? `${LANGUAGE_DATA[LANGUAGE_INDEX].haha}!` : '. . .'));
 
                         // Με πόσες κάρτες έπαιξε ο παίχτης;
                         let totalCardsPlayed = document.createElement('h1');
-                        totalCardsPlayed.appendChild(document.createTextNode(`Σύνολο Καρτών: ${AMOUNT_OF_CARDS}`));
+                        totalCardsPlayed.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].amount_of_cards}: ${AMOUNT_OF_CARDS}`));
 
                         // Άλλαξε το μέγεθος της γραμματοσειράς.
                         totalCardsPlayed.style.fontSize = '25px';
 
                         // Κουμπί για να παίξει ξανά ο παίχτης
                         let playAgainButton = document.createElement('button');
-                        playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
+                        playAgainButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].play_again));
                         playAgainButton.style.backgroundColor = 'maroon';
                         playAgainButton.onclick = () => {
                             sounds.buttonClick.play();
