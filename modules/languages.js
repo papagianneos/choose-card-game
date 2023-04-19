@@ -113,6 +113,221 @@ export let LANGUAGE_DATA = [
         "rectangle_horizontal": 'Ορθογώνιο (Οριζόντιο)',
         "rectangle_vertical": 'Ορθογώνιο (Κάθετο)',
         // ------------------------------------------------------------------------
+
+        // ------------------------------------------------------------------------------------------------
+        // Επιτεύγματα και Τρόπαια
+        // ------------------------------------------------------------------------------------------------
+        "ach_new_player": {
+            name: "Νέος Παίχτης",
+            desc: 'Καλωσόρισες στο παιχνίδι!'
+        },
+
+        "ach_first_combination": {
+            name: "Τα κατάφερα;",
+            desc: 'Βρες το πρώτο ζευγάρι καρτών'
+        },
+
+        "ach_first_special_card": {
+            name: 'Τι ήταν αυτό;',
+            desc: 'Βρες μία σπεσιαλ κάρτα'
+        },
+
+        "ach_normal_mode_win": {
+            name: 'Ευκολάκης',
+            desc: 'Νίκησε το "απλό" mode.'
+        },
+
+        "ach_hard_mode_win": {
+            name: 'Δύσκολος',
+            desc: 'Νίκησε το "δύσκολο" mode.'
+        },
+
+        "ach_challenge_mode_win": {
+            name: 'Challenger',
+            desc: 'Νίκησε το "challege" mode.'
+        },
+
+        "ach_extreme_mode_win": {
+            name: 'Εκδικητής',
+            desc: 'Νίκησε το "extreme" mode.'
+        },
+
+        "ach_pgn_finale_win": {
+            name: 'Το λάπτοπ του Pgn',
+            desc: 'Νίκησε το "finale" mode.'
+        },
+
+        "ach_beginner": {
+            name: 'Αρχάριος',
+            desc: 'Βρες 10 κάρτες',
+        },
+
+        "ach_10_tries": {
+            name: 'Το μοιραίο λάθος',
+            desc: 'Παίξε 10 Προσπάθειες'
+        },
+
+        "ach_50_tries": {
+            name: 'Λίγο ακόμα και θα..',
+            desc: 'Παίξε 50 Προσπάθειες'
+        },
+
+        "ach_100_tries": {
+            name: 'ΑΑΑΑΑ',
+            desc: 'Παίξε 100 Προσπάθειες'
+        },
+
+        "ach_special_K_card": {
+            name: ':)',
+            desc: 'Βρες την σπεσιαλ "Κ" κάρτα.'
+        },
+
+        'ach_win_any_20': {
+            name: 'Τέρμα η μνήμη RAM',
+            desc: 'Κέρδισε 20 φορές',
+        },
+
+        'ach_win_any_50': {
+            name: 'Παίχτης από Κουρδιστάν',
+            desc: 'Κέρδισε 50 φορές',
+        },
+
+        'ach_lose_10': {
+            name: 'Τι σκατά ρε',
+            desc: 'Χάσε 10 φορές',
+        },
+
+        'ach_lose_50': {
+            name: 'Ξέρω την αλφάβητο!',
+            desc: 'Χάσε 50 φορές',
+        },
+
+        'ach_win_virus': {
+            name: 'Λίγη κολλητική ταινία δε βλάπτει',
+            desc: 'Νίκησε το "virus" mode.',
+        },
+
+        'ach_score_100': {
+            name: 'Εκατοστάρα στη μάπα',
+            desc: 'Κάνε 100 score'
+        },
+
+        'ach_somewhat_experienced': {
+            name: "Έμπειρος",
+            desc: 'Βρες 50 κάρτες',
+        },
+
+        'ach_2x05': {
+            name: "Κάπου το θυμάμαι αυτό..",
+            desc: '???'
+        },
+
+        'ach_expert': {
+            name: "Ειδικός",
+            desc: 'Βρες 100 κάρτες',
+        },
+
+        'ach_cross_card_found': {
+            name: "Rest in pepperoni",
+            desc: "Βρες την κάρτα με τον σταυρό",
+        },
+
+        'ach_pgn_card_found': {
+            name: "Ουάου",
+            desc: "Ο τίτλος το εξηγεί όλο",
+        },
+
+        'ach_skill_issue': {
+            name: "Skill Issue",
+            desc: "Κέρδισε 3 φορές με λιγότερο από 10 προσπάθειες.",
+        },
+
+        'ach_boom_card_found': {
+            name: "T r i a n g l e",
+            desc: "Και νομίζεις ότι δεν υπάρχει 'δύσκολο' mode..",
+        },
+
+        'ach_xray_card_found': {
+            name: 'Χάκερ!!11',
+            desc: "ΓΙΑΤΙΙΙ ΧΑΚΑΡΕΣ ΤΟ GAME ΜΟΥΥΥΥΥ!!11",
+        },
+
+        'ach_score_1k': {
+            name: 'Δεν με ξέρεις καλά..',
+            desc: "Κάνε 1000 score.",
+        },
+
+        'ach_pgn_finale_twice': {
+            name: 'Η Επιστροφή του Pgn',
+            desc: 'Νίκησε το "finale" mode για δεύτερη φορά.',
+        },
+
+        'ach_impostor_card_found': {
+            name: 'SkinWalker',
+            desc: 'ΤΙ ΦΑΣΗ ΜΕ ΑΥΤΗ ΤΗ ΚΑΡΤΑ',
+        },
+
+        'ach_peter': {
+            name: 'Σαν τον Πέτρο',
+            desc: 'Βρες 3 σωστές κάρτες στη σειρά',
+        },
+
+        'ach_timed_mode_win': {
+            name: 'SREEEEEEED',
+            desc: 'Κέρδισε το "timed" mode.',
+        },
+
+        'ach_timed_mode_slow_card': {
+            name: 'Χελωνάρας',
+            desc: 'Βρες την σπέσιαλ κάρτα που κάνει τον χρόνο αργότερο',
+        },
+
+        'ach_timed_special_card': {
+            name: 'Τι ρολόι είναι αυτό ρε;',
+            desc: 'Βρες τη χρονική σπέσιαλ κάρτα',
+        },
+
+        'ach_memory_loss': {
+            name: 'Απώλεια Μνήμης',
+            desc: 'Σφάλμα 404',
+        },
+
+        'ach_hunter': {
+            name: 'Κυνηγός',
+            desc: 'Βρες 15 σπέσιαλ κάρτες',
+        },
+
+        'ach_sigma_card': {
+            name: 'Σ.. από.. Σωτήρης;',
+            desc: 'Βρες το σπάνιο Σ.',
+        },
+
+        'ach_deceiver': {
+            name: 'Απατεών',
+            desc: 'Βρες 50 σπέσιαλ κάρτες',
+        },
+
+        // ΤΡΟΠΑΙΑ
+        'tr_master_of_cards': {
+            name: 'Δάσκαλος των Καρτών',
+            desc: 'Βρες 10000 Κάρτες',
+        },
+
+        'tr_million_score': {
+            name: 'Εκατομμυριούχος',
+            desc: 'Κάνε 1000000 Score',
+        },
+
+        'tr_10k_tries': {
+            name: 'Τσαλαπετεινός',
+            desc: 'Παίξε 10000 προσπάθειες',
+        },
+
+        'tr_win_any_1k': {
+            name: 'Βρες τον σωστό δάσκαλο',
+            desc: 'Κέρδισε 1000 φορές',
+        }
+        // ------------------------------------------------------------------------------------------------
     },
 
     { // Αγγλικά
@@ -225,6 +440,221 @@ export let LANGUAGE_DATA = [
         "rectangle_horizontal": 'Rectangle (Horizontal)',
         "rectangle_vertical": 'Rectangle (Vertical)',
         // -----------------------------------------------------
+
+        // ------------------------------------------------------------------------------------------------
+        // Επιτεύγματα και Τρόπαια
+        // ------------------------------------------------------------------------------------------------
+        "ach_new_player": {
+            name: "New Player",
+            desc: 'Wecome to the game!'
+        },
+
+        "ach_first_combination": {
+            name: "I did it?",
+            desc: 'Find your first pair of cards.'
+        },
+
+        "ach_first_special_card": {
+            name: 'What was that?',
+            desc: 'Find a special card.'
+        },
+
+        "ach_normal_mode_win": {
+            name: 'Easyman',
+            desc: 'Beat "easy" mode.'
+        },
+
+        "ach_hard_mode_win": {
+            name: 'Hardman',
+            desc: 'Beat "hard" mode.'
+        },
+
+        "ach_challenge_mode_win": {
+            name: 'Challenger',
+            desc: 'Beat "challenge" mode.'
+        },
+
+        "ach_extreme_mode_win": {
+            name: 'Avenger',
+            desc: 'Beat "extreme" mode.'
+        },
+
+        "ach_pgn_finale_win": {
+            name: 'Pgn\'s laptop',
+            desc: 'Beat the finale.'
+        },
+
+        "ach_beginner": {
+            name: 'Αρχάριος',
+            desc: 'Find 10 cards.',
+        },
+
+        "ach_10_tries": {
+            name: 'The fatal mistake',
+            desc: 'Play 10 Attempts'
+        },
+
+        "ach_50_tries": {
+            name: 'A little more and I will..',
+            desc: 'Play 50 Attempts'
+        },
+
+        "ach_100_tries": {
+            name: 'ΑΑΑΑΑ',
+            desc: 'Play 100 Attempts'
+        },
+
+        "ach_special_K_card": {
+            name: ':)',
+            desc: 'Βρες την σπεσιαλ "Κ" κάρτα.'
+        },
+
+        'ach_win_any_20': {
+            name: 'Out of RAM',
+            desc: 'Win 20 times',
+        },
+
+        'ach_win_any_50': {
+            name: 'Player from Kurdistan',
+            desc: 'Win 50 times',
+        },
+
+        'ach_lose_10': {
+            name: 'What the hell',
+            desc: 'Lose 10 times',
+        },
+
+        'ach_lose_50': {
+            name: 'I know the alphabet!',
+            desc: 'Lose 50 times',
+        },
+
+        'ach_win_virus': {
+            name: 'A little duct tape won\'t hurt',
+            desc: 'Beat "virus" mode.',
+        },
+
+        'ach_score_100': {
+            name: 'A hundred on the map',
+            desc: 'Collect 100 Score'
+        },
+
+        'ach_somewhat_experienced': {
+            name: "Experienced",
+            desc: 'Find 50 cards.',
+        },
+
+        'ach_2x05': {
+            name: "I remember this somewhere..",
+            desc: '???'
+        },
+
+        'ach_expert': {
+            name: "Expert",
+            desc: 'Find 100 cards.',
+        },
+
+        'ach_cross_card_found': {
+            name: "Rest in pepperoni",
+            desc: "Find the card with the cross",
+        },
+
+        'ach_pgn_card_found': {
+            name: "Wow",
+            desc: "The title explains it all.",
+        },
+
+        'ach_skill_issue': {
+            name: "Skill Issue",
+            desc: "Win 3 times with less than 10 tries.",
+        },
+
+        'ach_boom_card_found': {
+            name: "T r i a n g l e",
+            desc: "And you think there is no 'hard' mode..",
+        },
+
+        'ach_xray_card_found': {
+            name: 'Hacker!!11',
+            desc: "WHY DID YOU HACK MY GAME!!11",
+        },
+
+        'ach_score_1k': {
+            name: 'You don\'t know me well..',
+            desc: "Collect 1000 score.",
+        },
+
+        'ach_pgn_finale_twice': {
+            name: 'The return of Pgn',
+            desc: 'Beat the finale for the second time.',
+        },
+
+        'ach_impostor_card_found': {
+            name: 'SkinWalker',
+            desc: 'WHAT IS THE WRONG WITH THIS CARD?',
+        },
+
+        'ach_peter': {
+            name: 'Just like Peter',
+            desc: 'Find 3 pairs of cards in a row.',
+        },
+
+        'ach_timed_mode_win': {
+            name: 'SREEEEEEED',
+            desc: 'Beat "timed" mode.',
+        },
+
+        'ach_timed_mode_slow_card': {
+            name: 'Turtleman',
+            desc: 'Find the special card that slows time down.',
+        },
+
+        'ach_timed_special_card': {
+            name: 'What watch is this?',
+            desc: 'Find the clock special card.',
+        },
+
+        'ach_memory_loss': {
+            name: 'Memory Loss',
+            desc: 'Error 404',
+        },
+
+        'ach_hunter': {
+            name: 'Hunter',
+            desc: 'Find 15 special cards.',
+        },
+
+        'ach_sigma_card': {
+            name: 'Σ.. from.. Sotiris?',
+            desc: 'Find the rare Σ.',
+        },
+
+        'ach_deceiver': {
+            name: 'Deceiver',
+            desc: 'Find 50 special cards.',
+        },
+
+        // ΤΡΟΠΑΙΑ
+        'tr_master_of_cards': {
+            name: 'Master Of Cards',
+            desc: 'Find 10000 Cards',
+        },
+
+        'tr_million_score': {
+            name: 'Millionare',
+            desc: 'Collect 1000000 Score',
+        },
+
+        'tr_10k_tries': {
+            name: 'Hoopoe',
+            desc: 'Play 10000 Attempts',
+        },
+
+        'tr_win_any_1k': {
+            name: 'Find the correct teacher',
+            desc: 'Win 1000 times',
+        }
+        // ------------------------------------------------------------------------------------------------
     }
 ];
 
