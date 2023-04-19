@@ -1317,7 +1317,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
             // (Function/Συνάρτηση) Δημιουργία κουμπιού
             const createButton = (label, bgColor, mode = undefined) => {
-                if (label != "Papagianneos FINALE") label = `${LANGUAGE_DATA[LANGUAGE_INDEX].play} ${label}`;
+                if (label != "Papagianneos FINALE") label = `${LANGUAGE_DATA[LANGUAGE_INDEX].play}<br>${label}`;
 
                 let button = document.createElement('button');
 
