@@ -31,6 +31,9 @@ export let LANGUAGE_DATA = [
         "win_mode_void": 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;',
         "win_mode_virus": 'Κέρδισες τον ιό.. μπράβο.',
         "win_K_card": 'Σε έσωσα!',
+        "new": "ΝΕΟ",
+        "achievement": "ΕΠΙΤΕΥΓΜΑ",
+        "trophy": "ΤΡΟΠΑΙΟ",
         // --------------------------------------
 
         // -------------------------------------------------------------------------------
@@ -358,6 +361,9 @@ export let LANGUAGE_DATA = [
         "win_mode_void": 'The void?? HOW.. HOW DID YOU WIN??',
         "win_mode_virus": 'You won the virus.. nice.',
         "win_K_card": 'I saved you!',
+        "new": "NEW",
+        "achievement": "ACHIEVEMENT",
+        "trophy": "TROPHY",
         // --------------------------------------
 
         // -------------------------------------------------------------------------------
