@@ -9,7 +9,7 @@ export let LANGUAGE_DATA = [
         // Άλλα πράγματα της σελίδας
         // --------------------------------------
         "page_title": "Βρες την σωστή κάρτα",
-        "play_again": "Παίξε Ξανά",
+        "play_again": "Παίξε<br>Ξανά",
         "amount_of_cards": 'Σύνολο Καρτών',
         "haha": 'Χάχα',
         "tries": 'Προσπάθειες',
@@ -121,7 +121,7 @@ export let LANGUAGE_DATA = [
         // Άλλα πράγματα της σελίδας
         // --------------------------------------
         "page_title": "Find the right card",
-        "play_again": "Play Again",
+        "play_again": "Play<br>Again",
         "amount_of_cards": 'Amount of cards',
         "haha": 'Haha',
         "tries": "Tries",
