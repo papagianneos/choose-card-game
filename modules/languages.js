@@ -109,6 +109,9 @@ export let LANGUAGE_DATA = [
         "underline": 'Υπογράμμιση',
         "line_through": 'Γραμμή-μέσω',
         "overline_and_underline": 'Πάνω-Κάτω Γραμμή',
+        "square": 'Τετράγωνο',
+        "rectangle_horizontal": 'Ορθογώνιο (Οριζόντιο)',
+        "rectangle_vertical": 'Ορθογώνιο (Κάθετο)',
         // ------------------------------------------------------------------------
     },
 
@@ -218,9 +221,9 @@ export let LANGUAGE_DATA = [
         "underline": 'Underline',
         "line_through": 'Line-Through',
         "overline_and_underline": 'Overline & Underline',
-        "square": 'Τετράγωνο',
-        "rectangle_horizontal": 'Ορθογώνιο (Οριζόντιο)',
-        "rectangle_vertical": 'Ορθογώνιο (Κάθετο)',
+        "square": 'Square',
+        "rectangle_horizontal": 'Rectangle (Horizontal)',
+        "rectangle_vertical": 'Rectangle (Vertical)',
         // -----------------------------------------------------
     }
 ];
