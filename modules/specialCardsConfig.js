@@ -1,3 +1,5 @@
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./languages.js";
+
 // Για τις σπεσιαλ κάρτες (πληροφορίες για setup)
 export const specialCardsConfig = [
     { // +10 Score
@@ -9,19 +11,19 @@ export const specialCardsConfig = [
     { // Διπλό Score
         shape: 'x2',
         color: 'radial-gradient(#8a8c16, #8a8c16, gold)',
-        info: 'Διπλό Score'
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_x2
     },
 
     { // Μισό Score
         shape: '¹/₂',
         color: 'radial-gradient(cyan, red)',
-        info: 'Μισό Score'
+        info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_1/2']
     },
 
     { // 2 λιγότερες προσπάθειες
         shape: 'T-2',
         color: 'radial-gradient(#00fc82, #84b89f)',
-        info: '2 Λιγότερες Προσπάθειες'
+        info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_T-2']
     },
 
     { // -10 Score
@@ -33,7 +35,7 @@ export const specialCardsConfig = [
     { // Πάει χάθηκε το παιχνίδι
         shape: '†',
         color: 'radial-gradient(#1c0b0e, #b8707d)',
-        info: 'Πάει έχασες το παιχνίδι'
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_cross
     },
 
     { // Ουάου
@@ -51,13 +53,13 @@ export const specialCardsConfig = [
     { // kaboom
         shape: '▲',
         color: 'radial-gradient(orange, red)',
-        info: 'ΠΡΟΣΟΧΗ EΚΡΗΞΗ',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_triangle,
     },
 
     {
         shape: 'Ω',
         color: 'radial-gradient(gold, gold, gold, brown, brown)',
-        info: 'Ορατός... ή.. αόρατος.',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_omega,
     },
 
     {
@@ -76,14 +78,14 @@ export const specialCardsConfig = [
     {
         shape: '[?]',
         color: 'transparent',
-        info: 'Αλλάζω μορφή.. booo'
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_troll
     },
 
     // time card
     {
         shape: '◕',
         color: 'radial-gradient(#3d1406, #8ca7cf)',
-        info: '+60sec Χρόνος',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock,
         noSpawnInFinale: true,
         timeCard: true
     },
@@ -92,7 +94,7 @@ export const specialCardsConfig = [
     {
         shape: '<<',
         color: 'radial-gradient(#0800ff, #00ff77)',
-        info: 'Αργότερος Χρόνος',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_slow,
         noSpawnInFinale: true,
         timeCard: true
     },
@@ -100,13 +102,13 @@ export const specialCardsConfig = [
     {
         shape: 'Λ',
         color: 'radial-gradient(#98AFC7, #0C090A)',
-        info: 'Θα σου βγάλω την ψυχή',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_lamda,
     },
 
     {
         shape: '∑',
         color: 'animation color lol',
-        info: 'Κάποιες φορές σκέφτομαι.. ΠΟΛΥΧΡΩΜΟΣ!',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_sigma,
         noSpawnInFinale: true
     }
 ];
