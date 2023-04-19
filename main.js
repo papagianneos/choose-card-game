@@ -231,7 +231,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                 // αν δεν παίζει ο παίχτης το FINALE.
                 if (!papagianneosFinaleEnabled) {
-                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard })
+                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard && !carde.neverSpawn })
 
                     let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
 
