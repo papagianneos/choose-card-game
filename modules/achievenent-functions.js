@@ -39,8 +39,6 @@ export const searchForAchievement = (achievementSearchTerm) => {
     }
 }
 
-const LANG = LANGUAGE_DATA[LANGUAGE_INDEX];
-
 // ------------------------------------------------------------------------------------------------------------------
 // Επιτεύγματα Setup.
 // ------------------------------------------------------------------------------------------------------------------
@@ -423,7 +421,7 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
 
     // Τίτλος (που λέει ότι ξεκλειδώθηκε)
     let achievementNotifTitle = document.createElement('h1');
-    achievementNotifTitle.appendChild(document.createTextNode(`ΝΕΟ ${achievementThatWasUnlocked.trophy ? 'ΤΡΟΠΑΙΟ' : 'ΕΠΙΤΕΥΓΜΑ'}!`));
+    achievementNotifTitle.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].new} ${achievementThatWasUnlocked.trophy ? LANGUAGE_DATA[LANGUAGE_INDEX].trophy : LANGUAGE_DATA[LANGUAGE_INDEX].achievement}!`));
     achievementNotifTitle.style.fontSize = '25px';
 
     // Δείξε ποιό επίτευγμα ξεκλειδώθηκε.
