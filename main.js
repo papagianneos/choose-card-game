@@ -2,6 +2,7 @@ import { unlockAchievement } from "./modules/achievenent-functions.js";
 import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
 // TO DO: NULL CARD
 
@@ -693,7 +694,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
         // Φτιάξε το κείμενο για score και προσπάθειες
         scoreText.appendChild(document.createTextNode(`Score: ${score}`));
-        triesText.appendChild(document.createTextNode(`Προσπάθειες: ${tries}`));
+        triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
 
         // Άλλαξε το μέγεθος της γραμματοσειράς.
         scoreText.style.fontSize = '20px';
@@ -707,7 +708,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
         // Συναρτήσεις που ενημερώνουν το score και τις προσπάθειες του παίχτη
         const updateScore = () => scoreText.innerHTML = `Score: ${score}`;
         const updateTries = () => {
-            triesText.innerHTML = extremeModeEnabled ? `Προσπάθειες: ${tries} / ${MAX_TRIES}` : `Προσπάθειες: ${tries}`;
+            triesText.innerHTML = extremeModeEnabled ? `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries} / ${MAX_TRIES}` : `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`;
 
             // -------------------------------------------------------------------
             // ANIMATION: Εφέ όταν ο παίχτης χάνει προσπάθεια
@@ -1213,23 +1214,23 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
             // Τίτλος
             let startScreenText = document.createElement('h1');
-            startScreenText.appendChild(document.createTextNode('ΒΡΕΣ ΤΗΝ ΣΩΣΤΗ ΚΑΡΤΑ'));
+            startScreenText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_game_name));
             startScreenText.style.margin = '0';
 
             // λολ
             let developerNameLol = document.createElement('h1');
             developerNameLol.style.fontSize = '20px';
-            developerNameLol.appendChild(document.createTextNode('Προγραμματιστής: Σωτήριος Παπαγιάννης'));
+            developerNameLol.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].developer));
 
             // Μουσική Credits (Soundimage.org)
             let musicCredit = document.createElement('h1');
             musicCredit.style.fontSize = '20px';
-            musicCredit.innerHTML = `Μουσική από: Petercraft#7530, <a href="https://soundimage.org/">Soundimage.org</a> και <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
+            musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
             // For my friends :)
             let friendsWebsite = document.createElement('h1');
             friendsWebsite.style.fontSize = '20px';
-            friendsWebsite.innerHTML = `Επίσης τσέκαρε: <a href="https://2x05.surge.sh/">2x05</a>`;
+            friendsWebsite.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_friends_project} <a href="https://2x05.surge.sh/">2x05</a>`;
             // Επίτευγμα: "Κάπου το θυμάμαι αυτό.."
             friendsWebsite.onclick = () => unlockAchievement('ach_2x05');
 
@@ -1247,7 +1248,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
             // Επιτεύγματα
             let achievementsMenuBtn = document.createElement('button');
             achievementsMenuBtn.style.fontSize = '25px';
-            achievementsMenuBtn.appendChild(document.createTextNode('Επιτεύγματα'));
+            achievementsMenuBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_achievements));
             achievementsMenuBtn.onclick = () => {
                 sounds.buttonClick.play();
                 setTimeout(() => {
@@ -1257,7 +1258,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
             let creditsBtn = document.createElement('button');
             creditsBtn.style.fontSize = '25px';
-            creditsBtn.appendChild(document.createTextNode('Πληροφορίες'));
+            creditsBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_credits));
             creditsBtn.onclick = () => {
                 sounds.buttonClick.play();
                 document.body.appendChild(infoHolder);
@@ -1265,7 +1266,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
             let customizePageLink = document.createElement('button');
             customizePageLink.style.fontSize = '25px';
-            customizePageLink.appendChild(document.createTextNode('Ρυθμίσεις'));
+            customizePageLink.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_settings_page));
             customizePageLink.onclick = () => {
                 sounds.buttonClick.play();
                 setTimeout(() => {
@@ -1316,6 +1317,8 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
             // (Function/Συνάρτηση) Δημιουργία κουμπιού
             const createButton = (label, bgColor, mode = undefined) => {
+                if (label != "Papagianneos FINALE") label = `${LANGUAGE_DATA[LANGUAGE_INDEX].play} ${label}`;
+
                 let button = document.createElement('button');
 
                 // CSS.
@@ -1419,12 +1422,12 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
             // Τίτλος μενού πληροφοριών
             let modalBoxTitle = document.createElement('h1');
-            modalBoxTitle.appendChild(document.createTextNode('ΠΛΗΡΟΦΟΡΙΕΣ'));
+            modalBoxTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_credits));
             infoHolder.appendChild(modalBoxTitle);
 
             // Κουμπί για να "σβήνει" το μενού με τις πληροφορίες.
             let closeInfoHolderBtn = document.createElement('button');
-            closeInfoHolderBtn.appendChild(document.createTextNode('Κλείσιμο'));
+            closeInfoHolderBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_close_button));
             closeInfoHolderBtn.style.fontSize = '25px';
             closeInfoHolderBtn.onclick = () => {
                 sounds.buttonClick.play();
@@ -1434,13 +1437,13 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
             // Κουμπί για να παίξει ο παίχτης
             let buttonsWrapper = document.createElement('div');
 
-            let playButton = createButton('Παίξε Απλό', 'green'), // Κουμπί για να παίξει ο παίχτης "απλό" mode
-                playButtonHard = createButton('Παίξε Δύσκολο', 'maroon', 'hard'), // Κουμπί για να παίξει ο παίχτης "δύσκολο" mode
-                playButtonChallenge = createButton('Παίξε Challenge', 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
-                playButtonExtreme = createButton('Παίξε EXTREME', 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
-                playButtonTimed = createButton('Παίξε TIMED', 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
-                playButtonSecretMode = createButton('Παίξε VOID', 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
-                playButtonVirus= createButton('Παίξε Virus', 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
+            let playButton = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_easy, 'green'), // Κουμπί για να παίξει ο παίχτης "απλό" mode
+                playButtonHard = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hard, 'maroon', 'hard'), // Κουμπί για να παίξει ο παίχτης "δύσκολο" mode
+                playButtonChallenge = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_challenge, 'purple', 'challenge'), // Κουμπί για να παίξει ο παίχτης "challenge" mode
+                playButtonExtreme = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme, 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
+                playButtonTimed = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed, 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
+                playButtonSecretMode = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void, 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
+                playButtonVirus= createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
@@ -1892,7 +1895,19 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
                         winScreen.id = 'screen';
 
                         let winScreenText = document.createElement('h1');
-                        winScreenText.appendChild(document.createTextNode(wonBySpecialCard ? 'Σε έσωσα!' : virusModeEnabled ? 'Κέρδισες τον ιό.. μπράβο.' : voidModeEnabled ? 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;' : timedModeEnabled ? 'Είσαι γρήγορος..' : papagianneosFinaleEnabled ? 'Κέρδισες... το.. FINALE ΜΟΥ!! Συγχαρητήρια!!! Ελπίζω να σου άρεσε το παιχνίδι!' : extremeModeEnabled ? 'Wow.. κέρδισες το extreme. Papagianneos is impressed now' : challengeModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!' : hardModeEnabled ? 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!' : 'ΚΕΡΔΙΣΕΣ!'));
+                        winScreenText.appendChild(
+                            document.createTextNode(
+                                wonBySpecialCard ? LANGUAGE_DATA[LANGUAGE_INDEX].win_K_card :
+                                virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
+                                voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
+                                timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
+                                papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
+                                extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
+                                challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
+                                hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
+                                LANGUAGE_DATA[LANGUAGE_INDEX].win
+                            )
+                        );
 
                         // αν papagianneos finale, σπεσιαλ μήνυμα
                         if (papagianneosFinaleEnabled) {
@@ -1906,7 +1921,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 
                         // Φτιάξε το κείμενο για score και προσπάθειες
                         scoreTextWinScreen.appendChild(document.createTextNode(`Score: ${score}`));
-                        triesTextWinScreen.appendChild(document.createTextNode(`Προσπάθειες: ${tries}`));
+                        triesTextWinScreen.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
 
                         // Με πόσες κάρτες έπαιξε ο παίχτης;
                         totalCardsPlayed.appendChild(document.createTextNode(`Σύνολο Καρτών: ${AMOUNT_OF_CARDS}`));
