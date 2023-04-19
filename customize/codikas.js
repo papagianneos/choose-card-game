@@ -266,7 +266,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
                 },
 
                 {
-                    name: `${LANGUAGE_DATA[LANGUAGE_INDEX].default} (OG) (Soundimage.org)`,
+                    name: `${LANGUAGE_DATA[LANGUAGE_INDEX].old} (OG) (Soundimage.org)`,
                     value: 'OG'
                 }
             ],
