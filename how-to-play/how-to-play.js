@@ -1,4 +1,5 @@
 import { specialCardsConfig } from "../modules/specialCardsConfig.js";
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
 (() => {
 
@@ -27,7 +28,7 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
     goBackBtnWrapper.style.marginBottom = '100px';
 
     let goBackBtn = document.createElement('button');
-    goBackBtn.appendChild(document.createTextNode('Πίσω στο παιχνίδι!'));
+    goBackBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_button_go_back));
     goBackBtn.onclick = () => window.location.href = '/';
     goBackBtnWrapper.appendChild(goBackBtn);
     mainHTPDiv.appendChild(goBackBtnWrapper);
@@ -35,7 +36,7 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
 
     // Πληροφορία για το πώς να κερδίσεις κ.λπ.
     let specialCardsHTPTitle2 = document.createElement('h1');
-    specialCardsHTPTitle2.appendChild(document.createTextNode('Για να κερδίσεις πρέπει να βρείς όλα τα ζευγάρια καρτών, χωρίς τις σπεσιαλ κάρτες.'));
+    specialCardsHTPTitle2.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].how_to_win));
     specialCardsHTPTitle2.style.fontSize = '20px';
     mainHTPDiv.appendChild(specialCardsHTPTitle2);
 
@@ -50,12 +51,12 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
     // ΣΠΕΣΙΑΛ ΚΑΡΤΕΣ ΠΛΗΡΟΦΟΡΙΕΣ
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let specialCardsHTPSpecialCardsTitle = document.createElement('h1');
-    specialCardsHTPSpecialCardsTitle.appendChild(document.createTextNode('ΣΠΕΣΙΑΛ ΚΑΡΤΕΣ'));
+    specialCardsHTPSpecialCardsTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_special_cards));
     specialCardsHTPWrapper.appendChild(specialCardsHTPSpecialCardsTitle);
 
     // Λίγες πληροφορίες ακόμα.
     let specialCardsHTPSmallInfo = document.createElement('h1');
-    specialCardsHTPSmallInfo.appendChild(document.createTextNode('Μόνο 1 από τις παρακάτω υπάρχει σε κάθε παιχνίδι! Δεν μετράνε στο σύνολο και δεν χρειάζεται να τις βρεις μαζί με τις άλλες απλές κάρτες για να κερδίσεις. Πρέπει να βρεις το ζευγάρι τις καθεμιάς για να τις λειτουργήσεις.'));
+    specialCardsHTPSmallInfo.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].info_special_cards));
     specialCardsHTPSmallInfo.style.fontSize = '16px';
     specialCardsHTPWrapper.appendChild(specialCardsHTPSmallInfo);
 
@@ -122,7 +123,7 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
     // GAMEMODES Πληροφορίες
     // -------------------------------------------------------------------------------
     let gameModesSmallInfo = document.createElement('h1');
-    gameModesSmallInfo.appendChild(document.createTextNode('Μπορείς να παίξεις επίσης και με διαφορετικά gamemodes!'));
+    gameModesSmallInfo.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].info_gamemodes));
     gameModesSmallInfo.style.fontSize = '20px';
     mainHTPDiv.appendChild(gameModesSmallInfo);
 
@@ -138,45 +139,45 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
 
     const gamemodesInfoConfig = [
         {
-            label: 'Απλό',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_easy,
             color: 'green',
-            info: 'Απλό και εύκολο.'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_easy
         },
 
         {
-            label: 'Δύσκολο',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hard,
             color: 'red',
-            info: 'Κάνε λάθος και.. αλλάζουν όλες οι κάρτες θέση!'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_hard
         },
 
         {
-            label: 'Challenge',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_challenge,
             color: 'purple',
-            info: 'Κάνε λάθος και.. νέο εφέ!'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_challenge
         },
 
         {
-            label: 'EXTREME',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme,
             color: 'radial-gradient(maroon, black)',
-            info: 'Μπορείς να κερδίσεις με συγκεκριμένες προσπάθειες;'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_extreme
         },
 
         {
-            label: 'TIMED',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed,
             color: 'radial-gradient(yellow, gold)',
-            info: 'Ταχύτητα = Νίκη'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_timed
         },
 
         {
-            label: 'VOID',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void,
             color: 'radial-gradient(#240907, black)',
-            info: 'Η τελική μάχη'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_void
         },
 
         {
-            label: 'Virus',
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
             color: 'radial-gradient(red, black)',
-            info: 'Κάνε λάθος και χάσε τα πάντα.'
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_virus
         }
     ];
 
@@ -194,11 +195,6 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
         gameModeBox.style.margin = '10px';
         gameModeBox.style.cursor = 'help';
         gameModeBox.className = 'gameModeBoxForHowToPlay';
-
-        // lol
-        if (gameModeObj.label == 'Papagianneos FINALE') {
-            gameModeBox.style.fontSize = '40px';
-        }
 
         let hiddenGameModeInfoTxT = document.createElement('div');
         hiddenGameModeInfoTxT.className = 'hidden';
@@ -219,7 +215,7 @@ import { specialCardsConfig } from "../modules/specialCardsConfig.js";
     // Ευχαριστώ.
     // ------------------------------------------------------------------------------
     let thanksText = document.createElement('h1');
-    thanksText.appendChild(document.createTextNode('Επιμέλεια: Σωτήριος Παπαγιάννης'));
+    thanksText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].dev_thanks));
     thanksText.style.fontSize = '20px';
     mainHTPDiv.appendChild(thanksText);
     // ------------------------------------------------------------------------------
