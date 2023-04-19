@@ -1,4 +1,5 @@
 import { sounds } from "./sounds.js";
+import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./languages.js";
 
 // Διάβασε πληροφορίες αρχικά
 export let FETCHED_ACHIEVEMENT_DATA = localStorage.getItem('achievementData') != null ? JSON.parse(localStorage.getItem('achievementData')) : [];
@@ -38,77 +39,61 @@ export const searchForAchievement = (achievementSearchTerm) => {
     }
 }
 
+const LANG = LANGUAGE_DATA[LANGUAGE_INDEX];
+
 // ------------------------------------------------------------------------------------------------------------------
 // Επιτεύγματα Setup.
 // ------------------------------------------------------------------------------------------------------------------
 export let achievementsConfig = [
     {
-        name: 'Νέος Παίχτης',
-        desc: 'Καλωσόρισες στο παιχνίδι!',
         id: 'ach_new_player',
         color: 'maroon',
         unlocked: false
     },
 
     {
-        name: 'Τα κατάφερα;',
-        desc: 'Βρες το πρώτο ζευγάρι καρτών',
         id: 'ach_first_combination',
         color: 'green',
         unlocked: false
     },
 
     {
-        name: 'Τι ήταν αυτό;',
-        desc: 'Βρες μία σπεσιαλ κάρτα',
         id: 'ach_first_special_card',
         color: 'blue',
         unlocked: false
     },
 
     {
-        name: 'Ευκολάκης',
-        desc: 'Νίκησε το "απλό" mode.',
         id: 'ach_normal_mode_win',
         color: 'lime',
         unlocked: false
     },
 
     {
-        name: 'Δύσκολος',
-        desc: 'Νίκησε το "δύσκολο" mode.',
         id: 'ach_hard_mode_win',
         color: 'maroon',
         unlocked: false
     },
 
     {
-        name: 'Challenger',
-        desc: 'Νίκησε το "challege" mode.',
         id: 'ach_challenge_mode_win',
         color: '#2f173b',
         unlocked: false
     },
 
     {
-        name: 'Εκδικητής',
-        desc: 'Νίκησε το "extreme" mode.',
         id: 'ach_extreme_mode_win',
         color: '#290202',
         unlocked: false
     },
 
     {
-        name: 'Το λάπτοπ του Pgn',
-        desc: 'Νίκησε το "finale" mode.',
         id: 'ach_pgn_finale_win',
         color: 'cyan',
         unlocked: false
     },
 
     {
-        name: 'Αρχάριος',
-        desc: 'Βρες 10 κάρτες',
         id: 'ach_beginner',
         progress: 0,
         requiredProgress: 10,
@@ -117,8 +102,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Το μοιραίο λάθος',
-        desc: 'Παίξε 10 Προσπάθειες',
         id: 'ach_10_tries',
         progress: 0,
         requiredProgress: 10,
@@ -127,8 +110,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Λίγο ακόμα και θα..',
-        desc: 'Παίξε 50 Προσπάθειες',
         id: 'ach_50_tries',
         progress: 0,
         requiredProgress: 50,
@@ -137,8 +118,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'ΑΑΑΑΑ',
-        desc: 'Παίξε 100 Προσπάθειες',
         id: 'ach_100_tries',
         progress: 0,
         requiredProgress: 100,
@@ -147,16 +126,12 @@ export let achievementsConfig = [
     },
 
     {
-        name: ':)',
-        desc: 'Βρες την σπεσιαλ "Κ" κάρτα.',
         id: 'ach_special_K_card',
         color: 'radial-gradient(#ac86b0, #781f82)',
         unlocked: false
     },
 
     {
-        name: 'Τέρμα η μνήμη RAM',
-        desc: 'Κέρδισε 20 φορές',
         id: 'ach_win_any_20',
         progress: 0,
         requiredProgress: 20,
@@ -165,8 +140,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Εκατοστάρα στη μάπα',
-        desc: 'Κάνε 100 score',
         id: 'ach_score_100',
         progress: 0,
         requiredProgress: 100,
@@ -175,8 +148,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: "Έμπειρος",
-        desc: 'Βρες 50 κάρτες',
         id: 'ach_somewhat_experienced',
         progress: 0,
         requiredProgress: 50,
@@ -185,16 +156,12 @@ export let achievementsConfig = [
     },
 
     {
-        name: "Κάπου το θυμάμαι αυτό..",
-        desc: '???',
         id: 'ach_2x05',
         color: 'linear-gradient(to right top, #7c6280, #6d4d72, #5e3964, #502457, #410d49)',
         unlocked: false
     },
 
     {
-        name: "Ειδικός",
-        desc: 'Βρες 100 κάρτες',
         id: 'ach_expert',
         progress: 0,
         requiredProgress: 100,
@@ -203,24 +170,18 @@ export let achievementsConfig = [
     },
 
     {
-        name: "Rest in pepperoni",
-        desc: "Βρες την κάρτα με τον σταυρό",
         id: 'ach_cross_card_found',
         color: 'radial-gradient(#1c0b0e, #b8707d)',
         unlocked: false
     },
 
     {
-        name: "Ουάου",
-        desc: "Ο τίτλος το εξηγεί όλο",
         id: "ach_pgn_card_found",
         color: 'radial-gradient(#adfff1, #265175)',
         unlocked: false
     },
 
     {
-        name: "Skill Issue",
-        desc: "Κέρδισε 3 φορές με λιγότερο από 10 προσπάθειες.",
         id: "ach_skill_issue",
         progress: 0,
         requiredProgress: 3,
@@ -229,24 +190,18 @@ export let achievementsConfig = [
     },
 
     {
-        name: "T r i a n g l e",
-        desc: "Και νομίζεις ότι δεν υπάρχει 'δύσκολο' mode..",
         id: "ach_boom_card_found",
         color: 'radial-gradient(orange, red)',
         unlocked: false
     },
 
     {
-        name: 'Χάκερ!!11',
-        desc: "ΓΙΑΤΙΙΙ ΧΑΚΑΡΕΣ ΤΟ GAME ΜΟΥΥΥΥΥ!!11",
         id: "ach_xray_card_found",
         color: 'radial-gradient(gold, gold, gold, brown, brown)',
         unlocked: false
     },
 
     {
-        name: 'Δεν με ξέρεις καλά..',
-        desc: "Κάνε 1000 score.",
         id: "ach_score_1k",
         progress: 0,
         requiredProgress: 1e3,
@@ -262,12 +217,11 @@ export let achievementsConfig = [
         requiredProgress: 69,
         color: '#1b4035',
         unlocked: false,
-        dontShowProgress: true
+        dontShowProgress: true,
+        alreadyTranslated: true
     },
 
     {
-        name: 'Η Επιστροφή του Pgn',
-        desc: 'Νίκησε το "finale" mode για δεύτερη φορά.',
         id: "ach_pgn_finale_twice",
         progress: 0,
         requiredProgress: 2,
@@ -277,39 +231,29 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'SkinWalker',
-        desc: 'ΤΙ ΦΑΣΗ ΜΕ ΑΥΤΗ ΤΗ ΚΑΡΤΑ',
         id: "ach_impostor_card_found",
         color: 'radial-gradient(lime, green, cyan)',
         unlocked: false
     },
 
     {
-        name: 'Σαν τον Πέτρο',
-        desc: 'Βρες 3 σωστές κάρτες στη σειρά',
         id: 'ach_peter',
         color: 'cyan',
         unlocked: false
     },
 
     {
-        name: 'SREEEEEEED',
-        desc: 'Κέρδισε το "timed" mode.',
         id: 'ach_timed_mode_win',
         color: 'radial-gradient(gold, yellow)',
         unlocked: false
     },
 
     {
-        name: 'Χελωνάρας',
-        desc: 'Βρες την σπέσιαλ κάρτα που κάνει τον χρόνο αργότερο',
         id: 'ach_timed_mode_slow_card',
         color: 'radial-gradient(#0800ff, #00ff77)'
     },
 
     {
-        name: 'Τι ρολόι είναι αυτό ρε;',
-        desc: 'Βρες τη χρονική σπέσιαλ κάρτα',
         id: 'ach_timed_special_card',
         color: 'radial-gradient(#3d1406, #8ca7cf)',
         unlocked: false
@@ -320,20 +264,17 @@ export let achievementsConfig = [
         desc: 'She is the best',
         id: 'ach_redacted',
         color: 'radial-gradient(#ac86b0, #781f82)',
-        unlocked: false
+        unlocked: false,
+        alreadyTranslated: true
     },
 
     {
-        name: 'Απώλεια Μνήμης',
-        desc: 'Σφάλμα 404',
         id: 'ach_memory_loss',
         color: 'radial-gradient(#98AFC7, #0C090A)',
         unlocked: false
     },
 
     {
-        name: 'Κυνηγός',
-        desc: 'Βρες 15 σπέσιαλ κάρτες',
         id: 'ach_hunter',
         progress: 0,
         requiredProgress: 15,
@@ -342,16 +283,12 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Σ.. από.. Σωτήρης;',
-        desc: 'Βρες το σπάνιο Σ.',
         id: 'ach_sigma_card',
         color: 'radial-gradient(brown, black)',
         unlocked: false
     },
 
     {
-        name: 'Απατεών',
-        desc: 'Βρες 50 σπέσιαλ κάρτες',
         id: 'ach_deceiver',
         progress: 0,
         requiredProgress: 50,
@@ -360,8 +297,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Παίχτης από Κουρδιστάν',
-        desc: 'Κέρδισε 50 φορές',
         id: 'ach_win_any_50',
         progress: 0,
         requiredProgress: 50,
@@ -370,8 +305,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Τι σκατά ρε',
-        desc: 'Χάσε 10 φορές',
         id: 'ach_lose_10',
         progress: 0,
         requiredProgress: 10,
@@ -380,8 +313,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Ξέρω την αλφάβητο!',
-        desc: 'Χάσε 50 φορές',
         id: 'ach_lose_50',
         progress: 0,
         requiredProgress: 50,
@@ -390,8 +321,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Λίγη κολλητική ταινία δε βλάπτει',
-        desc: 'Νίκησε το "virus" mode.',
         id: 'ach_win_virus',
         color: 'radial-gradient(red, black)',
         unlocked: false
@@ -401,8 +330,6 @@ export let achievementsConfig = [
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
     {
-        name: 'Δάσκαλος των Καρτών',
-        desc: 'Βρες 10000 Κάρτες',
         id: 'tr_master_of_cards',
         progress: 0,
         requiredProgress: 1e4,
@@ -412,8 +339,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Εκατομμυριούχος',
-        desc: 'Κάνε 1000000 Score',
         id: 'tr_million_score',
         progress: 0,
         requiredProgress: 1e6,
@@ -423,8 +348,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Τσαλαπετεινός',
-        desc: 'Παίξε 10000 προσπάθειες',
         id: 'tr_10k_tries',
         progress: 0,
         requiredProgress: 1e4,
@@ -434,8 +357,6 @@ export let achievementsConfig = [
     },
 
     {
-        name: 'Βρες τον σωστό δάσκαλο',
-        desc: 'Κέρδισε 1000 φορές',
         id: 'tr_win_any_1k',
         progress: 0,
         requiredProgress: 1e3,
@@ -446,6 +367,14 @@ export let achievementsConfig = [
     // -----------------------------------------------
 ];
 // ------------------------------------------------------------------------------------------------------------------
+
+// Setup.
+achievementsConfig.forEach(achievement => {
+    if (!achievement.alreadyTranslated) {
+        achievement.name = LANGUAGE_DATA[LANGUAGE_INDEX][achievement.id].name;
+        achievement.desc = LANGUAGE_DATA[LANGUAGE_INDEX][achievement.id].desc;
+    }
+});
 
 // Συνάρτηση που ξεκλειδώνει ένα συγκεκριμένο επίτευγμα με βάση την ταυτότητά του.
 export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
