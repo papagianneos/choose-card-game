@@ -1924,7 +1924,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         triesTextWinScreen.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
 
                         // Με πόσες κάρτες έπαιξε ο παίχτης;
-                        totalCardsPlayed.appendChild(document.createTextNode(`Σύνολο Καρτών: ${AMOUNT_OF_CARDS}`));
+                        totalCardsPlayed.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].amount_of_cards}: ${AMOUNT_OF_CARDS}`));
 
                         // Άλλαξε το μέγεθος της γραμματοσειράς.
                         scoreTextWinScreen.style.fontSize = '25px';
@@ -1933,7 +1933,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Κουμπί για να παίξει ξανά ο παίχτης
                         let playAgainButton = document.createElement('button');
-                        playAgainButton.appendChild(document.createTextNode('Παίξε Ξανά'));
+                        playAgainButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].play_again));
                         playAgainButton.onclick = () => {
                             sounds.buttonClick.play();
                             // για να προλάβει να παίξει ο ήχος..
