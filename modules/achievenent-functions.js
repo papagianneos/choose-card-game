@@ -426,7 +426,7 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
 
     // Δείξε ποιό επίτευγμα ξεκλειδώθηκε.
     let achievementNotifDesc = document.createElement('h3');
-    achievementNotifDesc.appendChild(document.createTextNode(achievementThatWasUnlocked.name));
+    achievementNotifDesc.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX][achievementThatWasUnlocked.id].name));
     achievementNotifDesc.style.fontSize = '20px';
 
     setTimeout(() => {
