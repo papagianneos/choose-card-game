@@ -15,7 +15,7 @@ export const specialCardsConfig = [
     },
 
     { // Μισό Score
-        shape: '¹/₂',
+        shape: '½',
         color: 'radial-gradient(cyan, red)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_1/2']
     },
@@ -110,5 +110,13 @@ export const specialCardsConfig = [
         color: 'animation color lol',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_sigma,
         noSpawnInFinale: true
+    },
+
+    {
+        shape: 'Ⅽ₆₉',
+        color: 'linear-gradient(to left top, purple, blue, cyan, green, lime)',
+        info: 'The mighty Carbon 69, only the chosen one can unlock it\'s identity.',
+        noSpawnInFinale: true,
+        neverSpawn: true,
     }
 ];
