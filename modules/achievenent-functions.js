@@ -259,7 +259,7 @@ export let achievementsConfig = [
 
     {
         name: '[REDACTED]',
-        desc: 'She is the best',
+        desc: '???',
         id: 'ach_redacted',
         color: 'radial-gradient(#ac86b0, #781f82)',
         unlocked: false,
