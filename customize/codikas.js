@@ -67,12 +67,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'checkbox',
             setup: (checked) => {
                 if (checked) {
-                    document.getElementsByTagName('body').style.backgroundColor = 'white';
                     previewCard.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
                 }
 
                 else {
-                    document.getElementsByTagName('body').style.backgroundColor = 'black';
                     previewCard.style.boxShadow = 'none';
                 }
             }
@@ -432,6 +430,15 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         document.getElementById("improvedGraphics").checked = playersEffectFetched.improvedGraphics;
         document.getElementById("language").value = playersEffectFetched.languageID;
         document.getElementById("cardOutsideShape").value = playersEffectFetched.widthAndHeight;
+
+        previewCard.style.borderRadius = playersEffectFetched.borderRadius;
+        previewCard.style.fontSize = playersEffectFetched.fontSize;
+        previewCard.style.fontFamily = playersEffectFetched.fontFamily;
+        previewCard.style.textDecorationThickness = playersEffectFetched.textDecorationThickness;
+        previewCard.style.textDecorationLine = playersEffectFetched.textDecorationLine;
+        previewCard.style.textDecorationStyle = playersEffectFetched.textDecorationStyle;
+        previewCard.style.width = playersEffectFetched.widthAndHeight[0];
+        previewCard.style.height = playersEffectFetched.widthAndHeight[1];
     }
 
     const playersEffect = [{
