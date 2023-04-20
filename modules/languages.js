@@ -22,7 +22,7 @@ export let LANGUAGE_DATA = [
         "label_achievements": 'Επιτεύγματα',
         "label_button_go_back": 'Πίσω στο παιχνίδι!',
         "label_trophies": "Τρόπαια",
-        "win": "ΚΕΡΔΙΣΕΣ",
+        "win": "ΚΕΡΔΙΣΕΣ!",
         "win_mode_hard": 'ΚΕΡΔΙΣΕΣ ΤΟ ΔΥΣΚΟΛΟ!!!',
         "win_mode_challenge": 'ΚΕΡΔΙΣΕΣ ΤΟ CHALLENGE!!!',
         "win_mode_extreme": 'Wow.. κέρδισες το extreme. Papagianneos is impressed now',
@@ -491,7 +491,7 @@ export let LANGUAGE_DATA = [
         },
 
         "ach_beginner": {
-            name: 'Αρχάριος',
+            name: 'Beginner',
             desc: 'Find 10 cards.',
         },
 
@@ -512,7 +512,7 @@ export let LANGUAGE_DATA = [
 
         "ach_special_K_card": {
             name: ':)',
-            desc: 'Βρες την σπεσιαλ "Κ" κάρτα.'
+            desc: 'Find the special "K" card.'
         },
 
         'ach_win_any_20': {
