@@ -418,8 +418,9 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
     document.body.appendChild(mainBox);
 
     // Φόρτωσε τα default εφέ
+    document.getElementById('cardShape').value = '2.5';
     if (playersEffectFetched) {
-        document.getElementById('cardShape').value = playersEffectFetched.borderRadius;
+        document.getElementById('cardShape').value = playersEffectFetched.borderRadius.replace('px', '');
         document.getElementById('cardTextSize').value = playersEffectFetched.fontSize;
         document.getElementById('neonCard').checked = playersEffectFetched.neonMode;
         document.getElementById('cardTextDecorationThicc').value = playersEffectFetched.textDecorationThickness;
@@ -431,14 +432,19 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         document.getElementById("language").value = playersEffectFetched.languageID;
         document.getElementById("cardOutsideShape").value = playersEffectFetched.widthAndHeight;
 
-        previewCard.style.borderRadius = playersEffectFetched.borderRadius;
-        previewCard.style.fontSize = playersEffectFetched.fontSize;
-        previewCard.style.fontFamily = playersEffectFetched.fontFamily;
-        previewCard.style.textDecorationThickness = playersEffectFetched.textDecorationThickness;
-        previewCard.style.textDecorationLine = playersEffectFetched.textDecorationLine;
-        previewCard.style.textDecorationStyle = playersEffectFetched.textDecorationStyle;
-        previewCard.style.width = playersEffectFetched.widthAndHeight[0];
-        previewCard.style.height = playersEffectFetched.widthAndHeight[1];
+        if (playersEffectFetched.neonMode) {
+            previewCard.style.borderColor = 'grey';
+            previewCard.style.borderStyle = 'solid';
+            previewCard.style.borderWidth = '5px';
+            previewCard.style.background = 'none';
+        }
+        else {
+            previewCard.style.borderColor = 'none';
+            previewCard.style.background = 'grey';
+        }
+
+        previewCard.style.width = JSON.parse(playersEffectFetched.widthAndHeight)[0];
+        previewCard.style.height = JSON.parse(playersEffectFetched.widthAndHeight)[1];
     }
 
     const playersEffect = [{
@@ -454,9 +460,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         improvedGraphics: document.getElementById("improvedGraphics").checked,
         languageID: document.getElementById("language").value
     }][0]
-
-    toolsConfig[0].setup();
-    toolsConfig[1].setup();
+ 
     previewCard.style.borderRadius = playersEffect.borderRadius;
     previewCard.style.fontSize = playersEffect.fontSize;
     previewCard.style.fontFamily = playersEffect.fontFamily;
