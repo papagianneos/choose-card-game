@@ -455,6 +455,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         languageID: document.getElementById("language").value
     }][0]
 
+    toolsConfig[0].setup();
+    toolsConfig[1].setup();
     previewCard.style.borderRadius = playersEffect.borderRadius;
     previewCard.style.fontSize = playersEffect.fontSize;
     previewCard.style.fontFamily = playersEffect.fontFamily;
