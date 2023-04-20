@@ -280,13 +280,13 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Ελληνικά (Greek)',
-                    value: 0
+                    name: 'Αγγλικά (English)',
+                    value: 1
                 },
 
                 {
-                    name: 'Αγγλικά (English)',
-                    value: 1
+                    name: 'Ελληνικά (Greek)',
+                    value: 0
                 }
             ],
             setup: (languageIndexVal) => LANGUAGE_INDEX = languageIndexVal
