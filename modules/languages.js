@@ -1,6 +1,6 @@
 const playersEffect = JSON.parse(localStorage.getItem('customizeEffect')) == null ? null : JSON.parse(localStorage.getItem('customizeEffect'))[0];
 
-export let LANGUAGE_INDEX = playersEffect ? playersEffect.languageID ? playersEffect.languageID : 0 : 0; // 0 = Ελληνικά, 1 = Αγγλικά
+export let LANGUAGE_INDEX = playersEffect ? playersEffect.languageID ? playersEffect.languageID : 1 : 1; // 0 = Ελληνικά, 1 = Αγγλικά
 
 export let LANGUAGE_DATA = [
     { // Ελληνικά
