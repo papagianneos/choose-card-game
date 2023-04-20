@@ -1,6 +1,9 @@
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
 (() => {
+
+    const playersEffectFetched = JSON.parse(localStorage.getItem('customizeEffect')) == null ? null : JSON.parse(localStorage.getItem('customizeEffect'))[0];
+
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     // Το κέντρο που κρατάει τα πάντα
@@ -417,8 +420,19 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
     document.body.appendChild(mainBox);
 
     // Φόρτωσε τα default εφέ
-    document.getElementById('cardShape').value = '2.5';
-    document.getElementById('cardTextSize').value = '60';
+    if (playersEffectFetched) {
+        document.getElementById('cardShape').value = playersEffectFetched.borderRadius;
+        document.getElementById('cardTextSize').value = playersEffectFetched.fontSize;
+        document.getElementById('neonCard').checked = playersEffectFetched.neonMode;
+        document.getElementById('cardTextDecorationThicc').value = playersEffectFetched.textDecorationThickness;
+        document.getElementById('cardTextDecoration').value = playersEffectFetched.textDecorationLine;
+        document.getElementById('cardTextDecorationLine').value = playersEffectFetched.textDecorationStyle;
+        document.getElementById('cardTextFontFamily').value = playersEffectFetched.fontFamily;
+        document.getElementById('musicType').value = playersEffectFetched.musicType;
+        document.getElementById("improvedGraphics").checked = playersEffectFetched.improvedGraphics;
+        document.getElementById("language").value = playersEffectFetched.languageID;
+        document.getElementById("cardOutsideShape").value = playersEffectFetched.widthAndHeight;
+    }
 
     const playersEffect = [{
         neonMode: document.getElementById("neonCard").checked,
