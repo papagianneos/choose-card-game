@@ -30,6 +30,7 @@ export let LANGUAGE_DATA = [
         "win_mode_timed": 'Είσαι γρήγορος..',
         "win_mode_void": 'Το void; ΜΑ ΠΩΣ; ΠΩΣ ΚΕΡΔΙΣΕΣ;',
         "win_mode_virus": 'Κέρδισες τον ιό.. μπράβο.',
+        "win_mode_penalty": 'Κέρδισες με τις ποινές.. ουάου.',
         "win_K_card": 'Σε έσωσα!',
         "new": "ΝΕΟ",
         "achievement": "ΕΠΙΤΕΥΓΜΑ",
@@ -67,6 +68,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_timed": "Ταχύτητα = Νίκη",
         "mode_desc_void": "Η τελική μάχη",
         "mode_desc_virus": "Κάνε λάθος και χάσε τα πάντα.",
+        "mode_desc_penalty": "Κάθε 5 λάθη, ένα νέο ζευγάρι καρτών.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -80,6 +82,7 @@ export let LANGUAGE_DATA = [
         "play_mode_timed": 'TIMED',
         "play_mode_void": "VOID",
         "play_mode_virus": "Virus",
+        "play_mode_penalty": "Penalty",
         // --------------------------------------
 
         // ------------------------------------------------------------------------
@@ -360,6 +363,7 @@ export let LANGUAGE_DATA = [
         "win_mode_timed": 'You are fast..',
         "win_mode_void": 'The void?? HOW.. HOW DID YOU WIN??',
         "win_mode_virus": 'You won the virus.. nice.',
+        "win_mode_penalty": 'You won with penalties.. wow.',
         "win_K_card": 'I saved you!',
         "new": "NEW",
         "achievement": "ACHIEVEMENT",
@@ -397,6 +401,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_timed": "Speed = Win",
         "mode_desc_void": "The final fight.",
         "mode_desc_virus": "Make a mistake and lose everything.",
+        "mode_desc_penalty": "Every 5 mistakes you get a new pair of cards.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -410,6 +415,7 @@ export let LANGUAGE_DATA = [
         "play_mode_timed": 'TIMED',
         "play_mode_void": "VOID",
         "play_mode_virus": "Virus",
+        "play_mode_penalty": "Penalty",
         // --------------------------------------
 
         // -----------------------------------------------------
