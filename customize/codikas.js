@@ -419,6 +419,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
     // Φόρτωσε τα default εφέ
     document.getElementById('cardShape').value = '2.5';
+    document.getElementById('cardTextSize').value = '60';
     if (playersEffectFetched) {
         document.getElementById('cardShape').value = playersEffectFetched.borderRadius.replace('px', '');
         document.getElementById('cardTextSize').value = playersEffectFetched.fontSize;
