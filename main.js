@@ -71,6 +71,17 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         }
         // ----------------------------------------------------------------------
 
+        // For Penalty mode.
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        Array.prototype.insert = function (index, ...items) {
+            this.splice(index, 0, ...items);
+        };
+
         //secretSettingEnabled = false,
         let rot_ = 360;
 
@@ -141,6 +152,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         // ----------------------------------------
 
         // -----------------------------------
+        // Penalty mode fix
+        // -----------------------------------
+        let maxPenalties = 0;
+        // -----------------------------------
+
+        // -----------------------------------
         const irandom = i => {
             let max = Math.floor(i);
             return Math.floor(Math.random() * (max + 1));
@@ -155,11 +172,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
             challengeModeEnabled = false,
             virusModeEnabled = false,
+            penaltyModeEnabled = false,
             challengeModeEffectTurn = 0,
             currentSelected = [],
             score = 0,
+            penalties = 0,
             tries = -1, // ξεκινάμε με -1 διότι αυτόματα κάνει resetCards (άρα tries -= 1)
-            blockClicks = false;
+            blockClicks = false,
+            CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£".split('');
 
         // ========================================================================
         // 1 - Σχήμα/σχέδιο και χρώμα των καρτών setup
@@ -187,8 +207,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
         // ΤΥΧΑΙΑ Σχήματα/σχέδια καρτών (2 κάρτες από καθεμιά άρα αντιγραφή τα στοιχεία)
         const startGame = () => {
-            let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£".split(''),
-                generatedPalette = [],
+            let generatedPalette = [],
                 SHAPE_PALETTES = [],
                 chosenCombination = '';
 
@@ -524,7 +543,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 for (var card_ of document.getElementsByClassName('card')) {
                                     if (!card_.getAttribute('anoixthcarta')) {
                                         card_.innerHTML = card_.savedText;
-                                        playersEffect ? playersEffect.neonMode ? card_.style.borderColor = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor;
+                                        card_.style.background = card_.savedBackgroundColor;
                                     }
                                 }
 
@@ -913,7 +932,74 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 resetCards(false);
                             }, 420);
                         }
+
+                        //-------------------------------------------------------------------------------------------------------
+                        // Penalty Mode
                         // ------------------------------------------------------------------------------------------------------
+                        if (penaltyModeEnabled) {
+                            currentSelected = [];
+                            penalties++;
+                            maxPenalties++
+
+                            if (maxPenalties < 30) if (penalties == 5) {
+                                penalties = 0;
+
+                                // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
+                                let chosenCharacter = randomChoice(CHARACTERS_SET),
+                                    randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+
+                                let previousSavedIndex = 0,
+                                    turn = 0;
+
+                                for (var i = 0; i < 2; i++) {
+                                    turn++;
+
+                                    // Πρόσθεσε δύο κάρτες
+                                    let cardsChildrenList = [],
+                                        cardShapesList = [],
+                                        scoreAndTriesTextHolderChild_ = parentDiv.children[0];
+
+                                    createCard({
+                                        shape: chosenCharacter,
+                                        color: randomColor,
+                                        specialCard: false,
+                                        specialCardEffect: () => { }
+                                    });
+
+                                    AMOUNT_OF_CARDS++;
+                                    resetCards(false);
+
+                                    // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                    for (var e = 0; e < parentDiv.children.length; e++) {
+                                        let child = parentDiv.children[e];
+                                        // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                        if (child.className == 'card') {
+                                            cardsChildrenList.push(child);
+                                            cardShapesList.push(child.savedText);
+                                        }
+                                    }
+
+                                    // Για να μην χρησιμοποιούνται οι ίδιοι χαρακτήρες
+                                    CHARACTERS_SET = CHARACTERS_SET.filter(character => { return !(character in cardShapesList) });
+
+                                    if (turn > 0) {
+                                        previousSavedIndex = cardShapesList.indexOf(chosenCharacter);
+                                        cardShapesList[previousSavedIndex] = 'no shape for u';
+                                        cardsChildrenList.splice(previousSavedIndex, 1, cardsChildrenList[previousSavedIndex]);
+                                    }
+
+                                    // Σε τυχαία σημεία βάλε το νέο ζευγάρι καρτών
+                                    cardShapesList.splice(getRandomInt(0, cardShapesList.length - 1), 0, chosenCharacter);
+                                    cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[cardShapesList.indexOf(chosenCharacter)]);
+
+                                    if (turn > 0) cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[previousSavedIndex]);
+                                    cardsChildrenList[(cardsChildrenList.length)] = cardsChildrenList[0]; // για το score και τις προσπάθειες
+                                    cardsChildrenList[0] = scoreAndTriesTextHolderChild_;
+                                    parentDiv.replaceChildren(...cardsChildrenList);
+                                }
+                            }
+                        }
+                        //-------------------------------------------------------------------------------------------------------
 
                         // ----------------------------------------------------------------------------------------
                         // "Challenge" mode setup.
@@ -1030,7 +1116,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         }
                         // ----------------------------------------------------------------------------------------
 
-                        currentSelected = [];
+                        if (!penaltyModeEnabled) currentSelected = [];
 
                         if (!hardModeEnabled) {
                             wrongSound.play();
@@ -1349,7 +1435,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     switch (mode) {
                         case 'virus': // Virus
                             virusModeEnabled = true;
-                            specialCardsEnabled = false;
+                            break;
+
+                        case 'penalty': // Penalty
+                            penaltyModeEnabled = true;
                             break;
 
                         case 'hard': // Δύσκολο
@@ -1444,7 +1533,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 playButtonExtreme = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme, 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed, 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void, 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
-                playButtonVirus= createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
+                playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
+                playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------
@@ -1458,6 +1548,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             buttonsWrapper.appendChild(playButtonVirus);
+            buttonsWrapper.appendChild(playbuttonPenalty);
             // ----------------------------------------------------
 
             let settingsHolder = document.createElement('div');
@@ -1846,12 +1937,17 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                     achievementIDToCheckForUnlock = 'ach_win_virus';
                                     break;
 
+                                case penaltyModeEnabled:
+                                    achievementIDToCheckForUnlock = 'no achievement';
+                                    break;
+
                                 // Απλό
                                 default:
                                     achievementIDToCheckForUnlock = 'ach_normal_mode_win';
                                     break;
                             }
-                            unlockAchievement(achievementIDToCheckForUnlock);
+
+                            if (achievementIDToCheckForUnlock != 'no achievement') unlockAchievement(achievementIDToCheckForUnlock);
 
                             // Επίτευγμα.
                             if (papagianneosFinaleEnabled) {
@@ -1899,14 +1995,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         winScreenText.appendChild(
                             document.createTextNode(
                                 wonBySpecialCard ? LANGUAGE_DATA[LANGUAGE_INDEX].win_K_card :
-                                virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
-                                voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
-                                timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
-                                papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
-                                extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
-                                challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
-                                hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
-                                LANGUAGE_DATA[LANGUAGE_INDEX].win
+                                    virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
+                                        voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
+                                            timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
+                                                papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
+                                                    extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
+                                                        challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
+                                                            hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
+                                                                LANGUAGE_DATA[LANGUAGE_INDEX].win
                             )
                         );
 
