@@ -2166,10 +2166,9 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                                 case 3: // TIMED mode.
                                     timeLeft = 750;
-                                    decreaseTimeBy = 3;
+                                    decreaseTimeBy = 4;
                                     document.getElementById('cardsHolder').removeAttribute('style');
                                     timedModeEnabled = true;
-                                    gameMusic = timedModeMusic;
                                     gameMusic.pause();
                                     timedModeMusic.play();
                                     break;
