@@ -73,6 +73,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
         cardDiv.style.background = card.color;
+        cardDiv.style.backgroundSize = 'cover';
 
         // Η "Σ" κάρτα είναι πολύχρωμη.
         if (card.shape == specialCardsConfig[16].shape) {
