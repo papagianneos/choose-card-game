@@ -113,6 +113,13 @@ export const specialCardsConfig = [
     },
 
     {
+        shape: 'Eng',
+        color: 'url(/img/engood-avatar.png) no-repeat',
+        info: 'I am a gamer. I play geometry dash, age of civilizations and minecraft.',
+        noSpawnInFinale: true
+    },
+
+    {
         shape: 'Ⅽ₆₉',
         color: 'linear-gradient(to left top, purple, blue, cyan, green, lime)',
         info: 'The mighty Carbon 69, only the chosen one can unlock it\'s identity.',
