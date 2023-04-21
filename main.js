@@ -1544,8 +1544,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 playButtonExtreme = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme, 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed, 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void, 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
-                playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
-                playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
+               // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
+               // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playEventModeBtn,
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
@@ -1629,8 +1629,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonTimed);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
-            buttonsWrapper.appendChild(playButtonVirus);
-            buttonsWrapper.appendChild(playbuttonPenalty);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
             // ----------------------------------------------------
 
