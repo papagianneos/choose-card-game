@@ -154,12 +154,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         // ----------------------------------------
 
         // -----------------------------------
-        // Penalty mode fix
-        // -----------------------------------
-        let maxPenalties = 0;
-        // -----------------------------------
-
-        // -----------------------------------
         const irandom = i => {
             let max = Math.floor(i);
             return Math.floor(Math.random() * (max + 1));
@@ -948,9 +942,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         if (penaltyModeEnabled) {
                             currentSelected = [];
                             penalties++;
-                            maxPenalties++
 
-                            if (maxPenalties < 30) if (penalties == 5) {
+                            if (penalties == 5) {
                                 penalties = 0;
 
                                 // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
