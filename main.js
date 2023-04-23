@@ -1815,7 +1815,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         }
                         break;
 
-                    case 7: // Κυριακή
+                    case 0: // Κυριακή
                         eventModeData = {
                             name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
                             color: 'radial-gradient(red, black)',
