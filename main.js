@@ -1544,7 +1544,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Τίτλος μενού πληροφοριών
                         let cobaltModeSelectMenuTitle = document.createElement('h1');
-                        cobaltModeSelectMenuTitle.appendChild(document.createTextNode("CHOOSE"));
+                        cobaltModeSelectMenuTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].choose_special_card_menu_title));
                         cobaltModeSelectMenu.appendChild(cobaltModeSelectMenuTitle);
 
                         for (var card of cobaltModeCards) {
@@ -1585,6 +1585,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             cardDivWrapper.appendChild(hiddenInfoTxTWrapper);
                             cobaltModeSelectMenu.appendChild(cardDivWrapper);
                             cardDiv.onclick = () => {
+                                sounds.timeSlower.play();
                                 selectedSpecialCardShape = cardDiv.innerHTML;
                                 document.body.removeChild(cobaltModeSelectMenu);
                                 startGame();
