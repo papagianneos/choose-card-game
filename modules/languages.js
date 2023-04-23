@@ -45,6 +45,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_x2": "Διπλό Score",
         "info_special_card_1/2": "Μισό Score",
         "info_special_card_T-2": "2 Λιγότερες Προσπάθειες",
+        "info_special_card_T-6": "6 Λιγότερες Προσπάθειες",
         "info_special_card_cross": 'Πάει έχασες το παιχνίδι',
         "info_special_card_triangle": 'ΠΡΟΣΟΧΗ EΚΡΗΞΗ',
         "info_special_card_omega": 'Ορατός... ή.. αόρατος.',
@@ -53,6 +54,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_slow": 'Αργότερος Χρόνος',
         "info_special_card_lamda": 'Θα σου βγάλω την ψυχή',
         "info_special_card_sigma": 'Κάποιες φορές σκέφτομαι.. ΠΟΛΥΧΡΩΜΟΣ!',
+        "info_special_card_wild_card": 'Μπαλαντέρ',
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
@@ -382,6 +384,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_x2": "Double Score",
         "info_special_card_1/2": "Half Score",
         "info_special_card_T-2": "2 Less Tries",
+        "info_special_card_T-6": "6 Less Tries",
         "info_special_card_cross": 'Your game ded',
         "info_special_card_triangle": 'CAUTION EXPLOSION',
         "info_special_card_omega": 'Visible... or.. invisible.',
@@ -390,6 +393,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_slow": 'Slower Time',
         "info_special_card_lamda": 'I will annoy you',
         "info_special_card_sigma": 'Sometimes I think.. COLORFUL!',
+        "info_special_card_wild_card": 'Wild Card',
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
