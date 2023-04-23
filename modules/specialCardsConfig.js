@@ -131,7 +131,8 @@ export const specialCardsConfig = [
         shape: '∞',
         color: 'linear-gradient(to left top, red, blue, green, yellow, purple)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_wild_card'],
-        exclusiveMode: 'cobalt'
+        exclusiveMode: 'cobalt',
+        noSpawnInFinale: true
     },
 
     { // 6 λιγότερες προσπάθειες
@@ -139,6 +140,7 @@ export const specialCardsConfig = [
         color: 'radial-gradient(purple, red)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_T-6'],
         exclusiveMode: 'cobalt',
+        noSpawnInFinale: true
     },
 
     { // Πενταπλό Score
@@ -146,5 +148,6 @@ export const specialCardsConfig = [
         color: 'radial-gradient(black, darkblue)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_x4,
         exclusiveMode: 'cobalt',
+        noSpawnInFinale: true
     }
 ];
