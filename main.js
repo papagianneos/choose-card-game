@@ -74,7 +74,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             let countedTrolls = 0;
 
             for (let searchShape of cardShapes_revived) {
-                if (searchShape == '[?]') countedTrolls++;
+                if (searchShape == '[?]' || searchShape == '∞') countedTrolls++;
             }
 
             return countedTrolls;
@@ -87,10 +87,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-
-        Array.prototype.insert = function (index, ...items) {
-            this.splice(index, 0, ...items);
-        };
 
         //secretSettingEnabled = false,
         let rot_ = 360;
@@ -179,6 +175,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             penaltyModeEnabled = false,
             challengeModeEffectTurn = 0,
             currentSelected = [],
+            infinityCardExists = false,
             score = 0,
             penalties = 0,
             tries = -1, // ξεκινάμε με -1 διότι αυτόματα κάνει resetCards (άρα tries -= 1)
@@ -278,6 +275,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         cardShapes.push(cobaltModeCards[0].shape);
                         AMOUNT_OF_CARDS += 2;
+
+                        // Δες αν υπάρχει troll κάρτα..
+                        if (cardShapes.includes('∞')) {
+                            trollCardExists = true;
+                            infinityCardExists = true;
+                        }
                     }
 
                     // Χρειάζεται timed card στο TIMED mode
@@ -347,7 +350,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // ---------------------------------------------------------------------
             // Σβήσε το ένα από το ζευγάρι
             if (trollCardExists) {
-                let index = cardShapes.indexOf('[?]');
+                let index = cardShapes.indexOf('[?]') == -1 ? cardShapes.indexOf('∞') : cardShapes.indexOf('[?]');
                 cardShapes.splice(index, 1);
                 cardColors.splice(index, 1);
             }
@@ -355,7 +358,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
             // check cards length
             if ((trollCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (trollCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
-                throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.')
+                console.log(countTrollCards(cardShapes));
+                throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.');
             }
 
             for (var j = 0; j < (countTrollCards(cardShapes) != 0 ? (AMOUNT_OF_CARDS - 1) : AMOUNT_OF_CARDS); j++) {
@@ -681,7 +685,18 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
 
                         case specialCardsConfig[19].shape: // Infinity
-                            specialCardIndex = 19;
+                            card.color = specialCardsConfig[19].color;;
+                            specialCardDetected = false;
+
+                            break;
+
+                        case specialCardsConfig[20].shape: // 6 λιγότερες προσπάθειες
+                            specialCardIndex = 20;
+                            card.specialCardEffect = () => {
+                                sounds.specialScore.play()
+                                tries -= 6;
+                                updateTries();
+                            }
                             break;
                         // -----------------------------------------------------------
                     }
@@ -873,6 +888,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // Όταν γίνει click σε αυτό.
             div.onclick = () => {
 
+                // -------------------------------------------------------------------------------------------------------
+                // BUG FIX: Αν έγινε click στην ίδια κάρτα..
+                // -------------------------------------------------------------------------------------------------------
+                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
+                div.setAttribute('egineclick', 'nai');
+                // -------------------------------------------------------------------------------------------------------
+
+
                 // --------------------------------------------------------
                 // NULL Effect
                 // --------------------------------------------------------
@@ -892,13 +915,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     }
                 }
                 // --------------------------------------------------------
-
-                // -------------------------------------------------------------------------------------------------------
-                // BUG FIX: Αν έγινε click στην ίδια κάρτα..
-                // -------------------------------------------------------------------------------------------------------
-                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
-                div.setAttribute('egineclick', 'nai');
-                // -------------------------------------------------------------------------------------------------------
 
                 // ----------------------------------
                 // Ήχος κάρτας.
@@ -932,8 +948,105 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     let firstCard = currentSelected[0],
                         secondCard = currentSelected[1];
 
+                    const giveScore = () => {
+                        // Επίτευγμα: "Just Like Peter"
+                        streak += 1;
+                        if (streak == 3) unlockAchievement('ach_peter');
+
+                        // --------------------------------------------------------------------------------------------------
+                        // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
+                        // --------------------------------------------------------------------------------------------------
+                        if (trollCardExists) {
+                            let cardShapes_revived = [],
+                                cardsList = [];
+
+                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                            for (var e = 0; e < parentDiv.children.length; e++) {
+                                let child = parentDiv.children[e];
+                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                cardShapes_revived.push(child.savedText);
+                                cardsList.push(child);
+                            }
+
+                            for (var cardElem of cardsList) {
+                                if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
+                                    let fakeCardShapes = cardShapes_revived;
+
+                                    // Να μην χρησημοποιηθεί το ίδιο σχήμα
+                                    fakeCardShapes = fakeCardShapes.filter(item => {
+                                        return item != cardElem.savedText && item != undefined;
+                                    });
+
+                                    // Επέλεξε τυχαίο σχήμα.
+                                    cardElem.savedText = randomChoice(fakeCardShapes);
+                                }
+                            }
+                        }
+                        // --------------------------------------------------------------------------------------------------
+
+                        // Αν είναι σπέσιαλ κάρτα..
+                        if (firstCard.specialCard && secondCard.specialCard) {
+                            firstCard.specialCardEffect();
+
+                            // Επίτευγμα: "Τι ήταν αυτό;"
+                            unlockAchievement('ach_first_special_card');
+
+                            // Επίτευγμα: "Κυνηγός"
+                            unlockAchievement('ach_hunter');
+
+                            // Επίτευγμα: "Απατεών"
+                            unlockAchievement('ach_deceiver');
+                        }
+
+                        // Αν είναι μία απλή κάρτα
+                        else {
+                            // Επίτευγμα: "Τα κατάφερα;"
+                            unlockAchievement('ach_first_combination');
+
+                            // Επίτευγμα: "Αρχάριος"
+                            unlockAchievement('ach_beginner');
+
+                            // Επίτευγμα: "Έμπειρος"
+                            unlockAchievement('ach_somewhat_experienced');
+
+                            // Επίτευγμα: "Ειδικός"
+                            unlockAchievement('ach_expert');
+
+                            // Τρόπαιο: "Δάσκαλος των Καρτών"
+                            unlockAchievement('tr_master_of_cards');
+
+                            const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
+                            score += (scoreReceived != 0 ? scoreReceived : 1);
+
+                            // Επίτευγμα: "Εκατοστάρα στη μάπα"
+                            unlockAchievement('ach_score_100', score);
+
+                            // Επίτευγμα: "Δεν με ξέρεις καλά.."
+                            unlockAchievement('ach_score_1k', score);
+
+                            // Τρόπαιο: "Εκατομμυριούχος"
+                            unlockAchievement('tr_million_score', score);
+
+                            // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
+                            if (!firstCard.specialCard && !secondCard.specialCard) {
+                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
+                            }
+                        }
+
+                        currentSelected = [];
+                        updateScore();
+
+                        // --------------------------------------------
+                        // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
+                        // δεν χρειάζεται έλεγχος.
+                        // --------------------------------------------
+                        firstCard.setAttribute('anoixthcarta', 'nai');
+                        secondCard.setAttribute('anoixthcarta', 'nai');
+                        // --------------------------------------------
+                    }
+
                     // αν είναι διαφορετικές οι κάρτες, επαναφορά
-                    if (firstCard.savedText !== secondCard.savedText) {
+                    if (firstCard.savedText !== secondCard.savedText && (firstCard.savedText != '∞' && secondCard.savedText != '∞')) {
                         if (streak != 0) streak = 0;
 
                         // Επίτευγμα: "Το μοιραίο λάθος"
@@ -1165,6 +1278,44 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         }, 420);
                     }
 
+                    // Αν είναι μπαλαντέρ (Infinity Card Balader)
+                    else if (firstCard.savedText == '∞' || secondCard.savedText == '∞') {
+                        giveScore();
+
+                        let cardElemsList = [],
+                            cardShapesList = [],
+                            scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                        for (var e = 0; e < parentDiv.children.length; e++) {
+                            let child = parentDiv.children[e];
+                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                            if (child.className == 'card') {
+                                cardElemsList.push(child);
+                                cardShapesList.push(child.savedText);
+                            }
+                        }
+
+                        let nonInfinityCard = firstCard.savedText == '∞' ? secondCard : firstCard;
+                        cardElemsList.splice(cardShapesList.indexOf(nonInfinityCard.savedText), 1);
+
+                        cardElemsList[(cardElemsList.length)] = cardElemsList[0];
+                        cardElemsList[0] = scoreAndTriesTextHolderChild;
+                        parentDiv.replaceChildren(...cardElemsList);
+                        AMOUNT_OF_CARDS -= 1;
+
+                        // bug fix
+                        for (var card_ of document.getElementsByClassName('card')) {
+                            if (card_.savedText == nonInfinityCard.savedText) {
+                                if (!card_.getAttribute('anoixthcarta')) {
+                                    card_.style.background = card_.savedBackgroundColor;
+                                    card_.innerHTML = card_.savedText;
+                                    card_.setAttribute('anoixthcarta', 'nai');
+                                }
+                            }
+                        }
+                    }
+
                     // Αν είναι η troll κάρτα
                     else if (firstCard.impostorCard || secondCard.impostorCard) {
                         // Επίτευγμα: "SkinWalker"
@@ -1196,101 +1347,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     // αν είναι ίδιες οι κάρτες, δώσε score
                     else if (firstCard.savedText == secondCard.savedText) {
-
-                        // Επίτευγμα: "Just Like Peter"
-                        streak += 1;
-                        if (streak == 3) unlockAchievement('ach_peter');
-
-                        // --------------------------------------------------------------------------------------------------
-                        // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
-                        // --------------------------------------------------------------------------------------------------
-                        if (trollCardExists) {
-                            let cardShapes_revived = [],
-                                cardsList = [];
-
-                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                            for (var e = 0; e < parentDiv.children.length; e++) {
-                                let child = parentDiv.children[e];
-                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                cardShapes_revived.push(child.savedText);
-                                cardsList.push(child);
-                            }
-
-                            for (var cardElem of cardsList) {
-                                if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
-                                    let fakeCardShapes = cardShapes_revived;
-
-                                    // Να μην χρησημοποιηθεί το ίδιο σχήμα
-                                    fakeCardShapes = fakeCardShapes.filter(item => {
-                                        return item != cardElem.savedText && item != undefined;
-                                    });
-
-                                    // Επέλεξε τυχαίο σχήμα.
-                                    cardElem.savedText = randomChoice(fakeCardShapes);
-                                }
-                            }
-                        }
-                        // --------------------------------------------------------------------------------------------------
-
-                        // Αν είναι σπέσιαλ κάρτα..
-                        if (firstCard.specialCard && secondCard.specialCard) {
-                            firstCard.specialCardEffect();
-
-                            // Επίτευγμα: "Τι ήταν αυτό;"
-                            unlockAchievement('ach_first_special_card');
-
-                            // Επίτευγμα: "Κυνηγός"
-                            unlockAchievement('ach_hunter');
-
-                            // Επίτευγμα: "Απατεών"
-                            unlockAchievement('ach_deceiver');
-                        }
-
-                        // Αν είναι μία απλή κάρτα
-                        else {
-                            // Επίτευγμα: "Τα κατάφερα;"
-                            unlockAchievement('ach_first_combination');
-
-                            // Επίτευγμα: "Αρχάριος"
-                            unlockAchievement('ach_beginner');
-
-                            // Επίτευγμα: "Έμπειρος"
-                            unlockAchievement('ach_somewhat_experienced');
-
-                            // Επίτευγμα: "Ειδικός"
-                            unlockAchievement('ach_expert');
-
-                            // Τρόπαιο: "Δάσκαλος των Καρτών"
-                            unlockAchievement('tr_master_of_cards');
-
-                            const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
-                            score += (scoreReceived != 0 ? scoreReceived : 1);
-
-                            // Επίτευγμα: "Εκατοστάρα στη μάπα"
-                            unlockAchievement('ach_score_100', score);
-
-                            // Επίτευγμα: "Δεν με ξέρεις καλά.."
-                            unlockAchievement('ach_score_1k', score);
-
-                            // Τρόπαιο: "Εκατομμυριούχος"
-                            unlockAchievement('tr_million_score', score);
-
-                            // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
-                            if (!firstCard.specialCard && !secondCard.specialCard) {
-                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
-                            }
-                        }
-
-                        currentSelected = [];
-                        updateScore();
-
-                        // --------------------------------------------
-                        // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
-                        // δεν χρειάζεται έλεγχος.
-                        // --------------------------------------------
-                        firstCard.setAttribute('anoixthcarta', 'nai');
-                        secondCard.setAttribute('anoixthcarta', 'nai');
-                        // --------------------------------------------
+                        giveScore();
                     }
                 }
             }
@@ -1538,10 +1595,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         menuMusic.pause();
                         cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
 
-                        cobaltModeCards.push(specialCardsConfig[1], specialCardsConfig[3]);
+                        cobaltModeCards.push(specialCardsConfig[1]);
 
                         let cobaltModeSelectMenu = document.createElement('div');
                         cobaltModeSelectMenu.className = 'modalBox';
+                        cobaltModeSelectMenu.style.overflow = 'scroll';
+                        cobaltModeSelectMenu.style.height = '600px';
 
                         // Τίτλος μενού πληροφοριών
                         let cobaltModeSelectMenuTitle = document.createElement('h1');
