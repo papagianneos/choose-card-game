@@ -12,7 +12,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
         // Events
-        let eventModeRotationEnabled = false;
+        let eventModeRotationEnabled = true;
 
         // -------------------------------------------------
         // ΚΟΒΑΛΤΙΟ Μοde
@@ -692,9 +692,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         case specialCardsConfig[19].shape: // Infinity
                             specialCardIndex = 19;
-                            card.specialCardEffect = () => {
-                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
-                            }
                             break;
 
                         case specialCardsConfig[20].shape: // 6 λιγότερες προσπάθειες
@@ -1324,6 +1321,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     // Αν είναι μπαλαντέρ (Infinity Card Balader)
                     else if (firstCard.savedText == '∞' || secondCard.savedText == '∞') {
+                        hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
                         giveScore();
 
                         let cardElemsList = [],
@@ -1639,7 +1637,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
                         // Νέα γραφικά
-                        if (playersEffect) if (playersEffect.improvedGraphics) {
+                        if (!cobaltModeEnabled) if (playersEffect) if (playersEffect.improvedGraphics) {
                             document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
                             scoreAndTriesHolder.style.color = 'black';
                         }
@@ -1756,7 +1754,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playEventModeBtn,
-                playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
+                //playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------------------------------------------------------
@@ -1772,8 +1770,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     case 1: // Δευτέρα
                         eventModeData = {
                             name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                            color: 'radial-gradient(red, black)',
-                            id: 'virus'
+                            color: 'radial-gradient(black, darkblue)',
+                            id: 'cobalt'
                         }
                         break;
 
@@ -1787,33 +1785,33 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     case 3: // Τετάρτη
                         eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                            color: 'radial-gradient(red, black)',
-                            id: 'virus'
-                        }
-                        break;
-
-                    case 4: // Πέμπτη
-                        eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                            color: 'radial-gradient(red, black)',
-                            id: 'virus'
-                        }
-                        break;
-
-                    case 5: // Παρασκευή
-                        eventModeData = {
                             name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
                             color: 'blue',
                             id: 'penalty'
                         }
                         break;
 
-                    case 6: // Σάββατο
+                    case 4: // Πέμπτη
+                        eventModeData = {
+                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
+                            color: 'radial-gradient(black, darkblue)',
+                            id: 'cobalt'
+                        }
+                        break;
+
+                    case 5: // Παρασκευή
                         eventModeData = {
                             name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
                             color: 'radial-gradient(red, black)',
                             id: 'virus'
+                        }
+                        break;
+
+                    case 6: // Σάββατο
+                        eventModeData = {
+                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
+                            color: 'blue',
+                            id: 'penalty'
                         }
                         break;
 
