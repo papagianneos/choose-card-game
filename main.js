@@ -52,7 +52,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             nullEffectLoop;
 
         // bug fix για το αν υπάρχει troll κάρτα
-        let trollCardExists = false;
+        let nonPairCardExists = false;
 
         // ----------------------------------------------------------------------
         // Συνάρτηση που μετράει πόσες troll κάρτες υπάρχουν (αν υπάρχουν)
@@ -175,7 +175,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             penaltyModeEnabled = false,
             challengeModeEffectTurn = 0,
             currentSelected = [],
-            infinityCardExists = false,
             score = 0,
             penalties = 0,
             tries = -1, // ξεκινάμε με -1 διότι αυτόματα κάνει resetCards (άρα tries -= 1)
@@ -264,7 +263,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Δες αν υπάρχει troll κάρτα..
                         if (cardShapes.includes('[?]')) {
-                            trollCardExists = true;
+                            nonPairCardExists = true;
                         }
                     }
 
@@ -278,8 +277,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         // Δες αν υπάρχει troll κάρτα..
                         if (cardShapes.includes('∞')) {
-                            trollCardExists = true;
-                            infinityCardExists = true;
+                            nonPairCardExists = true;
                         }
                     }
 
@@ -304,7 +302,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     // Δες αν υπάρχει troll κάρτα..
                     if (cardShapes.includes('[?]')) {
-                        trollCardExists = true;
+                        nonPairCardExists = true;
                     }
                 }
             }
@@ -349,7 +347,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // Δεν πρέπει να έχει ζευγάρι η troll card
             // ---------------------------------------------------------------------
             // Σβήσε το ένα από το ζευγάρι
-            if (trollCardExists) {
+            if (nonPairCardExists) {
                 let index = cardShapes.indexOf('[?]') == -1 ? cardShapes.indexOf('∞') : cardShapes.indexOf('[?]');
                 cardShapes.splice(index, 1);
                 cardColors.splice(index, 1);
@@ -357,7 +355,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // -----------------------------------------------------------------------
 
             // check cards length
-            if ((trollCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (trollCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
+            if ((nonPairCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (nonPairCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
                 console.log(countTrollCards(cardShapes));
                 throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.');
             }
@@ -685,9 +683,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
 
                         case specialCardsConfig[19].shape: // Infinity
-                            card.color = specialCardsConfig[19].color;;
-                            specialCardDetected = false;
-
+                            specialCardIndex = 19;
                             break;
 
                         case specialCardsConfig[20].shape: // 6 λιγότερες προσπάθειες
@@ -719,7 +715,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             // Επέλεξε τυχαίο σχήμα.
                             card.shape = randomChoice(fakeCardShapes);
                             card.impostorCard = true;
-                            trollCardExists = true;
+                            nonPairCardExists = true;
                         }
                     }
                 }
@@ -956,7 +952,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         // --------------------------------------------------------------------------------------------------
                         // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
                         // --------------------------------------------------------------------------------------------------
-                        if (trollCardExists) {
+                        if (nonPairCardExists) {
                             let cardShapes_revived = [],
                                 cardsList = [];
 
@@ -1296,8 +1292,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             }
                         }
 
-                        let nonInfinityCard = firstCard.savedText == '∞' ? secondCard : firstCard;
+                        let nonInfinityCard = firstCard.savedText == '∞' ? secondCard : firstCard,
+                            infityCard = firstCard == nonInfinityCard ? secondCard : firstCard;
+
                         cardElemsList.splice(cardShapesList.indexOf(nonInfinityCard.savedText), 1);
+
+                        // Αν βρέθηκε, μην την έχεις ως σπέσιαλ κάρτα για να μετράει στις ανοιχτές κάρτες.
+                        infityCard.specialCard = false;
+                        currentSpecialCards.splice(currentSpecialCards.indexOf('∞'), 1);
 
                         cardElemsList[(cardElemsList.length)] = cardElemsList[0];
                         cardElemsList[0] = scoreAndTriesTextHolderChild;
@@ -2116,7 +2118,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // --------------------------------------------------------------------
 
                 // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
-                if (wonBySpecialCard || ((trollCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
+                if (wonBySpecialCard || ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
 
                     // Αν δεν είναι VOID mode.
                     if (voidModeOver) {
@@ -2365,7 +2367,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]);
                             if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2) + 2;
 
-                            trollCardExists = false; // PLEASE WORK
+                            nonPairCardExists = false; // PLEASE WORK
                             startGame();
                             createCards();
                             resetCards(false);
