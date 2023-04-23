@@ -68,7 +68,7 @@ export const specialCardsConfig = [
         info: 'The eye sees..'
     },
 
-    
+
     {// NULL
         shape: 'Ø',
         color: 'radial-gradient(black, green, black)',
@@ -130,7 +130,14 @@ export const specialCardsConfig = [
     {
         shape: '∞',
         color: 'linear-gradient(to left top, red, blue, green, yellow, purple)',
-        info: 'Test',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_wild_card'],
         exclusiveMode: 'cobalt'
-    }
+    },
+
+    { // 6 λιγότερες προσπάθειες
+        shape: 'T-6',
+        color: 'radial-gradient(purple, red)',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_T-6'],
+        exclusiveMode: 'cobalt',
+    },
 ];
