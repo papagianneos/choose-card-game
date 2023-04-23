@@ -167,6 +167,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             return arr[irandom(arr.length - 1)];
         };
 
+        // Άνθρακας 69 Σπέσιαλ Κάρτα Εφέ.
+        let C69Effect = false,
+            c69EffectTurn = 0;
+
         // global μεταβλητές
         let cardsData = [],
             hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
@@ -679,11 +683,18 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         // ----------------------------------------------------------
                         case specialCardsConfig[18].shape: // Carbon 69
                             specialCardIndex = 18;
+                            card.specialCardEffect = () => {
+                                sounds.specialScore.play();
+                                C69Effect = true;
+                            }
                             break;
 
 
                         case specialCardsConfig[19].shape: // Infinity
                             specialCardIndex = 19;
+                            card.specialCardEffect = () => {
+                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
+                            }
                             break;
 
                         case specialCardsConfig[20].shape: // 6 λιγότερες προσπάθειες
@@ -692,6 +703,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 sounds.specialScore.play()
                                 tries -= 6;
                                 updateTries();
+                            }
+                            break;
+
+                        case specialCardsConfig[21].shape: // Τετραπλό Score
+                            specialCardIndex = 21;
+                            card.specialCardEffect = () => {
+                                sounds.specialScore.play()
+                                score *= 4;
                             }
                             break;
                         // -----------------------------------------------------------
@@ -880,6 +899,35 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // =======================================================
             // Mouse event listeners setup & game setup
             // =======================================================
+
+            div.onmouseover = () => {
+                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
+                if (C69Effect) {
+
+                    // Μόνο 8 φορές.
+                    c69EffectTurn++;
+                    if (c69EffectTurn > 8) {
+                        C69Effect = false;
+
+                        for (var card of document.getElementsByClassName('card')) {
+                            card.style.boxShadow = 'none';
+                        }
+                        return
+                    }
+
+                    let color = 10;
+
+                    var chance = Math.random();
+                    if (chance < 0.7) { // 20% πιθανότητα να είναι το σωστό χρώμα της κάρτας
+                        color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                    }
+                    else {
+                        color = div.savedBackgroundColor;
+                    }
+
+                    div.style.boxShadow = `${color} 0px 0px 60px`;
+                }
+            }
 
             // Όταν γίνει click σε αυτό.
             div.onclick = () => {
@@ -1306,6 +1354,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         parentDiv.replaceChildren(...cardElemsList);
                         AMOUNT_OF_CARDS -= 1;
 
+                        // Άλλαξε τη μορφή του μπαλαντέρ με την κάρτα που χρησιμοποιήθηκε
+                        infityCard.style.background = nonInfinityCard.savedBackgroundColor;
+                        infityCard.innerHTML = nonInfinityCard.innerHTML;
+                        infityCard.savedText = nonInfinityCard.savedText;
+
                         // bug fix
                         for (var card_ of document.getElementsByClassName('card')) {
                             if (card_.savedText == nonInfinityCard.savedText) {
@@ -1596,8 +1649,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     if (cobaltModeEnabled) {
                         menuMusic.pause();
                         cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
-
-                        cobaltModeCards.push(specialCardsConfig[1]);
 
                         let cobaltModeSelectMenu = document.createElement('div');
                         cobaltModeSelectMenu.className = 'modalBox';
