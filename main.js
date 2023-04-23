@@ -1769,7 +1769,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 switch (new Date().getDay()) {
                     case 1: // Δευτέρα
                         eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
+                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
                             color: 'radial-gradient(black, darkblue)',
                             id: 'cobalt'
                         }
@@ -1793,7 +1793,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     case 4: // Πέμπτη
                         eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
+                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
                             color: 'radial-gradient(black, darkblue)',
                             id: 'cobalt'
                         }
