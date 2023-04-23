@@ -1535,9 +1535,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                     if (cobaltModeEnabled) {
+                        menuMusic.pause();
+                        document.getElementsByTagName('body')[0].style.backgroundColor = '#080226';
                         cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
 
-                        cobaltModeCards.push(specialCardsConfig[3]);
+                        cobaltModeCards.push(specialCardsConfig[1], specialCardsConfig[3]);
 
                         let cobaltModeSelectMenu = document.createElement('div');
                         cobaltModeSelectMenu.className = 'modalBox';
@@ -2175,15 +2177,16 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         winScreenText.appendChild(
                             document.createTextNode(
                                 wonBySpecialCard ? LANGUAGE_DATA[LANGUAGE_INDEX].win_K_card :
-                                    penaltyModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_penalty :
-                                        virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
-                                            voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
-                                                timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
-                                                    papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
-                                                        extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
-                                                            challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
-                                                                hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
-                                                                    LANGUAGE_DATA[LANGUAGE_INDEX].win
+                                    cobaltModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_cobalt :
+                                        penaltyModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_penalty :
+                                            virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
+                                                voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
+                                                    timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
+                                                        papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
+                                                            extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
+                                                                challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
+                                                                    hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
+                                                                        LANGUAGE_DATA[LANGUAGE_INDEX].win
                             )
                         );
 
