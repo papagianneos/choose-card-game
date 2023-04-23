@@ -1835,7 +1835,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonChallenge);
             buttonsWrapper.appendChild(playButtonExtreme);
             buttonsWrapper.appendChild(playButtonTimed);
-            buttonsWrapper.appendChild(playButtonCobalt);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
