@@ -186,6 +186,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             color: 'blue',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_penalty
         },
+      
+        {
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
+            color: 'radial-gradient(black, darkblue)',
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_cobalt,
+        },
     ];
 
     for (var gameModeObj of gamemodesInfoConfig) {
