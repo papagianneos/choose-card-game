@@ -14,6 +14,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         // Events
         let eventModeRotationEnabled = false;
 
+        // -------------------------------------------------
+        // ΚΟΒΑΛΤΙΟ Μοde
+        // -------------------------------------------------
+        let cobaltModeEnabled = false,
+            selectedSpecialCardShape,
+            cobaltModeCards = [];
+        // -------------------------------------------------
+
         // -----------------------------------------------------
         // "VOID" mode
         // -----------------------------------------------------
@@ -248,22 +256,34 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                 // αν δεν παίζει ο παίχτης το FINALE.
                 if (!papagianneosFinaleEnabled) {
-                    const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.timeCard && !carde.neverSpawn })
 
-                    let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
-                    //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                    cardShapes.push(randomlyChosenSpecialCard.shape);
-                    AMOUNT_OF_CARDS += 2;
+                    if (!cobaltModeEnabled) {
+                        const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.exclusiveMode && !carde.neverSpawn })
 
-                    // Δες αν υπάρχει troll κάρτα..
-                    if (cardShapes.includes('[?]')) {
-                        trollCardExists = true;
+                        let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
+                        //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
+                        cardShapes.push(randomlyChosenSpecialCard.shape);
+                        AMOUNT_OF_CARDS += 2;
+
+                        // Δες αν υπάρχει troll κάρτα..
+                        if (cardShapes.includes('[?]')) {
+                            trollCardExists = true;
+                        }
+                    }
+
+                    // Cobalt Mode: H special card του παίχτη (ο οποίος διάλεξε).
+                    else {
+                        // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
+                        cobaltModeCards = cobaltModeCards.filter(carde1 => { return carde1.shape == selectedSpecialCardShape })
+
+                        cardShapes.push(cobaltModeCards[0].shape);
+                        AMOUNT_OF_CARDS += 2;
                     }
 
                     // Χρειάζεται timed card στο TIMED mode
                     if (timedModeEnabled) {
                         // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
-                        const timeModeCards = specialCardsConfig.filter(carde1 => { return carde1.timeCard })
+                        const timeModeCards = specialCardsConfig.filter(carde1 => { return carde1.exclusiveMode == 'timed' })
 
                         cardShapes.push(randomChoice(timeModeCards).shape);
                         AMOUNT_OF_CARDS += 2;
@@ -651,6 +671,19 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         case specialCardsConfig[17].shape: // Engood's Card
                             specialCardIndex = 17;
                             break;
+
+                        // ---------------------------------------------------------
+                        // COBALT MODE SPECIAL CARDS
+                        // ----------------------------------------------------------
+                        case specialCardsConfig[18].shape: // Carbon 69
+                            specialCardIndex = 18;
+                            break;
+
+
+                        case specialCardsConfig[19].shape: // Infinity
+                            specialCardIndex = 19;
+                            break;
+                        // -----------------------------------------------------------
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -1482,10 +1515,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             voidModeEnabled = true;
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
                             break;
+
+                        case 'cobalt': // cobalt
+                            cobaltModeEnabled = true;
+                            break;
                     }
 
-                    startGame();
-                    createCards();
                     sounds.buttonClick.play();
 
                     if (!['papagianneosFinale', 'void'].includes(mode)) {
@@ -1499,9 +1534,75 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     }
 
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
-                    document.body.appendChild(parentDiv);
+                    if (cobaltModeEnabled) {
+                        cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
 
-                    resetCards();
+                        cobaltModeCards.push(specialCardsConfig[3]);
+
+                        let cobaltModeSelectMenu = document.createElement('div');
+                        cobaltModeSelectMenu.className = 'modalBox';
+
+                        // Τίτλος μενού πληροφοριών
+                        let cobaltModeSelectMenuTitle = document.createElement('h1');
+                        cobaltModeSelectMenuTitle.appendChild(document.createTextNode("CHOOSE"));
+                        cobaltModeSelectMenu.appendChild(cobaltModeSelectMenuTitle);
+
+                        for (var card of cobaltModeCards) {
+                            // Για τα positions
+                            let cardDivWrapper = document.createElement('div');
+                            cardDivWrapper.style.display = 'inline-block';
+                            cardDivWrapper.style.verticalAlign = 'top';
+                            cardDivWrapper.style.alignItems = 'center';
+                            cardDivWrapper.style.justifyContent = 'center';
+                            cardDivWrapper.style.textAlign = 'center';
+
+                            // Κάρτα PLACEHOLDER
+                            let cardDiv = document.createElement('div');
+                            cardDiv.className = 'howToPlayInfoCard';
+                            cardDiv.style.background = card.color;
+
+                            // Η "Σ" κάρτα είναι πολύχρωμη.
+                            if (card.shape == specialCardsConfig[16].shape) {
+                                cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+                            }
+
+                            cardDiv.style.cursor = 'pointer';
+
+                            // ------------------------------------------------------------
+                            // Κείμενο για τις πληροφορίες της σπεσιαλ κάρτας
+                            // ------------------------------------------------------------
+                            cardDiv.appendChild(document.createTextNode(card.shape));
+
+                            let hiddenInfoTxTWrapper = document.createElement('div');
+                            hiddenInfoTxTWrapper.className = 'hidden';
+                            hiddenInfoTxTWrapper.style.fontSize = '20px';
+                            hiddenInfoTxTWrapper.style.width = '150px'; // το μέγεθος κάθε κάρτας
+                            hiddenInfoTxTWrapper.style.marginLeft = '10px';
+                            hiddenInfoTxTWrapper.appendChild(document.createTextNode(card.info));
+                            // ------------------------------------------------------------
+
+                            cardDivWrapper.appendChild(cardDiv);
+                            cardDivWrapper.appendChild(hiddenInfoTxTWrapper);
+                            cobaltModeSelectMenu.appendChild(cardDivWrapper);
+                            cardDiv.onclick = () => {
+                                selectedSpecialCardShape = cardDiv.innerHTML;
+                                document.body.removeChild(cobaltModeSelectMenu);
+                                startGame();
+                                createCards();
+                                document.body.appendChild(parentDiv);
+                                resetCards();
+                            }
+                        }
+                        document.body.appendChild(cobaltModeSelectMenu);
+                    }
+
+                    else {
+                        startGame();
+                        createCards();
+                        document.body.appendChild(parentDiv);
+                        resetCards();
+                    }
+
                     gameStarted = true;
                     // εξαφάνισε την οθόνη με το κουμπί μαζί
                     document.body.removeChild(startScreen);
@@ -1537,9 +1638,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 playButtonExtreme = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme, 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed, 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void, 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
-               // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
-               // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
+                // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
+                // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playEventModeBtn,
+                playButtonCobalt = createButton('Cobalt', 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------------------------------------------------------
@@ -1620,6 +1722,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonChallenge);
             buttonsWrapper.appendChild(playButtonExtreme);
             buttonsWrapper.appendChild(playButtonTimed);
+            buttonsWrapper.appendChild(playButtonCobalt);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
@@ -2013,6 +2116,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                     break;
 
                                 case penaltyModeEnabled:
+                                case cobaltModeEnabled:
                                     achievementIDToCheckForUnlock = 'no achievement';
                                     break;
 
