@@ -140,4 +140,11 @@ export const specialCardsConfig = [
         info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_T-6'],
         exclusiveMode: 'cobalt',
     },
+
+    { // Πενταπλό Score
+        shape: 'x4',
+        color: 'radial-gradient(black, darkblue)',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_x4,
+        exclusiveMode: 'cobalt',
+    }
 ];
