@@ -1641,7 +1641,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playEventModeBtn,
-                playButtonCobalt = createButton('Cobalt', 'radial-gradient(black, darkblue)', 'cobalt'),
+                playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------------------------------------------------------
