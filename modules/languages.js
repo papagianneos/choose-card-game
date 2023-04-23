@@ -43,6 +43,7 @@ export let LANGUAGE_DATA = [
         // Σπέσιαλ κάρτες
         // -------------------------------------------------------------------------------
         "info_special_card_x2": "Διπλό Score",
+        "info_special_card_x4": "Τετραπλό Score",
         "info_special_card_1/2": "Μισό Score",
         "info_special_card_T-2": "2 Λιγότερες Προσπάθειες",
         "info_special_card_T-6": "6 Λιγότερες Προσπάθειες",
@@ -382,6 +383,7 @@ export let LANGUAGE_DATA = [
         // Σπέσιαλ κάρτες
         // -------------------------------------------------------------------------------
         "info_special_card_x2": "Double Score",
+        "info_special_card_x4": "Quadruple Score",
         "info_special_card_1/2": "Half Score",
         "info_special_card_T-2": "2 Less Tries",
         "info_special_card_T-6": "6 Less Tries",
