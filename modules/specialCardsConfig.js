@@ -87,7 +87,7 @@ export const specialCardsConfig = [
         color: 'radial-gradient(#3d1406, #8ca7cf)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock,
         noSpawnInFinale: true,
-        timeCard: true
+        exclusiveMode: 'timed'
     },
 
     // slow down time
@@ -96,7 +96,7 @@ export const specialCardsConfig = [
         color: 'radial-gradient(#0800ff, #00ff77)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_slow,
         noSpawnInFinale: true,
-        timeCard: true
+        exclusiveMode: 'timed'
     },
 
     {
@@ -124,6 +124,13 @@ export const specialCardsConfig = [
         color: 'linear-gradient(to left top, purple, blue, cyan, green, lime)',
         info: 'The mighty Carbon 69, only the chosen one can unlock it\'s identity.',
         noSpawnInFinale: true,
-        neverSpawn: true,
+        exclusiveMode: 'cobalt',
+    },
+
+    {
+        shape: '∞',
+        color: 'linear-gradient(to left top, red, blue, green, yellow, purple)',
+        info: 'Test',
+        exclusiveMode: 'cobalt'
     }
 ];
