@@ -36,6 +36,7 @@ export let LANGUAGE_DATA = [
         "new": "ΝΕΟ",
         "achievement": "ΕΠΙΤΕΥΓΜΑ",
         "trophy": "ΤΡΟΠΑΙΟ",
+        "choose_special_card_menu_title": "ΔΙΑΛΕΞΕ ΣΠΕΣΙΑΛ ΚΑΡΤΑ",
         // --------------------------------------
 
         // -------------------------------------------------------------------------------
@@ -372,6 +373,7 @@ export let LANGUAGE_DATA = [
         "new": "NEW",
         "achievement": "ACHIEVEMENT",
         "trophy": "TROPHY",
+        "choose_special_card_menu_title": "SELECT SPECIAL CARD",
         // --------------------------------------
 
         // -------------------------------------------------------------------------------
