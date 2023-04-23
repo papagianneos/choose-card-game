@@ -1536,7 +1536,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                     if (cobaltModeEnabled) {
                         menuMusic.pause();
-                        document.getElementsByTagName('body')[0].style.backgroundColor = '#080226';
                         cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
 
                         cobaltModeCards.push(specialCardsConfig[1], specialCardsConfig[3]);
@@ -1588,6 +1587,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             cobaltModeSelectMenu.appendChild(cardDivWrapper);
                             cardDiv.onclick = () => {
                                 sounds.timeSlower.play();
+                                document.getElementsByTagName('body')[0].style.backgroundColor = '#080226';
                                 selectedSpecialCardShape = cardDiv.innerHTML;
                                 document.body.removeChild(cobaltModeSelectMenu);
                                 startGame();
