@@ -417,7 +417,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
     let deleteDataBtn = document.createElement('button');
     deleteDataBtn.appendChild(document.createTextNode('Clear Data'));
-    deleteDataBtn.style.backgroundColor = 'red';
+    deleteDataBtn.style.backgroundColor = 'maroon';
     deleteDataBtn.onclick = () => {
         let question = confirm(LANGUAGE_DATA[LANGUAGE_INDEX].delete_data_question);
 
