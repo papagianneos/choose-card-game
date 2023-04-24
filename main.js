@@ -11,6 +11,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
+        const CARDS_DELAY_MS = 300;
+
         // Events
         let eventModeRotationEnabled = true;
 
@@ -655,7 +657,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                                 setTimeout(() => {
                                     resetCards(false);
-                                }, 420);
+                                }, CARDS_DELAY_MS);
                             }
                             break;
 
@@ -815,7 +817,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
 
                 // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
-                if (!card.getAttribute('anoixthcarta')) {
+                if (!card.getAttribute('anoixthcarta') && card.savedText != '∞') {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
                     //if (!secretSettingEnabled) {
                     playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
@@ -1120,7 +1122,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                             setTimeout(() => {
                                 resetCards(false);
-                            }, 420);
+                            }, CARDS_DELAY_MS);
                         }
 
                         //-------------------------------------------------------------------------------------------------------
@@ -1316,7 +1318,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         setTimeout(() => {
                             resetCards();
                             blockClicks = false;
-                        }, 420);
+                        }, CARDS_DELAY_MS);
                     }
 
                     // Αν είναι μπαλαντέρ (Infinity Card Balader)
