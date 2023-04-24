@@ -412,7 +412,25 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         localStorage.setItem('customizeEffect', JSON.stringify(effect));
         window.location.href = '/';
     }
-    mainBox.appendChild(saveButton);
+
+    let buttonsWrapper = document.createElement('div');
+
+    let deleteDataBtn = document.createElement('button');
+    deleteDataBtn.appendChild(document.createTextNode('Clear Data'));
+    deleteDataBtn.style.backgroundColor = 'red';
+    deleteDataBtn.onclick = () => {
+        let question = confirm(LANGUAGE_DATA[LANGUAGE_INDEX].delete_data_question);
+
+        if (question) {
+            localStorage.clear();
+            window.location.reload();
+        }
+    }
+
+    buttonsWrapper.appendChild(deleteDataBtn);
+    buttonsWrapper.appendChild(saveButton);
+
+    mainBox.appendChild(buttonsWrapper);
 
     // Αφού τελείωσες, ενσωμάτωσέ το στο σώμα της ιστοσελίδας (<body>)
     document.body.appendChild(mainBox);
