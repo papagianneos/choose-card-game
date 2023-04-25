@@ -76,6 +76,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_virus": "Κάνε λάθος και χάσε τα πάντα.",
         "mode_desc_penalty": "Κάθε 5 λάθη, ένα νέο ζευγάρι καρτών.",
         "mode_desc_cobalt": "Ένα project που ακυρώθηκε το 1983.",
+        "mode_desc_og": "Σαν το παρελθόν!",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -417,6 +418,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_virus": "Make a mistake and lose everything.",
         "mode_desc_penalty": "Every 5 mistakes you get a new pair of cards.",
         "mode_desc_cobalt": "A project that was scrapped back in 1983.",
+        "mode_desc_og": "Nostalgia.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
