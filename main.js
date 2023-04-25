@@ -2038,11 +2038,6 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             blockClicks = true;
                         }
 
-                        if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
-                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                        }
-
                         // Φτάνει με το παρόν, ώρα για το μέλλον.
                         if (OG_modeEnabled && !appliedOGModeEffect) {
                             appliedOGModeEffect = true;
@@ -2057,6 +2052,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 card.style.fontSize = '60px';
                                 card.style.margin = '10px';
                             }
+                        }
+
+                        if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
                         }
 
                         else { // papagianneos is angry
