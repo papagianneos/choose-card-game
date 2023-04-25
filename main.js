@@ -963,17 +963,19 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 }
                 // --------------------------------------------------------
 
-                // ----------------------------------
-                // Ήχος κάρτας.
-                // ----------------------------------
-                sounds.cardOpen.play();
-                // ----------------------------------
+                if (appliedOGModeEffect) {
+                    // ----------------------------------
+                    // Ήχος κάρτας.
+                    // ----------------------------------
+                    sounds.cardOpen.play();
+                    // ----------------------------------
 
-                // ---------------------------------------------------------------
-                // ANIMATION. (Να μην υπάρχει στο OG mode)
-                // ---------------------------------------------------------------
-                if (appliedOGModeEffect) div.style.transform = 'rotateY(360deg)';
-                // ----------------------------------------------------------------
+                    // ---------------------------------------------------------------
+                    // ANIMATION. (Να μην υπάρχει στο OG mode)
+                    // ---------------------------------------------------------------
+                    div.style.transform = 'rotateY(360deg)';
+                    // ----------------------------------------------------------------
+                }
 
                 // Εμφάνισε την κάρτα στον παίχτη
                 if (currentSelected.length <= 1) {
@@ -1661,7 +1663,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             $('#cardsHolder')
                                 .fadeOut(300)
                                 .fadeIn(300);
-                            document.getElementsByTagName('body')[0].style.font = '5px none';
+                            document.getElementsByTagName('body')[0].style.font = '5px none, sans-serif';
                             for (var card of document.getElementsByClassName('card')) {
                                 card.style.textShadow = 'none';
                                 card.style.display = 'inline-block';
