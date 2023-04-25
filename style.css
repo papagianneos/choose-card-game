@@ -93,6 +93,10 @@ body {
     visibility: visible;
 }
 
+h1 {
+    font-size: 76px;
+}
+
 h1,
 img,
 .card,
