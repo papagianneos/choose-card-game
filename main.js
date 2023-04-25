@@ -489,12 +489,22 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 if (startedExtremeModeMusic) {
                                     music.extremeModeGameMusic.pause();
                                 }
+                                else if (papagianneosFinaleEnabled) {
+                                    music.papagianneosFinaleMusic.pause();
+                                    gameMusic.pause();
+                                }
                                 else gameMusic.pause();
 
                                 sounds.wow.play();
                                 setTimeout(() => {
                                     if (startedExtremeModeMusic) {
-                                        music.extremeModeGameMusic.pause();
+                                        music.extremeModeGameMusic.play();
+                                    }
+                                    else if (papagianneosFinaleEnabled) {
+                                        if (!voidModeEnabled) {
+                                            gameMusic.play();
+                                        }
+                                        else music.papagianneosFinaleMusic.play();
                                     }
                                     else gameMusic.play();
                                 }, 3e3);
