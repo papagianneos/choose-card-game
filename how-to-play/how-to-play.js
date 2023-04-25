@@ -180,17 +180,23 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             color: 'radial-gradient(red, black)',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_virus
         },
-        
+
         {
             label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
             color: 'blue',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_penalty
         },
-      
+
         {
             label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
             color: 'radial-gradient(black, darkblue)',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_cobalt,
+        },
+
+        {
+            label: 'OG',
+            color: 'radial-gradient(purple, white)',
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_og,
         },
     ];
 
