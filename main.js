@@ -1825,7 +1825,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                     case 4: // Πέμπτη
                         eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
+                            name: 'OG',
                             color: 'radial-gradient(purple, white)',
                             id: 'og'
                         }
@@ -2054,7 +2054,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             }
                         }
 
-                        if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
+                        else if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                             document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
                         }
