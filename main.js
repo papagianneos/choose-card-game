@@ -18,7 +18,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
         // OG Mode
         let OG_modeEnabled = false,
-            appliedOGModeEffect = false;
+            appliedOGModeEffect = true;
 
         // -------------------------------------------------
         // ΚΟΒΑΛΤΙΟ Μοde
@@ -1638,6 +1638,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         case 'og': // OG mode
                             OG_modeEnabled = true;
+                            appliedOGModeEffect = false;
                             specialCardsEnabled = false;
                             break;
                     }
