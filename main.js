@@ -16,6 +16,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         // Events
         let eventModeRotationEnabled = true;
 
+        // OG Mode
+        let OG_modeEnabled = false,
+            appliedOGModeEffect = false;
+
         // -------------------------------------------------
         // ΚΟΒΑΛΤΙΟ Μοde
         // -------------------------------------------------
@@ -855,7 +859,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             }
 
             // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
-            if (playersEffect != null) {
+            if (playersEffect != null && !OG_modeEnabled) {
                 div.style.borderRadius = playersEffect.borderRadius;
                 div.style.fontSize = playersEffect.fontSize;
                 div.style.fontFamily = playersEffect.fontFamily;
@@ -965,11 +969,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 sounds.cardOpen.play();
                 // ----------------------------------
 
-                // ------------------------------------------
-                // ANIMATION.
-                // ------------------------------------------
-                div.style.transform = 'rotateY(360deg)';
-                // -------------------------------------------
+                // ---------------------------------------------------------------
+                // ANIMATION. (Να μην υπάρχει στο OG mode)
+                // ---------------------------------------------------------------
+                if (appliedOGModeEffect) div.style.transform = 'rotateY(360deg)';
+                // ----------------------------------------------------------------
 
                 // Εμφάνισε την κάρτα στον παίχτη
                 if (currentSelected.length <= 1) {
@@ -1283,7 +1287,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             //     document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
                             // }
 
-                            sounds.cardOpenHardMode.play();
+                            if (appliedOGModeEffect) sounds.cardOpenHardMode.play();
 
                             // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
                             let cardsListToShuffle = [],
@@ -1631,6 +1635,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         case 'cobalt': // cobalt
                             cobaltModeEnabled = true;
                             break;
+
+                        case 'og': // OG mode
+                            OG_modeEnabled = true;
+                            specialCardsEnabled = false;
+                            break;
                     }
 
                     sounds.buttonClick.play();
@@ -1643,6 +1652,23 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
                             scoreAndTriesHolder.style.color = 'black';
                         }
+                    }
+
+                    // Όπως ήταν το παιχνίδι παλιά..
+                    if (OG_modeEnabled) {
+                        setTimeout(() => {
+                            $('#cardsHolder')
+                                .fadeOut(300)
+                                .fadeIn(300);
+                            document.getElementsByTagName('body')[0].style.font = '5px none';
+                            for (var card of document.getElementsByClassName('card')) {
+                                card.style.textShadow = 'none';
+                                card.style.display = 'inline-block';
+                                card.style.fontSize = '100px';
+                                card.style.borderRadius = '0px';
+                                card.style.margin = '5px';
+                            }
+                        }, 500); // delay
                     }
 
                     // βάλε το parentDiv στο σώμα της ιστοσελίδας.
@@ -1753,6 +1779,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 playButtonExtreme = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_extreme, 'radial-gradient(maroon, black)', 'extreme'), // Κουμπί για να παίξει ο παίχτης "extreme" mode
                 playButtonTimed = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_timed, 'radial-gradient(yellow, gold)', 'timed'), // Κουμπί για να παίξει ο παίχτης "timed" mode
                 playButtonSecretMode = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_void, 'radial-gradient(#240907, black)', 'void'), // Κουμπί για να παίξει ο παίχτης "void" mode
+                //playButtonOGMode = createButton('OG', 'radial-gradient(purple, white)', 'og'), // Κουμπί για να παίξει ο παίχτης "og" mode
                 // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playEventModeBtn,
@@ -1796,16 +1823,16 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     case 4: // Πέμπτη
                         eventModeData = {
                             name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
-                            color: 'radial-gradient(black, darkblue)',
-                            id: 'cobalt'
+                            color: 'radial-gradient(purple, white)',
+                            id: 'og'
                         }
                         break;
 
                     case 5: // Παρασκευή
                         eventModeData = {
-                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                            color: 'radial-gradient(red, black)',
-                            id: 'virus'
+                            name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
+                            color: 'radial-gradient(black, darkblue)',
+                            id: 'cobalt'
                         }
                         break;
 
@@ -1839,6 +1866,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonTimed);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
+            //buttonsWrapper.appendChild(playButtonOGMode);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
             // ----------------------------------------------------
 
@@ -1982,7 +2010,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 // ---------------------------------------------------------------------------------------
                 // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
                 // ---------------------------------------------------------------------------------------
-                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled)/* && !secretSettingEnabled*/) {
+                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled || OG_modeEnabled)/* && !secretSettingEnabled*/) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -2001,15 +2029,31 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
 
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
-                    if (closedCards.length <= 6 && gameStarted) {
+                    if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
                         startedAngryEffect = true;
                         if (papagianneosFinaleEnabled) {
                             blockClicks = true;
                         }
 
-                        if (!papagianneosFinaleEnabled) {
+                        if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                             document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                        }
+
+                        // Φτάνει με το παρόν, ώρα για το μέλλον.
+                        if (OG_modeEnabled && !appliedOGModeEffect) {
+                            appliedOGModeEffect = true;
+                            $('#cardsHolder')
+                                .fadeOut(300)
+                                .fadeIn(300);
+                            document.getElementsByTagName('body')[0].style.font = 'bold 5vh Montserrat, sans-serif';
+                            for (var card of document.getElementsByClassName('card')) {
+                                card.style.textShadow = 'rgba(0, 0, 0, .5) 2px 2px';
+                                card.style.display = 'inline-flex';
+                                card.style.borderRadius = '2.5px';
+                                card.style.fontSize = '60px';
+                                card.style.margin = '10px';
+                            }
                         }
 
                         else { // papagianneos is angry
@@ -2231,6 +2275,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                                 case penaltyModeEnabled:
                                 case cobaltModeEnabled:
+                                case OG_modeEnabled:
                                     achievementIDToCheckForUnlock = 'no achievement';
                                     break;
 
