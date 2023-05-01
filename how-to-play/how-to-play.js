@@ -201,7 +201,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
         {
             label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hideAndSeek,
-            color: 'radial-gradient(purple, white)',
+            color: 'cyan',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_hideAndSeek,
         },
     ];
