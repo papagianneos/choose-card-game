@@ -13,6 +13,7 @@ export let LANGUAGE_DATA = [
         "amount_of_cards": 'Σύνολο Καρτών',
         "haha": 'Χάχα',
         "tries": 'Προσπάθειες',
+        "found": "Βρέθηκαν",
         "developer": 'Προγραμματιστής: Σωτήριος Παπαγιάννης',
         "title_game_name": 'ΒΡΕΣ ΤΗΝ ΣΩΣΤΗ ΚΑΡΤΑ',
         "title_credits": "ΠΛΗΡΟΦΟΡΙΕΣ",
@@ -32,6 +33,7 @@ export let LANGUAGE_DATA = [
         "win_mode_virus": 'Κέρδισες τον ιό.. μπράβο.',
         "win_mode_penalty": 'Κέρδισες με τις ποινές.. ουάου.',
         "win_mode_cobalt": "Κέρδισες ένα κοβάλτιο βλέπω..",
+        "win_mode_hideAndSeek": "Τα βρήκες όλααααα!",
         "win_K_card": 'Σε έσωσα!',
         "new": "ΝΕΟ",
         "achievement": "ΕΠΙΤΕΥΓΜΑ",
@@ -77,6 +79,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_penalty": "Κάθε 5 λάθη, ένα νέο ζευγάρι καρτών.",
         "mode_desc_cobalt": "Ένα project που ακυρώθηκε το 1983.",
         "mode_desc_og": "Σαν το παρελθόν!",
+        "mode_desc_hideAndSeek": "Το ταμπλό χάλασε, βρες όλες τις κάρτες για να κερδίσεις, χωρίς ζευγάρια! Χρησιμοποιήστε την υπόδειξη εάν κολλήσεις!",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -92,6 +95,7 @@ export let LANGUAGE_DATA = [
         "play_mode_virus": "Virus",
         "play_mode_penalty": "Penalty",
         "play_mode_cobalt": "Κοβάλτιο",
+        "play_mode_hideAndSeek": "Κρυφτό",
         // --------------------------------------
 
         // ------------------------------------------------------------------------
@@ -355,6 +359,7 @@ export let LANGUAGE_DATA = [
         "amount_of_cards": 'Amount of cards',
         "haha": 'Haha',
         "tries": "Tries",
+        "found": "Found",
         "developer": 'Developer: Sotirios Papagiannis',
         "title_game_name": 'FIND THE RIGHT CARD',
         "title_credits": "INFORMATION",
@@ -374,6 +379,7 @@ export let LANGUAGE_DATA = [
         "win_mode_virus": 'You won the virus.. nice.',
         "win_mode_penalty": 'You won with penalties.. wow.',
         "win_mode_cobalt": "You won a cobalt, I see.",
+        "win_mode_hideAndSeek": "You found everythinggg!",
         "win_K_card": 'I saved you!',
         "new": "NEW",
         "achievement": "ACHIEVEMENT",
@@ -419,6 +425,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_penalty": "Every 5 mistakes you get a new pair of cards.",
         "mode_desc_cobalt": "A project that was scrapped back in 1983.",
         "mode_desc_og": "Nostalgia.",
+        "mode_desc_hideAndSeek": "The board has broke, find all the cards to win, no pairs! Use the hint if you get stuck!",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -434,6 +441,7 @@ export let LANGUAGE_DATA = [
         "play_mode_virus": "Virus",
         "play_mode_penalty": "Penalty",
         "play_mode_cobalt": "Cobalt",
+        "play_mode_hideAndSeek": "H. & S.",
         // --------------------------------------
 
         // -----------------------------------------------------
