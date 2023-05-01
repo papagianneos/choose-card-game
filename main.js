@@ -3,6 +3,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
+import { createSnow } from "./modules/snow.js";
 
 // TO DO: NULL CARD
 
@@ -15,6 +16,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
         // Events
         let eventModeRotationEnabled = true;
+        let christmasDecorationsEnabled = false;
+
+        // Πάγος Εφέ για το φόντο
+        if (christmasDecorationsEnabled) {
+            window.onload = createSnow;
+        }
 
         // OG Mode
         let OG_modeEnabled = false,
@@ -944,6 +951,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     div.style.borderStyle = 'solid';
                     div.style.background = 'none';
                 }
+            }
+
+            // Χιόνι Εφέ για τις κάρτες.
+            if (christmasDecorationsEnabled && !hideAndSeekModeEnabled) {
+                div.style.boxShadow = 'rgba(255, 255, 255, 1) 0px 50px 50px inset, rgba(255, 255, 255, 1) 0px -8px 3px inset';
             }
 
             if (card.specialCard) {
