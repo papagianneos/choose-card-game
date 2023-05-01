@@ -20,6 +20,14 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         let OG_modeEnabled = false,
             appliedOGModeEffect = true;
 
+        // ------------------------------------------------
+        // Hide & Seek
+        // ------------------------------------------------
+        let hideAndSeekModeEnabled = false,
+            hideAndSeekWin = false,
+            hideAndSeekFoundCount = 0;
+        // ------------------------------------------------
+
         // -------------------------------------------------
         // ΚΟΒΑΛΤΙΟ Μοde
         // -------------------------------------------------
@@ -318,7 +326,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             }
             // ----------------------------------------------------------------------------------------------
 
-            cardShapes.push(...cardShapes); // duplicate
+            if (!hideAndSeekModeEnabled) {
+                cardShapes.push(...cardShapes); // duplicate
+            }
+            else AMOUNT_OF_CARDS /= 2; // ΔΕΝ υπάρχουν ζευγάρια καρτών σε αυτό το mode.
 
             // ΤΥΧΑΙΑ Χρώματα καρτών (2 κάρτες από καθεμιά άρα αντιγραφή)
             let COLOR_PALETTES = [],
@@ -365,7 +376,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             // -----------------------------------------------------------------------
 
             // check cards length
-            if ((nonPairCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (nonPairCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
+            if (!hideAndSeekModeEnabled) if ((nonPairCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (nonPairCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
                 console.log(countTrollCards(cardShapes));
                 throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.');
             }
@@ -786,23 +797,60 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
         // -----------------------------------------------------------------
 
         let scoreText = document.createElement('h1'),
-            triesText = document.createElement('h1');
+            triesText = document.createElement('h1'),
+            hideAndSeekText = document.createElement('h1'),
+            hideAndSeekHintButton = document.createElement('button');
 
         // Φτιάξε το κείμενο για score και προσπάθειες
         scoreText.appendChild(document.createTextNode(`Score: ${score}`));
         triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
+        hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
         // Άλλαξε το μέγεθος της γραμματοσειράς.
         scoreText.style.fontSize = '20px';
         triesText.style.fontSize = '20px';
+        hideAndSeekText.style.fontSize = '20px';
+        hideAndSeekText.style.display = 'none'; // bug fix
+        hideAndSeekHintButton.style.display = 'none'; // bug fix
+        hideAndSeekHintButton.appendChild(document.createTextNode('HINT'));
 
+        // -----------------------------------------------------------------------------------------------------------
+        // Ένα "ΗΙΝΤ" κουμπί που κοστίζει 5 προσπάθειες αλλά λέει στον παίχτη την τοποθεσία μίας τυχαία κάρτας που
+        // δεν έχει βρεθεί στο "Hide & Seek" mode.
+        // -----------------------------------------------------------------------------------------------------------
+        hideAndSeekHintButton.onclick = () => {
+            let closedCardElems = [];
+
+            for (var cardElem of document.getElementsByClassName('card')) {
+                if (!cardElem.getAttribute('egineclick')) closedCardElems.push(cardElem);
+            }
+
+            if (closedCardElems.length == 0) return;
+
+            tries--; // bug fix
+            tries += 5;
+            updateTries();
+
+            let randomlyChosenClosedCardElem = randomChoice(closedCardElems);
+            randomlyChosenClosedCardElem.style.boxShadow = 'cyan 0px 0px 60px';
+        }
+
+        hideAndSeekHintButton.style.fontSize = '20px';
+        hideAndSeekHintButton.style.width = 'auto';
+        hideAndSeekHintButton.style.height = 'auto';
+        // -----------------------------------------------------------------------------------------------------------
+
+        // Αν είναι hide and seek mode, μην βάλεις score αλλά πόσες κάρτες βρέθηκαν.
         scoreAndTriesHolder.appendChild(scoreText);
+        scoreAndTriesHolder.appendChild(hideAndSeekText);
         scoreAndTriesHolder.appendChild(triesText);
         scoreAndTriesHolder.appendChild(timeBar);
+        scoreAndTriesHolder.appendChild(hideAndSeekHintButton);
         parentDiv.appendChild(scoreAndTriesHolder);
 
         // Συναρτήσεις που ενημερώνουν το score και τις προσπάθειες του παίχτη
         const updateScore = () => scoreText.innerHTML = `Score: ${score}`;
+        const updateFound = () => hideAndSeekText.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`;
         const updateTries = () => {
             triesText.innerHTML = extremeModeEnabled ? `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries} / ${MAX_TRIES}` : `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`;
 
@@ -823,6 +871,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
         const resetCards = (addTries = true) => {
+            const resetColor = hideAndSeekModeEnabled ? 'transparent' : 'grey';
+
             if (addTries) {
                 tries += 1; // προσπάθειες του παίχτη
                 updateTries();
@@ -834,7 +884,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 if (!card.getAttribute('anoixthcarta') && card.savedText != '∞') {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
                     //if (!secretSettingEnabled) {
-                    playersEffect ? playersEffect.neonMode ? card.style.borderColor = 'grey' : card.style.background = 'grey' : card.style.background = 'grey';
+                    playersEffect ? playersEffect.neonMode ? card.style.borderColor = resetColor : card.style.background = resetColor : card.style.background = resetColor;
                     //}
                     //else {
                     //    card.style.background = 'radial-gradient(#240907, black)';
@@ -862,6 +912,13 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             div.className = 'card';
             div.style.background = card.color;
             div.style.backgroundSize = 'cover';
+
+            if (hideAndSeekModeEnabled) {
+                div.style.position = 'absolute';
+                div.style.top = `${getRandomInt(0, window.innerHeight)}px`;
+                div.style.left = `${getRandomInt(0, window.innerWidth)}px`;
+                div.style.cursor = 'default';
+            }
 
             // Η "Σ" κάρτα είναι πολύχρωμη.
             if (card.shape == specialCardsConfig[16].shape) {
@@ -952,357 +1009,398 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 div.setAttribute('egineclick', 'nai');
                 // -------------------------------------------------------------------------------------------------------
 
+                if (!hideAndSeekModeEnabled) {
+                    // --------------------------------------------------------
+                    // NULL Effect
+                    // --------------------------------------------------------
+                    if (underNullEffect) {
+                        turnsToRemoveNullEffect += 1;
 
-                // --------------------------------------------------------
-                // NULL Effect
-                // --------------------------------------------------------
-                if (underNullEffect) {
-                    turnsToRemoveNullEffect += 1;
-
-                    if (turnsToRemoveNullEffect > 10) {
-                        underNullEffect = false;
-                        sounds.null.play();
-                        clearInterval(nullEffectLoop);
-                        for (var cardElem of document.getElementsByClassName('card')) {
-                            if (cardElem.getAttribute('infectedWithVirus')) {
-                                cardElem.removeAttribute('style');
-                            }
-                        }
-                        document.getElementById('cardsHolder').removeAttribute('style');
-                    }
-                }
-                // --------------------------------------------------------
-
-                if (appliedOGModeEffect) {
-                    // ----------------------------------
-                    // Ήχος κάρτας.
-                    // ----------------------------------
-                    sounds.cardOpen.play();
-                    // ----------------------------------
-
-                    // ---------------------------------------------------------------
-                    // ANIMATION. (Να μην υπάρχει στο OG mode)
-                    // ---------------------------------------------------------------
-                    div.style.transform = 'rotateY(360deg)';
-                    // ----------------------------------------------------------------
-                }
-
-                // Εμφάνισε την κάρτα στον παίχτη
-                if (currentSelected.length <= 1) {
-                    // Δες αν ο παίχτης χρησιμοποιεί νέον
-                    playersEffect ? playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
-                    div.innerHTML = div.savedText;
-                    div.style.backgroundSize = 'cover';
-
-                    // Ειδική περίπτωση: "Σ" κάρτα.
-                    if (div.savedText == specialCardsConfig[16].shape) {
-                        div.style.animation = div.savedAnimation;
-                    }
-
-                    currentSelected.push(div);
-                }
-
-                // Αν άνοιξε 2 κάρτες ο παίχτης
-                if (currentSelected.length >= 2) {
-                    let firstCard = currentSelected[0],
-                        secondCard = currentSelected[1];
-
-                    const giveScore = () => {
-                        // Επίτευγμα: "Just Like Peter"
-                        streak += 1;
-                        if (streak == 3) unlockAchievement('ach_peter');
-
-                        // --------------------------------------------------------------------------------------------------
-                        // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
-                        // --------------------------------------------------------------------------------------------------
-                        if (nonPairCardExists) {
-                            let cardShapes_revived = [],
-                                cardsList = [];
-
-                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                            for (var e = 0; e < parentDiv.children.length; e++) {
-                                let child = parentDiv.children[e];
-                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                cardShapes_revived.push(child.savedText);
-                                cardsList.push(child);
-                            }
-
-                            for (var cardElem of cardsList) {
-                                if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
-                                    let fakeCardShapes = cardShapes_revived;
-
-                                    // Να μην χρησημοποιηθεί το ίδιο σχήμα
-                                    fakeCardShapes = fakeCardShapes.filter(item => {
-                                        return item != cardElem.savedText && item != undefined;
-                                    });
-
-                                    // Επέλεξε τυχαίο σχήμα.
-                                    cardElem.savedText = randomChoice(fakeCardShapes);
+                        if (turnsToRemoveNullEffect > 10) {
+                            underNullEffect = false;
+                            sounds.null.play();
+                            clearInterval(nullEffectLoop);
+                            for (var cardElem of document.getElementsByClassName('card')) {
+                                if (cardElem.getAttribute('infectedWithVirus')) {
+                                    cardElem.removeAttribute('style');
                                 }
                             }
+                            document.getElementById('cardsHolder').removeAttribute('style');
                         }
-                        // --------------------------------------------------------------------------------------------------
+                    }
+                    // --------------------------------------------------------
 
-                        // Αν είναι σπέσιαλ κάρτα..
-                        if (firstCard.specialCard && secondCard.specialCard) {
-                            firstCard.specialCardEffect();
+                    if (appliedOGModeEffect) {
+                        // ----------------------------------
+                        // Ήχος κάρτας.
+                        // ----------------------------------
+                        sounds.cardOpen.play();
+                        // ----------------------------------
 
-                            // Επίτευγμα: "Τι ήταν αυτό;"
-                            unlockAchievement('ach_first_special_card');
-
-                            // Επίτευγμα: "Κυνηγός"
-                            unlockAchievement('ach_hunter');
-
-                            // Επίτευγμα: "Απατεών"
-                            unlockAchievement('ach_deceiver');
-                        }
-
-                        // Αν είναι μία απλή κάρτα
-                        else {
-                            // Επίτευγμα: "Τα κατάφερα;"
-                            unlockAchievement('ach_first_combination');
-
-                            // Επίτευγμα: "Αρχάριος"
-                            unlockAchievement('ach_beginner');
-
-                            // Επίτευγμα: "Έμπειρος"
-                            unlockAchievement('ach_somewhat_experienced');
-
-                            // Επίτευγμα: "Ειδικός"
-                            unlockAchievement('ach_expert');
-
-                            // Τρόπαιο: "Δάσκαλος των Καρτών"
-                            unlockAchievement('tr_master_of_cards');
-
-                            const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
-                            score += (scoreReceived != 0 ? scoreReceived : 1);
-
-                            // Επίτευγμα: "Εκατοστάρα στη μάπα"
-                            unlockAchievement('ach_score_100', score);
-
-                            // Επίτευγμα: "Δεν με ξέρεις καλά.."
-                            unlockAchievement('ach_score_1k', score);
-
-                            // Τρόπαιο: "Εκατομμυριούχος"
-                            unlockAchievement('tr_million_score', score);
-
-                            // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
-                            if (!firstCard.specialCard && !secondCard.specialCard) {
-                                hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
-                            }
-                        }
-
-                        currentSelected = [];
-                        updateScore();
-
-                        // --------------------------------------------
-                        // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
-                        // δεν χρειάζεται έλεγχος.
-                        // --------------------------------------------
-                        firstCard.setAttribute('anoixthcarta', 'nai');
-                        secondCard.setAttribute('anoixthcarta', 'nai');
-                        // --------------------------------------------
+                        // ---------------------------------------------------------------
+                        // ANIMATION. (Να μην υπάρχει στο OG mode)
+                        // ---------------------------------------------------------------
+                        div.style.transform = 'rotateY(360deg)';
+                        // ----------------------------------------------------------------
                     }
 
-                    // αν είναι διαφορετικές οι κάρτες, επαναφορά
-                    if (firstCard.savedText !== secondCard.savedText && (firstCard.savedText != '∞' && secondCard.savedText != '∞')) {
-                        if (streak != 0) streak = 0;
+                    // Εμφάνισε την κάρτα στον παίχτη
+                    if (currentSelected.length <= 1) {
+                        // Δες αν ο παίχτης χρησιμοποιεί νέον
+                        playersEffect ? playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
+                        div.innerHTML = div.savedText;
+                        div.style.backgroundSize = 'cover';
 
-                        // Επίτευγμα: "Το μοιραίο λάθος"
-                        unlockAchievement('ach_10_tries');
+                        // Ειδική περίπτωση: "Σ" κάρτα.
+                        if (div.savedText == specialCardsConfig[16].shape) {
+                            div.style.animation = div.savedAnimation;
+                        }
 
-                        // Επίτευγμα: "Λίγο ακόμα και.."
-                        unlockAchievement('ach_50_tries');
+                        currentSelected.push(div);
+                    }
 
-                        // Επίτευγμα: "AAAAAAAAAAAAA"
-                        unlockAchievement('ach_100_tries');
+                    // Αν άνοιξε 2 κάρτες ο παίχτης
+                    if (currentSelected.length >= 2) {
+                        let firstCard = currentSelected[0],
+                            secondCard = currentSelected[1];
 
-                        // Τρόπαιο: "Τσαλαπετεινός"
-                        unlockAchievement('tr_10k_tries');
+                        const giveScore = () => {
+                            // Επίτευγμα: "Just Like Peter"
+                            streak += 1;
+                            if (streak == 3) unlockAchievement('ach_peter');
 
-                        // ------------------------------------------------------------------------------------------------------
-                        // "Virus" mode setup (made by Petercraft)
-                        // Κάθε φορά που γίνεται λάθος κλείνουν όλες οι ανοιχτές κάρτες.
-                        // ------------------------------------------------------------------------------------------------------
-                        if (virusModeEnabled) {
-                            // μην παίξεις τον ήχο αν δεν υπάρχουν ανοιχτές κάρτες
-                            let countedOpenedCards = 0;
+                            // --------------------------------------------------------------------------------------------------
+                            // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
+                            // --------------------------------------------------------------------------------------------------
+                            if (nonPairCardExists) {
+                                let cardShapes_revived = [],
+                                    cardsList = [];
 
-                            for (var cardDivElem of document.getElementsByClassName('card')) {
-                                if (cardDivElem.getAttribute('anoixthcarta')) countedOpenedCards++;
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    cardShapes_revived.push(child.savedText);
+                                    cardsList.push(child);
+                                }
+
+                                for (var cardElem of cardsList) {
+                                    if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
+                                        let fakeCardShapes = cardShapes_revived;
+
+                                        // Να μην χρησημοποιηθεί το ίδιο σχήμα
+                                        fakeCardShapes = fakeCardShapes.filter(item => {
+                                            return item != cardElem.savedText && item != undefined;
+                                        });
+
+                                        // Επέλεξε τυχαίο σχήμα.
+                                        cardElem.savedText = randomChoice(fakeCardShapes);
+                                    }
+                                }
+                            }
+                            // --------------------------------------------------------------------------------------------------
+
+                            // Αν είναι σπέσιαλ κάρτα..
+                            if (firstCard.specialCard && secondCard.specialCard) {
+                                firstCard.specialCardEffect();
+
+                                // Επίτευγμα: "Τι ήταν αυτό;"
+                                unlockAchievement('ach_first_special_card');
+
+                                // Επίτευγμα: "Κυνηγός"
+                                unlockAchievement('ach_hunter');
+
+                                // Επίτευγμα: "Απατεών"
+                                unlockAchievement('ach_deceiver');
                             }
 
-                            if (countedOpenedCards > 0) sounds.loss.play();
+                            // Αν είναι μία απλή κάρτα
+                            else {
+                                // Επίτευγμα: "Τα κατάφερα;"
+                                unlockAchievement('ach_first_combination');
 
-                            for (var cardDivElem of document.getElementsByClassName('card')) cardDivElem.removeAttribute('anoixthcarta');
+                                // Επίτευγμα: "Αρχάριος"
+                                unlockAchievement('ach_beginner');
 
+                                // Επίτευγμα: "Έμπειρος"
+                                unlockAchievement('ach_somewhat_experienced');
+
+                                // Επίτευγμα: "Ειδικός"
+                                unlockAchievement('ach_expert');
+
+                                // Τρόπαιο: "Δάσκαλος των Καρτών"
+                                unlockAchievement('tr_master_of_cards');
+
+                                const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
+                                score += (scoreReceived != 0 ? scoreReceived : 1);
+
+                                // Επίτευγμα: "Εκατοστάρα στη μάπα"
+                                unlockAchievement('ach_score_100', score);
+
+                                // Επίτευγμα: "Δεν με ξέρεις καλά.."
+                                unlockAchievement('ach_score_1k', score);
+
+                                // Τρόπαιο: "Εκατομμυριούχος"
+                                unlockAchievement('tr_million_score', score);
+
+                                // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
+                                if (!firstCard.specialCard && !secondCard.specialCard) {
+                                    hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
+                                }
+                            }
+
+                            currentSelected = [];
+                            updateScore();
+
+                            // --------------------------------------------
+                            // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
+                            // δεν χρειάζεται έλεγχος.
+                            // --------------------------------------------
+                            firstCard.setAttribute('anoixthcarta', 'nai');
+                            secondCard.setAttribute('anoixthcarta', 'nai');
+                            // --------------------------------------------
+                        }
+
+                        // αν είναι διαφορετικές οι κάρτες, επαναφορά
+                        if (firstCard.savedText !== secondCard.savedText && (firstCard.savedText != '∞' && secondCard.savedText != '∞')) {
+                            if (streak != 0) streak = 0;
+
+                            // Επίτευγμα: "Το μοιραίο λάθος"
+                            unlockAchievement('ach_10_tries');
+
+                            // Επίτευγμα: "Λίγο ακόμα και.."
+                            unlockAchievement('ach_50_tries');
+
+                            // Επίτευγμα: "AAAAAAAAAAAAA"
+                            unlockAchievement('ach_100_tries');
+
+                            // Τρόπαιο: "Τσαλαπετεινός"
+                            unlockAchievement('tr_10k_tries');
+
+                            // ------------------------------------------------------------------------------------------------------
+                            // "Virus" mode setup (made by Petercraft)
+                            // Κάθε φορά που γίνεται λάθος κλείνουν όλες οι ανοιχτές κάρτες.
+                            // ------------------------------------------------------------------------------------------------------
+                            if (virusModeEnabled) {
+                                // μην παίξεις τον ήχο αν δεν υπάρχουν ανοιχτές κάρτες
+                                let countedOpenedCards = 0;
+
+                                for (var cardDivElem of document.getElementsByClassName('card')) {
+                                    if (cardDivElem.getAttribute('anoixthcarta')) countedOpenedCards++;
+                                }
+
+                                if (countedOpenedCards > 0) sounds.loss.play();
+
+                                for (var cardDivElem of document.getElementsByClassName('card')) cardDivElem.removeAttribute('anoixthcarta');
+
+                                setTimeout(() => {
+                                    resetCards(false);
+                                }, CARDS_DELAY_MS);
+                            }
+
+                            //-------------------------------------------------------------------------------------------------------
+                            // Penalty Mode
+                            // ------------------------------------------------------------------------------------------------------
+                            if (penaltyModeEnabled) {
+                                currentSelected = [];
+                                penalties++;
+
+                                if (penalties == 5) {
+                                    penalties = 0;
+
+                                    // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
+                                    let chosenCharacter = randomChoice(CHARACTERS_SET_PENALTY_MODE),
+                                        randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+
+                                    let previousSavedIndex = 0,
+                                        turn = 0;
+
+                                    for (var i = 0; i < 2; i++) {
+                                        turn++;
+
+                                        // Πρόσθεσε δύο κάρτες
+                                        let cardsChildrenList = [],
+                                            cardShapesList = [],
+                                            scoreAndTriesTextHolderChild_ = parentDiv.children[0];
+
+                                        createCard({
+                                            shape: chosenCharacter,
+                                            color: randomColor,
+                                            specialCard: false,
+                                            specialCardEffect: () => { }
+                                        });
+
+                                        AMOUNT_OF_CARDS++;
+                                        resetCards(false);
+
+                                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                        for (var e = 0; e < parentDiv.children.length; e++) {
+                                            let child = parentDiv.children[e];
+                                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                            if (child.className == 'card') {
+                                                cardsChildrenList.push(child);
+                                                cardShapesList.push(child.savedText);
+                                            }
+                                        }
+
+                                        // Για να μην χρησιμοποιούνται οι ίδιοι χαρακτήρες
+                                        CHARACTERS_SET_PENALTY_MODE = CHARACTERS_SET_PENALTY_MODE.filter(character => { return !(character in cardShapesList) });
+
+                                        if (turn > 0) {
+                                            previousSavedIndex = cardShapesList.indexOf(chosenCharacter);
+                                            cardShapesList[previousSavedIndex] = 'no shape for u';
+                                            cardsChildrenList.splice(previousSavedIndex, 1, cardsChildrenList[previousSavedIndex]);
+                                        }
+
+                                        // Σε τυχαία σημεία βάλε το νέο ζευγάρι καρτών
+                                        cardShapesList.splice(getRandomInt(0, cardShapesList.length - 1), 0, chosenCharacter);
+                                        cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[cardShapesList.indexOf(chosenCharacter)]);
+
+                                        if (turn > 0) cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[previousSavedIndex]);
+                                        cardsChildrenList[(cardsChildrenList.length)] = cardsChildrenList[0]; // για το score και τις προσπάθειες
+                                        cardsChildrenList[0] = scoreAndTriesTextHolderChild_;
+                                        parentDiv.replaceChildren(...cardsChildrenList);
+                                    }
+                                    sounds.cardOpenHardMode.play();
+                                }
+                            }
+                            //-------------------------------------------------------------------------------------------------------
+
+                            // ----------------------------------------------------------------------------------------
+                            // "Challenge" mode setup.
+                            // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
+                            // -----------------------------------------------------------------------------------------
+                            if (challengeModeEnabled) {
+                                //const SEISMOS_SETUP_STRING = `animation: seismos ${tries == 0 ? .5 : (tries / 10)}s linear infinite;`
+
+                                // -------------------------------------------------------------------
+                                // Κάθε 2 γύρους, νέο effect. (3 γιατί ξεκινάμε από το 1 άρα 2)
+                                // -------------------------------------------------------------------
+                                challengeModeEffectTurn++; // challengeModeEffectTurn += 1;
+
+                                if (challengeModeEffectTurn == 3) {
+                                    document.getElementById('cardsHolder').removeAttribute('style');
+                                    challengeModeEffectTurn = 0;
+                                }
+                                // -------------------------------------------------------------------
+
+                                if (challengeModeEffectTurn == 1) {
+                                    const EFFECT_IDs = [
+                                        'ROTATION',
+                                        'NO_COLORS',
+                                        'SCALE',
+                                        'BLUR',
+                                        'BLIND',
+                                        'NO_TEXT',
+                                        'SEISMOS'
+                                    ];
+
+                                    let chosenEffect = randomChoice(EFFECT_IDs),
+                                        CSS_ATTRIBUTE_CONTENTS = '';
+
+                                    switch (chosenEffect) {
+
+                                        // Τυχαία περιστροφή της ιστοσελίδας.
+                                        case 'ROTATION':
+                                            CSS_ATTRIBUTE_CONTENTS += `transform:rotate(180deg);`;
+                                            break;
+
+                                        // Αφαίρεση Χρωμάτων
+                                        case 'NO_COLORS':
+                                            CSS_ATTRIBUTE_CONTENTS += `filter:grayscale(100%);`;
+                                            break;
+
+                                        // Αφαίρεση Κειμένου.
+                                        case 'NO_TEXT':
+                                            CSS_ATTRIBUTE_CONTENTS += `filter:invert(50%);`;
+                                            break;
+
+                                        // Αλλαγή Μέγεθους σε τυχαίο
+                                        case 'SCALE':
+                                            const chosenScale = randomChoice([.5, .2, .15, .05]);
+                                            CSS_ATTRIBUTE_CONTENTS += `transform:scale(${chosenScale});`
+                                            break;
+
+                                        // Φωτεινότητα.
+                                        case 'BLIND':
+                                            CSS_ATTRIBUTE_CONTENTS += `filter:opacity(6%);`;
+                                            break;
+
+                                        // Θόλωμα.
+                                        case 'BLUR':
+                                            const chosenBlur = randomChoice([2, 3, 5, 6]);
+                                            CSS_ATTRIBUTE_CONTENTS += `filter:blur(${chosenBlur}px);`
+                                            break;
+
+                                        // Σεισμός.
+                                        case 'SEISMOS':
+                                            CSS_ATTRIBUTE_CONTENTS += 'animation: seismos .02s linear infinite';
+                                            break;
+                                    }
+
+                                    document.getElementById('cardsHolder').setAttribute('style', CSS_ATTRIBUTE_CONTENTS);
+                                }
+                            }
+                            // ----------------------------------------------------------------------------------------
+
+                            // ----------------------------------------------------------------------------------------
+                            // "Δύσκολο" mode setup
+                            // Ανακάτεμα των καρτών κάθε φορά που κάνει λάθος ο παίχτης.
+                            // ----------------------------------------------------------------------------------------
+                            if (hardModeEnabled) {
+
+                                // if (secretSettingEnabled) {
+                                //     rot_ += 360;
+                                //     document.getElementById('cardsHolder').style.animation = 'none';
+                                //     document.getElementById('cardsHolder').style.transition = '1s';
+                                //     document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
+                                // }
+
+                                if (appliedOGModeEffect) sounds.cardOpenHardMode.play();
+
+                                // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className == 'card') {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
+
+                                cardsListToShuffle.sort(() => {
+                                    return Math.random() - 0.5;
+                                });
+
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
+                            }
+                            // ----------------------------------------------------------------------------------------
+
+                            if (!penaltyModeEnabled) currentSelected = [];
+
+                            if (!hardModeEnabled) {
+                                wrongSound.play();
+                            }
+
+                            blockClicks = true;
                             setTimeout(() => {
-                                resetCards(false);
+                                resetCards();
+                                blockClicks = false;
                             }, CARDS_DELAY_MS);
                         }
 
-                        //-------------------------------------------------------------------------------------------------------
-                        // Penalty Mode
-                        // ------------------------------------------------------------------------------------------------------
-                        if (penaltyModeEnabled) {
-                            currentSelected = [];
-                            penalties++;
+                        // Αν είναι μπαλαντέρ (Infinity Card Balader)
+                        else if (firstCard.savedText == '∞' || secondCard.savedText == '∞') {
+                            hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
+                            giveScore();
 
-                            if (penalties == 5) {
-                                penalties = 0;
-
-                                // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
-                                let chosenCharacter = randomChoice(CHARACTERS_SET_PENALTY_MODE),
-                                    randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
-
-                                let previousSavedIndex = 0,
-                                    turn = 0;
-
-                                for (var i = 0; i < 2; i++) {
-                                    turn++;
-
-                                    // Πρόσθεσε δύο κάρτες
-                                    let cardsChildrenList = [],
-                                        cardShapesList = [],
-                                        scoreAndTriesTextHolderChild_ = parentDiv.children[0];
-
-                                    createCard({
-                                        shape: chosenCharacter,
-                                        color: randomColor,
-                                        specialCard: false,
-                                        specialCardEffect: () => { }
-                                    });
-
-                                    AMOUNT_OF_CARDS++;
-                                    resetCards(false);
-
-                                    // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                    for (var e = 0; e < parentDiv.children.length; e++) {
-                                        let child = parentDiv.children[e];
-                                        // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                        if (child.className == 'card') {
-                                            cardsChildrenList.push(child);
-                                            cardShapesList.push(child.savedText);
-                                        }
-                                    }
-
-                                    // Για να μην χρησιμοποιούνται οι ίδιοι χαρακτήρες
-                                    CHARACTERS_SET_PENALTY_MODE = CHARACTERS_SET_PENALTY_MODE.filter(character => { return !(character in cardShapesList) });
-
-                                    if (turn > 0) {
-                                        previousSavedIndex = cardShapesList.indexOf(chosenCharacter);
-                                        cardShapesList[previousSavedIndex] = 'no shape for u';
-                                        cardsChildrenList.splice(previousSavedIndex, 1, cardsChildrenList[previousSavedIndex]);
-                                    }
-
-                                    // Σε τυχαία σημεία βάλε το νέο ζευγάρι καρτών
-                                    cardShapesList.splice(getRandomInt(0, cardShapesList.length - 1), 0, chosenCharacter);
-                                    cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[cardShapesList.indexOf(chosenCharacter)]);
-
-                                    if (turn > 0) cardsChildrenList.splice(getRandomInt(0, cardShapesList.length - 1), 0, cardsChildrenList[previousSavedIndex]);
-                                    cardsChildrenList[(cardsChildrenList.length)] = cardsChildrenList[0]; // για το score και τις προσπάθειες
-                                    cardsChildrenList[0] = scoreAndTriesTextHolderChild_;
-                                    parentDiv.replaceChildren(...cardsChildrenList);
-                                }
-                                sounds.cardOpenHardMode.play();
-                            }
-                        }
-                        //-------------------------------------------------------------------------------------------------------
-
-                        // ----------------------------------------------------------------------------------------
-                        // "Challenge" mode setup.
-                        // Τυχαίο "effect" κάθε φορά που γίνεται λάθος.
-                        // -----------------------------------------------------------------------------------------
-                        if (challengeModeEnabled) {
-                            //const SEISMOS_SETUP_STRING = `animation: seismos ${tries == 0 ? .5 : (tries / 10)}s linear infinite;`
-
-                            // -------------------------------------------------------------------
-                            // Κάθε 2 γύρους, νέο effect. (3 γιατί ξεκινάμε από το 1 άρα 2)
-                            // -------------------------------------------------------------------
-                            challengeModeEffectTurn++; // challengeModeEffectTurn += 1;
-
-                            if (challengeModeEffectTurn == 3) {
-                                document.getElementById('cardsHolder').removeAttribute('style');
-                                challengeModeEffectTurn = 0;
-                            }
-                            // -------------------------------------------------------------------
-
-                            if (challengeModeEffectTurn == 1) {
-                                const EFFECT_IDs = [
-                                    'ROTATION',
-                                    'NO_COLORS',
-                                    'SCALE',
-                                    'BLUR',
-                                    'BLIND',
-                                    'NO_TEXT',
-                                    'SEISMOS'
-                                ];
-
-                                let chosenEffect = randomChoice(EFFECT_IDs),
-                                    CSS_ATTRIBUTE_CONTENTS = '';
-
-                                switch (chosenEffect) {
-
-                                    // Τυχαία περιστροφή της ιστοσελίδας.
-                                    case 'ROTATION':
-                                        CSS_ATTRIBUTE_CONTENTS += `transform:rotate(180deg);`;
-                                        break;
-
-                                    // Αφαίρεση Χρωμάτων
-                                    case 'NO_COLORS':
-                                        CSS_ATTRIBUTE_CONTENTS += `filter:grayscale(100%);`;
-                                        break;
-
-                                    // Αφαίρεση Κειμένου.
-                                    case 'NO_TEXT':
-                                        CSS_ATTRIBUTE_CONTENTS += `filter:invert(50%);`;
-                                        break;
-
-                                    // Αλλαγή Μέγεθους σε τυχαίο
-                                    case 'SCALE':
-                                        const chosenScale = randomChoice([.5, .2, .15, .05]);
-                                        CSS_ATTRIBUTE_CONTENTS += `transform:scale(${chosenScale});`
-                                        break;
-
-                                    // Φωτεινότητα.
-                                    case 'BLIND':
-                                        CSS_ATTRIBUTE_CONTENTS += `filter:opacity(6%);`;
-                                        break;
-
-                                    // Θόλωμα.
-                                    case 'BLUR':
-                                        const chosenBlur = randomChoice([2, 3, 5, 6]);
-                                        CSS_ATTRIBUTE_CONTENTS += `filter:blur(${chosenBlur}px);`
-                                        break;
-
-                                    // Σεισμός.
-                                    case 'SEISMOS':
-                                        CSS_ATTRIBUTE_CONTENTS += 'animation: seismos .02s linear infinite';
-                                        break;
-                                }
-
-                                document.getElementById('cardsHolder').setAttribute('style', CSS_ATTRIBUTE_CONTENTS);
-                            }
-                        }
-                        // ----------------------------------------------------------------------------------------
-
-                        // ----------------------------------------------------------------------------------------
-                        // "Δύσκολο" mode setup
-                        // Ανακάτεμα των καρτών κάθε φορά που κάνει λάθος ο παίχτης.
-                        // ----------------------------------------------------------------------------------------
-                        if (hardModeEnabled) {
-
-                            // if (secretSettingEnabled) {
-                            //     rot_ += 360;
-                            //     document.getElementById('cardsHolder').style.animation = 'none';
-                            //     document.getElementById('cardsHolder').style.transition = '1s';
-                            //     document.getElementById('cardsHolder').style.transform = `rotate(${rot_}deg)`;
-                            // }
-
-                            if (appliedOGModeEffect) sounds.cardOpenHardMode.play();
-
-                            // ανακάτεψε τις κάρτες ΞΑΝΑ στο "δύσκολο" mode
-                            let cardsListToShuffle = [],
+                            let cardElemsList = [],
+                                cardShapesList = [],
                                 scoreAndTriesTextHolderChild = parentDiv.children[0];
 
                             // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
@@ -1310,116 +1408,93 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 let child = parentDiv.children[e];
                                 // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
                                 if (child.className == 'card') {
-                                    cardsListToShuffle.push(child);
+                                    cardElemsList.push(child);
+                                    cardShapesList.push(child.savedText);
                                 }
                             }
 
-                            cardsListToShuffle.sort(() => {
-                                return Math.random() - 0.5;
+                            let nonInfinityCard = firstCard.savedText == '∞' ? secondCard : firstCard,
+                                infityCard = firstCard == nonInfinityCard ? secondCard : firstCard;
+
+                            cardElemsList.splice(cardShapesList.indexOf(nonInfinityCard.savedText), 1);
+
+                            // Αν βρέθηκε, μην την έχεις ως σπέσιαλ κάρτα για να μετράει στις ανοιχτές κάρτες.
+                            infityCard.specialCard = false;
+                            currentSpecialCards.splice(currentSpecialCards.indexOf('∞'), 1);
+
+                            cardElemsList[(cardElemsList.length)] = cardElemsList[0];
+                            cardElemsList[0] = scoreAndTriesTextHolderChild;
+                            parentDiv.replaceChildren(...cardElemsList);
+                            AMOUNT_OF_CARDS -= 1;
+
+                            // Άλλαξε τη μορφή του μπαλαντέρ με την κάρτα που χρησιμοποιήθηκε
+                            infityCard.style.background = nonInfinityCard.savedBackgroundColor;
+                            infityCard.innerHTML = nonInfinityCard.innerHTML;
+                            infityCard.savedText = nonInfinityCard.savedText;
+
+                            // bug fix
+                            for (var card_ of document.getElementsByClassName('card')) {
+                                if (card_.savedText == nonInfinityCard.savedText) {
+                                    if (!card_.getAttribute('anoixthcarta')) {
+                                        card_.style.background = card_.savedBackgroundColor;
+                                        card_.innerHTML = card_.savedText;
+                                        card_.setAttribute('anoixthcarta', 'nai');
+                                    }
+                                }
+                            }
+                        }
+
+                        // Αν είναι η troll κάρτα
+                        else if (firstCard.impostorCard || secondCard.impostorCard) {
+                            // Επίτευγμα: "SkinWalker"
+                            unlockAchievement('ach_impostor_card_found');
+
+                            // Αφαίρεσε την troll κάρτα από το παιχνίδι αν βρέθηκε
+                            let cardsList = [];
+
+                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                            for (var e = 0; e < parentDiv.children.length; e++) {
+                                let child = parentDiv.children[e];
+                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                cardsList.push(child);
+                            }
+
+                            cardsList = cardsList.filter(elem => {
+                                return !elem.impostorCard;
                             });
 
-                            cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                            cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                            parentDiv.replaceChildren(...cardsListToShuffle);
-                        }
-                        // ----------------------------------------------------------------------------------------
-
-                        if (!penaltyModeEnabled) currentSelected = [];
-
-                        if (!hardModeEnabled) {
-                            wrongSound.play();
+                            parentDiv.replaceChildren(...cardsList);
+                            currentSelected = [];
+                            blockClicks = true;
+                            sounds.cardOpenHardMode.play();
+                            setTimeout(() => {
+                                resetCards(false);
+                                blockClicks = false;
+                            }, 5e2);
                         }
 
-                        blockClicks = true;
-                        setTimeout(() => {
-                            resetCards();
-                            blockClicks = false;
-                        }, CARDS_DELAY_MS);
-                    }
-
-                    // Αν είναι μπαλαντέρ (Infinity Card Balader)
-                    else if (firstCard.savedText == '∞' || secondCard.savedText == '∞') {
-                        hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
-                        giveScore();
-
-                        let cardElemsList = [],
-                            cardShapesList = [],
-                            scoreAndTriesTextHolderChild = parentDiv.children[0];
-
-                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                        for (var e = 0; e < parentDiv.children.length; e++) {
-                            let child = parentDiv.children[e];
-                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                            if (child.className == 'card') {
-                                cardElemsList.push(child);
-                                cardShapesList.push(child.savedText);
-                            }
-                        }
-
-                        let nonInfinityCard = firstCard.savedText == '∞' ? secondCard : firstCard,
-                            infityCard = firstCard == nonInfinityCard ? secondCard : firstCard;
-
-                        cardElemsList.splice(cardShapesList.indexOf(nonInfinityCard.savedText), 1);
-
-                        // Αν βρέθηκε, μην την έχεις ως σπέσιαλ κάρτα για να μετράει στις ανοιχτές κάρτες.
-                        infityCard.specialCard = false;
-                        currentSpecialCards.splice(currentSpecialCards.indexOf('∞'), 1);
-
-                        cardElemsList[(cardElemsList.length)] = cardElemsList[0];
-                        cardElemsList[0] = scoreAndTriesTextHolderChild;
-                        parentDiv.replaceChildren(...cardElemsList);
-                        AMOUNT_OF_CARDS -= 1;
-
-                        // Άλλαξε τη μορφή του μπαλαντέρ με την κάρτα που χρησιμοποιήθηκε
-                        infityCard.style.background = nonInfinityCard.savedBackgroundColor;
-                        infityCard.innerHTML = nonInfinityCard.innerHTML;
-                        infityCard.savedText = nonInfinityCard.savedText;
-
-                        // bug fix
-                        for (var card_ of document.getElementsByClassName('card')) {
-                            if (card_.savedText == nonInfinityCard.savedText) {
-                                if (!card_.getAttribute('anoixthcarta')) {
-                                    card_.style.background = card_.savedBackgroundColor;
-                                    card_.innerHTML = card_.savedText;
-                                    card_.setAttribute('anoixthcarta', 'nai');
-                                }
-                            }
+                        // αν είναι ίδιες οι κάρτες, δώσε score
+                        else if (firstCard.savedText == secondCard.savedText) {
+                            giveScore();
                         }
                     }
+                }
 
-                    // Αν είναι η troll κάρτα
-                    else if (firstCard.impostorCard || secondCard.impostorCard) {
-                        // Επίτευγμα: "SkinWalker"
-                        unlockAchievement('ach_impostor_card_found');
+                else { // Hide & Seek Setup
+                    div.style.boxShadow = 'none';
+                    tries--; // bug fix
+                    div.style.backgroundColor = div.savedBackgroundColor;
+                    div.innerHTML = div.savedText;
 
-                        // Αφαίρεσε την troll κάρτα από το παιχνίδι αν βρέθηκε
-                        let cardsList = [];
+                    // ----------------------------------
+                    // Ήχος κάρτας.
+                    // ----------------------------------
+                    sounds.cardOpen.play();
+                    // ----------------------------------
 
-                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                        for (var e = 0; e < parentDiv.children.length; e++) {
-                            let child = parentDiv.children[e];
-                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                            cardsList.push(child);
-                        }
-
-                        cardsList = cardsList.filter(elem => {
-                            return !elem.impostorCard;
-                        });
-
-                        parentDiv.replaceChildren(...cardsList);
-                        currentSelected = [];
-                        blockClicks = true;
-                        sounds.cardOpenHardMode.play();
-                        setTimeout(() => {
-                            resetCards(false);
-                            blockClicks = false;
-                        }, 5e2);
-                    }
-
-                    // αν είναι ίδιες οι κάρτες, δώσε score
-                    else if (firstCard.savedText == secondCard.savedText) {
-                        giveScore();
-                    }
+                    div.style.transform = 'rotateY(360deg)';
+                    hideAndSeekFoundCount++;
+                    updateFound();
                 }
             }
             // =======================================================
@@ -1653,6 +1728,20 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                             appliedOGModeEffect = false;
                             specialCardsEnabled = false;
                             break;
+
+                        case 'hideAndSeek':
+                            scoreText.style.display = 'none';
+                            hideAndSeekText.style.display = '';
+                            hideAndSeekHintButton.style.display = '';
+                            hideAndSeekModeEnabled = true;
+                            specialCardsEnabled = false;
+                            window.onclick = () => {
+                                tries++;
+                                updateTries();
+                                updateFound(); // bug fix
+                            }
+                            tries--; // bug fix
+                            break;
                     }
 
                     sounds.buttonClick.play();
@@ -1795,6 +1884,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                 //playButtonOGMode = createButton('OG', 'radial-gradient(purple, white)', 'og'), // Κουμπί για να παίξει ο παίχτης "og" mode
                 // playButtonVirus = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus, 'radial-gradient(red, black)', 'virus'), // Κουμπί για να παίξει ο παίχτης "virus" mode
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
+                playButtonHideAndSeek = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hideAndSeek, 'cyan', 'hideAndSeek'),
                 playEventModeBtn,
                 //playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
@@ -1879,6 +1969,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             buttonsWrapper.appendChild(playButtonTimed);
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
+            buttonsWrapper.appendChild(playButtonHideAndSeek);
             //buttonsWrapper.appendChild(playButtonOGMode);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
             // ----------------------------------------------------
@@ -1935,91 +2026,10 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
 
-            // game loop
-            const gameLoop = setInterval(() => {
-
-                // ---------------------------------------------------------------
-                // TIMED Mode
-                // ---------------------------------------------------------------
-                if (timedModeEnabled && gameStarted) {
-                    // Μείωσε τον χρόνο
-                    timeLeft -= decreaseTimeBy;
-                    timeBar.setAttribute("value", timeLeft.toFixed(2));
-
-                    let timeLeftPerc = makePercentage(timeLeft, standardTimeLeft);
-
-                    // Μπάρα χρόνου
-                    if (document.getElementById('timeBar')) {
-                        document.getElementById('timeBar').style.display = 'block';
-
-                        // Χρώμα της μπάρας του χρόνου
-                        let color__ = 'green';
-
-                        if (timeLeftPerc > 60) {
-                            color__ = 'green';
-                        }
-                        else if (timeLeftPerc <= 60 && color__ != 'red') {
-                            color__ = 'gold';
-                        }
-                        if (timeLeftPerc <= 35) {
-                            color__ = 'red';
-                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
-                        }
-
-                        // -----------------------------------------------------------------------------------------------------------
-                        // Η CSS δεν αφήνει να γίνει αλλαγεί στο χρώμα τύπου "progress", για αυτό δημιούργησε ένα ψεύτικο CSS tag και
-                        // τοποθέτησε τις πληροφορίες χρωμάτων εκεί.
-                        // -----------------------------------------------------------------------------------------------------------
-                        if (!timedModeStyleTagMade) {
-                            let tempStyleTag = document.createElement('style');
-                            tempStyleTag.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${color__}; }`));
-                            document.head.appendChild(tempStyleTag);
-                            timedModeStyleTagMade = true;
-                        }
-
-                        else {
-                            document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${color__}; }`;
-                        }
-                        // -----------------------------------------------------------------------------------------------------------
-
-                    }
-
-                    // Κάνε τον παίχτη να χάσει αν τελείωσε ο χρόνος
-                    if (timeLeft <= 0) {
-                        lostByDeathCard = true;
-                        sounds.loss.play();
-                    }
-                }
-                // ---------------------------------------------------------------
-
-                // --------------------------------------------------------
-                // Μέτρα πόσες ανοιχτές κάρτες υπάρχουν/έχουν βρεθεί
-                // και τέλειωσε το παιχνίδι αν έχουν βρεθεί όλες.
-                // --------------------------------------------------------
-                let openedCards = [];
-
-                for (var card_ of document.getElementsByClassName('card')) {
-                    if (card_.getAttribute('anoixthcarta')) {
-                        openedCards.push(card_);
-                    }
-                }
-
-                // --------------------------------------------------------------------------------------------------------------------
-                // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
-                // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
-                // με τις κανονικές κάρτες.
-                // --------------------------------------------------------------------------------------------------------------------
-                for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
-
-                    openedCards = openedCards.filter(_card => { return _card.realShape != currentSpecialCards[specialCardShapeIndex] });
-                    if (!removedSpecialCardsFromFullCount[specialCardShapeIndex]) {
-                        AMOUNT_OF_CARDS -= 1;
-                        removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
-                    }
-                }
-                // --------------------------------------------------------------------------------------------------------------------
-
+            // ============================================================================================================
+            // GAME LOOPS
+            // ============================================================================================================\
+            const effectsLoop = () => {
                 // ---------------------------------------------------------------------------------------
                 // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
                 // ---------------------------------------------------------------------------------------
@@ -2135,7 +2145,66 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     }
                 }
                 // ---------------------------------------------------------------------------------------
+            }
 
+            const timedModeLoop = () => {
+                // ---------------------------------------------------------------
+                // TIMED Mode
+                // ---------------------------------------------------------------
+                if (timedModeEnabled && gameStarted) {
+                    // Μείωσε τον χρόνο
+                    timeLeft -= decreaseTimeBy;
+                    timeBar.setAttribute("value", timeLeft.toFixed(2));
+
+                    let timeLeftPerc = makePercentage(timeLeft, standardTimeLeft);
+
+                    // Μπάρα χρόνου
+                    if (document.getElementById('timeBar')) {
+                        document.getElementById('timeBar').style.display = 'block';
+
+                        // Χρώμα της μπάρας του χρόνου
+                        let color__ = 'green';
+
+                        if (timeLeftPerc > 60) {
+                            color__ = 'green';
+                        }
+                        else if (timeLeftPerc <= 60 && color__ != 'red') {
+                            color__ = 'gold';
+                        }
+                        if (timeLeftPerc <= 35) {
+                            color__ = 'red';
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
+                        }
+
+                        // -----------------------------------------------------------------------------------------------------------
+                        // Η CSS δεν αφήνει να γίνει αλλαγεί στο χρώμα τύπου "progress", για αυτό δημιούργησε ένα ψεύτικο CSS tag και
+                        // τοποθέτησε τις πληροφορίες χρωμάτων εκεί.
+                        // -----------------------------------------------------------------------------------------------------------
+                        if (!timedModeStyleTagMade) {
+                            let tempStyleTag = document.createElement('style');
+                            tempStyleTag.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${color__}; }`));
+                            document.head.appendChild(tempStyleTag);
+                            timedModeStyleTagMade = true;
+                        }
+
+                        else {
+                            document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${color__}; }`;
+                        }
+                        // -----------------------------------------------------------------------------------------------------------
+
+                    }
+
+                    // Κάνε τον παίχτη να χάσει αν τελείωσε ο χρόνος
+                    if (timeLeft <= 0) {
+                        lostByDeathCard = true;
+                        sounds.loss.play();
+                    }
+                }
+                // ---------------------------------------------------------------
+            }
+
+            const extremeModeLoop = () => {
                 // -----------------------------------------------------------------
                 // Extreme Gamemode: Όταν περάσει το όριο προσπάθειων ο παίχτης, χάσε.
                 // ------------------------------------------------------------------
@@ -2223,9 +2292,66 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                     }
                 }
                 // --------------------------------------------------------------------
+            }
 
-                // Τσέκαρε αν όλες οι κάρτες βρέθηκαν
-                if (wonBySpecialCard || ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) {
+            // game loop
+            const gameLoop = setInterval(() => {
+
+
+                let openedCards = [];
+                if (!hideAndSeekModeEnabled) {
+                    // --------------------------------------------------------
+                    // Μέτρα πόσες ανοιχτές κάρτες υπάρχουν/έχουν βρεθεί
+                    // και τέλειωσε το παιχνίδι αν έχουν βρεθεί όλες.
+                    // --------------------------------------------------------
+
+                    for (var card_ of document.getElementsByClassName('card')) {
+                        if (card_.getAttribute('anoixthcarta')) {
+                            openedCards.push(card_);
+                        }
+                    }
+                    // --------------------------------------------------------
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
+                    // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
+                    // με τις κανονικές κάρτες.
+                    // --------------------------------------------------------------------------------------------------------------------
+                    for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
+
+                        openedCards = openedCards.filter(_card => { return _card.realShape != currentSpecialCards[specialCardShapeIndex] });
+                        if (!removedSpecialCardsFromFullCount[specialCardShapeIndex]) {
+                            AMOUNT_OF_CARDS -= 1;
+                            removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
+                        }
+                    }
+                    // --------------------------------------------------------------------------------------------------------------------
+                }
+
+                else {
+                    if (hideAndSeekFoundCount == AMOUNT_OF_CARDS) {
+                        hideAndSeekFoundCount
+                        hideAndSeekWin = true;
+                    }
+                }
+
+                switch (true) {
+                    case hardModeEnabled || papagianneosFinaleEnabled || OG_modeEnabled:
+                        effectsLoop();
+
+                    case timedModeEnabled:
+                        timedModeLoop();
+
+                    case extremeModeEnabled:
+                        extremeModeLoop();
+                }
+
+                // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
+                if (
+                    hideAndSeekWin || // Hide And Seek all cards found.
+                    wonBySpecialCard || // "K" card found
+                    (!hideAndSeekModeEnabled && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2))
+                ) {
 
                     // Αν δεν είναι VOID mode.
                     if (voidModeOver) {
@@ -2289,6 +2415,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                                 case penaltyModeEnabled:
                                 case cobaltModeEnabled:
                                 case OG_modeEnabled:
+                                case hideAndSeekModeEnabled:
                                     achievementIDToCheckForUnlock = 'no achievement';
                                     break;
 
@@ -2346,16 +2473,17 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         winScreenText.appendChild(
                             document.createTextNode(
                                 wonBySpecialCard ? LANGUAGE_DATA[LANGUAGE_INDEX].win_K_card :
-                                    cobaltModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_cobalt :
-                                        penaltyModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_penalty :
-                                            virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
-                                                voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
-                                                    timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
-                                                        papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
-                                                            extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
-                                                                challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
-                                                                    hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
-                                                                        LANGUAGE_DATA[LANGUAGE_INDEX].win
+                                    hideAndSeekModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hideAndSeek :
+                                        cobaltModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_cobalt :
+                                            penaltyModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_penalty :
+                                                virusModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_virus :
+                                                    voidModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_void :
+                                                        timedModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_timed :
+                                                            papagianneosFinaleEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_finale :
+                                                                extremeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_extreme :
+                                                                    challengeModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_challenge :
+                                                                        hardModeEnabled ? LANGUAGE_DATA[LANGUAGE_INDEX].win_mode_hard :
+                                                                            LANGUAGE_DATA[LANGUAGE_INDEX].win
                             )
                         );
 
@@ -2394,7 +2522,9 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 
                         winScreen.appendChild(screenLogo);
                         winScreen.appendChild(winScreenText);
-                        winScreen.appendChild(scoreTextWinScreen);
+                        if (!hideAndSeekFoundCount) {
+                            winScreen.appendChild(scoreTextWinScreen);
+                        }
                         winScreen.appendChild(triesTextWinScreen);
                         winScreen.appendChild(totalCardsPlayed);
                         winScreen.appendChild(playAgainButton);
@@ -2403,6 +2533,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
                         wonBySpecialCard = false;
                     }
                     else {
+
+                        // Void Mode Setup
 
                         // Κάνε reset τα πάντα
                         hardModeEnabled = false;
