@@ -80,6 +80,12 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
             cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
         }
 
+        // Το "π" έχει animation.
+        else if (card.shape == specialCardsConfig[22].shape) {
+            cardDiv.style.animation = 'gradient 15s ease infinite';
+            cardDiv.style.backgroundSize = '400% 400%';
+        }
+
         cardDiv.style.cursor = 'help';
 
         // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
