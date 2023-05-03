@@ -419,6 +419,32 @@ input[type=checkbox] {
     filter: drop-shadow(0 0 10px white);
 }
 
+@keyframes gradient {
+    0% {
+        background-position: 0% 100%;
+    }
+
+    25% {
+        background-position: 100% 30%;
+    }
+
+    50% {
+        background-position: 100% 55%;
+    }
+
+    75% {
+        background-position: 100% 75%;
+    }
+
+    87% {
+        background-position: 100% 80%;
+    }
+
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
 /*.achievementsBox {
     display: none;
     width: 100%;
