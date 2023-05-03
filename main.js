@@ -204,6 +204,7 @@ import { createSnow } from "./modules/snow.js";
             penalties = 0,
             tries = -1, // ξεκινάμε με -1 διότι αυτόματα κάνει resetCards (άρα tries -= 1)
             blockClicks = false,
+            PI_EFFECT_LOL = false,
             CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦".split('');
 
         // ========================================================================
@@ -744,6 +745,25 @@ import { createSnow } from "./modules/snow.js";
                                 score *= 4;
                             }
                             break;
+
+
+                        case specialCardsConfig[22].shape: // PI
+                            specialCardIndex = 22;
+                            card.specialCardEffect = () => {
+                                PI_EFFECT_LOL = true;
+                                extremeModeEnabled = true;
+                                MAX_TRIES = Math.PI * 10;
+                                document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/PI.jpg)';
+                                sounds.specialScore.play()
+                                score += Math.PI;
+                                tries += Math.PI;
+                                updateTries();
+
+                                for (var cardElem of document.getElementsByClassName('card')) {
+                                    if (cardElem.savedText != '∏') cardElem.innerHTML = Math.PI;
+                                }
+                            }
+                            break;
                         // -----------------------------------------------------------
                     }
 
@@ -818,6 +838,14 @@ import { createSnow } from "./modules/snow.js";
         triesText.style.fontSize = '20px';
         hideAndSeekText.style.fontSize = '20px';
         hideAndSeekText.style.display = 'none'; // bug fix
+
+        // -------------------------------------------------------
+        // BUG FIX: Αν μία κάρτα βρίσκεται πάνω στο HINT κουμπί.
+        // -------------------------------------------------------
+        hideAndSeekHintButton.style.position = 'relative';
+        hideAndSeekHintButton.style.zIndex = '999';
+        // -------------------------------------------------------
+
         hideAndSeekHintButton.style.display = 'none'; // bug fix
         hideAndSeekHintButton.appendChild(document.createTextNode('HINT'));
 
@@ -878,7 +906,7 @@ import { createSnow } from "./modules/snow.js";
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
         const resetCards = (addTries = true) => {
-            const resetColor = hideAndSeekModeEnabled ? 'transparent' : 'grey';
+            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : 'grey';
 
             if (addTries) {
                 tries += 1; // προσπάθειες του παίχτη
@@ -896,7 +924,7 @@ import { createSnow } from "./modules/snow.js";
                     //else {
                     //    card.style.background = 'radial-gradient(#240907, black)';
                     //}
-                    card.innerHTML = '​'; // κενό/whitespace
+                    card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
 
@@ -930,6 +958,12 @@ import { createSnow } from "./modules/snow.js";
             // Η "Σ" κάρτα είναι πολύχρωμη.
             if (card.shape == specialCardsConfig[16].shape) {
                 div.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+            }
+
+            // Το "π" έχει animation.
+            else if (card.shape == specialCardsConfig[22].shape) {
+                div.style.animation = 'gradient 15s ease infinite';
+                div.style.backgroundSize = '400% 400%';
             }
 
             // Βάλε τα εφέ που διάλεξε ο χρήστης/παίχτης στην κάρτα.
@@ -1061,7 +1095,9 @@ import { createSnow } from "./modules/snow.js";
                         // Δες αν ο παίχτης χρησιμοποιεί νέον
                         playersEffect ? playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
                         div.innerHTML = div.savedText;
-                        div.style.backgroundSize = 'cover';
+
+                        // Ειδική περίπτωση του "π".
+                        div.style.backgroundSize = div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (div.savedText == specialCardsConfig[16].shape) {
@@ -1494,6 +1530,13 @@ import { createSnow } from "./modules/snow.js";
 
                 else { // Hide & Seek Setup
                     div.style.boxShadow = 'none';
+
+                    // -------------------------------------------------------
+                    // BUG FIX: Αν μία κάρτα βρίσκεται πάνω στο HINT κουμπί.
+                    // -------------------------------------------------------
+                    div.style.pointerEvents = 'none';
+                    // -------------------------------------------------------
+
                     tries--; // bug fix
                     div.style.backgroundColor = div.savedBackgroundColor;
                     div.innerHTML = div.savedText;
@@ -1819,6 +1862,12 @@ import { createSnow } from "./modules/snow.js";
                                 cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
                             }
 
+                            // Το "π" έχει animation.
+                            else if (card.shape == specialCardsConfig[22].shape) {
+                                cardDiv.style.animation = 'gradient 15s ease infinite';
+                                cardDiv.style.backgroundSize = '400% 400%';
+                            }
+
                             cardDiv.style.cursor = 'pointer';
 
                             // ------------------------------------------------------------
@@ -1898,7 +1947,7 @@ import { createSnow } from "./modules/snow.js";
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playButtonHideAndSeek = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hideAndSeek, 'cyan', 'hideAndSeek'),
                 playEventModeBtn,
-                //playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
+                playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------------------------------------------------------
@@ -1982,7 +2031,7 @@ import { createSnow } from "./modules/snow.js";
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             buttonsWrapper.appendChild(playButtonHideAndSeek);
-            //buttonsWrapper.appendChild(playButtonOGMode);
+            buttonsWrapper.appendChild(playButtonCobalt);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
             // ----------------------------------------------------
 
