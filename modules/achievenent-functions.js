@@ -330,6 +330,7 @@ export let achievementsConfig = [
         id: 'ach_PI',
         color: 'url(/img/PI.jpg)',
         unlocked: false,
+        alreadyTranslated: true
     },
 
     // ----------------------------------------------
