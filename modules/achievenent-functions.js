@@ -435,7 +435,14 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
 
     // Δείξε ποιό επίτευγμα ξεκλειδώθηκε.
     let achievementNotifDesc = document.createElement('h3');
-    achievementNotifDesc.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX][achievementThatWasUnlocked.id].name));
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // BUG FIX: Κάποια επιτεύγματα δεν χρειάζονται μετάφραση.
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    const text_here_lol = LANGUAGE_DATA[LANGUAGE_INDEX][achievementThatWasUnlocked.id] ? LANGUAGE_DATA[LANGUAGE_INDEX][achievementThatWasUnlocked.id].name : FETCHED_ACHIEVEMENT_DATA[achievementThatWasUnlockedIndex].name;
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    achievementNotifDesc.appendChild(document.createTextNode(text_here_lol));
     achievementNotifDesc.style.fontSize = '20px';
 
     setTimeout(() => {
