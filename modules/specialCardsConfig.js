@@ -149,5 +149,13 @@ export const specialCardsConfig = [
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_x4,
         exclusiveMode: 'cobalt',
         noSpawnInFinale: true
+    },
+
+    { // PI
+        shape: '∏',
+        color: 'linear-gradient(-45deg, red, orange, yellow, green, blue, indigo, violet)',
+        info: '3 . 1 4 ...',
+        exclusiveMode: 'cobalt',
+        noSpawnInFinale: true
     }
 ];
