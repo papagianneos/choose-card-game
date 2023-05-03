@@ -324,6 +324,14 @@ export let achievementsConfig = [
         unlocked: false
     },
 
+    {
+        name: 'π',
+        desc: '3 . 1 4',
+        id: 'ach_PI',
+        color: 'url(/img/PI.jpg)',
+        unlocked: false,
+    },
+
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
