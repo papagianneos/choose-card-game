@@ -750,6 +750,9 @@ import { createSnow } from "./modules/snow.js";
                         case specialCardsConfig[22].shape: // PI
                             specialCardIndex = 22;
                             card.specialCardEffect = () => {
+                                // Επίτευγμα: 'π'
+                                unlockAchievement('ach_PI');
+
                                 PI_EFFECT_LOL = true;
                                 extremeModeEnabled = true;
                                 MAX_TRIES = Math.PI * 10;
@@ -1947,7 +1950,7 @@ import { createSnow } from "./modules/snow.js";
                 // playbuttonPenalty = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty, 'blue', 'penalty'), // Penalty mode
                 playButtonHideAndSeek = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hideAndSeek, 'cyan', 'hideAndSeek'),
                 playEventModeBtn,
-                playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
+                //playButtonCobalt = createButton(LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt, 'radial-gradient(black, darkblue)', 'cobalt'),
                 playButtonPapagianneosFinale = createButton('Papagianneos FINALE', 'radial-gradient(green, black)', 'papagianneosFinale'); // Κουμπί για να παίξει ο παίχτης "finale" mode
 
             // ---------------------------------------------------------------------------------------------------
@@ -2031,7 +2034,6 @@ import { createSnow } from "./modules/snow.js";
             buttonsWrapper.appendChild(playButtonPapagianneosFinale);
             buttonsWrapper.appendChild(playButtonSecretMode);
             buttonsWrapper.appendChild(playButtonHideAndSeek);
-            buttonsWrapper.appendChild(playButtonCobalt);
             if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
             // ----------------------------------------------------
 
