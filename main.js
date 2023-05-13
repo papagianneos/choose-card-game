@@ -14,6 +14,15 @@ import { createSnow } from "./modules/snow.js";
     try {
         const CARDS_DELAY_MS = 300;
 
+        const BROKEN_CARD_POLYGONS = [
+            'none',
+            'polygon(0px 150px, 0% 0%, 150px 0px, 0px 200px)',
+            'polygon(0% 50%, 50% 0%, 60% 100%, -10% 100%)',
+            'polygon(100% 100%, -100% -50%, 0% 0%, 100% 0%)',
+            'polygon(0 -100px, 100% 100%, -1000px 0%, 100px 40%)',
+            'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
+        ];
+
         // Events
         let eventModeRotationEnabled = true;
         let christmasDecorationsEnabled = false;
@@ -205,6 +214,10 @@ import { createSnow } from "./modules/snow.js";
             tries = -1, // ξεκινάμε με -1 διότι αυτόματα κάνει resetCards (άρα tries -= 1)
             blockClicks = false,
             PI_EFFECT_LOL = false,
+            mazeWallsEnabled = false,
+            brokenCardsEnabled = false,
+            MAZE_WALLS_AMOUNT = 5,
+            BROKEN_CARDS_AMOUNT = 5,
             CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦".split('');
 
         // ========================================================================
@@ -270,6 +283,22 @@ import { createSnow } from "./modules/snow.js";
             // ================================================================================
 
             let cardShapes = randomChoice(SHAPE_PALETTES);
+
+            // Walls.
+            if (mazeWallsEnabled) {
+                for (var mazeWallCount = 0; mazeWallCount < MAZE_WALLS_AMOUNT; mazeWallCount++) {
+                    cardShapes.push('mazeWall');
+                    AMOUNT_OF_CARDS += 2;
+                }
+            }
+
+            // Broken Cards.
+            if (brokenCardsEnabled) {
+                for (var brokenCardsCount = 0; brokenCardsCount < BROKEN_CARDS_AMOUNT; brokenCardsCount++) {
+                    cardShapes.push('brokenCard');
+                    AMOUNT_OF_CARDS += 2;
+                }
+            }
 
             // ----------------------------------------------------------------------------------------------
             // Σπεσιαλ Κάρτες: Βάλτες στην λίστα αντικαταστώντας το τελευταίο γράμμα
@@ -386,6 +415,9 @@ import { createSnow } from "./modules/snow.js";
             // check cards length
             if (!hideAndSeekModeEnabled) if ((nonPairCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (nonPairCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
                 console.log(countTrollCards(cardShapes));
+                console.log(`AMOUNT_OF_CARDS = ${AMOUNT_OF_CARDS}`);
+                console.log(`cardShapes = ${cardShapes.length}`);
+                console.log(`cardColors = ${cardColors.length}`);
                 throw Error('Το πλήθος/μέγεθος των λιστών cardShapes ή cardColors δεν είναι σωστό με το AMOUNT_OF_CARDS.');
             }
 
@@ -396,6 +428,22 @@ import { createSnow } from "./modules/snow.js";
                     color: cardColors[j],
                     specialCard: false,
                     specialCardEffect: () => { }
+                }
+
+                // Ψάξε για walls.
+                if (card.shape == 'mazeWall') {
+                    card.mazeWall = true;
+                    card.color = 'transparent';
+                    currentSpecialCards.push('mazeWall');
+                    removedSpecialCardsFromFullCount.push(false);
+                }
+
+                // Ψάξε για σπασμένες κάρτες.
+                if (card.shape == 'brokenCard') {
+                    card.brokenCard = true;
+                    card.color = 'transparent';
+                    currentSpecialCards.push('brokenCard');
+                    removedSpecialCardsFromFullCount.push(false);
                 }
 
                 // --------------------------------------------------------
@@ -763,11 +811,44 @@ import { createSnow } from "./modules/snow.js";
                                 updateTries();
 
                                 for (var cardElem of document.getElementsByClassName('card')) {
-                                    if (cardElem.savedText != '∏') cardElem.innerHTML = Math.PI;
+                                    if (cardElem.savedText != '∏' && !card.mazeWall) cardElem.innerHTML = Math.PI;
                                 }
                             }
                             break;
                         // -----------------------------------------------------------
+
+                        case specialCardsConfig[23].shape: // Universe Swap
+                            specialCardIndex = 23;
+                            card.specialCardEffect = () => {
+                                appliedOGModeEffect = false;
+                                $('#cardsHolder')
+                                    .fadeOut(300)
+                                    .fadeIn(300);
+                                document.getElementsByTagName('body')[0].style.font = '5px none, sans-serif';
+                                for (var card of document.getElementsByClassName('card')) {
+                                    card.style.textShadow = 'none';
+                                    card.style.display = 'inline-block';
+                                    card.style.fontSize = '100px';
+                                    card.style.borderRadius = '0px';
+                                    card.style.margin = '5px';
+                                }
+
+                                setTimeout(() => {
+                                    appliedOGModeEffect = true;
+                                    $('#cardsHolder')
+                                        .fadeOut(300)
+                                        .fadeIn(300);
+                                    document.getElementsByTagName('body')[0].style.font = 'bold 5vh Montserrat, sans-serif';
+                                    for (var card of document.getElementsByClassName('card')) {
+                                        card.style.textShadow = 'rgba(0, 0, 0, .5) 2px 2px';
+                                        card.style.display = 'inline-flex';
+                                        card.style.borderRadius = '2.5px';
+                                        card.style.fontSize = '60px';
+                                        card.style.margin = '10px';
+                                    }
+                                }, 20e3);
+                            }
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -919,7 +1000,7 @@ import { createSnow } from "./modules/snow.js";
                 // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
 
                 // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
-                if (!card.getAttribute('anoixthcarta') && card.savedText != '∞') {
+                if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
                     //if (!secretSettingEnabled) {
                     playersEffect ? playersEffect.neonMode ? card.style.borderColor = resetColor : card.style.background = resetColor : card.style.background = resetColor;
@@ -1015,12 +1096,36 @@ import { createSnow } from "./modules/snow.js";
             div.realShape = card.realShape;
             div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
 
+            // Walls.
+            if (card.mazeWall) {
+                div.style.cursor = 'default';
+                div.style.visibility = 'hidden';
+                div.style.pointerEvents = 'none';
+                div.mazeWall = true;
+            }
+
+            if (card.brokenCard) {
+                let chosenDisplay = randomChoice(BROKEN_CARD_POLYGONS);
+
+                div.style.clipPath = chosenDisplay;
+                div.style.cursor = 'default';
+                div.style.visibility = chosenDisplay != 'none' ? 'visible' : 'hidden';
+                div.style.pointerEvents = 'none';
+                div.mazeWall = true;
+
+                if (chosenDisplay != 'none') {
+                    div.savedText = randomChoice(CHARACTERS_SET_PENALTY_MODE);
+                    div.innerHTML = div.savedText;
+                    div.style.background = 'grey';
+                }
+            }
+
             // =======================================================
             // Mouse event listeners setup & game setup
             // =======================================================
 
             div.onmouseover = () => {
-                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
+                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick') || div.mazeWall) return;
                 if (C69Effect) {
 
                     // Μόνο 8 φορές.
@@ -1054,7 +1159,7 @@ import { createSnow } from "./modules/snow.js";
                 // -------------------------------------------------------------------------------------------------------
                 // BUG FIX: Αν έγινε click στην ίδια κάρτα..
                 // -------------------------------------------------------------------------------------------------------
-                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
+                if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick') || div.mazeWall) return;
                 div.setAttribute('egineclick', 'nai');
                 // -------------------------------------------------------------------------------------------------------
 
@@ -1779,6 +1884,10 @@ import { createSnow } from "./modules/snow.js";
 
                         case 'cobalt': // cobalt
                             cobaltModeEnabled = true;
+                            mazeWallsEnabled = true;
+                            brokenCardsEnabled = true;
+                            MAZE_WALLS_AMOUNT = (AMOUNT_OF_CARDS / 2) - 2;
+                            BROKEN_CARDS_AMOUNT = (AMOUNT_OF_CARDS / 2) - 6 < 0 ? 3 : (AMOUNT_OF_CARDS / 2) - 6;
                             break;
 
                         case 'og': // OG mode
