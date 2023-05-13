@@ -1100,7 +1100,6 @@ import { createSnow } from "./modules/snow.js";
             if (card.mazeWall) {
                 div.style.cursor = 'default';
                 div.style.visibility = 'hidden';
-                div.style.pointerEvents = 'none';
                 div.mazeWall = true;
             }
 
@@ -1110,7 +1109,6 @@ import { createSnow } from "./modules/snow.js";
                 div.style.clipPath = chosenDisplay;
                 div.style.cursor = 'default';
                 div.style.visibility = chosenDisplay != 'none' ? 'visible' : 'hidden';
-                div.style.pointerEvents = 'none';
                 div.mazeWall = true;
 
                 if (chosenDisplay != 'none') {
@@ -1591,7 +1589,7 @@ import { createSnow } from "./modules/snow.js";
                             // bug fix
                             for (var card_ of document.getElementsByClassName('card')) {
                                 if (card_.savedText == nonInfinityCard.savedText) {
-                                    if (!card_.getAttribute('anoixthcarta')) {
+                                    if (!card_.getAttribute('anoixthcarta') && !card_.mazeWall) {
                                         card_.style.background = card_.savedBackgroundColor;
                                         card_.innerHTML = card_.savedText;
                                         card_.setAttribute('anoixthcarta', 'nai');
