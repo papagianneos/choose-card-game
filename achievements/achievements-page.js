@@ -1,5 +1,6 @@
 import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searchForAchievement } from "../modules/achievenent-functions.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
+import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
 (() => {
     checkForMemoryRead();
@@ -41,6 +42,9 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         let achievementDivHolder = document.createElement('div');
         achievementDivHolder.id = achievement.id; // ταυτότητα επιτεύγματος
         achievementDivHolder.className = 'achievement'; // CSS
+
+        if (christmasDecorationsEnabled) achievementDivHolder.style.boxShadow = 'rgba(255, 255, 255, 1) 0px 50px 50px inset, rgba(255, 255, 255, 1) 0px -8px 3px inset';
+
         // Μόνο αν ξεκλειδώθηκε, αλλιώς θα είναι γκρι.
         if (achievement.unlocked) {
             achievementDivHolder.style.background = achievement.color;
