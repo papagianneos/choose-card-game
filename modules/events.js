@@ -8,6 +8,15 @@ export const idkSomeFunctionSoItRuns = (() => {
     // Για τα γεννέθλια του developer Pgn, βάλε κονφετί στην σελίδα.
     // ------------------------------------------------------------------------------------
     if (pgnBirthday) {
+        const irandom = i => {
+            let max = Math.floor(i);
+            return Math.floor(Math.random() * (max + 1));
+        };
+
+        const randomChoice = arr => {
+            return arr[irandom(arr.length - 1)];
+        };
+        
         document.getElementsByClassName('confetti')[0].style.visibility = 'visible';
         document.getElementsByClassName('confetti-container')[0].style.visibility = 'visible';
 
