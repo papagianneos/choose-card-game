@@ -3,7 +3,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
-import { createSnow } from "./modules/snow.js";
+import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
 
 // TO DO: NULL CARD
 
@@ -12,6 +12,23 @@ import { createSnow } from "./modules/snow.js";
     document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
     document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
     try {
+
+        const irandom = i => {
+            let max = Math.floor(i);
+            return Math.floor(Math.random() * (max + 1));
+        };
+
+        const randomChoice = arr => {
+            return arr[irandom(arr.length - 1)];
+        };
+
+        // For Penalty mode.
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
         const CARDS_DELAY_MS = 300;
 
         const BROKEN_CARD_POLYGONS = [
@@ -25,12 +42,6 @@ import { createSnow } from "./modules/snow.js";
 
         // Events
         let eventModeRotationEnabled = true;
-        let christmasDecorationsEnabled = false;
-
-        // Πάγος Εφέ για το φόντο
-        if (christmasDecorationsEnabled) {
-            window.onload = createSnow;
-        }
 
         // OG Mode
         let OG_modeEnabled = false,
@@ -111,13 +122,6 @@ import { createSnow } from "./modules/snow.js";
         }
         // ----------------------------------------------------------------------
 
-        // For Penalty mode.
-        function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
         //secretSettingEnabled = false,
         let rot_ = 360;
 
@@ -188,14 +192,6 @@ import { createSnow } from "./modules/snow.js";
         // ----------------------------------------
 
         // -----------------------------------
-        const irandom = i => {
-            let max = Math.floor(i);
-            return Math.floor(Math.random() * (max + 1));
-        };
-
-        const randomChoice = arr => {
-            return arr[irandom(arr.length - 1)];
-        };
 
         // Άνθρακας 69 Σπέσιαλ Κάρτα Εφέ.
         let C69Effect = false,
@@ -990,7 +986,7 @@ import { createSnow } from "./modules/snow.js";
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
         const resetCards = (addTries = true) => {
-            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : 'grey';
+            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : 'grey';
 
             if (addTries) {
                 tries += 1; // προσπάθειες του παίχτη
@@ -1012,6 +1008,8 @@ import { createSnow } from "./modules/snow.js";
                     card.style.transform = 'none';
                     card.removeAttribute('egineclick');
 
+                    if (pgnBirthday) card.style.backgroundSize = '250%';
+
                     // Ειδική περίπτωση: "Σ" κάρτα.
                     if (card.savedText == specialCardsConfig[16].shape) {
                         card.style.animation = 'none';
@@ -1030,7 +1028,7 @@ import { createSnow } from "./modules/snow.js";
             let div = document.createElement('div');
             div.className = 'card';
             div.style.background = card.color;
-            div.style.backgroundSize = 'cover';
+            div.style.backgroundSize = pgnBirthday && card.shape != 'Eng' ? '250%' : 'cover';
 
             if (hideAndSeekModeEnabled) {
                 div.style.position = 'absolute';
@@ -1085,6 +1083,11 @@ import { createSnow } from "./modules/snow.js";
 
             // αποθήκευσε το χρώμα της κάρτας..
             div.savedBackgroundColor = card.color;
+
+            // Ειδική περίπτωση για τα γεννέθλια του Pgn.
+            if (pgnBirthday && !div.savedBackgroundColor.includes('gradient')) {
+                div.savedBackgroundColor += ' url(/img/confeti.png) no-repeat';
+            }
 
             // Ειδική περίπτωση: "Σ" κάρτα.
             if (card.shape == specialCardsConfig[16].shape) {
@@ -1203,7 +1206,7 @@ import { createSnow } from "./modules/snow.js";
                         div.innerHTML = div.savedText;
 
                         // Ειδική περίπτωση του "π".
-                        div.style.backgroundSize = div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
+                        div.style.backgroundSize = pgnBirthday && !div.specialCard ? '250%' : div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (div.savedText == specialCardsConfig[16].shape) {
