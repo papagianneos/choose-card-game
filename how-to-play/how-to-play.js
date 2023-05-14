@@ -1,5 +1,6 @@
 import { specialCardsConfig } from "../modules/specialCardsConfig.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
+import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
 (() => {
 
@@ -45,6 +46,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
     specialCardsHTPWrapper.style.border = '2px dotted green';
     specialCardsHTPWrapper.style.width = '100%';
     specialCardsHTPWrapper.style.height = 'auto';
+    specialCardsHTPWrapper.className = 'specialCardsInfoHolder';
 
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -74,6 +76,8 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         cardDiv.className = 'howToPlayInfoCard';
         cardDiv.style.background = card.color;
         cardDiv.style.backgroundSize = 'cover';
+
+        if (christmasDecorationsEnabled) cardDiv.style.boxShadow = 'rgba(255, 255, 255, 1) 0px 50px 50px inset, rgba(255, 255, 255, 1) 0px -8px 3px inset';
 
         // Η "Σ" κάρτα είναι πολύχρωμη.
         if (card.shape == specialCardsConfig[16].shape) {
