@@ -820,13 +820,12 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
                                 $('#cardsHolder')
                                     .fadeOut(300)
                                     .fadeIn(300);
-                                document.getElementsByTagName('body')[0].style.font = '5px none, sans-serif';
                                 for (var card of document.getElementsByClassName('card')) {
                                     card.style.textShadow = 'none';
-                                    card.style.display = 'inline-block';
-                                    card.style.fontSize = '100px';
+                                    card.style.fontSize = '80px';
                                     card.style.borderRadius = '0px';
                                     card.style.margin = '5px';
+                                    card.style.alignItems = 'flex-end';
                                 }
 
                                 setTimeout(() => {
@@ -834,13 +833,12 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
                                     $('#cardsHolder')
                                         .fadeOut(300)
                                         .fadeIn(300);
-                                    document.getElementsByTagName('body')[0].style.font = 'bold 5vh Montserrat, sans-serif';
                                     for (var card of document.getElementsByClassName('card')) {
                                         card.style.textShadow = 'rgba(0, 0, 0, .5) 2px 2px';
-                                        card.style.display = 'inline-flex';
                                         card.style.borderRadius = '2.5px';
                                         card.style.fontSize = '60px';
                                         card.style.margin = '10px';
+                                        card.style.alignItems = 'center';
                                     }
                                 }, 20e3);
                             }
@@ -1930,13 +1928,13 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
                             $('#cardsHolder')
                                 .fadeOut(300)
                                 .fadeIn(300);
-                            document.getElementsByTagName('body')[0].style.font = '5px none, sans-serif';
                             for (var card of document.getElementsByClassName('card')) {
                                 card.style.textShadow = 'none';
-                                card.style.display = 'inline-block';
-                                card.style.fontSize = '100px';
+                                card.style.display = 'inline-flex';
+                                card.style.fontSize = '80px';
                                 card.style.borderRadius = '0px';
                                 card.style.margin = '5px';
+                                card.style.alignItems = 'flex-end';
                             }
                         }, 500); // delay
                     }
@@ -2237,13 +2235,13 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
                             $('#cardsHolder')
                                 .fadeOut(300)
                                 .fadeIn(300);
-                            document.getElementsByTagName('body')[0].style.font = 'bold 5vh Montserrat, sans-serif';
                             for (var card of document.getElementsByClassName('card')) {
                                 card.style.textShadow = 'rgba(0, 0, 0, .5) 2px 2px';
                                 card.style.display = 'inline-flex';
                                 card.style.borderRadius = '2.5px';
                                 card.style.fontSize = '60px';
                                 card.style.margin = '10px';
+                                card.style.alignItems = 'center';
                             }
                         }
 
