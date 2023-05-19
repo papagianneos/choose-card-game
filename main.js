@@ -3,14 +3,19 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
-import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
+import { pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
 
 // TO DO: NULL CARD
 
 (() => {
-    document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
-    document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
-    document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
+
+    if (!aprilFools) {
+        document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
+        document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
+    }
+
+    document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
+
     try {
 
         const irandom = i => {
@@ -45,7 +50,7 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
 
         // OG Mode
         let OG_modeEnabled = false,
-            appliedOGModeEffect = true;
+            appliedOGModeEffect = aprilFools ? false : true;
 
         // ------------------------------------------------
         // Hide & Seek
@@ -154,7 +159,7 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
         // ----------------------------------------------------------
         // Σπέσιαλ Κάρτες.
         // ----------------------------------------------------------
-        let specialCardsEnabled = true,
+        let specialCardsEnabled = aprilFools ? false : true,
             currentSpecialCards = [],
             lostByDeathCard = false,
             wonBySpecialCard = false,
@@ -1762,7 +1767,7 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
             }
 
             let screenLogo = document.createElement('img');
-            screenLogo.src = './img/game-logo.png';
+            screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/game-logo.png';
 
             // Φτιάξε και όρισε τα χαρακτηριστικά της εικόνας
             let imgAtributes = [
@@ -1805,6 +1810,8 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
             // (Function/Συνάρτηση) Δημιουργία κουμπιού
             const createButton = (label, bgColor, mode = undefined) => {
                 if (label != "Papagianneos FINALE") label = `${LANGUAGE_DATA[LANGUAGE_INDEX].play}<br>${label}`;
+
+                if (aprilFools) label = LANGUAGE_DATA[LANGUAGE_INDEX].play;
 
                 let button = document.createElement('button');
 
@@ -1923,7 +1930,7 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
                     }
 
                     // Όπως ήταν το παιχνίδι παλιά..
-                    if (OG_modeEnabled) {
+                    if (OG_modeEnabled || aprilFools) {
                         setTimeout(() => {
                             $('#cardsHolder')
                                 .fadeOut(300)
@@ -2135,14 +2142,16 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
             // Κουμπιά
             // ---------------------------------------------------
             buttonsWrapper.appendChild(playButton);
-            buttonsWrapper.appendChild(playButtonHard);
-            buttonsWrapper.appendChild(playButtonChallenge);
-            buttonsWrapper.appendChild(playButtonExtreme);
-            buttonsWrapper.appendChild(playButtonTimed);
-            buttonsWrapper.appendChild(playButtonPapagianneosFinale);
-            buttonsWrapper.appendChild(playButtonSecretMode);
-            buttonsWrapper.appendChild(playButtonHideAndSeek);
-            if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
+            if (!aprilFools) {
+                buttonsWrapper.appendChild(playButtonHard);
+                buttonsWrapper.appendChild(playButtonChallenge);
+                buttonsWrapper.appendChild(playButtonExtreme);
+                buttonsWrapper.appendChild(playButtonTimed);
+                buttonsWrapper.appendChild(playButtonPapagianneosFinale);
+                buttonsWrapper.appendChild(playButtonSecretMode);
+                buttonsWrapper.appendChild(playButtonHideAndSeek);
+                if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
+            }
             // ----------------------------------------------------
 
             let settingsHolder = document.createElement('div');
@@ -2188,12 +2197,26 @@ import { pgnBirthday, christmasDecorationsEnabled } from "./modules/events.js";
             infoHolder.appendChild(friendsWebsite); // for my friends :)
             infoHolder.appendChild(musicCredit); // για credit στο Soundimage.org για την μουσική του παιχνιδιού
             infoHolder.appendChild(closeInfoHolderBtn);
-            settingsHolder.appendChild(customizePageLink);
-            settingsHolder.appendChild(creditsBtn); // Credits
-            settingsHolder.appendChild(howToPlayBtn); // How to play link
-            settingsHolder.appendChild(achievementsMenuBtn);
-            startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
-            startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
+
+            if (aprilFools) {
+                youtubeIcon.style.display = 'none';
+                startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
+                featuredYoutuberHolder.style.background = 'transparent';
+                featuredYoutuberHolder.style.color = 'white';
+                startScreen.appendChild(developerNameLol); // λολ
+                startScreen.appendChild(friendsWebsite); // for my friends :)
+                startScreen.appendChild(musicCredit); // για credit στο Soundimage.org για την μουσική του παιχνιδιού
+            }
+
+            else {
+                settingsHolder.appendChild(customizePageLink);
+                settingsHolder.appendChild(creditsBtn); // Credits
+                settingsHolder.appendChild(howToPlayBtn); // How to play link
+                settingsHolder.appendChild(achievementsMenuBtn);
+                startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
+                startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
+            }
+
             startScreen.appendChild(buttonsWrapper); // Κουμπιά
             document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
 
