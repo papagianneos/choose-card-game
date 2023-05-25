@@ -2030,7 +2030,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     gameStarted = true;
                     // εξαφάνισε την οθόνη με το κουμπί μαζί
                     document.body.removeChild(startScreen);
-                    document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
+
+                    if (skin.id != 'no_skin') document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
                 }
 
                 return button;
