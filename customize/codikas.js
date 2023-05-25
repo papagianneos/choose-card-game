@@ -1,4 +1,6 @@
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
+import { sounds } from "../modules/sounds.js";
+import { SKINS_CONFIG } from "../modules/skins.js";
 
 (() => {
 
@@ -9,8 +11,15 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
     // Το κέντρο που κρατάει τα πάντα
     let mainBox = document.createElement('div');
     mainBox.className = 'mainBox';
+    mainBox.id = 'mainBox';
     mainBox.style.display = 'block';
     mainBox.style.border = '3px dotted darkgreen';
+
+    let mainSkinsBox = document.createElement('div');
+    mainSkinsBox.className = 'mainBox';
+    mainSkinsBox.id = 'mainSkinsBox';
+    mainSkinsBox.style.display = 'none';
+    mainSkinsBox.style.border = '3px dotted darkgreen';
 
     // Τίτλος Ιστοσελίδας.
     let websiteHeader = document.createElement('h1');
@@ -427,6 +436,74 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         }
     }
 
+    // --------------------------------------------------------------------------
+    // Skins.
+    // --------------------------------------------------------------------------
+    let websiteHeaderSkins = document.createElement('h1');
+    websiteHeaderSkins.appendChild(document.createTextNode('SKINS'));
+    mainSkinsBox.appendChild(websiteHeaderSkins);
+
+    // Φτιάξε τα skins για τον χρήστη
+    for (var skin of Object.keys(SKINS_CONFIG)) {
+        let skinSelect = document.createElement('div');
+        skinSelect.className = 'skin';
+        skinSelect.id = SKINS_CONFIG[skin].id;
+        skinSelect.style.background = SKINS_CONFIG[skin].bg == 'none' ? 'grey' : SKINS_CONFIG[skin].bg;
+        skinSelect.style.backgroundSize = 'cover';
+        skinSelect.style.backgroundRepeat = 'no-repeat';
+
+        // Δες αν είναι είδη επιλεγμένο από προηγούμενη φορά.
+        if (localStorage.getItem('selectedSkin') == skinSelect.id) {
+            skinSelect.style.background = 'green';
+            skinSelect.className += ' equipped';
+        }
+
+        let skinLabel = document.createElement('span');
+        skinLabel.appendChild(document.createTextNode(SKINS_CONFIG[skin].name));
+        skinSelect.appendChild(skinLabel);
+
+        // Επέλεξε το αν γίνει κλικ
+        skinSelect.onclick = () => {
+            sounds.buttonClick.play();
+            localStorage.setItem('selectedSkin', skinSelect.id);
+            for (var skin_ of document.getElementsByClassName('skin')) {
+                if (skin_.className.includes(' equipped')) {
+                    skin_.style.background = SKINS_CONFIG[skin_.id].bg == 'none' ? 'grey' : SKINS_CONFIG[skin_.id].bg;
+                    skin_.style.backgroundSize = 'cover';
+                    skin_.style.backgroundRepeat = 'no-repeat';
+                    skin_.className = 'skin';
+                }
+            }
+            skinSelect.style.background = 'green';
+            skinSelect.className += ' equipped';
+        }
+
+        mainSkinsBox.appendChild(skinSelect);
+    }
+
+    let openSkinsMenuButton = document.createElement('button');
+    openSkinsMenuButton.appendChild(document.createTextNode('Skins'));
+    openSkinsMenuButton.style.backgroundColor = 'purple';
+    openSkinsMenuButton.onclick = () => {
+        document.getElementById('mainBox').style.display = 'none';
+        document.getElementById('mainSkinsBox').style.display = 'block';
+    }
+
+    let buttonToReturnBackWrapper = document.createElement('div');
+
+    let buttonToReturnBack = document.createElement('button');
+    buttonToReturnBack.appendChild(document.createTextNode('Back'));
+    buttonToReturnBack.style.backgroundColor = 'purple';
+    buttonToReturnBack.onclick = () => {
+        document.getElementById('mainBox').style.display = 'block';
+        document.getElementById('mainSkinsBox').style.display = 'none';
+    }
+
+    buttonToReturnBackWrapper.appendChild(buttonToReturnBack);
+    mainSkinsBox.appendChild(buttonToReturnBackWrapper);
+    buttonsWrapper.appendChild(openSkinsMenuButton);
+    // --------------------------------------------------------------------------
+
     buttonsWrapper.appendChild(deleteDataBtn);
     buttonsWrapper.appendChild(saveButton);
 
@@ -434,6 +511,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 
     // Αφού τελείωσες, ενσωμάτωσέ το στο σώμα της ιστοσελίδας (<body>)
     document.body.appendChild(mainBox);
+    document.body.appendChild(mainSkinsBox);
 
     // Φόρτωσε τα default εφέ
     document.getElementById('cardShape').value = '2.5';
@@ -479,7 +557,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
         improvedGraphics: document.getElementById("improvedGraphics").checked,
         languageID: document.getElementById("language").value
     }][0]
- 
+
     previewCard.style.borderRadius = playersEffect.borderRadius;
     previewCard.style.fontSize = playersEffect.fontSize;
     previewCard.style.fontFamily = playersEffect.fontFamily;
