@@ -3,11 +3,13 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
-import { pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
-
-// TO DO: NULL CARD
+import { SKINS_CONFIG } from "./modules/skins.js";
+import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
 
 (() => {
+
+    // Skin που επέλεξε ο παίχτης.
+    const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
     if (!aprilFools) {
         document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
@@ -426,7 +428,7 @@ import { pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/
                 const card = {
                     shape: cardShapes[j],
                     realShape: cardShapes[j],
-                    color: cardColors[j],
+                    color: skin.id == 'no_skin' ? cardColors[j] : skin.bg,
                     specialCard: false,
                     specialCardEffect: () => { }
                 }
@@ -989,7 +991,7 @@ import { pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
         const resetCards = (addTries = true) => {
-            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : 'grey';
+            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : `grey ${skin.bg}`;
 
             if (addTries) {
                 tries += 1; // προσπάθειες του παίχτη
@@ -2028,6 +2030,7 @@ import { pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/
                     gameStarted = true;
                     // εξαφάνισε την οθόνη με το κουμπί μαζί
                     document.body.removeChild(startScreen);
+                    document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
                 }
 
                 return button;
