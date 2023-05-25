@@ -119,7 +119,7 @@ export const unlockSkin = (skinID, givenProgressToUpdate = 1) => {
 
     // Δημιούργησε ένα "κουτί" πληροφοριών και εμφάνισέ το στον παίχτη.
     let skinNotifBox = document.createElement('div');
-    skinNotifBox.className = "skinsUnlockedNotification";
+    skinNotifBox.className = "skinUnlockedNotification";
     skinNotifBox.style.background = skinThatWasUnlocked.color;
 
     let tempDiv = document.createElement('div');
