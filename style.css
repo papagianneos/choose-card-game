@@ -230,7 +230,8 @@ button:hover {
     overflow-y: scroll;
 }
 
-.achievementUnlockedNotification {
+.achievementUnlockedNotification,
+.skinUnlockedNotification {
     transition: 1s;
     position: fixed;
     top: 50%;
@@ -251,12 +252,16 @@ button:hover {
 
 .achievementUnlockedNotification h3,
 .achievementUnlockedNotification h4,
-.achievementUnlockedNotification h1 {
+.achievementUnlockedNotification h1,
+.skinUnlockedNotification h3,
+.skinUnlockedNotification h4,
+.skinUnlockedNotification h1 {
     color: white;
     font-style: normal;
 }
 
-.achievementUnlockedNotification .tempDiv {
+.achievementUnlockedNotification .tempDiv,
+.skinUnlockedNotification .tempDiv {
     width: 100%;
     text-align: center;
     color: white;
@@ -499,11 +504,23 @@ input[type=checkbox] {
     background-color: green;
 }
 
+.locked {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: green;
+    opacity: .35;
+}
+
+lockedtxt {
+    color: red;
+}
+
 .skin:hover {
     opacity: .5;
 }
 
 .skin span {
+    user-select: none;
     transform: rotate(15deg);
 }
 
