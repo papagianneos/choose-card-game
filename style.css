@@ -481,6 +481,32 @@ input[type=checkbox] {
     background-color: grey;
     opacity: .5;
 }*/
+
+.skin {
+    transition: 0.5s;
+    width: 25%;
+    display: inline-flex;
+    height: 250px;
+    margin: 5px;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.equipped {
+    pointer-events: none;
+    background-color: green;
+}
+
+.skin:hover {
+    opacity: .5;
+}
+
+.skin span {
+    transform: rotate(15deg);
+}
+
 .confetti-container {
     user-select: none;
     z-index: 10;
