@@ -404,7 +404,7 @@ import { SKINS_CONFIG } from "../modules/skins.js";
     saveButton.style.marginTop = '50px';
     saveButton.style.marginBottom = '50px';
     saveButton.onclick = () => {
-        new Audio('../audio/click.mp3').play();
+        sounds.buttonClick.play();
         const effect = [{
             neonMode: document.getElementById("neonCard").checked,
             widthAndHeight: document.getElementById("cardOutsideShape").value,
@@ -485,6 +485,7 @@ import { SKINS_CONFIG } from "../modules/skins.js";
     openSkinsMenuButton.appendChild(document.createTextNode('Skins'));
     openSkinsMenuButton.style.backgroundColor = 'purple';
     openSkinsMenuButton.onclick = () => {
+        sounds.buttonClick.play();
         document.getElementById('mainBox').style.display = 'none';
         document.getElementById('mainSkinsBox').style.display = 'block';
     }
@@ -495,6 +496,7 @@ import { SKINS_CONFIG } from "../modules/skins.js";
     buttonToReturnBack.appendChild(document.createTextNode('Back'));
     buttonToReturnBack.style.backgroundColor = 'purple';
     buttonToReturnBack.onclick = () => {
+        sounds.buttonClick.play();
         document.getElementById('mainBox').style.display = 'block';
         document.getElementById('mainSkinsBox').style.display = 'none';
     }
