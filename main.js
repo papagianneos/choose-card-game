@@ -221,6 +221,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             brokenCardsEnabled = false,
             MAZE_WALLS_AMOUNT = 5,
             BROKEN_CARDS_AMOUNT = 5,
+            deltaEffect = false,
             CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦".split('');
 
         // ========================================================================
@@ -318,6 +319,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
                         cardShapes.push(randomlyChosenSpecialCard.shape);
                         AMOUNT_OF_CARDS += 2;
+
+                        // 1 in 10 chance, spawn Δ card in game.
+                        if (getRandomInt(0, 10) == 7) {
+                            cardShapes.push(specialCardsConfig[24].shape);
+                            AMOUNT_OF_CARDS += 2;
+                        }
 
                         // Δες αν υπάρχει troll κάρτα..
                         if (cardShapes.includes('[?]')) {
@@ -861,6 +868,11 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 }, 20e3);
                             }
                             break;
+
+                        case specialCardsConfig[24].shape: // Petercraft [REDACTED]
+                            specialCardIndex = 24;
+                            card.specialCardEffect = () => deltaEffect = true;
+                            break;
                     }
 
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
@@ -1275,7 +1287,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                             // Αν είναι σπέσιαλ κάρτα..
                             if (firstCard.specialCard && secondCard.specialCard) {
-                                firstCard.specialCardEffect();
+                                if (!deltaEffect) firstCard.specialCardEffect();
 
                                 // Επίτευγμα: "Τι ήταν αυτό;"
                                 unlockAchievement('ach_first_special_card');
