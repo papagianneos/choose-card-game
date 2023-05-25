@@ -1,6 +1,6 @@
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 import { sounds } from "../modules/sounds.js";
-import { SKINS_CONFIG } from "../modules/skins.js";
+import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
 
 (() => {
 
@@ -445,12 +445,32 @@ import { SKINS_CONFIG } from "../modules/skins.js";
 
     // Φτιάξε τα skins για τον χρήστη
     for (var skin of Object.keys(SKINS_CONFIG)) {
+
+        // Bug fix
+        if (!SKINS_CONFIG[skin].displayBg) SKINS_CONFIG[skin].displayBg = SKINS_CONFIG[skin].bg;
+
+        // Check for unlock here too
+        if (SKINS_CONFIG[skin].locked) {
+            let temp_obj = {};
+            let index = -1;
+
+            for (var skinIndex = 0; skinIndex < FETCHED_SKIN_DATA.length; skinIndex++) if (FETCHED_SKIN_DATA[skinIndex].id == skin) index = skinIndex;
+            for (var i = 0; i < FETCHED_SKIN_DATA.length; i++) temp_obj[skin] = Object.values(FETCHED_SKIN_DATA)[index];
+
+            SKINS_CONFIG[skin].locked = temp_obj[skin].locked;
+        }
+
         let skinSelect = document.createElement('div');
         skinSelect.className = 'skin';
         skinSelect.id = SKINS_CONFIG[skin].id;
-        skinSelect.style.background = SKINS_CONFIG[skin].bg == 'none' ? 'grey' : SKINS_CONFIG[skin].bg;
+        skinSelect.style.background = SKINS_CONFIG[skin].displayBg == 'none' ? 'grey' : SKINS_CONFIG[skin].displayBg;
         skinSelect.style.backgroundSize = 'cover';
         skinSelect.style.backgroundRepeat = 'no-repeat';
+
+        if (SKINS_CONFIG[skin].locked) {
+            skinSelect.isLocked = true;
+            skinSelect.className += ' locked';
+        }
 
         // Δες αν είναι είδη επιλεγμένο από προηγούμενη φορά.
         if (localStorage.getItem('selectedSkin') == skinSelect.id) {
@@ -459,19 +479,22 @@ import { SKINS_CONFIG } from "../modules/skins.js";
         }
 
         let skinLabel = document.createElement('span');
-        skinLabel.appendChild(document.createTextNode(SKINS_CONFIG[skin].name));
+        skinLabel.innerHTML = skinSelect.isLocked ? `${SKINS_CONFIG[skin].name}<br><lockedtxt>[Locked]</lockedtxt>` : SKINS_CONFIG[skin].name;
         skinSelect.appendChild(skinLabel);
 
         // Επέλεξε το αν γίνει κλικ
-        skinSelect.onclick = () => {
+        if (!skinSelect.isLocked) skinSelect.onclick = () => {
             sounds.buttonClick.play();
             localStorage.setItem('selectedSkin', skinSelect.id);
             for (var skin_ of document.getElementsByClassName('skin')) {
                 if (skin_.className.includes(' equipped')) {
-                    skin_.style.background = SKINS_CONFIG[skin_.id].bg == 'none' ? 'grey' : SKINS_CONFIG[skin_.id].bg;
+                    skin_.style.background = SKINS_CONFIG[skin_.id].displayBg == 'none' ? 'grey' : SKINS_CONFIG[skin_.id].displayBg;
                     skin_.style.backgroundSize = 'cover';
                     skin_.style.backgroundRepeat = 'no-repeat';
                     skin_.className = 'skin';
+                    if (skin_.isLocked) {
+                        skin_.className += ' locked';
+                    }
                 }
             }
             skinSelect.style.background = 'green';
