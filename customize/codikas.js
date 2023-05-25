@@ -479,7 +479,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
         }
 
         let skinLabel = document.createElement('span');
-        skinLabel.innerHTML = skinSelect.isLocked ? `${SKINS_CONFIG[skin].name}<br><lockedtxt>[Locked]</lockedtxt>` : SKINS_CONFIG[skin].name;
+        skinLabel.innerHTML = skinSelect.isLocked ? `${SKINS_CONFIG[skin].name}<br><lockedtxt>[Locked]</lockedtxt>` : `${SKINS_CONFIG[skin].name}<br>`;
         skinSelect.appendChild(skinLabel);
 
         // Επέλεξε το αν γίνει κλικ
