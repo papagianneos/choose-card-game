@@ -320,8 +320,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         cardShapes.push(randomlyChosenSpecialCard.shape);
                         AMOUNT_OF_CARDS += 2;
 
-                        // 1 in 10 chance, spawn Δ card in game.
-                        if (getRandomInt(0, 10) == 7) {
+                        // 1 in 19 chance, spawn Δ card in game.
+                        if (getRandomInt(0, 19) == 19) {
                             cardShapes.push(specialCardsConfig[24].shape);
                             AMOUNT_OF_CARDS += 2;
                         }
