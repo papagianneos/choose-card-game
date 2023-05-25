@@ -3,6 +3,7 @@ import { createSnow } from './snow.js';
 export const christmasDecorationsEnabled = new Date().getDate() > 10 && new Date().getMonth() == 11; // December 10th+
 export const pgnBirthday = new Date().getDate() == 15 && new Date().getMonth() == 5; // June 15th.
 export const aprilFools = new Date().getDate() == 1 && new Date().getMonth() == 3; // April 1st
+export let skinsDisabled = false;
 
 export const idkSomeFunctionSoItRuns = (() => {
     // April Fools!
@@ -14,6 +15,7 @@ export const idkSomeFunctionSoItRuns = (() => {
     // Για τα γεννέθλια του developer Pgn, βάλε κονφετί στην σελίδα.
     // ------------------------------------------------------------------------------------
     if (pgnBirthday) {
+        skinsDisabled = true;
         const irandom = i => {
             let max = Math.floor(i);
             return Math.floor(Math.random() * (max + 1));
