@@ -12,14 +12,20 @@ export const SKINS_CONFIG = {
         name: 'Woody',
         id: 'woody',
         bg: 'url(/img/wood.png)',
-        pageBg: 'url(/img/wood_bg.png)'
+        pageBg: 'url(/img/wood_bg.png)',
+        progress: 0,
+        requiredProgress: 25,
+        locked: true
     },
 
     'metal': {
         name: 'Metallic',
         id: 'metal',
         bg: 'url(/img/metal.png)',
-        pageBg: 'url(/img/metal_bg.png)'
+        pageBg: 'url(/img/metal_bg.png)',
+        progress: 0,
+        requiredProgress: 50,
+        locked: true
     },
 
     'gradient': {
