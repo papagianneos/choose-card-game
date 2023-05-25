@@ -3,7 +3,7 @@ import { specialCardsConfig } from "./modules/specialCardsConfig.js";
 import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
-import { SKINS_CONFIG } from "./modules/skins.js";
+import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
 
 (() => {
@@ -402,6 +402,17 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             }
 
             let cardColors = randomChoice(COLOR_PALETTES);
+
+            // -------------------------------------------------------------------
+            // Gradient Skin Special Effect
+            // -------------------------------------------------------------------
+            if (skin.id == 'gradient') {
+                for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
+                    cardColors[cardColorIndex] = `linear-gradient(to left top, ${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)})`;
+                }
+            }
+            // -------------------------------------------------------------------
+
             cardColors.push(...cardColors); // duplicate
 
             // ----------------------------------------------------------------------
@@ -428,7 +439,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 const card = {
                     shape: cardShapes[j],
                     realShape: cardShapes[j],
-                    color: skin.id == 'no_skin' ? cardColors[j] : skin.bg,
+                    color: ['no_skin', 'gradient'].includes(skin.id) ? cardColors[j] : skin.bg,
                     specialCard: false,
                     specialCardEffect: () => { }
                 }
@@ -991,7 +1002,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
         // Συνάρτηση που επαναφέρει όσες κάρτες δεν έχουν βρεθεί
         const resetCards = (addTries = true) => {
-            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : `grey ${skin.bg}`;
+            const resetColor = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : skin.bg;
 
             if (addTries) {
                 tries += 1; // προσπάθειες του παίχτη
@@ -1292,6 +1303,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                                 // Τρόπαιο: "Δάσκαλος των Καρτών"
                                 unlockAchievement('tr_master_of_cards');
+
+                                unlockSkin('gradient');
 
                                 const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
                                 score += (scoreReceived != 0 ? scoreReceived : 1);
@@ -2031,7 +2044,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // εξαφάνισε την οθόνη με το κουμπί μαζί
                     document.body.removeChild(startScreen);
 
-                    if (skin.id != 'no_skin') document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
+                    if (skin.pageBg != 'none') document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
                 }
 
                 return button;
