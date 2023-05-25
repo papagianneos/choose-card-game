@@ -29,7 +29,7 @@ export const SKINS_CONFIG = {
         displayBg: 'linear-gradient(to left top, red, blue)',
         pageBg: 'none',
         progress: 0,
-        requiredProgress: 2,
+        requiredProgress: 25,
         locked: true
     },
 };
