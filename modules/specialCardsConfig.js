@@ -157,5 +157,19 @@ export const specialCardsConfig = [
         info: '3 . 1 4 ...',
         exclusiveMode: 'cobalt',
         noSpawnInFinale: true
+    },
+
+    { // Universe-Swap
+        shape: ']×[',
+        color: 'linear-gradient(to left top, black, #1e0c21)',
+        info: 'Universe Swap',
+        noSpawnInFinale: true
+    },
+    
+    { // Δ
+        shape: 'Δ',
+        color: 'radial-gradient(#0ee2ed, #1483ba)',
+        info: '???',
+        noSpawnInFinale: true
     }
 ];
