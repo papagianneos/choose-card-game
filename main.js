@@ -1304,7 +1304,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 // Τρόπαιο: "Δάσκαλος των Καρτών"
                                 unlockAchievement('tr_master_of_cards');
 
-                                unlockSkin('gradient');
+                                // Skin: "Woody"
+                                unlockSkin('woody');
 
                                 const scoreReceived = Math.round(1 * ((score == 0 ? 10 : score) / (tries == 0 ? 1 : tries)));
                                 score += (scoreReceived != 0 ? scoreReceived : 1);
@@ -1351,6 +1352,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                             // Τρόπαιο: "Τσαλαπετεινός"
                             unlockAchievement('tr_10k_tries');
+
+                            // Skin: "Metallic"
+                            unlockSkin('metal');
 
                             // ------------------------------------------------------------------------------------------------------
                             // "Virus" mode setup (made by Petercraft)
@@ -2585,6 +2589,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                             // Τρόπαιο: "Βρες τον σωστό δάσκαλο"
                             unlockAchievement('tr_win_any_1k');
+
+                            // Skin: "Super Gradient"
+                            unlockSkin('gradient');
 
                             let achievementIDToCheckForUnlock = '';
                             switch (true) {
