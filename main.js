@@ -149,6 +149,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             extremeModeTriesTextColor = '#ba0909';
             warningColorOfBodyTag = '#b85858';
         }
+
+        if (skin.id == 'gradient') warningColorOfBodyTag = 'conic-gradient(maroon, black, maroon, black, maroon)';
         // -------------------------------------------------------------
 
         // -----------------------------------------------------------------------
@@ -1216,11 +1218,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // --------------------------------------------------------
 
                     if (appliedOGModeEffect) {
-                        // ----------------------------------
+                        
+                        // ----------------------------------------------------------------------
                         // Ήχος κάρτας.
-                        // ----------------------------------
+                        // ----------------------------------------------------------------------
                         sounds.cardOpen.play();
-                        // ----------------------------------
+                        // ----------------------------------------------------------------------
 
                         // ---------------------------------------------------------------
                         // ANIMATION. (Να μην υπάρχει στο OG mode)
@@ -2407,7 +2410,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         if (timeLeftPerc <= 35) {
                             color__ = 'red';
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
+                            document.getElementsByTagName('body')[0].style.background = warningColorOfBodyTag;
                         }
 
                         // -----------------------------------------------------------------------------------------------------------
@@ -2449,7 +2452,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                         triesText.style.animation = 'seismos .3s linear infinite';
                         document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                        document.getElementsByTagName('body')[0].style.backgroundColor = warningColorOfBodyTag;
+                        document.getElementsByTagName('body')[0].style.background = warningColorOfBodyTag;
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
