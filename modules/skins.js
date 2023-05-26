@@ -1,15 +1,16 @@
 import { sounds } from "./sounds.js";
+import { LANGUAGE_DATA, LANGUAGE_INDEX } from "./languages.js";
 
 export const SKINS_CONFIG = {
     'no_skin': {
-        name: 'No Skin',
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_no_skin,
         id: 'no_skin',
         bg: 'grey',
         pageBg: 'none',
     },
 
     'woody': {
-        name: 'Woody',
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_woody,
         id: 'woody',
         bg: 'url(/img/wood.png)',
         pageBg: 'url(/img/wood_bg.png)',
@@ -19,7 +20,7 @@ export const SKINS_CONFIG = {
     },
 
     'metal': {
-        name: 'Metallic',
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_metal,
         id: 'metal',
         bg: 'url(/img/metal.png)',
         pageBg: 'url(/img/metal_bg.png)',
@@ -29,13 +30,24 @@ export const SKINS_CONFIG = {
     },
 
     'gradient': {
-        name: 'Super Gradient',
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_gradient,
         id: 'gradient',
         bg: 'linear-gradient(to left top, grey, white)',
         displayBg: 'linear-gradient(to left top, red, blue)',
-        pageBg: 'none',
+        pageBg: 'conic-gradient(black, grey, black)',
         progress: 0,
         requiredProgress: 25,
+        locked: true
+    },
+
+    'window': {
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_window,
+        id: 'window',
+        bg: 'url(/img/window.png)',
+        displayBg: 'url(/img/window.png)',
+        pageBg: 'none',
+        progress: 0,
+        requiredProgress: 60,
         locked: true
     },
 };
@@ -133,13 +145,12 @@ export const unlockSkin = (skinID, givenProgressToUpdate = 1) => {
 
     // Τίτλος (που λέει ότι ξεκλειδώθηκε)
     let skinNotifTitle = document.createElement('h1');
-    skinNotifTitle.appendChild(document.createTextNode('SKIN UNLOCKED!'));
+    skinNotifTitle.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].new} SKIN!`));
     skinNotifTitle.style.fontSize = '25px';
 
     // Δείξε ποιό επίτευγμα ξεκλειδώθηκε.
     let skinNotifDesc = document.createElement('h3');
-
-    skinNotifDesc.appendChild(document.createTextNode(FETCHED_SKIN_DATA[skinThatWasUnlockedIndex].name));
+    skinNotifDesc.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX][`label_skin_${skinThatWasUnlocked.id}`] ? LANGUAGE_DATA[LANGUAGE_INDEX][`label_skin_${skinThatWasUnlocked.id}`] : FETCHED_SKIN_DATA[skinThatWasUnlockedIndex].name));
     skinNotifDesc.style.fontSize = '20px';
 
     setTimeout(() => {
