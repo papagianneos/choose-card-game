@@ -129,7 +129,7 @@ export const specialCardsConfig = [
 
     {
         shape: '∞',
-        color: 'linear-gradient(to left top, red, blue, green, yellow, purple)',
+        color: 'conic-gradient(red, blue, green, yellow, purple, red)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX]['info_special_card_wild_card'],
         exclusiveMode: 'cobalt',
         noSpawnInFinale: true
@@ -162,7 +162,7 @@ export const specialCardsConfig = [
     { // Universe-Swap
         shape: ']×[',
         color: 'linear-gradient(to left top, black, #1e0c21)',
-        info: 'Universe Swap',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_universe_swap,
         noSpawnInFinale: true
     },
     
