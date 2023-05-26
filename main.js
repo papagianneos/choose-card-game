@@ -415,7 +415,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             // -------------------------------------------------------------------
             if (skin.id == 'gradient') {
                 for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
-                    cardColors[cardColorIndex] = `linear-gradient(to left top, ${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)})`;
+                    cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)}, ${cardColors[cardColorIndex]})`;
                 }
             }
             // -------------------------------------------------------------------
@@ -878,7 +878,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
                     if (specialCardDetected) {
                         addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
-                        card.color = specialCardsConfig[specialCardIndex].color;
+                        card.color = ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
                         card.specialCard = true;
 
                         // Σε περίπτωση που είναι η troll card
@@ -1034,6 +1034,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     //}
                     card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
                     card.style.transform = 'none';
+                    card.style.backgroundSize = 'cover';
                     card.removeAttribute('egineclick');
 
                     if (pgnBirthday) card.style.backgroundSize = '250%';
@@ -1057,6 +1058,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             div.className = 'card';
             div.style.background = card.color;
             div.style.backgroundSize = pgnBirthday && card.shape != 'Eng' ? '250%' : 'cover';
+            div.style.backgroundBlendMode = 'darken';
 
             if (hideAndSeekModeEnabled) {
                 div.style.position = 'absolute';
@@ -1235,6 +1237,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // Ειδική περίπτωση του "π".
                         div.style.backgroundSize = pgnBirthday && !div.specialCard ? '250%' : div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
+                        div.style.backgroundBlendMode = 'darken';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (div.savedText == specialCardsConfig[16].shape) {
@@ -1865,6 +1868,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                     // Επίτευγμα: "bals?!?!?"
                     unlockAchievement('ach_bals');
+
+                    // Skin: "Window"
+                    unlockSkin('window');
 
                     if (mode != 'void') {
                         document.getElementsByTagName('body')[0].style.animation = 'none';
