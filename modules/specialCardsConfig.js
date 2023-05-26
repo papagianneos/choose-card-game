@@ -169,7 +169,7 @@ export const specialCardsConfig = [
     { // Δ
         shape: 'Δ',
         color: 'radial-gradient(#0ee2ed, #1483ba)',
-        info: 'Think smart, not hard!',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_delta,
         noSpawnInFinale: true,
         neverSpawn: true
     }
