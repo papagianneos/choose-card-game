@@ -44,7 +44,7 @@ export const SKINS_CONFIG = {
         name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_window,
         id: 'window',
         bg: 'url(/img/window.png)',
-        displayBg: 'url(/img/window.png)',
+        displayBg: 'url(/img/window.png) center',
         pageBg: 'none',
         progress: 0,
         requiredProgress: 60,
