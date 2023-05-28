@@ -319,7 +319,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
                         //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                        cardShapes.push(randomlyChosenSpecialCard.shape);
+                        cardShapes.push(specialCardsConfig[5].shape);
                         AMOUNT_OF_CARDS += 2;
 
                         // 1 in 19 chance, spawn Δ card in game.
@@ -1218,7 +1218,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // --------------------------------------------------------
 
                     if (appliedOGModeEffect) {
-                        
+
                         // ----------------------------------------------------------------------
                         // Ήχος κάρτας.
                         // ----------------------------------------------------------------------
@@ -2468,9 +2468,45 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             music.extremeModeGameMusic.play();
                         }
                     }
+                }
+                // --------------------------------------------------------------------
+            }
+
+            // game loop
+            const gameLoop = setInterval(() => {
+
+
+                let openedCards = [];
+                if (!hideAndSeekModeEnabled) {
+                    // --------------------------------------------------------
+                    // Μέτρα πόσες ανοιχτές κάρτες υπάρχουν/έχουν βρεθεί
+                    // και τέλειωσε το παιχνίδι αν έχουν βρεθεί όλες.
+                    // --------------------------------------------------------
+
+                    for (var card_ of document.getElementsByClassName('card')) {
+                        if (card_.getAttribute('anoixthcarta')) {
+                            openedCards.push(card_);
+                        }
+                    }
+                    // --------------------------------------------------------
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
+                    // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
+                    // με τις κανονικές κάρτες.
+                    // --------------------------------------------------------------------------------------------------------------------
+                    for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
+
+                        openedCards = openedCards.filter(_card => { return _card.realShape != currentSpecialCards[specialCardShapeIndex] });
+                        if (!removedSpecialCardsFromFullCount[specialCardShapeIndex]) {
+                            AMOUNT_OF_CARDS -= 1;
+                            removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
+                        }
+                    }
+                    // --------------------------------------------------------------------------------------------------------------------
 
                     // Δες αν έχασε ο παίχτης
-                    if ((!lostExtremeModeEnabled && lostByDeathCard) || (tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
+                    if ((!lostExtremeModeEnabled && lostByDeathCard) || (extremeModeEnabled && tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
 
                         // Επίτευγμα: "Τι σκατά"
@@ -2529,42 +2565,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         lostExtremeModeEnabled = true;
                         extremeModeEnabled = false; // σπάσε την επανάληψη
                     }
-                }
-                // --------------------------------------------------------------------
-            }
-
-            // game loop
-            const gameLoop = setInterval(() => {
-
-
-                let openedCards = [];
-                if (!hideAndSeekModeEnabled) {
-                    // --------------------------------------------------------
-                    // Μέτρα πόσες ανοιχτές κάρτες υπάρχουν/έχουν βρεθεί
-                    // και τέλειωσε το παιχνίδι αν έχουν βρεθεί όλες.
-                    // --------------------------------------------------------
-
-                    for (var card_ of document.getElementsByClassName('card')) {
-                        if (card_.getAttribute('anoixthcarta')) {
-                            openedCards.push(card_);
-                        }
-                    }
-                    // --------------------------------------------------------
-
-                    // --------------------------------------------------------------------------------------------------------------------
-                    // Αφαίρεσε τις σπεσιαλ κάρτες, ΑΝ υπάρχουν, από το συνολικό σύνολο καρτών
-                    // έτσι ώστε ο παίχτης να μην χρειάζεται να την βρει για να κερδίσει μαζί
-                    // με τις κανονικές κάρτες.
-                    // --------------------------------------------------------------------------------------------------------------------
-                    for (var specialCardShapeIndex = 0; specialCardShapeIndex < currentSpecialCards.length; specialCardShapeIndex++) {
-
-                        openedCards = openedCards.filter(_card => { return _card.realShape != currentSpecialCards[specialCardShapeIndex] });
-                        if (!removedSpecialCardsFromFullCount[specialCardShapeIndex]) {
-                            AMOUNT_OF_CARDS -= 1;
-                            removedSpecialCardsFromFullCount[specialCardShapeIndex] = true;
-                        }
-                    }
-                    // --------------------------------------------------------------------------------------------------------------------
                 }
 
                 else {
