@@ -51,6 +51,7 @@ export let LANGUAGE_DATA = [
         "label_skin_metal": "Μεταλλικό",
         "label_skin_gradient": "Ξεχωριστά Χρώματα",
         "label_skin_window": "Παράθυρο",
+        "label_skin_crystal": "Κρυσταλλικό",
         // -----------------------------------------------------------------------------
 
         // -------------------------------------------------------------------------------
@@ -410,6 +411,7 @@ export let LANGUAGE_DATA = [
         "label_skin_metal": "Metallic",
         "label_skin_gradient": "Super Gradient",
         "label_skin_window": "Window",
+        "label_skin_crystal": "Crystallic",
         // -----------------------------------------------------------------------------
 
         // -------------------------------------------------------------------------------
