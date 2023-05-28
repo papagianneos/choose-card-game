@@ -50,6 +50,15 @@ export const SKINS_CONFIG = {
         requiredProgress: 60,
         locked: true
     },
+
+    'crystal': {
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_crystal,
+        id: 'crystal',
+        bg: 'conic-gradient(from 60deg, blue, #68a0b1, #7fdffa, blue)',
+        pageBg: 'url(/img/crystal_bg.png)',
+        displayBg: 'url(/img/crystal_bg.png)',
+        locked: true
+    }
 };
 
 export const skin__ = localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? localStorage.getItem('selectedSkin') : 'no_skin';
