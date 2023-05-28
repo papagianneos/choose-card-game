@@ -319,7 +319,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
                         //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                        cardShapes.push(specialCardsConfig[5].shape);
+                        cardShapes.push(randomlyChosenSpecialCard.shape);
                         AMOUNT_OF_CARDS += 2;
 
                         // 1 in 19 chance, spawn Δ card in game.
