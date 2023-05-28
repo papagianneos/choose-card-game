@@ -1060,7 +1060,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             div.className = 'card';
             div.style.background = card.color;
             div.style.backgroundSize = pgnBirthday && card.shape != 'Eng' ? '250%' : 'cover';
-            div.style.backgroundBlendMode = 'darken';
+            div.style.backgroundBlendMode = ['crystal'].includes(skin.id) ? 'multiply' : 'darken';
 
             if (hideAndSeekModeEnabled) {
                 div.style.position = 'absolute';
@@ -1240,7 +1240,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // Ειδική περίπτωση του "π".
                         div.style.backgroundSize = pgnBirthday && !div.specialCard ? '250%' : div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
-                        div.style.backgroundBlendMode = 'darken';
+                        div.style.backgroundBlendMode = ['crystal'].includes(skin.id) ? 'multiply' : 'darken';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (div.savedText == specialCardsConfig[16].shape) {
@@ -1804,12 +1804,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             }
 
             let screenLogo = document.createElement('img');
-            screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/game-logo.png';
+            screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/scrapped-logo.png';
 
             // Φτιάξε και όρισε τα χαρακτηριστικά της εικόνας
             let imgAtributes = [
                 ['draggable', 'false'],
-                ['width', '252'],
+                ['width', aprilFools ? '252' : ''],
                 ['height', '250']
             ];
 
@@ -1874,6 +1874,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                     // Skin: "Window"
                     unlockSkin('window');
+
+                    // Special Skin: "Crystal".
+                    if (pgnBirthday) unlockSkin('crystal');
 
                     if (mode != 'void') {
                         document.getElementsByTagName('body')[0].style.animation = 'none';
