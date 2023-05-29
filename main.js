@@ -1256,7 +1256,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // Ειδική περίπτωση του "π".
                         div.style.backgroundSize = pgnBirthday && !div.specialCard ? '250%' : div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
-                        div.style.backgroundBlendMode = ['crystal'].includes(skin.id) ? 'multiply' : 'darken';
+                        div.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (div.savedText == specialCardsConfig[16].shape) {
