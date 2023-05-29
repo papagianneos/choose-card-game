@@ -224,7 +224,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             MAZE_WALLS_AMOUNT = 5,
             BROKEN_CARDS_AMOUNT = 5,
             deltaEffect = false,
-            CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±".split('');
+            CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
         // ========================================================================
         // 1 - Σχήμα/σχέδιο και χρώμα των καρτών setup
@@ -252,7 +252,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
         // ΤΥΧΑΙΑ Σχήματα/σχέδια καρτών (2 κάρτες από καθεμιά άρα αντιγραφή τα στοιχεία)
         const startGame = () => {
-            let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±".split(''),
+            let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split(''),
                 generatedPalette = [],
                 SHAPE_PALETTES = [],
                 chosenCombination = '';
