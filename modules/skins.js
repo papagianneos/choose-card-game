@@ -58,7 +58,25 @@ export const SKINS_CONFIG = {
         pageBg: 'url(/img/crystal_bg.png)',
         displayBg: 'url(/img/crystal_bg.png)',
         locked: true
-    }
+    },
+
+    'radian': {
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_radian,
+        id: 'radian',
+        bg: 'repeating-linear-gradient(45deg, red, transparent 20px)',
+        displayBg: 'repeating-linear-gradient(45deg, red, transparent 20px)',
+        pageBg: 'none',
+        locked: true
+    },
+
+    'target': {
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_target,
+        id: 'target',
+        bg: 'repeating-radial-gradient(grey, transparent 40px)',
+        displayBg: 'repeating-radial-gradient(grey, transparent 40px)',
+        pageBg: 'none',
+        locked: true
+    },
 };
 
 export const skin__ = localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? localStorage.getItem('selectedSkin') : 'no_skin';
@@ -97,15 +115,15 @@ if (FETCHED_SKIN_DATA.length != Object.values(SKINS_CONFIG).length) {
 
 // Check for unlock
 if (SKINS_CONFIG[skin__].locked) {
-        let temp_obj = {};
-        let index = -1;
+    let temp_obj = {};
+    let index = -1;
 
-        for (var skinIndex = 0; skinIndex < FETCHED_SKIN_DATA.length; skinIndex++) if (FETCHED_SKIN_DATA[skinIndex].id == skin__) index = skinIndex;
-        for (var i = 0; i < FETCHED_SKIN_DATA.length; i++) temp_obj[skin__] = Object.values(FETCHED_SKIN_DATA)[index];
+    for (var skinIndex = 0; skinIndex < FETCHED_SKIN_DATA.length; skinIndex++) if (FETCHED_SKIN_DATA[skinIndex].id == skin__) index = skinIndex;
+    for (var i = 0; i < FETCHED_SKIN_DATA.length; i++) temp_obj[skin__] = Object.values(FETCHED_SKIN_DATA)[index];
 
-        if (temp_obj[skin__].locked) {
-            localStorage.setItem('selectedSkin', 'no_skin');
-        }
+    if (temp_obj[skin__].locked) {
+        localStorage.setItem('selectedSkin', 'no_skin');
+    }
 }
 
 // Συνάρτηση που ξεκλειδώνει ένα συγκεκριμένο επίτευγμα με βάση την ταυτότητά του.
