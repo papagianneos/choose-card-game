@@ -412,15 +412,31 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
             let cardColors = randomChoice(COLOR_PALETTES);
 
-            // -------------------------------------------------------------------
-            // Gradient Skin Special Effect
-            // -------------------------------------------------------------------
-            if (skin.id == 'gradient') {
-                for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
-                    cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)}, ${cardColors[cardColorIndex]})`;
+            switch (skin.id) {
+                // Gradient Skin Special Effect
+                case 'gradient': {
+                    for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
+                        cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)}, ${cardColors[cardColorIndex]})`;
+                    }
                 }
+                    break;
+
+                // Radian Skin Special Effect
+                case 'radian': {
+                    for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
+                        cardColors[cardColorIndex] = `repeating-linear-gradient(${getRandomInt(1, 360)}deg, ${cardColors[cardColorIndex]}, transparent 20px)`;
+                    }
+                }
+                    break;
+
+                // Target Skin Special Effect
+                case 'target': {
+                    for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
+                        cardColors[cardColorIndex] = `repeating-radial-gradient(${cardColors[cardColorIndex]}, transparent 40px)`;
+                    }
+                }
+                    break;
             }
-            // -------------------------------------------------------------------
 
             cardColors.push(...cardColors); // duplicate
 
@@ -448,7 +464,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 const card = {
                     shape: cardShapes[j],
                     realShape: cardShapes[j],
-                    color: ['no_skin', 'gradient'].includes(skin.id) ? cardColors[j] : skin.bg,
+                    color: ['no_skin', 'gradient', 'radian', 'target'].includes(skin.id) ? cardColors[j] : skin.bg,
                     specialCard: false,
                     specialCardEffect: () => { }
                 }
@@ -1060,7 +1076,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             div.className = 'card';
             div.style.background = card.color;
             div.style.backgroundSize = pgnBirthday && card.shape != 'Eng' ? '250%' : 'cover';
-            div.style.backgroundBlendMode = ['crystal'].includes(skin.id) ? 'multiply' : 'darken';
+            div.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
 
             if (hideAndSeekModeEnabled) {
                 div.style.position = 'absolute';
