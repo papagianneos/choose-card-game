@@ -1820,12 +1820,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             }
 
             let screenLogo = document.createElement('img');
-            screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/scrapped-logo.png';
+            screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/game-logo.png';
 
             // Φτιάξε και όρισε τα χαρακτηριστικά της εικόνας
             let imgAtributes = [
                 ['draggable', 'false'],
-                ['width', aprilFools ? '252' : ''],
+                ['width', '252'],
                 ['height', '250']
             ];
 
