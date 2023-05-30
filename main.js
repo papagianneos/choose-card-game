@@ -688,7 +688,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 for (var card_ of document.getElementsByClassName('card')) {
                                     if (!card_.getAttribute('anoixthcarta')) {
                                         card_.innerHTML = card_.savedText;
-                                        card_.style.background = card_.savedBackgroundColor;
+                                        playersEffect ? playersEffect.neonMode ? card_.style.borderColor = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor;
                                     }
                                 }
 
