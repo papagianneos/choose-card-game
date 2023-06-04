@@ -30,7 +30,7 @@ export const music = {
     }),
 
     papagianneosFinaleMusic: new Howl({
-        src: ['/audio/papagianneos_finale_music_v2.mp3'],
+        src: ['/audio/papagianneos_finale_v3.mp3'],
         loop: true
     }),
 
