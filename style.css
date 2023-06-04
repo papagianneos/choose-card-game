@@ -706,3 +706,20 @@ lockedtxt {
         transform: translateY(100vh);
     }
 }
+
+@keyframes moveLeftAndRight {
+    0% {
+        position: absolute;
+        left: 0;
+    }
+
+    50% {
+        position: absolute;
+        left: calc(100% - 100px);
+    }
+
+    100% {
+        position: absolute;
+        left: 0;
+    }
+}
