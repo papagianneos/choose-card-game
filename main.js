@@ -2087,6 +2087,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
                         pgnFinaleEffectsLoop = setInterval(() => {
+                            document.getElementById('cardsHolder').style.position = 'static';
                             document.getElementById('cardsHolder').style.transition = '1s';
                             document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                             document.getElementById('cardsHolder').style.animation = 'none';
