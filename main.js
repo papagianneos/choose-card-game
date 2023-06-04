@@ -157,7 +157,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // lol
         // ----------------------------------------------------------------------
         let papagianneosFinaleEnabled = false,
-            startedAngryEffect = false;
+            pgnFinaleEffectsLoop;
         // ------------------------------------------------------------------------
 
         // ----------------------------------------------------------
@@ -359,7 +359,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 }
 
                 // ΟΛΕΣ ΑΝ ΠΑΙΖΕΙ ΤΟ FINALE (εκτός αν είναι noSpawnInFinale)
-                else {
+                /*else {
                     for (var specialCard_ of specialCardsConfig) {
                         if (!specialCard_.noSpawnInFinale) {
                             cardShapes.push(specialCard_.shape);
@@ -371,7 +371,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     if (cardShapes.includes('[?]')) {
                         nonPairCardExists = true;
                     }
-                }
+                }*/
             }
             // ----------------------------------------------------------------------------------------------
 
@@ -1770,7 +1770,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             // Μουσική Credits (Soundimage.org)
             let musicCredit = document.createElement('h1');
             musicCredit.style.fontSize = '20px';
-            musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
+            musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
             // For my friends :)
             let friendsWebsite = document.createElement('h1');
@@ -1926,10 +1926,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             break;
 
                         case 'papagianneosFinale': // LOL WHY I MADE THIS
-                            MAX_TRIES = 69;
-                            AMOUNT_OF_CARDS = 26;
-                            challengeModeEnabled = true;
-                            extremeModeEnabled = true;
+                            AMOUNT_OF_CARDS = 30;
                             papagianneosFinaleEnabled = true;
                             document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
                             break;
@@ -2084,6 +2081,93 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         resetCards();
                     }
 
+                    // PAPAGIANNEOS FINALE - REMASTARED
+                    if (papagianneosFinaleEnabled) {
+                        let moveLeftAndRightAnimationLoop = undefined;
+
+                        // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
+                        pgnFinaleEffectsLoop = setInterval(() => {
+                            document.getElementById('cardsHolder').style.transition = '1s';
+                            document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
+                            document.getElementById('cardsHolder').style.animation = 'none';
+
+                            if (moveLeftAndRightAnimationLoop != undefined) clearInterval(moveLeftAndRightAnimationLoop);
+
+                            setTimeout(() => {
+                                switch (getRandomInt(1, 4)) {
+                                    case 1:
+                                        document.getElementById('cardsHolder').style.transform = 'rotateY(180deg)';
+                                        break;
+
+                                    case 2:
+                                        document.getElementById('cardsHolder').style.transform = 'rotateX(180deg)';
+                                        break;
+
+                                    case 3:
+                                        for (var card of document.getElementsByClassName('card')) {
+                                            card.innerHTML = 'Pgn';
+                                            card.style.background = 'radial-gradient(#adfff1, #265175)';
+                                        }
+                                        break;
+
+                                    case 4:
+                                        moveLeftAndRightAnimationLoop = setInterval(() => {
+                                            document.getElementById('cardsHolder').style.position = 'absolute';
+                                            document.getElementById('cardsHolder').style.transition = '1s';
+
+                                            document.getElementById('cardsHolder').style.left = '50%';
+                                            setTimeout(() => {
+                                                document.getElementById('cardsHolder').style.left = '0';
+                                                setTimeout(() => {
+                                                    document.getElementById('cardsHolder').style.left = '-50%';
+                                                    setTimeout(() => {
+                                                        document.getElementById('cardsHolder').style.left = '0';
+                                                    }, 2e3);
+                                                }, 2e3);
+                                            }, 2e3);
+                                        }, 8e3);
+                                        break;
+                                } // end of switch
+                            }, 2e3);
+                        }, 15e3);
+
+                        // Φτιάξε "death" κάρτες
+                        for (var index = 0; index < 15; index++) {
+                            createCard({
+                                shape: specialCardsConfig[5].shape,
+                                color: specialCardsConfig[5].color,
+                                specialCard: true,
+                                specialCardEffect: () => {
+                                    if (!papagianneosFinaleEnabled) {
+                                        sounds.loss.play();
+                                    }
+                                    lostByDeathCard = true;
+                                }
+                            });
+                            resetCards(false);
+                        }
+
+                        // ανακάτεψε τις κάρτες
+                        let cardsListToShuffle = [],
+                            scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                        // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                        for (var e = 0; e < parentDiv.children.length; e++) {
+                            let child = parentDiv.children[e];
+                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                            if (child.className == 'card') {
+                                cardsListToShuffle.push(child);
+                            }
+                        }
+
+                        cardsListToShuffle.sort(() => {
+                            return Math.random() - 0.5;
+                        });
+
+                        cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                        cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                        parentDiv.replaceChildren(...cardsListToShuffle);
+                    }
                     gameStarted = true;
                     // εξαφάνισε την οθόνη με το κουμπί μαζί
                     document.body.removeChild(startScreen);
@@ -2286,9 +2370,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             // ============================================================================================================\
             const effectsLoop = () => {
                 // ---------------------------------------------------------------------------------------
-                // Σεισμικό Effect για το "δύσκολο" και για το "papagianneos finale" mode
+                // Σεισμικό Effect για το "δύσκολο" mode
                 // ---------------------------------------------------------------------------------------
-                if (!startedAngryEffect && (papagianneosFinaleEnabled || hardModeEnabled || OG_modeEnabled)/* && !secretSettingEnabled*/) {
+                if (hardModeEnabled || OG_modeEnabled/* && !secretSettingEnabled*/) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -2308,10 +2392,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
                     if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
-                        startedAngryEffect = true;
-                        if (papagianneosFinaleEnabled) {
-                            blockClicks = true;
-                        }
 
                         // Φτάνει με το παρόν, ώρα για το μέλλον.
                         if (OG_modeEnabled && !appliedOGModeEffect) {
@@ -2329,73 +2409,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             }
                         }
 
-                        else if (!papagianneosFinaleEnabled && !OG_modeEnabled) {
+                        else {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                             document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
-                        }
-
-                        else { // papagianneos is angry
-                            // σταμάτα την μουσική για λίγο
-                            if (!startedExtremeModeMusic) {
-                                music.papagianneosFinaleMusic.pause();
-                            }
-                            else {
-                                music.extremeModeGameMusic.pause();
-                            }
-                            sounds.angryPgn.play();
-
-                            // Φτιάξε "death" κάρτες
-                            setTimeout(() => {
-                                for (var index = 0; index < 5; index++) {
-                                    createCard({
-                                        shape: specialCardsConfig[5].shape,
-                                        color: specialCardsConfig[5].color,
-                                        specialCard: true,
-                                        specialCardEffect: () => {
-                                            if (!papagianneosFinaleEnabled) {
-                                                sounds.loss.play();
-                                            }
-                                            lostByDeathCard = true;
-                                        }
-                                    });
-                                    resetCards(false);
-                                }
-
-                                document.getElementById('cardsHolder').style.animation = 'none';
-                                document.getElementById('cardsHolder').style.transition = '1s';
-                                document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
-
-                                // ξαναάρχισε την μουσική
-                                if (!startedExtremeModeMusic) {
-                                    music.papagianneosFinaleMusic.play();
-                                }
-                                else {
-                                    music.extremeModeGameMusic.play();
-                                }
-
-                                sounds.cardOpenHardMode.play();
-                                // ανακάτεψε τις κάρτες
-                                let cardsListToShuffle = [],
-                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
-
-                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                for (var e = 0; e < parentDiv.children.length; e++) {
-                                    let child = parentDiv.children[e];
-                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className == 'card') {
-                                        cardsListToShuffle.push(child);
-                                    }
-                                }
-
-                                cardsListToShuffle.sort(() => {
-                                    return Math.random() - 0.5;
-                                });
-
-                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                                parentDiv.replaceChildren(...cardsListToShuffle);
-                                blockClicks = false;
-                            }, 12e3);
                         }
                     }
                 }
@@ -2475,11 +2491,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
-                            // papagianneos mad mode
-                            if (papagianneosFinaleEnabled) {
-                                music.papagianneosFinaleMusic.pause();
-                                document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(maroon, black)';
-                            }
                             gameMusic.pause();
                             music.extremeModeGameMusic.play();
                         }
@@ -2537,6 +2548,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         }
 
                         if (papagianneosFinaleEnabled) {
+                            clearInterval(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
                             let which = randomChoice([1, 1, 2]);
@@ -2748,6 +2760,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         // αν papagianneos finale, σπεσιαλ μήνυμα
                         if (papagianneosFinaleEnabled) {
                             sounds.pgnFinaleWin.play();
+                            clearInterval(pgnFinaleEffectsLoop);
                         }
 
                         // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
@@ -2799,6 +2812,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         challengeModeEnabled = false;
                         timedModeEnabled = false;
                         papagianneosFinaleEnabled = false;
+                        deltaEffect = false;
 
                         // Στο void mode, ο παίχτης πρέπει να κερδίσει ΟΛΑ τα modes στη σειρά (εκτός απο Finale)
                         if (voidModeLevelsBeaten < 6) {
