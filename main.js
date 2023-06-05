@@ -2130,7 +2130,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                         break;
                                 } // end of switch
                             }, 2e3);
-                        }, 15e3);
+                        }, 25e3);
 
                         // Φτιάξε "death" κάρτες
                         for (var index = 0; index < 15; index++) {
