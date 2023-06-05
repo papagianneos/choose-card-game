@@ -896,7 +896,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
                     if (specialCardDetected) {
                         addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
-                        card.color = ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
+                        card.color = pgnBirthday ? `${specialCardsConfig[specialCardIndex].color}, url(/img/confeti.png)` :  ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
                         card.specialCard = true;
 
                         // Σε περίπτωση που είναι η troll card
