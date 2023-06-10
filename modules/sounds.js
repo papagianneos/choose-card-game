@@ -125,6 +125,10 @@ export const sounds = {
 
     timeSlower: new Howl({
         src: ['/audio/time_slower.mp3']
+    }),
+
+    angryPgnFinale: new Howl({
+        src: ['/audio/angry_pgn_v2.mp3']
     })
 }
 
