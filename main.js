@@ -2397,8 +2397,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         blockClicks = true;
                         sounds.angryPgnFinale.play();
                         papagianneosFinaleAngryRun = true;
+                        document.getElementsByTagName('body')[0].style.transition = '1s';
                         setTimeout(() => {
-                            document.getElementsByTagName('body')[0].style.animation = 'seismos 1s linear infinite';
+                            document.getElementsByTagName('body')[0].style.transform = 'rotate(360deg)';
                             for (var index = 0; index < 15; index++) {
                                 createCard({
                                     shape: 'mazeWall',
@@ -2597,6 +2598,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         if (papagianneosFinaleEnabled) {
                             document.getElementsByTagName('body')[0].style.animation = 'none';
+                            document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
                             clearInterval(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
@@ -2807,8 +2809,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         );
 
                         // αν papagianneos finale, σπεσιαλ μήνυμα
+                        document.getElementsByTagName('body')[0].style.animation = 'none';
+                        document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
                         if (papagianneosFinaleEnabled) {
-                            document.getElementsByTagName('body')[0].style.animation = 'none';
                             sounds.pgnFinaleWin.play();
                             clearInterval(pgnFinaleEffectsLoop);
                         }
