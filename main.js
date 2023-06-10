@@ -157,6 +157,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // lol
         // ----------------------------------------------------------------------
         let papagianneosFinaleEnabled = false,
+            papagianneosFinaleAngryRun = false,
             pgnFinaleEffectsLoop;
         // ------------------------------------------------------------------------
 
@@ -896,7 +897,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
                     if (specialCardDetected) {
                         addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
-                        card.color = pgnBirthday ? `${specialCardsConfig[specialCardIndex].color}, url(/img/confeti.png)` :  ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
+                        card.color = pgnBirthday ? `${specialCardsConfig[specialCardIndex].color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
                         card.specialCard = true;
 
                         // Σε περίπτωση που είναι η troll card
@@ -2097,7 +2098,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             setTimeout(() => {
                                 switch (getRandomInt(1, 4)) {
                                     case 1:
-                                        document.getElementById('cardsHolder').style.transform = 'rotateY(180deg)';
+                                        document.getElementById('cardsHolder').style.transform = `rotateY(${randomChoice([-180, 180])}deg)`;
                                         break;
 
                                     case 2:
@@ -2373,7 +2374,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 // ---------------------------------------------------------------------------------------
                 // Σεισμικό Effect για το "δύσκολο" mode
                 // ---------------------------------------------------------------------------------------
-                if (hardModeEnabled || OG_modeEnabled/* && !secretSettingEnabled*/) {
+                if (hardModeEnabled || OG_modeEnabled || (!voidModeEnabled && (papagianneosFinaleEnabled && !papagianneosFinaleAngryRun))/* && !secretSettingEnabled*/) {
                     // Μέτρα τις κλειστές κάρτες.
                     let closedCards = [];
                     for (var card_2 of document.getElementsByClassName('card')) {
@@ -2390,9 +2391,55 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     closedCards = closedCards.filter(_card => { return !_card.specialCard });
                     // -------------------------------------------------------------------------
 
+                    // ANGRY PGN
+                    if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
+                        gameMusic.pause();
+                        blockClicks = true;
+                        sounds.angryPgnFinale.play();
+                        papagianneosFinaleAngryRun = true;
+                        setTimeout(() => {
+                            document.getElementsByTagName('body')[0].style.animation = 'seismos 1s linear infinite';
+                            for (var index = 0; index < 15; index++) {
+                                createCard({
+                                    shape: 'mazeWall',
+                                    color: 'transparent',
+                                    mazeWall: true,
+                                    specialCard: true,
+                                    specialCardEffect: () => { }
+                                });
+                                resetCards(false);
+                            }
+
+                            // ανακάτεψε τις κάρτες
+                            let cardsListToShuffle = [],
+                                scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                            // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                            for (var e = 0; e < parentDiv.children.length; e++) {
+                                let child = parentDiv.children[e];
+                                // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                if (child.className == 'card') {
+                                    cardsListToShuffle.push(child);
+                                }
+                            }
+
+                            cardsListToShuffle.sort(() => {
+                                return Math.random() - 0.5;
+                            });
+
+                            cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                            cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                            parentDiv.replaceChildren(...cardsListToShuffle);
+
+                            currentSpecialCards.push('mazeWall');
+                            removedSpecialCardsFromFullCount.push(false);
+                            blockClicks = false;
+                            gameMusic.play();
+                        }, 2e3);
+                    }
 
                     // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
-                    if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
+                    else if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
 
                         // Φτάνει με το παρόν, ώρα για το μέλλον.
                         if (OG_modeEnabled && !appliedOGModeEffect) {
@@ -2410,7 +2457,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             }
                         }
 
-                        else {
+                        else if (!OG_modeEnabled) {
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                             document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
                         }
@@ -2549,6 +2596,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         }
 
                         if (papagianneosFinaleEnabled) {
+                            document.getElementsByTagName('body')[0].style.animation = 'none';
                             clearInterval(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
@@ -2760,6 +2808,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // αν papagianneos finale, σπεσιαλ μήνυμα
                         if (papagianneosFinaleEnabled) {
+                            document.getElementsByTagName('body')[0].style.animation = 'none';
                             sounds.pgnFinaleWin.play();
                             clearInterval(pgnFinaleEffectsLoop);
                         }
