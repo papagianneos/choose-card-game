@@ -30,7 +30,8 @@ export const music = {
     }),
 
     extremeModeGameMusicBirthday: new Howl({
-        src: ['/audio/extreme_mode_music_birthday.mp3']
+        src: ['/audio/extreme_mode_music_birthday.mp3'],
+        loop: true
     }),
 
     papagianneosFinaleMusic: new Howl({
