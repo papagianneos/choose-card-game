@@ -29,6 +29,10 @@ export const music = {
         loop: true
     }),
 
+    extremeModeGameMusicBirthday: new Howl({
+        src: ['/audio/extreme_mode_music_birthday.mp3']
+    }),
+
     papagianneosFinaleMusic: new Howl({
         src: ['/audio/papagianneos_finale_v3.mp3'],
         loop: true
@@ -43,6 +47,11 @@ export const music = {
         src: ['/audio/time_level_music.mp3'],
         loop: true,
     }),
+
+    birthdayMusic: new Howl({
+        src: ['/audio/birthday_music.mp3'],
+        loop: true
+    })
 }
 
 // Ήχοι Παιχνιδιού
