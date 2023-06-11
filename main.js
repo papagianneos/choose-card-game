@@ -2138,7 +2138,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         for (var index = 0; index < 15; index++) {
                             createCard({
                                 shape: specialCardsConfig[5].shape,
-                                color: specialCardsConfig[5].color,
+                                color: pgnBirthday ? `${specialCardsConfig[specialCardIndex].color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`,
                                 specialCard: true,
                                 specialCardEffect: () => {
                                     if (!papagianneosFinaleEnabled) {
