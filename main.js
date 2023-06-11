@@ -185,7 +185,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // Μουσική για το παιχνίδι
         // ------------------------------------------------------------------------------------------------------------------------
         let menuMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
-            gameMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
+            gameMusic = pgnBirthday ? music.birthdayMusic : playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
 
         menuMusic.play();
 
@@ -198,7 +198,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // Extreme Gamemode
         // ---------------------------------------
         let extremeModeEnabled = false,
-            lostExtremeModeEnabled = false;
+            lostExtremeModeEnabled = false,
+            extremeModeMusic = pgnBirthday ? music.extremeModeGameMusicBirthday : music.extremeModeGameMusic;
         // ----------------------------------------
 
         // -----------------------------------
@@ -594,7 +595,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 }*/
 
                                 if (startedExtremeModeMusic) {
-                                    music.extremeModeGameMusic.pause();
+                                    extremeModeMusic.pause();
                                 }
                                 else if (papagianneosFinaleEnabled) {
                                     music.papagianneosFinaleMusic.pause();
@@ -605,7 +606,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 sounds.wow.play();
                                 setTimeout(() => {
                                     if (startedExtremeModeMusic) {
-                                        music.extremeModeGameMusic.play();
+                                        extremeModeMusic.play();
                                     }
                                     else if (papagianneosFinaleEnabled) {
                                         if (!voidModeEnabled) {
@@ -2541,7 +2542,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         if (!startedExtremeModeMusic) {
                             startedExtremeModeMusic = true;
                             gameMusic.pause();
-                            music.extremeModeGameMusic.play();
+                            extremeModeMusic.play();
                         }
                     }
                 }
@@ -2606,7 +2607,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             which == 1 ? sounds.pgnLaugh1.play() : sounds.pgnLaugh2.play();
                         }
 
-                        music.extremeModeGameMusic.pause();
+                        extremeModeMusic.pause();
 
                         // Εμφάνισε "Κέρδισες!" οθόνη.
                         let loseScreen = document.createElement('div');
@@ -2751,6 +2752,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             // Επίτευγμα.
                             if (papagianneosFinaleEnabled) {
                                 unlockAchievement('ach_pgn_finale_twice');
+                                if (pgnBirthday) unlockSkin('radian'); // Special Skin: Ακτίνια.
                             }
                         }
                         // -------------------------------------------------------------------
@@ -2771,7 +2773,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         // Αν άρχισε η extreme μουσική
                         if (startedExtremeModeMusic) {
-                            music.extremeModeGameMusic.pause();
+                            extremeModeMusic.pause();
                         }
 
                         // Αν papagianneos finale
@@ -2920,7 +2922,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                     document.getElementsByTagName('body')[0].style.animation = 'none';
                                     document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
                                     if (startedExtremeModeMusic) {
-                                        music.extremeModeGameMusic.pause();
+                                        extremeModeMusic.pause();
                                     }
                                     else gameMusic.pause();
                                     music.papagianneosFinaleMusic.play();
