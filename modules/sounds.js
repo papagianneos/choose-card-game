@@ -49,6 +49,11 @@ export const music = {
         loop: true,
     }),
 
+    timeLevelMusicBirthday: new Howl({
+        src: ['/audio/time_level_music_birthday.mp3'],
+        loop: true
+    }),
+
     birthdayMusic: new Howl({
         src: ['/audio/birthday_music.mp3'],
         loop: true
