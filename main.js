@@ -179,7 +179,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         let wrongSound = playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
 
         // TIMED mode music
-        let timedModeMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
+        let timedModeMusic = pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
 
         // ------------------------------------------------------------------------------------------------------------------------
         // Μουσική για το παιχνίδι
