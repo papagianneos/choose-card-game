@@ -144,6 +144,10 @@ export const sounds = {
 
     angryPgnFinale: new Howl({
         src: ['/audio/angry_pgn_v2.mp3']
+    }),
+
+    universeSwap: new Howl({
+        src: ['/audio/universe-swap.mp3']
     })
 }
 
