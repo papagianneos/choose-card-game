@@ -2760,8 +2760,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 if (
                     hideAndSeekWin || // Hide And Seek all cards found.
                     wonBySpecialCard || // "K" card found
-                    (!hideAndSeekModeEnabled && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
-                    (enabledImaginaryUniverse && (openedCards.length / 2) >= (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
+                    (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
+                    (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
                 ) {
 
                     // Αν δεν είναι VOID mode.
