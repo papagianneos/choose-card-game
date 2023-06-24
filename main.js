@@ -690,7 +690,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 for (var card_ of document.getElementsByClassName('card')) {
                                     if (!card_.getAttribute('anoixthcarta')) {
                                         card_.innerHTML = card_.savedText;
-                                        playersEffect ? playersEffect.neonMode ? card_.style.borderColor = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor : card_.style.background = card_.savedBackgroundColor;
+                                        card_.style.background = card_.savedBackgroundColor;
                                     }
                                 }
 
@@ -1047,7 +1047,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
                     // Δες αν ο παίχτης χρησιμοποιεί νέον
                     //if (!secretSettingEnabled) {
-                    playersEffect ? playersEffect.neonMode ? card.style.borderColor = resetColor : card.style.background = resetColor : card.style.background = resetColor;
+                    card.style.background = resetColor;
                     //}
                     //else {
                     //    card.style.background = 'radial-gradient(#240907, black)';
@@ -1110,13 +1110,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 div.style.height = JSON.parse(playersEffect.widthAndHeight)[1];
 
                 if (playersEffect.improvedGraphics && !papagianneosFinaleEnabled && !voidModeEnabled) div.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
-
-                if (playersEffect.neonMode) {
-                    div.style.borderWidth = '5px';
-                    div.style.borderColor = div.style.background;
-                    div.style.borderStyle = 'solid';
-                    div.style.background = 'none';
-                }
             }
 
             // Χιόνι Εφέ για τις κάρτες.
@@ -1253,7 +1246,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     // Εμφάνισε την κάρτα στον παίχτη
                     if (currentSelected.length <= 1) {
                         // Δες αν ο παίχτης χρησιμοποιεί νέον
-                        playersEffect ? playersEffect.neonMode ? div.style.borderColor = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor : div.style.background = div.savedBackgroundColor;
+                        div.style.background = div.savedBackgroundColor;
                         div.innerHTML = div.savedText;
 
                         // Ειδική περίπτωση του "π".
