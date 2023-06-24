@@ -27,5 +27,10 @@ export const FEATURED_YOUTUBERS = [
     {
         name: 'Tekorian',
         link: 'https://www.youtube.com/@tekorian4196/'
+    },
+
+    {
+        name: 'Br柏仔',
+        link: 'https://www.youtube.com/@bozai526/'
     }
 ];
