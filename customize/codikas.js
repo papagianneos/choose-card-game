@@ -51,7 +51,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
     let toolsBox = document.createElement('div');
 
     const toolsConfig = [
-        {
+       /* {
             name: LANGUAGE_DATA[LANGUAGE_INDEX].setting_label_neonCard,
             id: "neonCard",
             type: 'checkbox',
@@ -68,7 +68,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
                     previewCard.style.border = 'none';
                 }
             }
-        },
+        },*/
 
         {
             name: "Light Mode",
@@ -406,7 +406,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
     saveButton.onclick = () => {
         sounds.buttonClick.play();
         const effect = [{
-            neonMode: document.getElementById("neonCard").checked,
+            //neonMode: document.getElementById("neonCard").checked,
             widthAndHeight: document.getElementById("cardOutsideShape").value,
             borderRadius: `${document.getElementById('cardShape').value}px`,
             fontSize: `${document.getElementById('cardTextSize').value}px`,
@@ -544,7 +544,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
     if (playersEffectFetched) {
         document.getElementById('cardShape').value = playersEffectFetched.borderRadius.replace('px', '');
         document.getElementById('cardTextSize').value = playersEffectFetched.fontSize;
-        document.getElementById('neonCard').checked = playersEffectFetched.neonMode;
+        //document.getElementById('neonCard').checked = playersEffectFetched.neonMode;
         document.getElementById('cardTextDecorationThicc').value = playersEffectFetched.textDecorationThickness;
         document.getElementById('cardTextDecoration').value = playersEffectFetched.textDecorationLine;
         document.getElementById('cardTextDecorationLine').value = playersEffectFetched.textDecorationStyle;
@@ -554,7 +554,7 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
         document.getElementById("language").value = playersEffectFetched.languageID;
         document.getElementById("cardOutsideShape").value = playersEffectFetched.widthAndHeight;
 
-        if (playersEffectFetched.neonMode) {
+        /*if (playersEffectFetched.neonMode) {
             previewCard.style.borderColor = 'grey';
             previewCard.style.borderStyle = 'solid';
             previewCard.style.borderWidth = '5px';
@@ -563,14 +563,14 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
         else {
             previewCard.style.borderColor = 'none';
             previewCard.style.background = 'grey';
-        }
+        }*/
 
         previewCard.style.width = JSON.parse(playersEffectFetched.widthAndHeight)[0];
         previewCard.style.height = JSON.parse(playersEffectFetched.widthAndHeight)[1];
     }
 
     const playersEffect = [{
-        neonMode: document.getElementById("neonCard").checked,
+       //neonMode: document.getElementById("neonCard").checked,
         widthAndHeight: document.getElementById("cardOutsideShape").value,
         borderRadius: `${document.getElementById('cardShape').value}px`,
         fontSize: `${document.getElementById('cardTextSize').value}px`,
