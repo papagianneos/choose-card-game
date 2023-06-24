@@ -210,6 +210,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
         // global μεταβλητές
         let cardsData = [],
+            imaginaryCardsData = [],
             hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
             challengeModeEnabled = false,
             virusModeEnabled = false,
@@ -226,12 +227,14 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             MAZE_WALLS_AMOUNT = 5,
             BROKEN_CARDS_AMOUNT = 5,
             deltaEffect = false,
+            enabledImaginaryUniverse = false,
             CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
         // ========================================================================
         // 1 - Σχήμα/σχέδιο και χρώμα των καρτών setup
         // ========================================================================
         let AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]); // μέγιστο είναι 36 κάρτες.
+        const STANDARD_AMOUNT_OF_CARDS = (AMOUNT_OF_CARDS + 6);
 
         // ----------------------------------------------------
         // TIMED Gamemode
@@ -255,8 +258,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // ΤΥΧΑΙΑ Σχήματα/σχέδια καρτών (2 κάρτες από καθεμιά άρα αντιγραφή τα στοιχεία)
         const startGame = () => {
             let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split(''),
+                IMAGINARY_CHARACTERS_SET = "πΣ∆∝⋂⋃≥≤φ⋊⊤⊥⊉⊈≣∟∧∐≙⊊⊯⊏≲≃≂∽∼∾∿≀∳∦∥∔∀∉∋∈∅ℯ∁∆∇∎−∤∣∺∷⊀⊁⊌⊍⊎⋔⋠⋡⋣⋢⋛⋚⋫⋪⋘⋙".split(''),
                 generatedPalette = [],
+                generatedImaginaryPalette = [],
                 SHAPE_PALETTES = [],
+                IMAGINARY_SHAPE_PALETTES = [],
+                chosenImaginaryCombination = '',
                 chosenCombination = '';
 
             // φτιάξε τυχαία λίστα με τυχαία σχήματα/κείμενο/αριθμούς
@@ -291,6 +298,20 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             // ================================================================================
 
             let cardShapes = randomChoice(SHAPE_PALETTES);
+
+
+            // φτιάξε τυχαία λίστα με τυχαία σχήματα/κείμενο/αριθμούς για τα φανταστικά πράγματα
+            for (var k = 0; k < 4; k++) {
+                generatedImaginaryPalette = [];
+                for (var l = 0; l < (STANDARD_AMOUNT_OF_CARDS / 2); l++) {
+                    chosenImaginaryCombination = randomChoice(IMAGINARY_CHARACTERS_SET);
+                    IMAGINARY_CHARACTERS_SET.splice(IMAGINARY_CHARACTERS_SET.indexOf(chosenImaginaryCombination), 1);
+                    generatedImaginaryPalette.push(chosenImaginaryCombination);
+                }
+                IMAGINARY_SHAPE_PALETTES.push(generatedImaginaryPalette);
+            }
+
+            let imaginaryCardShapes = randomChoice(IMAGINARY_SHAPE_PALETTES);
 
             // Walls.
             if (mazeWallsEnabled) {
@@ -329,6 +350,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             cardShapes.push(specialCardsConfig[24].shape);
                             AMOUNT_OF_CARDS += 2;
                         }
+
+                        cardShapes.push(specialCardsConfig[23].shape);
+                        AMOUNT_OF_CARDS += 2;
 
                         // Δες αν υπάρχει troll κάρτα..
                         if (cardShapes.includes('[?]')) {
@@ -379,6 +403,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
             if (!hideAndSeekModeEnabled) {
                 cardShapes.push(...cardShapes); // duplicate
+                imaginaryCardShapes.push(...imaginaryCardShapes);
             }
             else AMOUNT_OF_CARDS /= 2; // ΔΕΝ υπάρχουν ζευγάρια καρτών σε αυτό το mode.
 
@@ -414,11 +439,57 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
             let cardColors = randomChoice(COLOR_PALETTES);
 
+            let IMAGINARY_COLOR_PALETTES = [],
+                imaginaryGeneratedColorPalette = [];
+
+            for (var n = 0; n < 4; n++) {
+                imaginaryGeneratedColorPalette = [];
+                for (var l = 0; l < (STANDARD_AMOUNT_OF_CARDS / 2); l++) {
+
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += Math.floor(Math.random() * 10);
+                    }
+                    imaginaryGeneratedColorPalette.push(color);
+
+                    // -------------------------------------------------------------
+                    // BUG FIX: Διαγραφή αντιγράφων
+                    // -------------------------------------------------------------
+                    imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
+
+                    let checkDuplicateColorInterval2 = setInterval(() => {
+                        var color = '#';
+                        for (var i = 0; i < 6; i++) {
+                            color += Math.floor(Math.random() * 10);
+                        }
+                        imaginaryGeneratedColorPalette.push(color);
+                        imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
+
+                        if (imaginaryGeneratedColorPalette.length == 6) {
+                            clearInterval(checkDuplicateColorInterval2);
+                        }
+                    }, 10);
+                    // -------------------------------------------------------------
+
+                }
+                IMAGINARY_COLOR_PALETTES.push(imaginaryGeneratedColorPalette);
+            }
+
+            let imaginaryCardColors = randomChoice(IMAGINARY_COLOR_PALETTES);
+
             switch (skin.id) {
                 // Gradient Skin Special Effect
                 case 'gradient': {
                     for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
                         cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)}, ${cardColors[cardColorIndex]})`;
+                    }
+
+                    for (var imaginaryCardColorIndex = 0; imaginaryCardColorIndex < imaginaryCardColors.length; imaginaryCardColorIndex++) {
+                        var color = '#';
+                        for (var i = 0; i < 6; i++) {
+                            color += Math.floor(Math.random() * 10);
+                        }
+                        imaginaryCardColors[imaginaryCardColorIndex] = `conic-gradient(${imaginaryCardColors[imaginaryCardColorIndex]}, ${color}, ${imaginaryCardColors[imaginaryCardColorIndex]})`;
                     }
                 }
                     break;
@@ -428,6 +499,10 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
                         cardColors[cardColorIndex] = `repeating-linear-gradient(${getRandomInt(1, 360)}deg, ${cardColors[cardColorIndex]}, transparent 20px)`;
                     }
+
+                    for (var imaginaryCardColorIndex = 0; imaginaryCardColorIndex < imaginaryCardColors.length; imaginaryCardColorIndex++) {
+                        imaginaryCardColors[imaginaryCardColorIndex] = `repeating-linear-gradient(${getRandomInt(1, 360)}deg, ${imaginaryCardColors[imaginaryCardColorIndex]}, transparent 20px)`;
+                    }
                 }
                     break;
 
@@ -436,11 +511,16 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
                         cardColors[cardColorIndex] = `repeating-radial-gradient(${cardColors[cardColorIndex]}, transparent 40px)`;
                     }
+
+                    for (var imaginaryCardColorIndex = 0; imaginaryCardColorIndex < imaginaryCardColors.length; imaginaryCardColorIndex++) {
+                        imaginaryCardColors[imaginaryCardColorIndex] = `repeating-radial-gradient(${imaginaryCardColors[imaginaryCardColorIndex]}, transparent 40px)`;
+                    }
                 }
                     break;
             }
 
             cardColors.push(...cardColors); // duplicate
+            imaginaryCardColors.push(...imaginaryCardColors); // duplicate
 
             // ----------------------------------------------------------------------
             // Δεν πρέπει να έχει ζευγάρι η troll card
@@ -861,31 +941,27 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         case specialCardsConfig[23].shape: // Universe Swap
                             specialCardIndex = 23;
                             card.specialCardEffect = () => {
-                                appliedOGModeEffect = false;
-                                $('#cardsHolder')
-                                    .fadeOut(300)
-                                    .fadeIn(300);
-                                for (var card of document.getElementsByClassName('card')) {
-                                    card.style.textShadow = 'none';
-                                    card.style.fontSize = '80px';
-                                    card.style.borderRadius = '0px';
-                                    card.style.margin = '5px';
-                                    card.style.alignItems = 'flex-end';
-                                }
-
+                                gameMusic.pause();
+                                sounds.universeSwap.play();
+                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                 setTimeout(() => {
-                                    appliedOGModeEffect = true;
+                                    enabledImaginaryUniverse = true;
+                                    document.body.removeChild(parentDiv);
+                                    document.body.appendChild(imaginaryParentDiv);
+
+                                    document.getElementsByTagName('body')[0].style.background = '#c8c8c8';
                                     $('#cardsHolder')
                                         .fadeOut(300)
-                                        .fadeIn(300);
-                                    for (var card of document.getElementsByClassName('card')) {
-                                        card.style.textShadow = 'rgba(0, 0, 0, .5) 2px 2px';
-                                        card.style.borderRadius = '2.5px';
-                                        card.style.fontSize = '60px';
-                                        card.style.margin = '10px';
-                                        card.style.alignItems = 'center';
+                                        .fadeIn(5e3)
+
+                                    imaginaryParentDiv.appendChild(scoreAndTriesHolder);
+                                    for (var j = 0; j < imaginaryCardsData.length; j++) {
+                                        let imaginaryCard = imaginaryCardsData[j];
+                                        createCard(imaginaryCard, 'imaginary');
                                     }
-                                }, 20e3);
+                                    resetCards(false);
+                                    gameMusic.play();
+                                }, 3e3);
                             }
                             break;
 
@@ -926,6 +1002,24 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             cardsData.sort(() => {
                 return Math.random() - 0.5;
             });
+
+            for (var j = 0; j < STANDARD_AMOUNT_OF_CARDS; j++) {
+                const imcard = {
+                    shape: imaginaryCardShapes[j],
+                    realShape: imaginaryCardShapes[j],
+                    color: imaginaryCardColors[j],
+                    specialCard: false,
+                    specialCardEffect: () => { }
+                }
+                // --------------------------------------------------------
+
+                imaginaryCardsData.push(imcard);
+            }
+
+            // ανακάτεψε και τις φανταστικές κάρτες
+            imaginaryCardsData.sort(() => {
+                return Math.random() - 0.5;
+            });
         }
         // ========================================================================
 
@@ -935,6 +1029,9 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // ένα <div> για να κρατάει τις κάρτες.
         let parentDiv = document.createElement('div');
         parentDiv.id = 'cardsHolder'; // ταυτότητα για να διαβάσει CSS
+
+        let imaginaryParentDiv = document.createElement('div');
+        imaginaryParentDiv.id = 'cardsHolder';
 
         // Κείμενο που γράφει τις προσπάθειες και το score του παίχτη.
         let scoreAndTriesHolder = document.createElement('div');
@@ -1070,7 +1167,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
         // Δημιουργία καρτών
 
         // Συνάρτηση που δημιουργεί κάρτα
-        const createCard = (data) => {
+        const createCard = (data, type = 'normal') => {
             let card = data;
 
             // <div> για κάθε κάρτα
@@ -1714,8 +1811,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             }
             // =======================================================
 
-            // βάλε την κάρτα στο parentDiv
-            parentDiv.appendChild(div);
+            // βάλε την κάρτα στο parentDiv ή στο imaginaryParentDiv
+            type == 'normal' ? parentDiv.appendChild(div) : imaginaryParentDiv.appendChild(div);
         }
         const createCards = () => {
 
@@ -2632,7 +2729,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         loseScreen.appendChild(loseScreenText);
                         loseScreen.appendChild(totalCardsPlayed);
                         loseScreen.appendChild(playAgainButton);
-                        document.body.removeChild(parentDiv);
+                        document.body.removeChild(enabledImaginaryUniverse ? imaginaryParentDiv : parentDiv);
                         document.body.appendChild(loseScreen);
 
                         lostExtremeModeEnabled = true;
@@ -2662,7 +2759,8 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 if (
                     hideAndSeekWin || // Hide And Seek all cards found.
                     wonBySpecialCard || // "K" card found
-                    (!hideAndSeekModeEnabled && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2))
+                    (!hideAndSeekModeEnabled && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
+                    (enabledImaginaryUniverse && (openedCards.length / 2) >= (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
                 ) {
 
                     // Αν δεν είναι VOID mode.
@@ -2847,7 +2945,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         winScreen.appendChild(triesTextWinScreen);
                         winScreen.appendChild(totalCardsPlayed);
                         winScreen.appendChild(playAgainButton);
-                        document.body.removeChild(parentDiv);
+                        document.body.removeChild(enabledImaginaryUniverse ? imaginaryParentDiv : parentDiv);
                         document.body.appendChild(winScreen);
                         wonBySpecialCard = false;
                     }
