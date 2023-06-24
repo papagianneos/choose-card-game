@@ -160,10 +160,11 @@ export const specialCardsConfig = [
     },
 
     { // Universe-Swap
-        shape: ']×[',
+        shape: 'ⅈ',
         color: 'linear-gradient(to left top, black, #1e0c21)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_universe_swap,
-        noSpawnInFinale: true
+        noSpawnInFinale: true,
+        neverSpawn: true
     },
     
     { // Δ
