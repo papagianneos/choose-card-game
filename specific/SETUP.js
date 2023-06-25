@@ -58,7 +58,7 @@ import { sounds } from "../modules/sounds.js";
             localStorage.setItem('imaginaryCardActive', localStorage.getItem('imaginaryCardActive') != null ? JSON.stringify(!JSON.parse(localStorage.getItem('imaginaryCardActive'))) : 'false');
             activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE';
             clicked69 = false;
-        }, 4e3);
+        }, 2e3);
     }
 
     let cardDiv = document.createElement('div');
