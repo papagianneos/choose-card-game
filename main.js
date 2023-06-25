@@ -949,7 +949,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         case specialCardsConfig[23].shape: // Universe Swap
                             specialCardIndex = 23;
                             card.specialCardEffect = () => {
-                                if (extremeModeEnabled) return;
+                                if (extremeModeEnabled || voidModeEnabled) return;
                                 gameMusic.pause();
                                 sounds.universeSwap.play();
                                 document.getElementById('cardsHolder').style.animation = 'seismos .25s linear infinite';
