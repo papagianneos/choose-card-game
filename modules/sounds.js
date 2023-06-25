@@ -160,6 +160,11 @@ export const sounds = {
 
     pgnRadio: new Howl({
         src: ['/audio/lore_recording.mp3']
+    }),
+
+    wind: new Howl({
+        src: ['/audio/wind.mp3'],
+        loop: true
     })
 }
 
