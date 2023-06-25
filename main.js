@@ -20,6 +20,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
     try {
 
+        // ----------------------------------------------------------------------------------------------------------------------------------------------------------
+        // Universe-Swap Special Card
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------
+        const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------
+
         const irandom = i => {
             let max = Math.floor(i);
             return Math.floor(Math.random() * (max + 1));
@@ -351,8 +357,10 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             AMOUNT_OF_CARDS += 2;
                         }
 
-                        cardShapes.push(specialCardsConfig[23].shape);
-                        AMOUNT_OF_CARDS += 2;
+                        if (universeSpecialCardEnabled) {
+                            cardShapes.push(specialCardsConfig[23].shape);
+                            AMOUNT_OF_CARDS += 2;
+                        }
 
                         // Δες αν υπάρχει troll κάρτα..
                         if (cardShapes.includes('[?]')) {
@@ -945,15 +953,15 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                                 gameMusic.pause();
                                 sounds.universeSwap.play();
                                 document.getElementById('cardsHolder').style.animation = 'seismos .25s linear infinite';
+                                $('#cardsHolder').fadeOut(2e3);
                                 setTimeout(() => {
                                     enabledImaginaryUniverse = true;
                                     document.body.removeChild(parentDiv);
                                     document.body.appendChild(imaginaryParentDiv);
+                                    $('#cardsHolder').fadeOut(1);
+                                    $('#cardsHolder').fadeIn(5e3);
 
                                     document.getElementsByTagName('body')[0].style.background = '#c8c8c8';
-                                    $('#cardsHolder')
-                                        .fadeOut(300)
-                                        .fadeIn(5e3)
 
                                     imaginaryParentDiv.appendChild(scoreAndTriesHolder);
                                     for (var j = 0; j < imaginaryCardsData.length; j++) {
