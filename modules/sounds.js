@@ -148,6 +148,18 @@ export const sounds = {
 
     universeSwap: new Howl({
         src: ['/audio/universe-swap.mp3']
+    }),
+
+    machineActivate1: new Howl({
+        src: ['/audio/machine_01.mp3']
+    }),
+
+    machineActivate2: new Howl({
+        src: ['/audio/machine_02.mp3']
+    }),
+
+    pgnRadio: new Howl({
+        src: ['/audio/lore_recording.mp3']
     })
 }
 
