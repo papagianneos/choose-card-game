@@ -2784,7 +2784,11 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
                         // κάρτα.
                         // -------------------------------------------------------------------
-                        if (!wonBySpecialCard) {
+
+                        // Επίτευγμα: Φαντασικός
+                        if (enabledImaginaryUniverse) unlockAchievement('ach_fantastic');
+
+                        if (!wonBySpecialCard) { // Αν δεν κέρδισε με την χρήση της "Κ" σπέσιαλ κάρτας :)
                             // Eπίτευγμα: "Skill Issue"
                             if (tries < 10) {
                                 unlockAchievement('ach_skill_issue');
