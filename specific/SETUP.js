@@ -45,7 +45,7 @@ import { sounds } from "../modules/sounds.js";
 
     let clicked69 = false;
     let activateImaginaryCardButton = document.createElement('button');
-    activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE';
+    activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE' : 'ENABLE' : 'ENABLE';
     activateImaginaryCardButton.style.width = 'auto';
     activateImaginaryCardButton.style.color = 'white';
     activateImaginaryCardButton.style.background = 'linear-gradient(to left top, black, #1e0c21)';
@@ -56,7 +56,7 @@ import { sounds } from "../modules/sounds.js";
         setTimeout(() => {
             sounds.machineActivate2.play();
             localStorage.setItem('imaginaryCardActive', localStorage.getItem('imaginaryCardActive') != null ? JSON.stringify(!JSON.parse(localStorage.getItem('imaginaryCardActive'))) : 'false');
-            activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE';
+            activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE' : 'ENABLE' : 'ENABLE';
             clicked69 = false;
         }, 2e3);
     }
@@ -80,8 +80,8 @@ import { sounds } from "../modules/sounds.js";
         sounds.wind.play();
         cardWrapper.style.display = 'block';
         buttonsHolder69.appendChild(playRecordingButton);
-        mainWrapper.appendChild(buttonsHolder69);
         mainWrapper.appendChild(activateImaginaryCardButton);
+        mainWrapper.appendChild(buttonsHolder69);
     }
     mainWrapper.appendChild(button);
     // ------------------------------------------------------
