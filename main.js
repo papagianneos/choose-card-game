@@ -1016,7 +1016,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 const imcard = {
                     shape: imaginaryCardShapes[j],
                     realShape: imaginaryCardShapes[j],
-                    color: imaginaryCardColors[j],
+                    color: ['no_skin', 'gradient', 'radian', 'target'].includes(skin.id) ? imaginaryCardColors[j] : skin.bg,
                     specialCard: false,
                     specialCardEffect: () => { }
                 }
