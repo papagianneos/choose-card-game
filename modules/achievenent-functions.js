@@ -325,6 +325,12 @@ export let achievementsConfig = [
     },
 
     {
+        id: 'ach_fantastic',
+        color: 'linear-gradient(to left top, black, #1e0c21)',
+        unlocked: false
+    },
+
+    {
         name: 'π',
         desc: '3 . 1 4',
         id: 'ach_PI',
