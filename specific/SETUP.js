@@ -1,11 +1,9 @@
+import { sounds } from "../modules/sounds.js";
+
 (() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     let playedRecording = false;
-
-    let ambientSound = new Audio('../audio/wind.mp3');
-
-    ambientSound.loop = true;
 
     let mainDiv = document.createElement('div');
     mainDiv.id = 'cardsHolder';
@@ -34,7 +32,7 @@
         if (playedRecording) return;
         playRecordingButton.style.backgroundColor = 'green';
         playRecordingButton.innerHTML = 'Playing..';
-        new Audio('../audio/lore_recording.mp3').play();
+        sounds.pgnRadio.play();
         playedRecording = true;
         setTimeout(() => {
             playedRecording = false;
@@ -43,11 +41,31 @@
         }, 28e3);
     }
 
+    let buttonsHolder69 = document.createElement('div');
+
+    let clicked69 = false;
+    let activateImaginaryCardButton = document.createElement('button');
+    activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE';
+    activateImaginaryCardButton.style.width = 'auto';
+    activateImaginaryCardButton.style.color = 'white';
+    activateImaginaryCardButton.style.background = 'linear-gradient(to left top, black, #1e0c21)';
+    activateImaginaryCardButton.onclick = () => {
+        if (clicked69) return;
+        clicked69 = true;
+        sounds.machineActivate1.play();
+        setTimeout(() => {
+            sounds.machineActivate2.play();
+            localStorage.setItem('imaginaryCardActive', localStorage.getItem('imaginaryCardActive') != null ? JSON.stringify(!JSON.parse(localStorage.getItem('imaginaryCardActive'))) : 'false');
+            activateImaginaryCardButton.innerHTML = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) == true ? 'DISABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE' : 'ENABLE_CARD_UNIVERSE';
+            clicked69 = false;
+        }, 4e3);
+    }
+
     let cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     cardDiv.style.pointerEvents = 'none';
-    cardDiv.style.background = 'linear-gradient(to left top, purple, blue, cyan, green, lime)';
-    cardDiv.appendChild(document.createTextNode('Ⅽ₆₉'));
+    cardDiv.style.background = 'linear-gradient(to left top, black, #1e0c21)';
+    cardDiv.appendChild(document.createTextNode('ⅈ'));
 
     cardWrapper.appendChild(title_);
     cardWrapper.appendChild(cardDiv);
@@ -59,9 +77,11 @@
     button.appendChild(document.createTextNode('ENTER'));
     button.onclick = () => {
         button.style.display = 'none';
-        ambientSound.play();
+        sounds.wind.play();
         cardWrapper.style.display = 'block';
-        mainWrapper.appendChild(playRecordingButton);
+        buttonsHolder69.appendChild(playRecordingButton);
+        mainWrapper.appendChild(buttonsHolder69);
+        mainWrapper.appendChild(activateImaginaryCardButton);
     }
     mainWrapper.appendChild(button);
     // ------------------------------------------------------
