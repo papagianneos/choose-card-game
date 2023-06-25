@@ -1151,7 +1151,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     //    card.style.background = 'radial-gradient(#240907, black)';
                     //}
                     card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
-                    card.style.transform = 'none';
+                    card.style.transform = enabledImaginaryUniverse ? `rotateZ(${card.imaginaryRotationType}deg)` : 'none';
                     card.style.backgroundSize = 'cover';
                     card.removeAttribute('egineclick');
 
@@ -1239,6 +1239,11 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             div.savedText = card.shape; // αποθήκευσε και το κείμενο
             div.realShape = card.realShape;
             div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
+
+            // Για τις φανταστικές κάρτες μόνο
+            if (type == 'imaginary') {
+                div.imaginaryRotationType = getRandomInt(1, 345);
+            }
 
             // Walls.
             if (card.mazeWall) {
@@ -1334,11 +1339,11 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                         sounds.cardOpen.play();
                         // ----------------------------------------------------------------------
 
-                        // ---------------------------------------------------------------
+                        // -------------------------------------------------------------------------------------------------------------------------------
                         // ANIMATION. (Να μην υπάρχει στο OG mode)
-                        // ---------------------------------------------------------------
-                        div.style.transform = 'rotateY(360deg)';
-                        // ----------------------------------------------------------------
+                        // --------------------------------------------------------------------------------------------------------------------------------
+                        div.style.transform = enabledImaginaryUniverse ? `rotateZ(${div.imaginaryRotationType}deg) rotateY(360deg)` : 'rotateY(360deg)';
+                        // --------------------------------------------------------------------------------------------------------------------------------
                     }
 
                     // Εμφάνισε την κάρτα στον παίχτη
