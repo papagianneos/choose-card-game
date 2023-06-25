@@ -342,6 +342,11 @@ export let LANGUAGE_DATA = [
             desc: 'Βρες 50 σπέσιαλ κάρτες',
         },
 
+        'ach_fantastic': {
+            name: 'Φανταστικός',
+            desc: 'Κέρδισε ένα game στον φανταστικό κόσμο.',
+        },
+
         // ΤΡΟΠΑΙΑ
         'tr_master_of_cards': {
             name: 'Δάσκαλος των Καρτών',
@@ -702,6 +707,11 @@ export let LANGUAGE_DATA = [
         'ach_deceiver': {
             name: 'Deceiver',
             desc: 'Find 50 special cards.',
+        },
+
+        'ach_fantastic': {
+            name: 'Fantastic',
+            desc: 'Win a game in the fantastic universe.',
         },
 
         // ΤΡΟΠΑΙΑ
