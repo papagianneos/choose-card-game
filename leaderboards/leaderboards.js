@@ -2,14 +2,16 @@
 // ΕΠΙΚΟΙΝΩΝΙΑ ΜΕ ΤΟΝ SERVER
 // ---------------------------------------------------------------------------------------------------
 import { SERVER_ADDRESS } from "../modules/SERVER.js";
+import { LANGUAGE_DATA, LANGUAGE_INDEX } from "../modules/languages.js";
 // ---------------------------------------------------------------------------------------------------
 
 (async () => {
-    let FETCHED_DATA;
+    let FETCHED_DATA, serverDown = false;
 
     await fetch('http://localhost:3000')
         .then(response => response.text())
-        .then(text => FETCHED_DATA = JSON.parse(text)); // ο σερβερ επιστρέφει string
+        .then(text => FETCHED_DATA = JSON.parse(text)) // ο σερβερ επιστρέφει string
+        .catch(error => serverDown = true);
 
     let leaderboardHolder = document.createElement('div');
     leaderboardHolder.style.width = '100%';
@@ -27,7 +29,10 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
     leaderboardBox.id = 'leaderboard';
 
     if (FETCHED_DATA.length == 0) {
-        leaderboardBox.appendChild(document.createTextNode('No games were played today.'));
+        leaderboardBox.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].noGamesMsg));
+    }
+    else if (serverDown) {
+        leaderboardBox.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].serverDownMsg));
     }
     else {
         // -----------------------------------------------------------------------------------------------------------------
@@ -40,10 +45,10 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
             tableTopThElemCardsAmount = document.createElement('th'),
             tableTopThElemModePlayed = document.createElement('th');
 
-        tableTopThElemName.innerHTML = 'Name'; // name
+        tableTopThElemName.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].nickname; // name
         tableTopThElemScore.innerHTML = 'Score'; // score
-        tableTopThElemTries.innerHTML = 'Tries'; // tries
-        tableTopThElemCardsAmount.innerHTML = 'Cards Played'; // cards played
+        tableTopThElemTries.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].tries; // tries
+        tableTopThElemCardsAmount.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].amount_of_cards; // cards played
         tableTopThElemModePlayed.innerHTML = 'Mode'; // mode played
 
         for (var child of [tableTopThElemName, tableTopThElemScore, tableTopThElemTries, tableTopThElemCardsAmount, tableTopThElemModePlayed]) {
