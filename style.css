@@ -723,3 +723,35 @@ lockedtxt {
         left: 0;
     }
 }
+
+#leaderboard {
+    width: 100%;
+    height: auto;
+    background: black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+}
+
+.leaderboardRow {
+    width: 100%;
+    height: auto;
+    margin: 5px;
+    background-color: #c7c7c7;
+    color: black;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+table,
+th,
+td {
+    border: 1px solid;
+}
+
+#playerNameInput {
+    text-align: center;
+    font-size: 25px;
+}
