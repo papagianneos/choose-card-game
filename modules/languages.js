@@ -40,6 +40,7 @@ export let LANGUAGE_DATA = [
         "trophy": "ΤΡΟΠΑΙΟ",
         "choose_special_card_menu_title": "ΔΙΑΛΕΞΕ ΣΠΕΣΙΑΛ ΚΑΡΤΑ",
         "delete_data_question": "Είσαι σίγουρος ότι θέλεις να διαγράψεις τα επιτεύγματα και τις ρυθμίσεις του παιχνιδιού;",
+        "nickname": "Ψευδώνυμο",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
@@ -407,6 +408,7 @@ export let LANGUAGE_DATA = [
         "trophy": "TROPHY",
         "choose_special_card_menu_title": "SELECT SPECIAL CARD",
         "delete_data_question": "Are you sure that you want to delete all of your progress?",
+        "nickname": "Nickname",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
