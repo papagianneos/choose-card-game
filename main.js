@@ -1326,7 +1326,7 @@ import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                     if (underNullEffect) {
                         turnsToRemoveNullEffect += 1;
 
-                        if (turnsToRemoveNullEffect > 12) {
+                        if (turnsToRemoveNullEffect > 10) {
                             underNullEffect = false;
                             sounds.null.play();
                             clearInterval(nullEffectLoop);
@@ -2012,7 +2012,7 @@ import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                             alert('Name required.');
                             return;
 
-                        case playerNameInput.value.length > 10:
+                        case playerNameInput.value.length > 12:
                             alert('Name too long.');
                             return;
                     }
