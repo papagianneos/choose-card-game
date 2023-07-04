@@ -5,9 +5,9 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
+import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
 
 (() => {
-
     // Skin που επέλεξε ο παίχτης.
     const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
@@ -234,6 +234,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             BROKEN_CARDS_AMOUNT = 5,
             deltaEffect = false,
             enabledImaginaryUniverse = false,
+            modePlayed,
             CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
         // ========================================================================
@@ -1863,6 +1864,23 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             let startScreen = document.createElement('div');
             startScreen.id = 'screen';
 
+            // ---------------------------------------------------------------------------------------------------------
+            // Όνομα Παίχτη.
+            // ---------------------------------------------------------------------------------------------------------
+            let playerNameInputHolder = document.createElement('div');
+
+            let playerNameInput = document.createElement('input');
+            playerNameInput.placeholder = LANGUAGE_DATA[LANGUAGE_INDEX].nickname;
+            playerNameInput.id = 'playerNameInput';
+            playerNameInput.addEventListener('input', () => {
+                localStorage.setItem('playerName', playerNameInput.value);
+            });
+            playerNameInput.setAttribute('maxlength', '10');
+
+            if (localStorage.getItem('playerName') != null) playerNameInput.value = localStorage.getItem('playerName');
+            playerNameInputHolder.appendChild(playerNameInput);
+            // ---------------------------------------------------------------------------------------------------------
+
             // Τίτλος
             let startScreenText = document.createElement('h1');
             startScreenText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_game_name));
@@ -1988,6 +2006,19 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                 // Event-Listener. (για τα κλικ)
                 button.onclick = () => {
+
+                    switch (true) {
+                        case playerNameInput.value == '':
+                            alert('Name required.');
+                            return;
+
+                        case playerNameInput.value.length > 10:
+                            alert('Name too long.');
+                            return;
+                    }
+
+
+
                     // Επίτευγμα: "Νέος Παίχτης"
                     unlockAchievement('ach_new_player');
 
@@ -2077,7 +2108,12 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                             }
                             tries--; // bug fix
                             break;
+
+                        default:
+                            mode = 'simple';
                     }
+
+                    modePlayed = mode;
 
                     sounds.buttonClick.play();
 
@@ -2453,6 +2489,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
             if (aprilFools) {
                 youtubeIcon.style.display = 'none';
                 startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
+                startScreen.appendChild(playerNameInputHolder); // Όνομα Παίχτη
                 featuredYoutuberHolder.style.background = 'transparent';
                 featuredYoutuberHolder.style.color = 'white';
                 startScreen.appendChild(developerNameLol); // λολ
@@ -2466,6 +2503,7 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                 settingsHolder.appendChild(howToPlayBtn); // How to play link
                 settingsHolder.appendChild(achievementsMenuBtn);
                 startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
+                startScreen.appendChild(playerNameInputHolder); // Όνομα Παίχτη
                 startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
             }
 
@@ -2655,8 +2693,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
             // game loop
             const gameLoop = setInterval(() => {
-
-
                 let openedCards = [];
                 if (!hideAndSeekModeEnabled) {
                     // --------------------------------------------------------
@@ -2776,7 +2812,6 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
                     (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
                     (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
                 ) {
-
                     // Αν δεν είναι VOID mode.
                     if (voidModeOver) {
 
@@ -2893,6 +2928,27 @@ import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } f
 
                         clearInterval(gameLoop);
                         sounds.win.play();
+
+                        // --------------------------------------------------------------
+                        // Στείλε στον server..
+                        // --------------------------------------------------------------
+                        let socket = new WebSocket(SERVER_ADDRESS);
+
+                        socket.binaryType = "arraybuffer";
+
+                        const playerObject = {
+                            name: playerNameInput.value,
+                            score: score,
+                            tries: tries,
+                            cardsAmount: AMOUNT_OF_CARDS,
+                            mode: modePlayed
+                        }
+
+                        socket.onopen = function () {
+                            socket.send(encode(JSON.stringify(playerObject))); // πρέπει να είναι STRING
+                            socket.close();
+                        }
+                        // --------------------------------------------------------------
 
                         document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
                         document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
