@@ -755,3 +755,34 @@ td {
     text-align: center;
     font-size: 25px;
 }
+
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    border: 10px solid #3498db;
+    border-radius: 5.5%;
+    animation: loader 2s linear infinite;
+}
+
+@keyframes loader {
+    25% {
+        color: #05ffe6;
+    }
+
+    50% {
+        color: #1cd4c1;
+    }
+
+    75% {
+        color: #1f8278;
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
