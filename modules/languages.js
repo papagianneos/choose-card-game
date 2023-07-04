@@ -41,6 +41,8 @@ export let LANGUAGE_DATA = [
         "choose_special_card_menu_title": "ΔΙΑΛΕΞΕ ΣΠΕΣΙΑΛ ΚΑΡΤΑ",
         "delete_data_question": "Είσαι σίγουρος ότι θέλεις να διαγράψεις τα επιτεύγματα και τις ρυθμίσεις του παιχνιδιού;",
         "nickname": "Ψευδώνυμο",
+        "serverDownMsg": "Δεν λειτουργεί ο διακομιστής (server)",
+        "noGamesMsg": "Κανένας δεν έπαιξε σήμερα.",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
@@ -409,6 +411,8 @@ export let LANGUAGE_DATA = [
         "choose_special_card_menu_title": "SELECT SPECIAL CARD",
         "delete_data_question": "Are you sure that you want to delete all of your progress?",
         "nickname": "Nickname",
+        "serverDownMsg": "Error: Server is not working.",
+        "noGamesMsg": "No games were played today.",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
