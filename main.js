@@ -1326,7 +1326,7 @@ import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                     if (underNullEffect) {
                         turnsToRemoveNullEffect += 1;
 
-                        if (turnsToRemoveNullEffect > 10) {
+                        if (turnsToRemoveNullEffect > 12) {
                             underNullEffect = false;
                             sounds.null.play();
                             clearInterval(nullEffectLoop);
