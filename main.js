@@ -1875,7 +1875,7 @@ import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
             playerNameInput.addEventListener('input', () => {
                 localStorage.setItem('playerName', playerNameInput.value);
             });
-            playerNameInput.setAttribute('maxlength', '10');
+            playerNameInput.setAttribute('maxlength', '12');
 
             if (localStorage.getItem('playerName') != null) playerNameInput.value = localStorage.getItem('playerName');
             playerNameInputHolder.appendChild(playerNameInput);
