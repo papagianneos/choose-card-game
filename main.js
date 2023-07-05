@@ -5,7 +5,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
-import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
+import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
 
 (() => {
     // Skin που επέλεξε ο παίχτης.
@@ -2932,7 +2932,7 @@ import { SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                         // --------------------------------------------------------------
                         // Στείλε στον server..
                         // --------------------------------------------------------------
-                        let socket = new WebSocket(SERVER_ADDRESS);
+                        let socket = new WebSocket(WEBSOCKET_SERVER_ADDRESS);
 
                         socket.binaryType = "arraybuffer";
 
