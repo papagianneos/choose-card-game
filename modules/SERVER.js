@@ -559,4 +559,5 @@ let decodeLegacy = (() => {
   }
 })()
 
-export const SERVER_ADDRESS = 'ws://localhost:3000';
+export const WEBSOCKET_SERVER_ADDRESS = 'wss://card-game-server-eysu.onrender.com';
+export const SERVER_ADDRESS = 'https://card-game-server-eysu.onrender.com';
