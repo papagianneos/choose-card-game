@@ -1,4 +1,5 @@
 import { LANGUAGE_DATA, LANGUAGE_INDEX } from "../modules/languages.js";
+import { SERVER_ADDRESS } from "../modules/SERVER.js";
 
 (() => {
     document.getElementsByTagName('body')[0].style.background = 'black';
@@ -11,7 +12,7 @@ import { LANGUAGE_DATA, LANGUAGE_INDEX } from "../modules/languages.js";
         let FETCHED_DATA = [], serverDown = false;
 
         try {
-            await fetch('http://localhost:3000')
+            await fetch(SERVER_ADDRESS)
                 .then(response => response.text())
                 .then(text => FETCHED_DATA = JSON.parse(text)); // ο σερβερ επιστρέφει string
         }
