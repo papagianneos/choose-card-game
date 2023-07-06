@@ -43,6 +43,7 @@ export let LANGUAGE_DATA = [
         "nickname": "Ψευδώνυμο",
         "serverDownMsg": "Δεν λειτουργεί ο διακομιστής (server)",
         "noGamesMsg": "Κανένας δεν έπαιξε σήμερα.",
+        "todaysGames": "ΣΗΜΕΡΙΝΑ ΠΑΙΧΝΙΔΙΑ",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
@@ -413,6 +414,7 @@ export let LANGUAGE_DATA = [
         "nickname": "Nickname",
         "serverDownMsg": "Error: Server is not working.",
         "noGamesMsg": "No games were played today.",
+        "todaysGames": "TODAY'S GAMES",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
