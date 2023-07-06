@@ -32,7 +32,7 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
         leaderboardHolder.style.justifyContent = 'center';
 
         let leaderboardBoxTitle = document.createElement('h1');
-        leaderboardBoxTitle.appendChild(document.createTextNode('TODAY\'S GAMES'));
+        leaderboardBoxTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].todaysGames));
         leaderboardBoxTitle.style.textAlign = 'center';
 
         let leaderboardBox = document.createElement('table');
