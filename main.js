@@ -1899,7 +1899,7 @@ import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
             // For my friends :)
             let friendsWebsite = document.createElement('h1');
             friendsWebsite.style.fontSize = '20px';
-            friendsWebsite.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_friends_project} <a href="https://2x05.surge.sh/">2x05</a>`;
+            friendsWebsite.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_friends_project} <a href="https://2x05.netlify.app/">2x05</a>`;
             // Επίτευγμα: "Κάπου το θυμάμαι αυτό.."
             friendsWebsite.onclick = () => unlockAchievement('ach_2x05');
 
