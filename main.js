@@ -1925,6 +1925,17 @@ import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                 }, 5e2);
             }
 
+            // Σημερινά Παιχνίδια
+            let leaderboardMenuBtn = document.createElement('button');
+            leaderboardMenuBtn.style.fontSize = '25px';
+            leaderboardMenuBtn.appendChild(document.createTextNode('Leaderboards'));
+            leaderboardMenuBtn.onclick = () => {
+                sounds.buttonClick.play();
+                setTimeout(() => {
+                    window.location.href = '/leaderboards';
+                }, 5e2);
+            }
+
             let creditsBtn = document.createElement('button');
             creditsBtn.style.fontSize = '25px';
             creditsBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_credits));
@@ -2501,7 +2512,8 @@ import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
                 settingsHolder.appendChild(customizePageLink);
                 settingsHolder.appendChild(creditsBtn); // Credits
                 settingsHolder.appendChild(howToPlayBtn); // How to play link
-                settingsHolder.appendChild(achievementsMenuBtn);
+                settingsHolder.appendChild(achievementsMenuBtn); // Επιτεύγματα
+                settingsHolder.appendChild(leaderboardMenuBtn); // Leaderboards
                 startScreen.appendChild(featuredYoutuberHolder); // Featured Youtuber
                 startScreen.appendChild(playerNameInputHolder); // Όνομα Παίχτη
                 startScreen.appendChild(settingsHolder); // Ρυθμίσεις κ.α.
