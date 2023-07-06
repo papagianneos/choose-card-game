@@ -11,10 +11,10 @@ import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
     // Skin που επέλεξε ο παίχτης.
     const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
-    if (!aprilFools) {
+    /*if (!aprilFools) {
         document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
         document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
-    }
+    }*/
 
     document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
 
