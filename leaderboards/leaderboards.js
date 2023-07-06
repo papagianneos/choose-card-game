@@ -40,6 +40,7 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
         goBackButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_button_go_back));
         goBackButton.onclick = () => window.location.href = '/';
         goBackButton.style.marginBottom = '10px';
+        goBackButton.style.width = 'auto'; // fix
 
         let leaderboardBox = document.createElement('table');
         leaderboardBox.id = 'leaderboard';
