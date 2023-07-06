@@ -34,6 +34,12 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
         let leaderboardBoxTitle = document.createElement('h1');
         leaderboardBoxTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].todaysGames));
         leaderboardBoxTitle.style.textAlign = 'center';
+        leaderboardBoxTitle.style.margin = '0';
+
+        let goBackButton = document.createElement('button');
+        goBackButton.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_button_go_back));
+        goBackButton.onclick = () => window.location.href = '/';
+        goBackButton.style.marginBottom = '10px';
 
         let leaderboardBox = document.createElement('table');
         leaderboardBox.id = 'leaderboard';
@@ -93,6 +99,7 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
         }
 
         leaderboardHolder.appendChild(leaderboardBoxTitle);
+        leaderboardHolder.appendChild(goBackButton);
         leaderboardHolder.appendChild(leaderboardBox);
         document.body.appendChild(leaderboardHolder);
     })();
