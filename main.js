@@ -42,7 +42,7 @@ import { WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        const CARDS_DELAY_MS = 300;
+        const CARDS_DELAY_MS = 200;
 
         const BROKEN_CARD_POLYGONS = [
             'none',
