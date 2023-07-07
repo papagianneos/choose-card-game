@@ -180,5 +180,6 @@ export const specialCardsConfig = [
         color: 'radial-gradient(#292929, black)',
         info: 'TypeError: Aleph can\'t be described.',
         noSpawnInFinale: true,
+        neverSpawn: true
     }
 ];
