@@ -758,6 +758,7 @@ td {
 #playerNameInput {
     text-align: center;
     font-size: 25px;
+    border-radius: 2.5px;
 }
 
 .loader {
