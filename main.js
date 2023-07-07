@@ -17,8 +17,12 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
     (async () => {
 
         // Περίμενε να φορτώσει ο σερβερ πρώτα.
-        await fetch('http://localhost:3000')
-            .then(response => response.text())
+        try {
+            await fetch('htpp://localhost:3000')
+                .then(response => response.text())
+        }
+
+        catch(error) {}
 
         document.body.removeChild(loader); // remove loader
 
