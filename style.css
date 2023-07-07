@@ -339,7 +339,7 @@ progress {
 }
 
 select, input {
-    backgorund: white;
+    background: white;
 }
 
 input[type=checkbox] {
