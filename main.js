@@ -20,6 +20,8 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
         await fetch(SERVER_ADDRESS)
             .then(response => response.text())
 
+        document.body.removeChild(loader); // remove loader
+
         // Skin που επέλεξε ο παίχτης.
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
