@@ -173,5 +173,12 @@ export const specialCardsConfig = [
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_delta,
         noSpawnInFinale: true,
         neverSpawn: true
+    },
+
+    { // ALEPH
+        shape: 'ℵ',
+        color: 'radial-gradient(#292929, black)',
+        info: 'TypeError: Aleph can\'t be described.',
+        noSpawnInFinale: true,
     }
 ];
