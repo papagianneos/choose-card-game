@@ -103,5 +103,15 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
         leaderboardHolder.appendChild(goBackButton);
         leaderboardHolder.appendChild(leaderboardBox);
         document.body.appendChild(leaderboardHolder);
+
+        // -------------------------------------------------------------------------------------------------------------------------
+        // Πρώτος - Χρυσό Φόντο
+        // Δεύτερος - Ασημί φόντο
+        // Τρίτος - Χάλκινο Φόντο
+        // -------------------------------------------------------------------------------------------------------------------------
+        document.getElementsByTagName('tr')[1].style.background = 'linear-gradient(to right top, gold, #ffbc00, red)';
+        document.getElementsByTagName('tr')[2].style.background = 'linear-gradient(to right top, lightgrey, #c7c7c7, black)';
+        document.getElementsByTagName('tr')[3].style.background = 'linear-gradient(to right top, #cd7f32, brown)';
+        // --------------------------------------------------------------------------------------------------------------------------
     })();
 })();
