@@ -1,7 +1,7 @@
 import { createSnow } from './snow.js';
 
 export const christmasDecorationsEnabled = new Date().getDate() > 10 && new Date().getMonth() == 11; // December 10th+
-export const pgnBirthday = (new Date().getDate() == 15 && new Date().getMonth() == 5) || (new Date().getDate() == 6 && new Date().getMonth() == 7) || (new Date().getDate() == 21 && new Date().getMonth() == 7) ; // June 15th, August 6th & August 21st (Redacted's Birthday)
+export const pgnBirthday = (new Date().getDate() == 15 && new Date().getMonth() == 5) || (new Date().getDate() == 6 && new Date().getMonth() == 7) || (new Date().getDate() == 21 && new Date().getMonth() == 7); // June 15th, August 6th & August 21st (Redacted's Birthday)
 export const aprilFools = new Date().getDate() == 1 && new Date().getMonth() == 3; // April 1st
 export let skinsDisabled = false;
 
