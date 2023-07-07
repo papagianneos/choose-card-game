@@ -17,12 +17,7 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
     (async () => {
 
         // Περίμενε να φορτώσει ο σερβερ πρώτα.
-        try {
-            await fetch(SERVER_ADDRESS)
-                .then(response => response.text())
-        }
-
-        catch(error) {}
+        await fetch(SERVER_ADDRESS).then(response => response.text())
 
         document.body.removeChild(loader); // remove loader
 
