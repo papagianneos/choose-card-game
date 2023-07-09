@@ -436,8 +436,19 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
                 for (var n = 0; n < 4; n++) {
                     generatedColorPalette = [];
                     for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
-                        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+                        let randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
                         generatedColorPalette.push(randomColor);
+
+                        // --------------------------------------------------------
+                        // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
+                        // generation του τυχαίου HEX χρώματος.
+                        // --------------------------------------------------------
+                        if (randomColor.length < 7) {
+                            randomColor = '#0' + randomColor;
+                        }
+
+                        else randomColor = '#' + randomColor;
+                        // --------------------------------------------------------
 
                         // -------------------------------------------------------------
                         // BUG FIX: Διαγραφή αντιγράφων
@@ -445,7 +456,19 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
                         generatedColorPalette = [...new Set(generatedColorPalette)];
 
                         let checkDuplicateColorInterval = setInterval(() => {
-                            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+                            let randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+
+                            // --------------------------------------------------------
+                            // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
+                            // generation του τυχαίου HEX χρώματος.
+                            // --------------------------------------------------------
+                            if (randomColor.length < 7) {
+                                randomColor = '#0' + randomColor;
+                            }
+
+                            else randomColor = '#' + randomColor;
+                            // --------------------------------------------------------
+
                             generatedColorPalette.push(randomColor);
                             generatedColorPalette = [...new Set(generatedColorPalette)];
 
@@ -1543,7 +1566,18 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
 
                                         // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
                                         let chosenCharacter = randomChoice(CHARACTERS_SET_PENALTY_MODE),
-                                            randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+                                            randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+
+                                        // --------------------------------------------------------
+                                        // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
+                                        // generation του τυχαίου HEX χρώματος.
+                                        // --------------------------------------------------------
+                                        if (randomColor.length < 7) {
+                                            randomColor = '#0' + randomColor;
+                                        }
+
+                                        else randomColor = '#' + randomColor;
+                                        // --------------------------------------------------------
 
                                         let previousSavedIndex = 0,
                                             turn = 0;
