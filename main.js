@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
 import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
-import { generateRandomHexColor } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
     document.getElementsByTagName('body')[0].style.background = 'black';
@@ -39,22 +39,6 @@ import { generateRandomHexColor } from "./modules/useful-functions.js";
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-            const irandom = i => {
-                let max = Math.floor(i);
-                return Math.floor(Math.random() * (max + 1));
-            };
-
-            const randomChoice = arr => {
-                return arr[irandom(arr.length - 1)];
-            };
-
-            // For Penalty mode.
-            function getRandomInt(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
 
             const CARDS_DELAY_MS = 250;
 
@@ -439,6 +423,23 @@ import { generateRandomHexColor } from "./modules/useful-functions.js";
                     for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
                         const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                         generatedColorPalette.push(randomColor);
+
+                        // -------------------------------------------------------------
+                        // BUG FIX: Διαγραφή αντιγράφων
+                        // -------------------------------------------------------------
+                        generatedColorPalette = [...new Set(generatedColorPalette)];
+
+                        let checkDuplicateColorInterval = setInterval(() => {
+                            const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
+                            generatedColorPalette.push(randomColor);
+                            generatedColorPalette = [...new Set(generatedColorPalette)];
+
+                            if (generatedColorPalette.length == 6) {
+                                clearInterval(checkDuplicateColorInterval);
+                            }
+                        }, 10);
+                        // -------------------------------------------------------------
+
                     }
                     COLOR_PALETTES.push(generatedColorPalette);
                 }
@@ -458,6 +459,25 @@ import { generateRandomHexColor } from "./modules/useful-functions.js";
                             color += Math.floor(Math.random() * 10);
                         }
                         imaginaryGeneratedColorPalette.push(color);
+
+                        // -------------------------------------------------------------
+                        // BUG FIX: Διαγραφή αντιγράφων
+                        // -------------------------------------------------------------
+                        imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
+
+                        let checkDuplicateColorInterval2 = setInterval(() => {
+                            var color = '#';
+                            for (var i = 0; i < 6; i++) {
+                                color += Math.floor(Math.random() * 10);
+                            }
+                            imaginaryGeneratedColorPalette.push(color);
+                            imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
+
+                            if (imaginaryGeneratedColorPalette.length == 6) {
+                                clearInterval(checkDuplicateColorInterval2);
+                            }
+                        }, 10);
+                        // -------------------------------------------------------------
 
                     }
                     IMAGINARY_COLOR_PALETTES.push(imaginaryGeneratedColorPalette);
