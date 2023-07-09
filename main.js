@@ -461,6 +461,7 @@ import { generateRandomHexColor } from "./modules/useful-functions.js";
                 }
 
                 let cardColors = randomChoice(COLOR_PALETTES);
+                console.log(cardColors);
 
                 let IMAGINARY_COLOR_PALETTES = [],
                     imaginaryGeneratedColorPalette = [];
