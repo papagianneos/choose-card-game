@@ -6,6 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
 import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
+import { generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
     document.getElementsByTagName('body')[0].style.background = 'black';
@@ -436,19 +437,8 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
                 for (var n = 0; n < 4; n++) {
                     generatedColorPalette = [];
                     for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
-                        let randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
+                        const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                         generatedColorPalette.push(randomColor);
-
-                        // --------------------------------------------------------
-                        // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
-                        // generation του τυχαίου HEX χρώματος.
-                        // --------------------------------------------------------
-                        if (randomColor.length < 7) {
-                            randomColor = '#0' + randomColor;
-                        }
-
-                        else randomColor = '#' + randomColor;
-                        // --------------------------------------------------------
 
                         // -------------------------------------------------------------
                         // BUG FIX: Διαγραφή αντιγράφων
@@ -456,19 +446,7 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
                         generatedColorPalette = [...new Set(generatedColorPalette)];
 
                         let checkDuplicateColorInterval = setInterval(() => {
-                            let randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
-
-                            // --------------------------------------------------------
-                            // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
-                            // generation του τυχαίου HEX χρώματος.
-                            // --------------------------------------------------------
-                            if (randomColor.length < 7) {
-                                randomColor = '#0' + randomColor;
-                            }
-
-                            else randomColor = '#' + randomColor;
-                            // --------------------------------------------------------
-
+                            const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                             generatedColorPalette.push(randomColor);
                             generatedColorPalette = [...new Set(generatedColorPalette)];
 
@@ -1566,18 +1544,7 @@ import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERV
 
                                         // Επέλεξε τυχαίο χαρακτήρα/σύμβολο για το νέο ζευγάρι καρτών
                                         let chosenCharacter = randomChoice(CHARACTERS_SET_PENALTY_MODE),
-                                            randomColor = Math.floor(Math.random() * 16777215).toString(16); // τυχαίο χρώμα σε hexadecimal (HEX)
-
-                                        // --------------------------------------------------------
-                                        // BUG FIX: Υπάρχει περίπτωση να μην γίνει σωστά το 
-                                        // generation του τυχαίου HEX χρώματος.
-                                        // --------------------------------------------------------
-                                        if (randomColor.length < 7) {
-                                            randomColor = '#0' + randomColor;
-                                        }
-
-                                        else randomColor = '#' + randomColor;
-                                        // --------------------------------------------------------
+                                            randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
 
                                         let previousSavedIndex = 0,
                                             turn = 0;
