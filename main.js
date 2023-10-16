@@ -1225,7 +1225,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                 if (halloweenTime) {
                     div.style.fontFamily = 'halloween';
-                    div.style.color = 'maroon';
+                    div.style.color = '#520707';
                 }
 
                 // Χιόνι Εφέ για τις κάρτες.
