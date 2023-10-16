@@ -3,12 +3,18 @@ import { createSnow } from './snow.js';
 export const christmasDecorationsEnabled = new Date().getDate() > 10 && new Date().getMonth() == 11; // December 10th+
 export const pgnBirthday = (new Date().getDate() == 15 && new Date().getMonth() == 5) || (new Date().getDate() == 6 && new Date().getMonth() == 7) || (new Date().getDate() == 21 && new Date().getMonth() == 7); // June 15th, August 6th & August 21st (Redacted's Birthday)
 export const aprilFools = new Date().getDate() == 1 && new Date().getMonth() == 3; // April 1st
+export const halloweenTime = new Date().getDate() >= 16 && new Date().getMonth() == 9; // Halloween
 export let skinsDisabled = false;
 
 export const idkSomeFunctionSoItRuns = (() => {
     // April Fools!
     if (aprilFools) {
         document.getElementsByTagName('link')[0].href = './img/game-logo-old.png';
+    }
+
+    // Halloween
+    if (halloweenTime) {
+        document.getElementsByTagName('body')[0].style.filter = 'brightness(50%)';
     }
 
     // ------------------------------------------------------------------------------------
