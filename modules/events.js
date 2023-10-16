@@ -12,6 +12,11 @@ export const idkSomeFunctionSoItRuns = (() => {
         document.getElementsByTagName('link')[0].href = './img/game-logo-old.png';
     }
 
+    if (halloweenTime) {
+        document.getElementsByTagName('body')[0].style.fontFamily = 'halloween';
+        for (var button of document.getElementsByTagName('button')) button.style.fontSize = 'halloween';
+    }
+
     // ------------------------------------------------------------------------------------
     // Για τα γεννέθλια του developer Pgn, βάλε κονφετί στην σελίδα.
     // ------------------------------------------------------------------------------------
