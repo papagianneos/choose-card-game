@@ -5,59 +5,69 @@
 // Μουσικές
 export const music = {
     menuMusic: new Howl({
-        src: ['/audio/Main_Menu.mp3'],
+        src: ['/audio/main_menu_02.mp3'],
         loop: false,
     }),
 
     menuMusicOG: new Howl({
-        src: ['/audio/gameMenuMusic.mp3'],
+        src: ['/audio/main_menu_01.mp3'],
         loop: true,
     }),
 
+    menuMusicHalloween: new Howl({
+        src: ['/audio/main_menu_03.mp3'],
+        loop: true
+    }),
+
     gameMusic: new Howl({
-        src: ['/audio/music.mp3'],
+        src: ['/audio/game_music_01.mp3'],
         loop: true
     }),
 
     gameMusicOG: new Howl({
-        src: ['/audio/μουσική.mp3'],
-        loop: true
-    }),
-
-    extremeModeGameMusic: new Howl({
-        src: ['/audio/extreme_mode_music.mp3'],
-        loop: true
-    }),
-
-    extremeModeGameMusicBirthday: new Howl({
-        src: ['/audio/extreme_mode_music_birthday.mp3'],
-        loop: true
-    }),
-
-    papagianneosFinaleMusic: new Howl({
-        src: ['/audio/papagianneos_finale_v3.mp3'],
-        loop: true
-    }),
-
-    timeLevelMusic: new Howl({
-        src: ['/audio/timed_mode_level_petercraft.mp3'],
-        loop: true,
-    }),
-
-    timeLevelMusicOG: new Howl({
-        src: ['/audio/time_level_music.mp3'],
-        loop: true,
-    }),
-
-    timeLevelMusicBirthday: new Howl({
-        src: ['/audio/time_level_music_birthday.mp3'],
+        src: ['/audio/game_music_02.mp3'],
         loop: true
     }),
 
     birthdayMusic: new Howl({
-        src: ['/audio/birthday_music.mp3'],
+        src: ['/audio/game_music_03.mp3'],
         loop: true
-    })
+    }),
+
+    gameMusicHalloween: new Howl({
+        src: ['/audio/game_music_04.mp3'],
+        loop: true
+    }),
+
+    extremeModeGameMusic: new Howl({
+        src: ['/audio/extreme_music_01.mp3'],
+        loop: true
+    }),
+
+    extremeModeGameMusicBirthday: new Howl({
+        src: ['/audio/extreme_music_02.mp3'],
+        loop: true
+    }),
+
+    papagianneosFinaleMusic: new Howl({
+        src: ['/audio/papagianneos_finale_03.mp3'],
+        loop: true
+    }),
+
+    timeLevelMusicOG: new Howl({
+        src: ['/audio/time_level_01.mp3'],
+        loop: true,
+    }),
+
+    timeLevelMusic: new Howl({
+        src: ['/audio/time_level_02.mp3'],
+        loop: true,
+    }),
+
+    timeLevelMusicBirthday: new Howl({
+        src: ['/audio/time_level_03.mp3'],
+        loop: true
+    }),
 }
 
 // Ήχοι Παιχνιδιού
@@ -79,11 +89,19 @@ export const sounds = {
     }),
 
     score: new Howl({
-        src: ['/audio/score.mp3']
+        src: ['/audio/score_01.mp3']
     }),
 
     scoreHardMode: new Howl({
-        src: ['/audio/δύσκολο_score.mp3']
+        src: ['/audio/score_02.mp3']
+    }),
+
+    specialScore: new Howl({
+        src: ['/audio/score_03.mp3']
+    }),
+
+    scoreHalloween: new Howl({
+        src: ['/audio/score_04.mp3']
     }),
 
     win: new Howl({
@@ -91,19 +109,19 @@ export const sounds = {
     }),
 
     loss: new Howl({
-        src: ['/audio/κακό_λάθος.mp3']
+        src: ['/audio/wrong_03.mp3']
     }),
 
     wrong: new Howl({
-        src: ['/audio/Wrong.mp3']
+        src: ['/audio/wrong_01.mp3']
     }),
 
     wrongOG: new Howl({
-        src: ['/audio/λάθος.mp3']
+        src: ['/audio/wrong_02.mp3']
     }),
 
-    specialScore: new Howl({
-        src: ['/audio/special_score.mp3']
+    wrongHalloween: new Howl({
+        src: ['/audio/wrong_04.mp3']
     }),
 
     wow: new Howl({
