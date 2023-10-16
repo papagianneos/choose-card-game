@@ -2954,7 +2954,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             // -----------------------------------
 
                             clearInterval(gameLoop);
-                            sounds.win.play();
+                            halloweenTime ? sounds.winHalloween.play() : sounds.win.play();
 
                             // --------------------------------------------------------------
                             // Στείλε στον server..
