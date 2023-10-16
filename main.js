@@ -2531,9 +2531,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 startScreen.appendChild(buttonsWrapper); // Κουμπιά
                 document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
 
-                if (halloweenTime) {
-                    document.getElementsByTagName('body')[0].style.font = 'bold 55px halloween';
-                    document.getElementsByTagName('body')[0].style.color = '#520707';
+                if (halloweenTime) { // fix for buttons
                     for (var buttonIndex = 0; buttonIndex < document.getElementsByTagName('button').length; buttonIndex++) {
                         let button = document.getElementsByTagName('button')[buttonIndex];
                         button.style.font = 'bold 55px halloween';
