@@ -2532,11 +2532,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
 
                 if (halloweenTime) {
-                    document.getElementsByTagName('body')[0].style.fontFamily = 'halloween';
+                    document.getElementsByTagName('body')[0].style.font = 'bold 55px halloween';
                     document.getElementsByTagName('body')[0].style.color = '#520707';
                     for (var buttonIndex = 0; buttonIndex < document.getElementsByTagName('button').length; buttonIndex++) {
                         let button = document.getElementsByTagName('button')[buttonIndex];
-                        button.style.fontFamily = 'halloween';
+                        button.style.font = 'bold 55px halloween';
                         button.style.color = '#520707';
                     }
                 }
