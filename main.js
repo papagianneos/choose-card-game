@@ -4,7 +4,7 @@ import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
-import { idkSomeFunctionSoItRuns, skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
+import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
@@ -2530,6 +2530,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                 startScreen.appendChild(buttonsWrapper); // Κουμπιά
                 document.body.appendChild(startScreen); // Βάλε την οθόνη στο σώμα της ιστοσελίδας
+
+                if (halloweenTime) {
+                    document.getElementsByTagName('body')[0].style.fontFamily = 'halloween';
+                    document.getElementsByTagName('body')[0].style.color = '#520707';
+                    for (var buttonIndex = 0; buttonIndex < document.getElementsByTagName('button').length; buttonIndex++) {
+                        let button = document.getElementsByTagName('button')[buttonIndex];
+                        button.style.fontFamily = 'halloween';
+                        button.style.color = '#520707';
+                    }
+                }
 
                 // ============================================================================================================
                 // GAME LOOPS
