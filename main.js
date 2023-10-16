@@ -1895,19 +1895,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 startScreenText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_game_name));
                 startScreenText.style.margin = '0';
 
+                const modifiedFontSize = halloweenTime ? '30px' : '20px';
+
                 // λολ
                 let developerNameLol = document.createElement('h1');
-                developerNameLol.style.fontSize = '20px';
+                developerNameLol.style.fontSize = modifiedFontSize;
                 developerNameLol.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].developer));
 
                 // Μουσική Credits (Soundimage.org)
                 let musicCredit = document.createElement('h1');
-                musicCredit.style.fontSize = '20px';
+                musicCredit.style.fontSize = modifiedFontSize;
                 musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
                 // For my friends :)
                 let friendsWebsite = document.createElement('h1');
-                friendsWebsite.style.fontSize = '20px';
+                friendsWebsite.style.fontSize = modifiedFontSize;
                 friendsWebsite.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_friends_project} <a href="https://2x05.surge.sh/">2x05</a>`;
                 // Επίτευγμα: "Κάπου το θυμάμαι αυτό.."
                 friendsWebsite.onclick = () => unlockAchievement('ach_2x05');
