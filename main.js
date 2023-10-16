@@ -1073,9 +1073,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
-            scoreText.style.fontSize = '20px';
-            triesText.style.fontSize = '20px';
-            hideAndSeekText.style.fontSize = '20px';
+            scoreText.style.fontSize = halloweenTime ? '30px' : '20px';
+            triesText.style.fontSize = halloweenTime ? '30px' : '20px';
+            hideAndSeekText.style.fontSize = halloweenTime ? '30px' : '20px';
             hideAndSeekText.style.display = 'none'; // bug fix
 
             // -------------------------------------------------------
@@ -2797,6 +2797,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             // Κουμπί για να παίξει ξανά ο παίχτης
                             let playAgainButton = document.createElement('button');
                             playAgainButton.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].play_again;
+
+                            if (halloweenTime) {
+                                playAgainButton.style.font = 'bold 55px halloween';
+                                playAgainButton.style.color = '#520707';
+                            }
+
                             playAgainButton.style.backgroundColor = 'maroon';
                             playAgainButton.onclick = () => {
                                 sounds.buttonClick.play();
@@ -3034,6 +3040,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             // Κουμπί για να παίξει ξανά ο παίχτης
                             let playAgainButton = document.createElement('button');
                             playAgainButton.innerHTML = LANGUAGE_DATA[LANGUAGE_INDEX].play_again;
+                            if (halloweenTime) {
+                                playAgainButton.style.font = 'bold 55px halloween';
+                                playAgainButton.style.color = '#520707';
+                            }
                             playAgainButton.onclick = () => {
                                 sounds.buttonClick.play();
                                 // για να προλάβει να παίξει ο ήχος..
@@ -3053,6 +3063,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             document.body.removeChild(enabledImaginaryUniverse ? imaginaryParentDiv : parentDiv);
                             document.body.appendChild(winScreen);
                             wonBySpecialCard = false;
+
+                            if (halloweenTime) {
+                                for (var header1Index = 0; header1Index < document.getElementsByTagName('h1').length; header1Index++) {
+                                    let header1 = document.getElementsByTagName('h1')[header1Index];
+                                    header1.style.color = '#520707';
+                                }
+                            }
                         }
                         else {
 
