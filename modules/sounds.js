@@ -108,6 +108,10 @@ export const sounds = {
         src: ['/audio/νίκη.mp3']
     }),
 
+    winHalloween: new Howl({
+        src: ['/audio/νίκη_02.mp3']
+    }),
+
     loss: new Howl({
         src: ['/audio/wrong_03.mp3']
     }),
