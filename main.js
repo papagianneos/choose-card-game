@@ -4,7 +4,7 @@ import { music, sounds } from "./modules/sounds.js";
 import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
-import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools } from "./modules/events.js";
+import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
@@ -180,7 +180,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // ------------------------------------
 
             // Λάθος κάρτα
-            let wrongSound = playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
+            let wrongSound = halloweenTime ? sounds.wrongHalloween : playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
 
             // TIMED mode music
             let timedModeMusic = pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
@@ -188,8 +188,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // ------------------------------------------------------------------------------------------------------------------------
             // Μουσική για το παιχνίδι
             // ------------------------------------------------------------------------------------------------------------------------
-            let menuMusic = playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
-                gameMusic = pgnBirthday ? music.birthdayMusic : playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
+            let menuMusic = 
+                    halloweenTime ? music.menuMusicHalloween :
+                    playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
+
+                gameMusic = 
+                    halloweenTime ? music.gameMusicHalloween :
+                    pgnBirthday ? music.birthdayMusic :
+                    playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
 
             menuMusic.play();
 
@@ -1460,7 +1466,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                                     // Παίξε ήχο ΜΟΝΟ αν δεν είναι σπεσιαλ κάρτα.
                                     if (!firstCard.specialCard && !secondCard.specialCard) {
-                                        hardModeEnabled || extremeModeEnabled ? sounds.scoreHardMode.play() : sounds.score.play();
+                                        halloweenTime ? sounds.scoreHalloween.play() : (hardModeEnabled || extremeModeEnabled) ? sounds.scoreHardMode.play() : sounds.score.play();
                                     }
                                 }
 
