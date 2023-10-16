@@ -209,7 +209,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // ---------------------------------------
             let extremeModeEnabled = false,
                 lostExtremeModeEnabled = false,
-                extremeModeMusic = pgnBirthday ? music.extremeModeGameMusicBirthday : music.extremeModeGameMusic;
+                extremeModeMusic = halloweenTime ? music.extremeModeGameMusicHalloween : pgnBirthday ? music.extremeModeGameMusicBirthday : music.extremeModeGameMusic;
             // ----------------------------------------
 
             // -----------------------------------
