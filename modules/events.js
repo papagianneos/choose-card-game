@@ -12,11 +12,6 @@ export const idkSomeFunctionSoItRuns = (() => {
         document.getElementsByTagName('link')[0].href = './img/game-logo-old.png';
     }
 
-    // Halloween
-    if (halloweenTime) {
-        document.getElementsByTagName('body')[0].style.filter = 'brightness(50%)';
-    }
-
     // ------------------------------------------------------------------------------------
     // Για τα γεννέθλια του developer Pgn, βάλε κονφετί στην σελίδα.
     // ------------------------------------------------------------------------------------
