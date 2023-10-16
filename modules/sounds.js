@@ -49,6 +49,11 @@ export const music = {
         loop: true
     }),
 
+    extremeModeGameMusicHalloween: new Howl({
+        src: ['/audio/extreme_music_03.mp3'],
+        loop: true
+    }),
+
     papagianneosFinaleMusic: new Howl({
         src: ['/audio/papagianneos_finale_03.mp3'],
         loop: true
