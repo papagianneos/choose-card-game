@@ -1224,7 +1224,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 }
 
                 if (halloweenTime) {
-                    div.style.fontFamily = 'halloween';
+                    div.style.font = 'bold 95px halloween';
                     div.style.color = '#520707';
                 }
 
