@@ -25,6 +25,10 @@
     src: url(fonts/παράξενο.ttf);
 }
 
+@font-face {
+    font-family: halloween;
+    src: url(fonts/halloween.ttf);
+}
 /* ------------------------------------ */
 
 html {
@@ -336,10 +340,6 @@ progress {
     91% {
         background: rgb(255, 0, 127);
     }
-}
-
-select, input {
-    background: white;
 }
 
 input[type=checkbox] {
@@ -758,7 +758,6 @@ td {
 #playerNameInput {
     text-align: center;
     font-size: 25px;
-    border-radius: 2.5px;
 }
 
 .loader {
