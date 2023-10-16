@@ -1,6 +1,6 @@
 import { specialCardsConfig } from "../modules/specialCardsConfig.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
-import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
+import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
 (() => {
 
@@ -256,4 +256,12 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
     // ------------------------------------------------------------------------------
 
     document.body.appendChild(mainHTPDiv);
+
+    if (halloweenTime) { // fix for buttons
+        for (var buttonIndex = 0; buttonIndex < document.getElementsByTagName('button').length; buttonIndex++) {
+            let button = document.getElementsByTagName('button')[buttonIndex];
+            button.style.font = 'bold 55px halloween';
+            button.style.color = '#520707';
+        }
+    }
 })();
