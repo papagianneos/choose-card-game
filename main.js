@@ -1223,7 +1223,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     if (playersEffect.improvedGraphics && !papagianneosFinaleEnabled && !voidModeEnabled) div.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
                 }
 
-                if (halloweenTime) div.style.fontFamily = 'halloween';
+                if (halloweenTime) {
+                    div.style.fontFamily = 'halloween';
+                    div.style.color = 'maroon';
+                }
 
                 // Χιόνι Εφέ για τις κάρτες.
                 if (christmasDecorationsEnabled && !hideAndSeekModeEnabled) {
@@ -1248,17 +1251,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 // Ειδική περίπτωση: "Σ" κάρτα.
                 if (card.shape == specialCardsConfig[16].shape) {
                     div.savedAnimation = div.style.animation;
-                }
-
-                if (halloweenTime) {
-                    let chosenDisplay2 = randomChoice([
-                        'polygon(0px 150px, 0% 0%, 150px 0px, 0px 200px)',
-                        'polygon(0% 50%, 50% 0%, 60% 100%, -10% 100%)',
-                        'polygon(100% 100%, -100% -50%, 0% 0%, 100% 0%)',
-                        'polygon(0 -100px, 100% 100%, -1000px 0%, 100px 40%)',
-                        'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
-                    ]);
-                    div.style.clipPath = chosenDisplay2;
                 }
 
                 // κείμενο για το σχέδιο/σχήμα της κάρτας
