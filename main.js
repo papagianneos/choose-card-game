@@ -183,7 +183,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             let wrongSound = halloweenTime ? sounds.wrongHalloween : playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
 
             // TIMED mode music
-            let timedModeMusic = pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
+            let timedModeMusic = halloweenTime ? music.timeLevelMusicHalloween : pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
 
             // ------------------------------------------------------------------------------------------------------------------------
             // Μουσική για το παιχνίδι
@@ -2052,6 +2052,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                         // Special Skin: "Crystal".
                         if (pgnBirthday) unlockSkin('crystal');
+
+                        // Special Skin: "Target"
+                        if (halloweenTime) unlockSkin('target');
 
                         if (mode != 'void') {
                             document.getElementsByTagName('body')[0].style.animation = 'none';
