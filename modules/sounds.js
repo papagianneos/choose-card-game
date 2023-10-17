@@ -73,6 +73,11 @@ export const music = {
         src: ['/audio/time_level_03.mp3'],
         loop: true
     }),
+
+    timeLevelMusicHalloween: new Howl({
+        src: ['/audio/time_level_04.mp3'],
+        loop: true
+    }),
 }
 
 // Ήχοι Παιχνιδιού
