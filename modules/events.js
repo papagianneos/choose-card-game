@@ -65,9 +65,9 @@ export const idkSomeFunctionSoItRuns = (() => {
                 // Περίμενε να φορτώσει ο σερβερ πρώτα.
                 await fetch(SERVER_ADDRESS).then(response => response.text())
                 createSnow();
+                document.getElementById('snow').style.visibility = 'visible';
             })();
         }
-      // document.getElementById('snow').style.visibility = 'visible';
 
         setTimeout(() => {
             for (var button of document.getElementsByTagName('button')) {
