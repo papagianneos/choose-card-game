@@ -4,6 +4,9 @@ let baseCss = ``;
 let bodyHeightPx = null;
 let pageHeightVh = null;
 
+let snowBox = document.createElement('div');
+snowBox.id = 'snow';
+
 function setHeightVariables() {
     bodyHeightPx = document.body.offsetHeight;
     pageHeightVh = (100 * bodyHeightPx / window.innerHeight);
@@ -90,6 +93,7 @@ function spawnSnowCSS(snowDensity = 200) {
 
 // Load the rules and execute after the DOM loads
 export const createSnow = () => {
+    document.getElementsByTagName('body')[0].appendChild(snowBox);
     setHeightVariables();
     getSnowAttributes();
     spawnSnowCSS(snowflakesCount);
