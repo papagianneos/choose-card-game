@@ -59,7 +59,13 @@ export const idkSomeFunctionSoItRuns = (() => {
 
     // Christmas Decorations
     if (christmasDecorationsEnabled) {
-        window.onload = createSnow;
+        window.onload = () => {
+            (async () => {
+                // Περίμενε να φορτώσει ο σερβερ πρώτα.
+                await fetch(SERVER_ADDRESS).then(response => response.text())
+                createSnow();
+            })();
+        }
       // document.getElementById('snow').style.visibility = 'visible';
 
         setTimeout(() => {
