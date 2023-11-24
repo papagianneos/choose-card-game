@@ -60,7 +60,7 @@ export const idkSomeFunctionSoItRuns = (() => {
     // Christmas Decorations
     if (christmasDecorationsEnabled) {
         window.onload = createSnow;
-        document.getElementById('snow').style.visibility = 'visible';
+      // document.getElementById('snow').style.visibility = 'visible';
 
         setTimeout(() => {
             for (var button of document.getElementsByTagName('button')) {
