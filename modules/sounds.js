@@ -19,6 +19,11 @@ export const music = {
         loop: true
     }),
 
+    menuMusicChristmas: new Howl({
+        src: ['/audio/main_menu_04.mp3'],
+        loop: true
+    }),
+
     gameMusic: new Howl({
         src: ['/audio/game_music_01.mp3'],
         loop: true
