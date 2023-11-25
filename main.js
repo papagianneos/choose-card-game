@@ -189,8 +189,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // Μουσική για το παιχνίδι
             // ------------------------------------------------------------------------------------------------------------------------
             let menuMusic =
-                halloweenTime ? music.menuMusicHalloween :
-                    playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
+                christmasDecorationsEnabled ? music.menuMusicChristmas :
+                    halloweenTime ? music.menuMusicHalloween :
+                        playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
 
                 gameMusic =
                     halloweenTime ? music.gameMusicHalloween :
