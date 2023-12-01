@@ -1,0 +1,28 @@
+{
+  "name": "card-game-server",
+  "version": "1.0.0",
+  "description": "my package",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sotiris",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sotiris25/card-game-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sotiris25/card-game-server/issues"
+  },
+  "engines": {
+    "node": ">=14 <15"
+  },
+  "homepage": "https://github.com/Sotiris25/card-game-server#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7",
+    "ws": "^8.13.0"
+  }
+}
