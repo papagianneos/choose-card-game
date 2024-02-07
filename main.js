@@ -2991,7 +2991,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             }
                             // --------------------------------------------------------------
 
-                            document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/game_bg.png)';
+                            document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
                             document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
 
                             // Εμφάνισε "Κέρδισες!" οθόνη.
