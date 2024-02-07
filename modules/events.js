@@ -11,6 +11,7 @@ export const idkSomeFunctionSoItRuns = (() => {
     // April Fools!
     if (aprilFools) {
         document.getElementsByTagName('link')[0].href = './img/game-logo-old.png';
+        skinsDisabled = true;
     }
 
     if (halloweenTime) {
