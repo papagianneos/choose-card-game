@@ -2834,6 +2834,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             lostExtremeModeEnabled = true;
                             extremeModeEnabled = false; // σπάσε την επανάληψη
                         }
+                        window.requestAnimationFrame(gameLoop);
                     }
 
                     else {
@@ -2971,7 +2972,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             }
                             // --------------------------------------------------------
 
-                            window.requestAnimationFrame(gameLoop);
                             halloweenTime ? sounds.winHalloween.play() : sounds.win.play();
 
                             // --------------------------------------------------------------
