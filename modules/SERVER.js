@@ -561,3 +561,18 @@ let decodeLegacy = (() => {
 
 export const WEBSOCKET_SERVER_ADDRESS = 'wss://card-game-server-eysu.onrender.com';
 export const SERVER_ADDRESS = 'https://card-game-server-eysu.onrender.com';
+
+// --------------------------------------------------------------
+// Στείλε στον server..
+// --------------------------------------------------------------
+export const sendToServer = (data) => {
+  let socket = new WebSocket(WEBSOCKET_SERVER_ADDRESS);
+
+  socket.binaryType = "arraybuffer";
+
+  socket.onopen = function () {
+    socket.send(encode(JSON.stringify(data))); // πρέπει να είναι STRING
+    socket.close();
+  }
+}
+// --------------------------------------------------------------
