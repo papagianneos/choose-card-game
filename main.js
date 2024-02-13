@@ -103,6 +103,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // NULL κάρτα
             let underNullEffect = false,
                 turnsToRemoveNullEffect = 0,
+                nullEffectOver = false,
                 nullEffectLoop;
 
             // bug fix για το αν υπάρχει troll κάρτα
@@ -836,7 +837,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             cardElem.style.color = 'green';
                                             cardElem.setAttribute('infectedWithVirus', 'yes');
                                         }
-                                        window.requestAnimationFrame(this);
+
+                                        if (!nullEffectOver) {
+                                            window.requestAnimationFrame(() => {
+                                                nullEffectLoop();
+                                            });
+                                        }
+                                        else {
+                                            window.cancelAnimationFrame(nullEffectLoop);
+                                        }
                                     };
                                     window.requestAnimationFrame(nullEffectLoop);
                                 }
@@ -1351,7 +1360,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             if (turnsToRemoveNullEffect > 10) {
                                 underNullEffect = false;
                                 sounds.null.play();
-                                clearInterval(nullEffectLoop);
+                                nullEffectOver = true;
                                 for (var cardElem of document.getElementsByClassName('card')) {
                                     if (cardElem.getAttribute('infectedWithVirus')) {
                                         cardElem.removeAttribute('style');
