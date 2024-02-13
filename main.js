@@ -2127,6 +2127,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 voidModeOver = false;
                                 voidModeEnabled = true;
                                 pageBody.style.backgroundImage = 'url(/img/secret_mode_bg.jpg)';
+                                pageBody.style.animation = 'none'; // performance fix
                                 break;
 
                             case 'cobalt': // cobalt
@@ -3019,6 +3020,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         tries = 0;
                                         updateTries();
                                         extremeModeEnabled = true;
+                                        triesText.style.color = extremeModeTriesTextColor;
                                         break;
 
                                     case 5: // Papagianneos FINALE (Easy edition)
