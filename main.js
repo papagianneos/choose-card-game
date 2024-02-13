@@ -3051,10 +3051,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 resetCards(false);
                             }
 
-                            else {
-                                voidModeOver = true;
-                                gameEnded = true;
-                            }
+                            else voidModeOver = true;
                         }
                     }
 
