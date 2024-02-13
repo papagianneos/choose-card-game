@@ -2651,7 +2651,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                     }
                     // ---------------------------------------------------------------------------------------
-                    window.requestAnimationFrame(gameLoop);
                 }
 
                 const timedModeLoop = () => {
@@ -2709,7 +2708,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                     }
                     // ---------------------------------------------------------------
-                    window.requestAnimationFrame(gameLoop);
                 }
 
                 const extremeModeLoop = () => {
@@ -2734,7 +2732,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                     }
                     // --------------------------------------------------------------------
-                    window.requestAnimationFrame(gameLoop);
                 }
 
                 // game loops
