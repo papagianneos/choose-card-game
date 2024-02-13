@@ -27,10 +27,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
         // Skin που επέλεξε ο παίχτης.
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
-        if (!aprilFools) {
-            pageBody.style.animation = 'displace 2s linear infinite';
-            pageBody.style.backgroundSize = '200%';
-        }
+        //if (!aprilFools) {
+            //pageBody.style.animation = 'displace 2s linear infinite';
+            //pageBody.style.backgroundSize = '200%';
+        //}
 
         pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
 
@@ -2078,7 +2078,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (halloweenTime) unlockSkin('target');
 
                         if (mode != 'void') {
-                            pageBody.style.animation = 'none';
+                            //pageBody.style.animation = 'none';
                             pageBody.style.backgroundSize = '100%';
                         }
                         //  if (mode == 'papagianneosFinale') return;
@@ -2127,7 +2127,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 voidModeOver = false;
                                 voidModeEnabled = true;
                                 pageBody.style.backgroundImage = 'url(/img/secret_mode_bg.jpg)';
-                                pageBody.style.animation = 'none'; // performance fix
                                 break;
 
                             case 'cobalt': // cobalt
@@ -2908,7 +2907,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             );
 
                             // αν papagianneos finale, σπεσιαλ μήνυμα
-                            pageBody.style.animation = 'none';
+                            //pageBody.style.animation = 'none';
                             pageBody.style.backgroundSize = 'cover';
                             if (papagianneosFinaleEnabled) {
                                 sounds.pgnFinaleWin.play();
@@ -3029,7 +3028,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         tries = savedTries_voidMode;
                                         papagianneosFinaleEnabled = true;
                                         extremeModeEnabled = false;
-                                        pageBody.style.animation = 'none';
+                                        //pageBody.style.animation = 'none';
                                         pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
                                         if (startedExtremeModeMusic) {
                                             extremeModeMusic.pause();
@@ -3081,7 +3080,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
 
                         if (papagianneosFinaleEnabled) {
-                            pageBody.style.animation = 'none';
+                            //pageBody.style.animation = 'none';
                             pageBody.style.backgroundSize = 'cover';
                             clearInterval(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
