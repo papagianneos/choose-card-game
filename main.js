@@ -1873,7 +1873,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // ξεκίνα το παιχνίδι
             const beginGame = (() => {
 
-                // Εμφάνισε "Κέρδισες!" οθόνη.
+                // Εμφάνισε αρχική οθόνη (μενού).
                 let startScreen = document.createElement('div');
                 startScreen.id = 'screen';
 
@@ -2032,7 +2032,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
-
+                        // Start game loop
+                        window.requestAnimationFrame(gameLoop);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -3153,8 +3154,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     }
                     // --------------------------------------------------------
                 } // end of gameloop function
-                // Start game loop
-                window.requestAnimationFrame(gameLoop);
             })();
             // =====================================================================
 
