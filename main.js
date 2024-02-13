@@ -40,7 +40,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            const CARDS_DELAY_MS = 320;
+            const CARDS_DELAY_MS = 250;
 
             const BROKEN_CARD_POLYGONS = [
                 'none',
@@ -2262,13 +2262,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             let moveLeftAndRightAnimationLoop = undefined;
 
                             // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
-                            pgnFinaleEffectsLoop = setInterval(() => {
+                            pgnFinaleEffectsLoop = () => {
                                 document.getElementById('cardsHolder').style.position = 'static';
                                 document.getElementById('cardsHolder').style.transition = '1s';
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                 document.getElementById('cardsHolder').style.animation = 'none';
 
-                                if (moveLeftAndRightAnimationLoop != undefined) clearInterval(moveLeftAndRightAnimationLoop);
+                                if (moveLeftAndRightAnimationLoop != undefined) window.cancelAnimationFrame(moveLeftAndRightAnimationLoop);
 
                                 setTimeout(() => {
                                     switch (getRandomInt(1, 4)) {
@@ -2288,7 +2288,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             break;
 
                                         case 4:
-                                            moveLeftAndRightAnimationLoop = setInterval(() => {
+                                            moveLeftAndRightAnimationLoop = () => {
                                                 document.getElementById('cardsHolder').style.position = 'absolute';
                                                 document.getElementById('cardsHolder').style.transition = '1s';
 
@@ -2302,11 +2302,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                                         }, 2e3);
                                                     }, 2e3);
                                                 }, 2e3);
-                                            }, 8e3);
+                                                window.requestAnimationFrame(moveLeftAndRightAnimationLoop);
+                                            }
+                                            window.requestAnimationFrame(moveLeftAndRightAnimationLoop);
                                             break;
                                     } // end of switch
                                 }, 2e3);
-                            }, 25e3);
+                                window.requestAnimationFrame(pgnFinaleEffectsLoop);
+                            }
+                            window.requestAnimationFrame(pgnFinaleEffectsLoop);
 
                             // Φτιάξε "death" κάρτες
                             for (var index = 0; index < 15; index++) {
@@ -2898,7 +2902,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
                             if (papagianneosFinaleEnabled) {
                                 sounds.pgnFinaleWin.play();
-                                clearInterval(pgnFinaleEffectsLoop);
+                                window.cancelAnimationFrame(pgnFinaleEffectsLoop);
                             }
 
                             // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
@@ -3058,7 +3062,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (papagianneosFinaleEnabled) {
                             document.getElementsByTagName('body')[0].style.animation = 'none';
                             document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
-                            clearInterval(pgnFinaleEffectsLoop);
+                            window.cancelAnimationFrame(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
                             let which = randomChoice([1, 1, 2]);
