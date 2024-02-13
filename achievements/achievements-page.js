@@ -63,7 +63,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         if (!achievement.dontShowProgress) {
             if (achievement.requiredProgress) {
                 let achievementFromStorage = searchForAchievement(achievement);
-                achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">(${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress})</keimeno>`;
+                achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
             }
             else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
         }
