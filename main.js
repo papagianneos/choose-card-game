@@ -12,6 +12,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
     const pageBody = document.getElementsByTagName('body')[0];
 
     pageBody.style.background = 'black';
+    pageBody.style.backgroundSize = 'cover';
+    pageBody.style.backgroundRepeat = 'no-repeat';
 
     let loader = document.createElement('div');
     loader.className = 'loader';
