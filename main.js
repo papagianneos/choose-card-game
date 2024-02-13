@@ -2738,7 +2738,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 }
 
                 // game loops
-                const winCheckLoop = () => {
+                const winCheckLoop = (openedCards) => {
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
@@ -3165,7 +3165,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             extremeModeLoop();
                     }
 
-                    winCheckLoop();
+                    winCheckLoop(openedCards);
                     // --------------------------------------------------------
                 } // end of gameloop function
             })();
