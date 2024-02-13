@@ -240,6 +240,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 deltaEffect = false,
                 enabledImaginaryUniverse = false,
                 modePlayed,
+                gameEnded = false,
+                endPgnEffectLoop = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -442,10 +444,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             generatedColorPalette.push(randomColor);
                             generatedColorPalette = [...new Set(generatedColorPalette)];
 
-                            window.requestAnimationFrame(checkDuplicateColorInterval);
                             if (generatedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval);
                             }
+                            else window.requestAnimationFrame(checkDuplicateColorInterval);
                         }
                         window.requestAnimationFrame(checkDuplicateColorInterval);
                         // -------------------------------------------------------------
@@ -482,10 +484,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             imaginaryGeneratedColorPalette.push(color);
                             imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
 
-                            window.requestAnimationFrame(checkDuplicateColorInterval2);
                             if (imaginaryGeneratedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval2);
                             }
+                            else window.requestAnimationFrame(checkDuplicateColorInterval2);
                         }
                         window.requestAnimationFrame(checkDuplicateColorInterval2);
                         // -------------------------------------------------------------
@@ -2302,13 +2304,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                                         }, 2e3);
                                                     }, 2e3);
                                                 }, 2e3);
-                                                window.requestAnimationFrame(moveLeftAndRightAnimationLoop);
                                             }
                                             window.requestAnimationFrame(moveLeftAndRightAnimationLoop);
                                             break;
                                     } // end of switch
                                 }, 2e3);
-                                window.requestAnimationFrame(pgnFinaleEffectsLoop);
+
+                                if (!endPgnEffectLoop) {
+                                    window.requestAnimationFrame(pgnFinaleEffectsLoop);
+                                }
+                                else window.cancelAnimationFrame(pgnFinaleEffectsLoop);
                             }
                             window.requestAnimationFrame(pgnFinaleEffectsLoop);
 
@@ -2902,7 +2907,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
                             if (papagianneosFinaleEnabled) {
                                 sounds.pgnFinaleWin.play();
-                                window.cancelAnimationFrame(pgnFinaleEffectsLoop);
+                                endPgnEffectLoop = true;
                             }
 
                             // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
@@ -3040,8 +3045,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             else voidModeOver = true;
                         }
+                        gameEnded = true;
                     }
-                    window.requestAnimationFrame(gameLoop); // Performance Improvement.
+
+                    if (!gameEnded) {
+                        window.requestAnimationFrame(gameLoop); // Performance Improvement.
+                    }
+                    else {
+                        window.cancelAnimationFrame(gameLoop); // Stop game loop.
+                    }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
                     // Δες αν έχασε ο παίχτης
@@ -3062,7 +3074,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (papagianneosFinaleEnabled) {
                             document.getElementsByTagName('body')[0].style.animation = 'none';
                             document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
-                            window.cancelAnimationFrame(pgnFinaleEffectsLoop);
+                            endPgnEffectLoop = true;
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
                             let which = randomChoice([1, 1, 2]);
