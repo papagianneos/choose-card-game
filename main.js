@@ -3109,7 +3109,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         lostExtremeModeEnabled = true;
                         extremeModeEnabled = false; // σπάσε την επανάληψη
                     }
-                    window.requestAnimationFrame(gameLoop);
                 } // end of checkLoseLoop
                 const gameLoop = () => {
                     let openedCards = [];
