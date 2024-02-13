@@ -9,7 +9,7 @@ import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
-    document.getElementsByTagName('body')[0].style.background = 'black';
+    pageBody.style.background = 'black';
 
     let loader = document.createElement('div');
     loader.className = 'loader';
@@ -26,11 +26,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
         if (!aprilFools) {
-            document.getElementsByTagName('body')[0].style.animation = 'displace 2s linear infinite';
-            document.getElementsByTagName('body')[0].style.backgroundSize = '200%';
+            pageBody.style.animation = 'displace 2s linear infinite';
+            pageBody.style.backgroundSize = '200%';
         }
 
-        document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
+        pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
 
         try {
 
@@ -221,6 +221,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
             // global μεταβλητές
             let cardsData = [],
+                pageBody = document.getElementsByTagName('body')[0],
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
@@ -680,7 +681,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             .fadeIn(300);
                                         extremeModeTriesTextColor = '#ba0909';
                                         warningColorOfBodyTag = '#b85858';
-                                        document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
+                                        pageBody.style.backgroundColor = '#c7c7c7';
                                         document.getElementById('cardsHolder').children[0].style.color = 'black';
                                         for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
                                         setTimeout(() => {
@@ -690,7 +691,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             .fadeIn(300);
                                             extremeModeTriesTextColor = 'red';
                                             warningColorOfBodyTag = 'rgb(25, 0, 0)';
-                                            document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
+                                            pageBody.style.backgroundColor = 'black';
                                             document.getElementById('cardsHolder').children[0].style.color = 'white';
                                             for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'none';
                                         }, 20e3);
@@ -949,7 +950,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     PI_EFFECT_LOL = true;
                                     extremeModeEnabled = true;
                                     MAX_TRIES = Math.PI * 10;
-                                    document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/PI.jpg)';
+                                    pageBody.style.backgroundImage = 'url(./img/PI.jpg)';
                                     sounds.specialScore.play()
                                     score += Math.PI;
                                     tries += Math.PI;
@@ -977,7 +978,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         $('#cardsHolder').fadeOut(1);
                                         $('#cardsHolder').fadeIn(5e3);
 
-                                        document.getElementsByTagName('body')[0].style.background = '#c8c8c8';
+                                        pageBody.style.background = '#c8c8c8';
 
                                         imaginaryParentDiv.appendChild(scoreAndTriesHolder);
                                         for (var j = 0; j < imaginaryCardsData.length; j++) {
@@ -2069,8 +2070,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (halloweenTime) unlockSkin('target');
 
                         if (mode != 'void') {
-                            document.getElementsByTagName('body')[0].style.animation = 'none';
-                            document.getElementsByTagName('body')[0].style.backgroundSize = '100%';
+                            pageBody.style.animation = 'none';
+                            pageBody.style.backgroundSize = '100%';
                         }
                         //  if (mode == 'papagianneosFinale') return;
                         switch (mode) {
@@ -2105,7 +2106,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             case 'papagianneosFinale': // LOL WHY I MADE THIS
                                 AMOUNT_OF_CARDS = 30;
                                 papagianneosFinaleEnabled = true;
-                                document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
+                                pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
                                 break;
 
                             /*case '???':
@@ -2113,12 +2114,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 secretSettingEnabled = true;
                                 extremeModeEnabled = true;
                                 MAX_TRIES += 15;
-                                document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
+                                pageBody.style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
                                 break;*/
                             case 'void': // Void.
                                 voidModeOver = false;
                                 voidModeEnabled = true;
-                                document.getElementsByTagName('body')[0].style.backgroundImage = 'url(/img/secret_mode_bg.jpg)';
+                                pageBody.style.backgroundImage = 'url(/img/secret_mode_bg.jpg)';
                                 break;
 
                             case 'cobalt': // cobalt
@@ -2158,11 +2159,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         sounds.buttonClick.play();
 
                         if (!['papagianneosFinale', 'void'].includes(mode)) {
-                            document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
+                            pageBody.style.backgroundImage = 'none';
 
                             // Νέα γραφικά
                             if (!cobaltModeEnabled) if (playersEffect) if (playersEffect.improvedGraphics) {
-                                document.getElementsByTagName('body')[0].style.backgroundColor = '#c7c7c7';
+                                pageBody.style.backgroundColor = '#c7c7c7';
                                 scoreAndTriesHolder.style.color = 'black';
                             }
                         }
@@ -2244,7 +2245,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 cobaltModeSelectMenu.appendChild(cardDivWrapper);
                                 cardDiv.onclick = () => {
                                     sounds.timeSlower.play();
-                                    document.getElementsByTagName('body')[0].style.backgroundColor = '#080226';
+                                    pageBody.style.backgroundColor = '#080226';
                                     selectedSpecialCardShape = cardDiv.innerHTML;
                                     document.body.removeChild(cobaltModeSelectMenu);
                                     startGame();
@@ -2362,7 +2363,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // εξαφάνισε την οθόνη με το κουμπί μαζί
                         document.body.removeChild(startScreen);
 
-                        if (skin.pageBg != 'none') document.getElementsByTagName('body')[0].style.backgroundImage = skin.pageBg;
+                        if (skin.pageBg != 'none') pageBody.style.backgroundImage = skin.pageBg;
                     }
 
                     return button;
@@ -2596,9 +2597,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             blockClicks = true;
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
-                            document.getElementsByTagName('body')[0].style.transition = '1s';
+                            pageBody.style.transition = '1s';
                             setTimeout(() => {
-                                document.getElementsByTagName('body')[0].style.transform = 'rotate(360deg)';
+                                pageBody.style.transform = 'rotate(360deg)';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
                                         shape: 'mazeWall',
@@ -2659,7 +2660,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             else if (!OG_modeEnabled) {
                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                document.getElementsByTagName('body')[0].style.backgroundColor = 'rgb(25, 0, 0)';
+                                pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                             }
                         }
                     }
@@ -2693,7 +2694,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             if (timeLeftPerc <= 35) {
                                 color__ = 'red';
                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                document.getElementsByTagName('body')[0].style.background = warningColorOfBodyTag;
+                                pageBody.style.background = warningColorOfBodyTag;
                             }
 
                             // -----------------------------------------------------------------------------------------------------------
@@ -2733,7 +2734,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
                             triesText.style.animation = 'seismos .3s linear infinite';
                             document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                            document.getElementsByTagName('body')[0].style.background = warningColorOfBodyTag;
+                            pageBody.style.background = warningColorOfBodyTag;
 
                             if (!startedExtremeModeMusic) {
                                 startedExtremeModeMusic = true;
@@ -2879,8 +2880,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             sendToServer(playerObject);
                             // --------------------------------------------------------------
 
-                            document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
-                            document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
+                            pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
+                            pageBody.style.backgroundColor = 'black';
 
                             // Εμφάνισε "Κέρδισες!" οθόνη.
                             let winScreen = document.createElement('div');
@@ -2905,8 +2906,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             );
 
                             // αν papagianneos finale, σπεσιαλ μήνυμα
-                            document.getElementsByTagName('body')[0].style.animation = 'none';
-                            document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
+                            pageBody.style.animation = 'none';
+                            pageBody.style.backgroundSize = 'cover';
                             if (papagianneosFinaleEnabled) {
                                 sounds.pgnFinaleWin.play();
                                 endPgnEffectLoop = true;
@@ -2962,6 +2963,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     header1.style.color = '#520707';
                                 }
                             }
+                            gameEnded = true;
                         }
                         else {
 
@@ -3024,8 +3026,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         tries = savedTries_voidMode;
                                         papagianneosFinaleEnabled = true;
                                         extremeModeEnabled = false;
-                                        document.getElementsByTagName('body')[0].style.animation = 'none';
-                                        document.getElementsByTagName('body')[0].style.backgroundImage = 'radial-gradient(cyan, black)';
+                                        pageBody.style.animation = 'none';
+                                        pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
                                         if (startedExtremeModeMusic) {
                                             extremeModeMusic.pause();
                                         }
@@ -3045,9 +3047,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 resetCards(false);
                             }
 
-                            else voidModeOver = true;
+                            else {
+                                voidModeOver = true;
+                                gameEnded = true;
+                            }
                         }
-                        gameEnded = true;
                     }
 
                     if (!gameEnded) {
@@ -3074,8 +3078,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
 
                         if (papagianneosFinaleEnabled) {
-                            document.getElementsByTagName('body')[0].style.animation = 'none';
-                            document.getElementsByTagName('body')[0].style.backgroundSize = 'cover';
+                            pageBody.style.animation = 'none';
+                            pageBody.style.backgroundSize = 'cover';
                             endPgnEffectLoop = true;
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
