@@ -242,6 +242,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 modePlayed,
                 gameEnded = false,
                 endPgnEffectLoop = false,
+                playerCanLose = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -2092,6 +2093,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             case 'extreme': // Extreme.
                                 extremeModeEnabled = true;
+                                playerCanLose = true;
+                                // Άλλαξε το χρώμα της γραμματοσειράς σε κόκκινο.
+                                triesText.style.color = extremeModeTriesTextColor;
                                 break;
 
                             case 'timed': // Timed.
@@ -2114,7 +2118,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             case 'void': // Void.
                                 voidModeOver = false;
                                 voidModeEnabled = true;
-                                document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./img/secret_mode_bg.jpg)';
+                                document.getElementsByTagName('body')[0].style.backgroundImage = 'url(/img/secret_mode_bg.jpg)';
                                 break;
 
                             case 'cobalt': // cobalt
@@ -2724,8 +2728,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // Extreme Gamemode: Όταν περάσει το όριο προσπάθειων ο παίχτης, χάσε.
                     // ------------------------------------------------------------------
                     if (lostByDeathCard || extremeModeEnabled) {
-                        // Άλλαξε το χρώμα της γραμματοσειράς σε κόκκινο.
-                        triesText.style.color = extremeModeTriesTextColor;
 
                         // Εφέ για τις προσπάθειες του παίχτη.
                         if (extremeModeEnabled && tries >= (MAX_TRIES - 2)) {
@@ -3156,7 +3158,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                         // --------------------------------------------------------------------------------------------------------------------
 
-                        checkLoseLoop();
+                        if (playerCanLose) checkLoseLoop();
                     }
 
                     else {
