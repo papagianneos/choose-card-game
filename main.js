@@ -1871,7 +1871,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             }
 
             // ξεκίνα το παιχνίδι
-            const beginGame = (() => {
+            (() => {
 
                 // Εμφάνισε αρχική οθόνη (μενού).
                 let startScreen = document.createElement('div');
@@ -2732,6 +2732,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                 // game loop
                 const gameLoop = () => {
+                    alert('test');
                     let openedCards = [];
                     if (!hideAndSeekModeEnabled) {
                         // --------------------------------------------------------
