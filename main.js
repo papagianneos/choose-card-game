@@ -246,7 +246,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 modePlayed,
                 gameEnded = false,
                 endPgnEffectLoop = false,
-                playerCanLose = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -2105,7 +2104,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             case 'extreme': // Extreme.
                                 extremeModeEnabled = true;
-                                playerCanLose = true;
                                 // Άλλαξε το χρώμα της γραμματοσειράς σε κόκκινο.
                                 triesText.style.color = extremeModeTriesTextColor;
                                 break;
@@ -2327,7 +2325,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 }, 2e3);
 
                                 if (!endPgnEffectLoop) {
-                                    if (pgnLoopTurns > 100) window.requestAnimationFrame(pgnFinaleEffectsLoop);
+                                    if (pgnLoopTurns > 1000) {
+                                        window.requestAnimationFrame(pgnFinaleEffectsLoop);
+                                        pgnLoopTurns = 0;
+                                    }
                                 }
                                 else window.cancelAnimationFrame(pgnFinaleEffectsLoop);
                                 pgnLoopTurns++;
@@ -3174,7 +3175,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                         // --------------------------------------------------------------------------------------------------------------------
 
-                        if (playerCanLose) checkLoseLoop();
+                        checkLoseLoop();
                     }
 
                     else {
