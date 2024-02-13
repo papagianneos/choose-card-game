@@ -2325,14 +2325,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 }, 2e3);
 
                                 if (!endPgnEffectLoop) {
-                                    if (pgnLoopTurns > 1000) {
+                                    if (pgnLoopTurns == 1000) {
                                         window.requestAnimationFrame(pgnFinaleEffectsLoop);
                                         pgnLoopTurns = 0;
                                     }
-                                    else pgnLoopTurns++;
+                                    else setTimeout(() => {pgnLoopTurns = 1000;}, 25e3);
                                 }
                                 else window.cancelAnimationFrame(pgnFinaleEffectsLoop);
-                                pgnLoopTurns++;
                             }
                             window.requestAnimationFrame(pgnFinaleEffectsLoop);
 
