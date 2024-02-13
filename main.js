@@ -444,6 +444,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             if (generatedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval);
                             }
+                            window.requestAnimationFrame(checkDuplicateColorInterval);
                         }
                         window.requestAnimationFrame(checkDuplicateColorInterval);
                         // -------------------------------------------------------------
@@ -483,6 +484,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             if (imaginaryGeneratedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval2);
                             }
+
+                            window.requestAnimationFrame(checkDuplicateColorInterval2);
                         }
                         window.requestAnimationFrame(checkDuplicateColorInterval2);
                         // -------------------------------------------------------------
@@ -828,6 +831,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             cardElem.style.color = 'green';
                                             cardElem.setAttribute('infectedWithVirus', 'yes');
                                         }
+                                        window.requestAnimationFrame(this);
                                     };
                                     window.requestAnimationFrame(nullEffectLoop);
                                 }
@@ -2032,6 +2036,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
+                        // Start game loop
+                        window.requestAnimationFrame(gameLoop);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -3151,10 +3157,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                     }
                     // --------------------------------------------------------
+
+                    window.requestAnimationFrame(gameLoop);
                 } // end of gameloop function
-                // Start game loop
-                function idk23() { console.log('RUN'); gameLoop(); };
-                window.requestAnimationFrame(idk23);
             })();
             // =====================================================================
 
