@@ -3153,7 +3153,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // --------------------------------------------------------
                 } // end of gameloop function
                 // Start game loop
-                window.requestAnimationFrame(gameLoop);
+                function idk23() { console.log('RUN'); gameLoop(); };
+                window.requestAnimationFrame(idk23);
             })();
             // =====================================================================
 
