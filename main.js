@@ -164,6 +164,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // lol
             // ----------------------------------------------------------------------
             let papagianneosFinaleEnabled = false,
+                pgnLoopTurns = 0,
                 papagianneosFinaleAngryRun = false,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
@@ -2326,9 +2327,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 }, 2e3);
 
                                 if (!endPgnEffectLoop) {
-                                    window.requestAnimationFrame(pgnFinaleEffectsLoop);
+                                    if (pgnLoopTurns > 100) window.requestAnimationFrame(pgnFinaleEffectsLoop);
                                 }
                                 else window.cancelAnimationFrame(pgnFinaleEffectsLoop);
+                                pgnLoopTurns++;
                             }
                             window.requestAnimationFrame(pgnFinaleEffectsLoop);
 
