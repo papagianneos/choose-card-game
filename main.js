@@ -9,6 +9,8 @@ import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
+    const pageBody = document.getElementsByTagName('body')[0];
+
     pageBody.style.background = 'black';
 
     let loader = document.createElement('div');
@@ -221,7 +223,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
             // global μεταβλητές
             let cardsData = [],
-                pageBody = document.getElementsByTagName('body')[0],
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
