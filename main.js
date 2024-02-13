@@ -2329,10 +2329,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         window.requestAnimationFrame(pgnFinaleEffectsLoop);
                                         pgnLoopTurns = 0;
                                     }
+                                    else pgnLoopTurns++;
                                 }
                                 else window.cancelAnimationFrame(pgnFinaleEffectsLoop);
                                 pgnLoopTurns++;
-                                console.log(pgnLoopTurns);
                             }
                             window.requestAnimationFrame(pgnFinaleEffectsLoop);
 
