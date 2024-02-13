@@ -2854,6 +2854,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             extremeModeLoop();
                     }
 
+                    window.requestAnimationFrame(gameLoop);
+
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
@@ -2971,7 +2973,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             }
                             // --------------------------------------------------------
 
-                            window.cancelAnimationFrame(gameLoop); // Performance Improvement.
                             halloweenTime ? sounds.winHalloween.play() : sounds.win.play();
 
                             // --------------------------------------------------------------
@@ -3155,10 +3156,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             else voidModeOver = true;
                         }
+                        window.cancelAnimationFrame(gameLoop); // Performance Improvement.
                     }
                     // --------------------------------------------------------
-
-                    window.requestAnimationFrame(gameLoop);
                 } // end of gameloop function
             })();
             // =====================================================================
