@@ -436,17 +436,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // -------------------------------------------------------------
                         generatedColorPalette = [...new Set(generatedColorPalette)];
 
+                        window.requestAnimationFrame(checkDuplicateColorInterval);
                         let checkDuplicateColorInterval = () => {
                             const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                             generatedColorPalette.push(randomColor);
                             generatedColorPalette = [...new Set(generatedColorPalette)];
 
+                            window.requestAnimationFrame(checkDuplicateColorInterval);
                             if (generatedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval);
                             }
-                            window.requestAnimationFrame(checkDuplicateColorInterval);
                         }
-                        window.requestAnimationFrame(checkDuplicateColorInterval);
                         // -------------------------------------------------------------
 
                     }
@@ -473,6 +473,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // -------------------------------------------------------------
                         imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
 
+                        window.requestAnimationFrame(checkDuplicateColorInterval2);
                         let checkDuplicateColorInterval2 = () => {
                             var color = '#';
                             for (var i = 0; i < 6; i++) {
@@ -481,13 +482,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             imaginaryGeneratedColorPalette.push(color);
                             imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
 
+                            window.requestAnimationFrame(checkDuplicateColorInterval2);
                             if (imaginaryGeneratedColorPalette.length == 6) {
                                 window.cancelAnimationFrame(checkDuplicateColorInterval2);
                             }
 
-                            window.requestAnimationFrame(checkDuplicateColorInterval2);
                         }
-                        window.requestAnimationFrame(checkDuplicateColorInterval2);
                         // -------------------------------------------------------------
 
                     }
@@ -823,6 +823,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     underNullEffect = true;
                                     sounds.null.play();
 
+                                    window.requestAnimationFrame(nullEffectLoop);
                                     nullEffectLoop = () => {
                                         document.getElementById('cardsHolder').style.filter = 'blur(5px)';
 
@@ -833,7 +834,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                         }
                                         window.requestAnimationFrame(this);
                                     };
-                                    window.requestAnimationFrame(nullEffectLoop);
                                 }
                                 break;
 
@@ -2854,8 +2854,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             extremeModeLoop();
                     }
 
-                    window.requestAnimationFrame(gameLoop);
-
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
@@ -2973,6 +2971,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             }
                             // --------------------------------------------------------
 
+                            window.requestAnimationFrame(gameLoop);
                             halloweenTime ? sounds.winHalloween.play() : sounds.win.play();
 
                             // --------------------------------------------------------------
