@@ -5,7 +5,7 @@ import { FEATURED_YOUTUBERS } from "./modules/featured-youtuber.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
-import { SERVER_ADDRESS, WEBSOCKET_SERVER_ADDRESS, encode } from "./modules/SERVER.js";
+import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
@@ -436,15 +436,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // -------------------------------------------------------------
                         generatedColorPalette = [...new Set(generatedColorPalette)];
 
-                        let checkDuplicateColorInterval = setInterval(() => {
+                        let checkDuplicateColorInterval = () => {
                             const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                             generatedColorPalette.push(randomColor);
                             generatedColorPalette = [...new Set(generatedColorPalette)];
 
                             if (generatedColorPalette.length == 6) {
-                                clearInterval(checkDuplicateColorInterval);
+                                window.cancelAnimationFrame(checkDuplicateColorInterval);
                             }
-                        }, 10);
+                        }
+                        window.requestAnimationFrame(checkDuplicateColorInterval);
                         // -------------------------------------------------------------
 
                     }
@@ -471,7 +472,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // -------------------------------------------------------------
                         imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
 
-                        let checkDuplicateColorInterval2 = setInterval(() => {
+                        let checkDuplicateColorInterval2 = () => {
                             var color = '#';
                             for (var i = 0; i < 6; i++) {
                                 color += Math.floor(Math.random() * 10);
@@ -480,9 +481,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
 
                             if (imaginaryGeneratedColorPalette.length == 6) {
-                                clearInterval(checkDuplicateColorInterval2);
+                                window.cancelAnimationFrame(checkDuplicateColorInterval2);
                             }
-                        }, 10);
+                        }
+                        window.requestAnimationFrame(checkDuplicateColorInterval2);
                         // -------------------------------------------------------------
 
                     }
@@ -818,7 +820,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     underNullEffect = true;
                                     sounds.null.play();
 
-                                    nullEffectLoop = setInterval(() => {
+                                    nullEffectLoop = () => {
                                         document.getElementById('cardsHolder').style.filter = 'blur(5px)';
 
                                         for (var cardElem of document.getElementsByClassName('card')) {
@@ -826,7 +828,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                             cardElem.style.color = 'green';
                                             cardElem.setAttribute('infectedWithVirus', 'yes');
                                         }
-                                    }, 10);
+                                    };
+                                    window.requestAnimationFrame(nullEffectLoop);
                                 }
                                 break;
 
@@ -2727,7 +2730,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 }
 
                 // game loop
-                const gameLoop = setInterval(() => {
+                const gameLoop = () => {
                     let openedCards = [];
                     if (!hideAndSeekModeEnabled) {
                         // --------------------------------------------------------
@@ -2942,41 +2945,33 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             }
                             // -------------------------------------------------------------------
 
-                            // ---------------------------------
+                            // -------------------------------------------------------
                             // Μουσική
-                            // ---------------------------------
-                            gameMusic.pause();
+                            // -------------------------------------------------------
+                            switch (true) {
+                                case voidModeEnabled:
+                                    music.papagianneosFinaleMusic.pause();
 
-                            if (voidModeEnabled) {
-                                music.papagianneosFinaleMusic.pause();
+                                case timedModeEnabled:
+                                    timedModeMusic.pause();
+
+                                case startedExtremeModeMusic:
+                                    extremeModeMusic.pause();
+
+                                case papagianneosFinaleEnabled:
+                                    music.papagianneosFinaleMusic.pause();
+
+                                default:
+                                    gameMusic.pause();
                             }
+                            // --------------------------------------------------------
 
-                            // Timed mode
-                            if (timedModeEnabled) {
-                                timedModeMusic.pause();
-                            }
-
-                            // Αν άρχισε η extreme μουσική
-                            if (startedExtremeModeMusic) {
-                                extremeModeMusic.pause();
-                            }
-
-                            // Αν papagianneos finale
-                            if (papagianneosFinaleEnabled) {
-                                music.papagianneosFinaleMusic.pause();
-                            }
-                            // -----------------------------------
-
-                            clearInterval(gameLoop);
+                            window.cancelAnimationFrame(gameLoop); // Performance Improvement.
                             halloweenTime ? sounds.winHalloween.play() : sounds.win.play();
 
                             // --------------------------------------------------------------
                             // Στείλε στον server..
                             // --------------------------------------------------------------
-                            let socket = new WebSocket(WEBSOCKET_SERVER_ADDRESS);
-
-                            socket.binaryType = "arraybuffer";
-
                             const playerObject = {
                                 name: playerNameInput.value,
                                 score: score,
@@ -2984,11 +2979,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 cardsAmount: AMOUNT_OF_CARDS,
                                 mode: modePlayed
                             }
-
-                            socket.onopen = function () {
-                                socket.send(encode(JSON.stringify(playerObject))); // πρέπει να είναι STRING
-                                socket.close();
-                            }
+                            sendToServer(playerObject);
                             // --------------------------------------------------------------
 
                             document.getElementsByTagName('body')[0].style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
@@ -3161,7 +3152,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
                     }
                     // --------------------------------------------------------
-                }, 10);
+                } // end of gameloop function
+                // Start game loop
+                window.requestAnimationFrame(gameLoop);
             })();
             // =====================================================================
 
