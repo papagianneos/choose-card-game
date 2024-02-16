@@ -289,13 +289,18 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
             type: 'select',
             optionSetup: [
                 {
-                    name: 'Αγγλικά (English)',
+                    name: 'Ελληνικά (Greek)',
+                    value: 0
+                },
+
+                {  
+                    name: 'English',
                     value: 1
                 },
 
                 {
-                    name: 'Ελληνικά (Greek)',
-                    value: 0
+                    name: 'Deutsch (German)',
+                    value: 2
                 }
             ],
             setup: (languageIndexVal) => LANGUAGE_INDEX = languageIndexVal
