@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFrame, cancelAnimationFrame } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -30,8 +30,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFra
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
         //if (!aprilFools) {
-        //pageBody.style.animation = 'displace 2s linear infinite';
-        //pageBody.style.backgroundSize = '200%';
+            //pageBody.style.animation = 'displace 2s linear infinite';
+            //pageBody.style.backgroundSize = '200%';
         //}
 
         pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
@@ -2051,7 +2051,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFra
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
                         // Start game loop
-                        requestAnimationFrame(gameLoop);
+                        window.requestAnimationFrame(gameLoop);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -2061,6 +2061,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFra
                                 alert('Name too long.');
                                 return;
                         }
+
 
 
                         // Επίτευγμα: "Νέος Παίχτης"
@@ -3055,10 +3056,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFra
                     }
 
                     if (!gameEnded) {
-                        requestAnimationFrame(gameLoop); // Performance Improvement.
+                        window.requestAnimationFrame(gameLoop); // Performance Improvement.
                     }
                     else {
-                        cancelAnimationFrame(gameLoop); // Stop game loop.
+                        window.cancelAnimationFrame(gameLoop); // Stop game loop.
                     }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
