@@ -2217,7 +2217,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? card.shape != 'Κ' && card.shape != 'Eng' : 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? 'special_' : 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
