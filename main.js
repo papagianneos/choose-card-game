@@ -2123,6 +2123,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                             case 'hell': // Hell.
                                 hellModeEnabled = true;
+                                triesText.style.color = extremeModeTriesTextColor;
                                 break;
 
                             case 'timed': // Timed.
