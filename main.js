@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, requestAnimationFrame, cancelAnimationFrame } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -226,7 +226,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
 
             // global μεταβλητές
             let cardsData = [],
-                FPS = getFPS(),
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
@@ -246,7 +245,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                 deltaEffect = false,
                 enabledImaginaryUniverse = false,
                 modePlayed,
-               // gameEnded = false,
+                gameEnded = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -2052,7 +2051,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
                         // Start game loop
-                        gameLoop();
+                        requestAnimationFrame(gameLoop);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -2062,7 +2061,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                                 alert('Name too long.');
                                 return;
                         }
-
 
 
                         // Επίτευγμα: "Νέος Παίχτης"
@@ -2967,7 +2965,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                                     header1.style.color = '#520707';
                                 }
                             }
-                            //gameEnded = true;
+                            gameEnded = true;
                         }
                         else {
 
@@ -3055,8 +3053,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                             else voidModeOver = true;
                         }
                     }
-                    gameLoop();
 
+                    if (!gameEnded) {
+                        requestAnimationFrame(gameLoop); // Performance Improvement.
+                    }
+                    else {
+                        cancelAnimationFrame(gameLoop); // Stop game loop.
+                    }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
                     // Δες αν έχασε ο παίχτης
