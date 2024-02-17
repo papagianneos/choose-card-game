@@ -60,7 +60,8 @@ export const music = {
     }),
 
     hellModeMusic: new Howl({
-        src: ['/audio/hell_mode_music_01.mp3']
+        src: ['/audio/hell_mode_music_01.mp3'],
+        loop: true
     }),
 
     papagianneosFinaleMusic: new Howl({
