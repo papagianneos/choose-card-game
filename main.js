@@ -30,8 +30,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
         //if (!aprilFools) {
-            //pageBody.style.animation = 'displace 2s linear infinite';
-            //pageBody.style.backgroundSize = '200%';
+        //pageBody.style.animation = 'displace 2s linear infinite';
+        //pageBody.style.backgroundSize = '200%';
         //}
 
         pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
@@ -246,7 +246,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                 deltaEffect = false,
                 enabledImaginaryUniverse = false,
                 modePlayed,
-                gameEnded = false,
+               // gameEnded = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -2052,7 +2052,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
                         // Start game loop
-                        setInterval(gameLoop, FPS / 1e3);
+                        gameLoop();
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -2967,7 +2967,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                                     header1.style.color = '#520707';
                                 }
                             }
-                            gameEnded = true;
+                            //gameEnded = true;
                         }
                         else {
 
@@ -3055,13 +3055,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                             else voidModeOver = true;
                         }
                     }
+                    gameLoop();
 
-                    if (!gameEnded) {
-                        setInterval(gameLoop, FPS / 1e3);
-                    }
-                    else {
-                        clearInterval(gameLoop); // Stop game loop.
-                    }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
                     // Δες αν έχασε ο παίχτης
