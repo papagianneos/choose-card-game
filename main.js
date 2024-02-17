@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -226,6 +226,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
             // global μεταβλητές
             let cardsData = [],
+                FPS = getFPS(),
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
@@ -2051,7 +2052,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
                         // Start game loop
-                        window.requestAnimationFrame(gameLoop);
+                        setInterval(gameLoop, FPS * 100);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -3056,10 +3057,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     }
 
                     if (!gameEnded) {
-                        window.requestAnimationFrame(gameLoop); // Performance Improvement.
+                        setInterval(gameLoop, FPS * 100);
                     }
                     else {
-                        window.cancelAnimationFrame(gameLoop); // Stop game loop.
+                        clearInterval(gameLoop); // Stop game loop.
                     }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
