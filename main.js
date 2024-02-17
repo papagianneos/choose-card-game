@@ -2124,6 +2124,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             case 'hell': // Hell.
                                 hellModeEnabled = true;
                                 triesText.style.color = extremeModeTriesTextColor;
+                                pageBody.style.backgroundImage = 'conic-gradient(red, orange, black, maroon, red)';
                                 break;
 
                             case 'timed': // Timed.
