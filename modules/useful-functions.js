@@ -30,21 +30,18 @@ export const generateRandomHexColor = () => {
     return hexColor;
 }
 
-export const getFPS = () => {
-    let prevTime = Date.now(),
-        frames = 0;
+export const requestAnimationFrame = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : (function() {
+    var lastTimestamp = Date.now(),
+        now,
+        timeout;
+    return function(callback) {
+        now = Date.now();
+        timeout = Math.max(0, timestep - (now - lastTimestamp));
+        lastTimestamp = now + timeout;
+        return setTimeout(function() {
+            callback(now + timeout);
+        }, timeout);
+    };
+})();
 
-    requestAnimationFrame(function loop() {
-        const time = Date.now();
-        frames++;
-        if (time > prevTime + 1000) {
-            let fps = Math.round((frames * 1000) / (time - prevTime));
-            prevTime = time;
-            frames = 0;
-
-            return fps;
-        }
-
-        requestAnimationFrame(loop);
-    });
-}
+export const cancelAnimationFrame = typeof cancelAnimationFrame === 'function' ? cancelAnimationFrame : clearTimeout;
