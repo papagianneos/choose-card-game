@@ -2217,7 +2217,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? ['Κ', 'Eng'].includes(card.shape) : 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? !(card.shape in ['Κ', 'Eng']) : 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2275,7 +2275,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 cardDiv.onclick = () => {
                                     if (hellModeEnabled) choseCard = true;
                                     sounds.timeSlower.play();
-                                    pageBody.style.backgroundColor = '#080226';
+                                    if (!hellModeEnabled) pageBody.style.backgroundColor = '#080226';
                                     selectedSpecialCardShape = cardDiv.innerHTML;
                                     document.body.removeChild(cobaltModeSelectMenu);
                                     startGame();
@@ -3093,7 +3093,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
                     // Δες αν έχασε ο παίχτης
-                    if ((!lostExtremeModeEnabled && lostByDeathCard) || (extremeModeEnabled && tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
+                    if ((!lostExtremeModeEnabled && lostByDeathCard) || ((extremeModeEnabled || hellModeEnabled) && tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
 
                         // Επίτευγμα: "Τι σκατά"
