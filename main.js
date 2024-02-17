@@ -362,7 +362,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // αν δεν παίζει ο παίχτης το FINALE.
                     if (!papagianneosFinaleEnabled) {
 
-                        if (!cobaltModeEnabled) {
+                        if (!cobaltModeEnabled && !hellModeEnabled) {
                             const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.exclusiveMode && !carde.neverSpawn })
 
                             let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
