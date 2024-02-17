@@ -1159,7 +1159,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 // -------------------------------------------------------------------
                 // ANIMATION: Εφέ όταν ο παίχτης χάνει προσπάθεια
                 // -------------------------------------------------------------------
-                if (gameStarted && extremeModeEnabled && !startedExtremeModeMusic) {
+                if (gameStarted && (extremeModeEnabled && !startedExtremeModeMusic) || hellModeEnabled) {
                     triesText.style.transition = '1s';
                     triesText.style.transform = 'scale(1.5)';
 
@@ -2214,9 +2214,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         }
 
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
-                        if (cobaltModeEnabled) {
+                        if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? card.shape != 'Κ' : 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
