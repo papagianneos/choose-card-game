@@ -30,8 +30,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
         const skin = !skinsDisabled && localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
         //if (!aprilFools) {
-            //pageBody.style.animation = 'displace 2s linear infinite';
-            //pageBody.style.backgroundSize = '200%';
+        //pageBody.style.animation = 'displace 2s linear infinite';
+        //pageBody.style.backgroundSize = '200%';
         //}
 
         pageBody.style.backgroundImage = aprilFools ? 'url(./img/game_bg_old.png)' : 'url(./img/game_bg.png)';
@@ -87,6 +87,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 savedTries_voidMode = 0,
                 musicStarted = false;
             // -----------------------------------------------------
+
+            // ------------------------------------------------------
+            // "HELL" mode
+            // ------------------------------------------------------
+            let hellModeEnabled = false;
+            // ------------------------------------------------------
 
             // -----------------------------------------------------
             // TIMED mode
@@ -1148,7 +1154,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             const updateScore = () => scoreText.innerHTML = `Score: ${score}`;
             const updateFound = () => hideAndSeekText.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`;
             const updateTries = () => {
-                triesText.innerHTML = extremeModeEnabled ? `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries} / ${MAX_TRIES}` : `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`;
+                triesText.innerHTML = (extremeModeEnabled || hellModeEnabled) ? `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries} / ${MAX_TRIES}` : `${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`;
 
                 // -------------------------------------------------------------------
                 // ANIMATION: Εφέ όταν ο παίχτης χάνει προσπάθεια
@@ -1868,11 +1874,18 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                 if (!musicStarted) {
                     menuMusic.pause();
 
-                    if (timedModeEnabled) {
-                        gameMusic = timedModeMusic;
-                    }
-                    else if (papagianneosFinaleEnabled) {
-                        gameMusic = music.papagianneosFinaleMusic;
+                    switch (true) {
+                        case timedModeEnabled:
+                            gameMusic = timedModeMusic;
+                            break;
+
+                        case papagianneosFinaleEnabled:
+                            gameMusic = music.papagianneosFinaleMusic;
+                            break;
+
+                        case hellModeEnabled:
+                            gameMusic = music.hellModeMusic;
+                            break;
                     }
 
                     gameMusic.play();
@@ -2106,6 +2119,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 extremeModeEnabled = true;
                                 // Άλλαξε το χρώμα της γραμματοσειράς σε κόκκινο.
                                 triesText.style.color = extremeModeTriesTextColor;
+                                break;
+
+                            case 'hell': // Hell.
+                                hellModeEnabled = true;
                                 break;
 
                             case 'timed': // Timed.
@@ -2458,10 +2475,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             break;
 
                         case 6: // Σάββατο
-                            eventModeData = {
+                            /*eventModeData = {
                                 name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
                                 color: 'blue',
                                 id: 'penalty'
+                            }*/
+                            eventModeData = {
+                                name: 'HELL',
+                                color: 'conic-gradient(red, orange, black, maroon, red)',
+                                id: 'hell'
                             }
                             break;
 
@@ -2674,7 +2696,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // ---------------------------------------------------------------
                     // TIMED Mode
                     // ---------------------------------------------------------------
-                    if (timedModeEnabled && gameStarted) {
+                    if ((hellModeEnabled || timedModeEnabled) && gameStarted) {
                         // Μείωσε τον χρόνο
                         timeLeft -= decreaseTimeBy;
                         timeBar.setAttribute("value", timeLeft.toFixed(2));
@@ -2862,6 +2884,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                                 case papagianneosFinaleEnabled:
                                     music.papagianneosFinaleMusic.pause();
+
+                                case hellModeEnabled:
+                                    music.hellModeMusic.pause();
 
                                 default:
                                     gameMusic.pause();
@@ -3177,7 +3202,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         case hardModeEnabled || papagianneosFinaleEnabled || OG_modeEnabled:
                             effectsLoop();
 
-                        case timedModeEnabled:
+                        case timedModeEnabled || hellModeEnabled:
                             timedModeLoop();
 
                         case extremeModeEnabled:
