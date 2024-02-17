@@ -59,6 +59,10 @@ export const music = {
         loop: true
     }),
 
+    hellModeMusic: new Howl({
+        src: ['/audio/hell_mode_music_01.mp3']
+    }),
+
     papagianneosFinaleMusic: new Howl({
         src: ['/audio/papagianneos_finale_03.mp3'],
         loop: true
