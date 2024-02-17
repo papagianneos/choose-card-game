@@ -91,7 +91,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
             // ------------------------------------------------------
             // "HELL" mode
             // ------------------------------------------------------
-            let hellModeEnabled = false;
+            let hellModeEnabled = false,
+                choseCard = false;
             // ------------------------------------------------------
 
             // -----------------------------------------------------
@@ -2216,7 +2217,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? card.shape != 'Κ' : 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return card.exclusiveMode == hellModeEnabled ? ['Κ', 'Eng'].includes(card.shape) : 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2272,6 +2273,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 cardDivWrapper.appendChild(hiddenInfoTxTWrapper);
                                 cobaltModeSelectMenu.appendChild(cardDivWrapper);
                                 cardDiv.onclick = () => {
+                                    if (hellModeEnabled) choseCard = true;
                                     sounds.timeSlower.play();
                                     pageBody.style.backgroundColor = '#080226';
                                     selectedSpecialCardShape = cardDiv.innerHTML;
@@ -2698,7 +2700,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                     // ---------------------------------------------------------------
                     // TIMED Mode
                     // ---------------------------------------------------------------
-                    if ((hellModeEnabled || timedModeEnabled) && gameStarted) {
+                    if (((choseCard && hellModeEnabled) || timedModeEnabled) && gameStarted) {
                         // Μείωσε τον χρόνο
                         timeLeft -= decreaseTimeBy;
                         timeBar.setAttribute("value", timeLeft.toFixed(2));
