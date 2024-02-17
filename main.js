@@ -2052,7 +2052,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                     // Event-Listener. (για τα κλικ)
                     button.onclick = () => {
                         // Start game loop
-                        setInterval(gameLoop, FPS / 100);
+                        setInterval(gameLoop, FPS / 1e3);
                         switch (true) {
                             case playerNameInput.value == '':
                                 alert('Name required.');
@@ -3057,7 +3057,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, getFPS } from "./mo
                     }
 
                     if (!gameEnded) {
-                        setInterval(gameLoop, FPS / 100);
+                        setInterval(gameLoop, FPS / 1e3);
                     }
                     else {
                         clearInterval(gameLoop); // Stop game loop.
