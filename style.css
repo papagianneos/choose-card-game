@@ -774,12 +774,20 @@ td {
     width: 150px;
     height: 150px;
     background: transparent;
-    border: 10px solid #3498db;
+    background-image: radial-gradient(rgb(173, 255, 241), rgb(38, 81, 117));
     border-radius: 5.5%;
     text-align: center;
     align-items: center;
+    display: flex;
+    font-size: 70px;
     justify-content: center;
     animation: loader 2s linear infinite;
+}
+
+.loader h3 {
+    position: absolute;
+    font-size: 20px;
+    top: 150px;
 }
 
 @keyframes loader {
@@ -795,7 +803,7 @@ td {
         color: #1f8278;
     }
 
-    to {
+    /*to {
         transform: translate(-50%, -50%) rotate(360deg);
-    }
+    }*/
 }
