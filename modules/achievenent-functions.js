@@ -339,6 +339,12 @@ export let achievementsConfig = [
         alreadyTranslated: true
     },
 
+    {
+        id: 'ach_win_hell',
+        color: 'conic-gradient(red, orange, black, maroon, red)',
+        unlocked: false
+    },
+
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
@@ -381,7 +387,7 @@ export let achievementsConfig = [
 ];
 // ------------------------------------------------------------------------------------------------------------------
 
-// Setup.
+// Translation Setup.
 achievementsConfig.forEach(achievement => {
     if (!achievement.alreadyTranslated) {
         achievement.name = LANGUAGE_DATA[LANGUAGE_INDEX][achievement.id].name;
