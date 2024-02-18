@@ -21,7 +21,7 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
             serverDown = true;
         }
 
-        document.body.removeChild(loader);
+       //document.body.removeChild(loader);
 
         let leaderboardHolder = document.createElement('div');
         leaderboardHolder.style.width = '100%';
