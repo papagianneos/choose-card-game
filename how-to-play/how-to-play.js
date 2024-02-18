@@ -210,6 +210,12 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
         },
 
         {
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
+            color: 'conic-gradient(red, orange, black, maroon, red)',
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_hell,
+        },
+
+        {
             label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hideAndSeek,
             color: 'cyan',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_hideAndSeek,
