@@ -793,6 +793,7 @@ td {
 @keyframes loader {
     25% {
         color: #05ffe6;
+        transform: scale(1) translate(-50%, -50%);
     }
 
     50% {
@@ -801,6 +802,7 @@ td {
 
     75% {
         color: #1f8278;
+        transform: scale(1.5) translate(-30%, -50%);
     }
 
     /*to {
