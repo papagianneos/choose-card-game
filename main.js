@@ -2294,7 +2294,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
 
                         // PAPAGIANNEOS FINALE - REMASTARED
                         if (papagianneosFinaleEnabled) {
-                            let moveLeftAndRightAnimationLoop = undefined;
 
                             // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
                             pgnFinaleEffectsLoop = setInterval(() => {
@@ -2303,7 +2302,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                 document.getElementById('cardsHolder').style.animation = 'none';
 
-                                if (moveLeftAndRightAnimationLoop != undefined) window.cancelAnimationFrame(moveLeftAndRightAnimationLoop);
 
                                 setTimeout(() => {
                                     switch (getRandomInt(1, 4)) {
@@ -2320,25 +2318,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                                 card.innerHTML = 'Pgn';
                                                 card.style.background = 'radial-gradient(#adfff1, #265175)';
                                             }
-                                            break;
-
-                                        case 4:
-                                            moveLeftAndRightAnimationLoop = () => {
-                                                document.getElementById('cardsHolder').style.position = 'absolute';
-                                                document.getElementById('cardsHolder').style.transition = '1s';
-
-                                                document.getElementById('cardsHolder').style.left = '50%';
-                                                setTimeout(() => {
-                                                    document.getElementById('cardsHolder').style.left = '0';
-                                                    setTimeout(() => {
-                                                        document.getElementById('cardsHolder').style.left = '-50%';
-                                                        setTimeout(() => {
-                                                            document.getElementById('cardsHolder').style.left = '0';
-                                                        }, 2e3);
-                                                    }, 2e3);
-                                                }, 2e3);
-                                            }
-                                            window.requestAnimationFrame(moveLeftAndRightAnimationLoop);
                                             break;
                                     } // end of switch
                                 }, 2e3);
