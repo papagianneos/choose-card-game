@@ -116,6 +116,7 @@ export let LANGUAGE_DATA = [
         "play_mode_penalty": "Penalty",
         "play_mode_cobalt": "Κοβάλτιο",
         "play_mode_hideAndSeek": "Κρυφτό",
+        "play_mode_hell": "HELL",
         // --------------------------------------
 
         // ------------------------------------------------------------------------
@@ -492,6 +493,7 @@ export let LANGUAGE_DATA = [
         "play_mode_penalty": "Penalty",
         "play_mode_cobalt": "Cobalt",
         "play_mode_hideAndSeek": "H. & S.",
+        "play_mode_hell": "HELL",
         // --------------------------------------
 
         // -----------------------------------------------------
@@ -753,6 +755,309 @@ export let LANGUAGE_DATA = [
             desc: 'Win 1000 times',
         }
         // ------------------------------------------------------------------------------------------------
+    },
+
+    { // German
+        "page_title": "Finde die richtige Karte",
+        "play_again": "Erneut<br>spielen",
+        "amount_of_cards": 'Anzahl der Karten',
+        "haha": 'Haha',
+        "tries": "Versuche",
+        "found": "Gefunden",
+        "developer": 'Entwickler: Sotirios Papagiannis',
+        "title_game_name": 'FINDE DIE RICHTIGE KARTE',
+        "title_credits": "INFORMATIONEN",
+        "label_close_button": 'Schließen',
+        "label_music_credit": "Musik von:",
+        "label_friends_project": "Schau auch:",
+        "label_achievements": 'Erfolge',
+        "label_button_go_back": 'Zurück zum Spiel!',
+        "label_trophies": "Trophäen",
+        "win": "DU HAST GEWONNEN!",
+        "win_mode_hard": 'DU HAST HARD MODE GESCHLAGEN!!',
+        "win_mode_challenge": 'DU HAST CHALLENGE MODE GESCHLAGEN!!!',
+        "win_mode_extreme": 'Wow.. du hast den Extrem-Modus geschlagen. Papagianneos ist jetzt beeindruckt',
+        "win_mode_finale": 'Du hast gewonnen... MEIN FINALE!! Herzlichen Glückwunsch!!! Ich hoffe, dir hat das Spiel gefallen!',
+        "win_mode_timed": 'Du bist schnell..',
+        "win_mode_void": 'Die Leere?? WIE.. WIE HAST DU GEWONNEN??',
+        "win_mode_virus": 'Du hast das Virus gewonnen.. schön.',
+        "win_mode_penalty": 'Du hast mit Strafen gewonnen.. wow.',
+        "win_mode_cobalt": "Du hast ein Cobalt gewonnen, sehe ich.",
+        "win_mode_hideAndSeek": "Du hast alles gefunden!",
+        "win_K_card": 'Ich habe dich gerettet!',
+        "new": "NEU",
+        "achievement": "ERFOLG",
+        "trophy": "TROPHÄE",
+        "choose_special_card_menu_title": "WÄHLE SPEZIALKARTE",
+        "delete_data_question": "Bist du sicher, dass du deinen Fortschritt löschen möchtest?",
+        "nickname": "Spitzname",
+        "serverDownMsg": "Fehler: Der Server funktioniert nicht.",
+        "noGamesMsg": "Heute wurden keine Spiele gespielt.",
+        "todaysGames": "SPIELE HEUTE",
+        // ... Skins ...
+        "locked": "Gesperrt",
+        "label_skin_no_skin": "Kein Skin",
+        "label_skin_woody": "Holzig",
+        "label_skin_metal": "Metallisch",
+        "label_skin_gradient": "Super Gradient",
+        "label_skin_window": "Fenster",
+        "label_skin_crystal": "Kristallin",
+        "label_skin_radian": "Radian",
+        "label_skin_target": "Ziel",
+        // ... Special Cards ...
+        "info_special_card_x2": "Doppelter Punktestand",
+        "info_special_card_x4": "Vierfacher Punktestand",
+        "info_special_card_1/2": "Halber Punktestand",
+        "info_special_card_T-2": "2 Versuche weniger",
+        "info_special_card_T-6": "6 Versuche weniger",
+        "info_special_card_cross": 'Dein Spiel ist tot',
+        "info_special_card_triangle": 'VORSICHT EXPLOSION',
+        "info_special_card_omega": 'Sichtbar... oder... unsichtbar.',
+        "info_special_card_troll": 'Ich ändere die Form. Buuh',
+        "info_special_card_clock": '+60 Sekunden Zeit',
+        "info_special_card_slow": 'Langsamere Zeit',
+        "info_special_card_lamda": 'Ich werde dich nerven',
+        "info_special_card_sigma": 'Manchmal denke ich... BUNT!',
+        "info_special_card_wild_card": 'Wildcard',
+        "info_special_card_universe_swap": 'Universum tauschen',
+        "info_special_card_delta": 'Denke klug, nicht schwer!',
+        // ... How-To-Play things ...
+        "how_to_win": 'Um zu gewinnen, musst du alle Kartendoppel finden, ohne die Spezialkarten.',
+        "title_special_cards": "SPEZIALKARTEN",
+        "info_special_cards": 'Nur 1 der folgenden steht in jedem Spiel zur Verfügung! Sie zählen nicht zum Gesamtpunktestand und du musst sie nicht zusammen mit den anderen einfachen Karten finden, um zu gewinnen. Du musst das Paar von jeder finden, um sie zu betreiben.',
+        "dev_thanks": 'Herausgeber: Sotirios Papagiannis',
+        "info_gamemodes": 'Du kannst auch mit verschiedenen Spielmodi spielen!',
+        "mode_desc_easy": "Einfach und leicht",
+        "mode_desc_hard": "Mach einen Fehler und alles tauscht sich aus.",
+        "mode_desc_challenge": "Für jeden Fehler bekommst du einen neuen Effekt!",
+        "mode_desc_extreme": "Kannst du mit einer bestimmten Anzahl von Versuchen gewinnen?",
+        "mode_desc_timed": "Geschwindigkeit = Gewinn",
+        "mode_desc_void": "Der letzte Kampf.",
+        "mode_desc_virus": "Mach einen Fehler und verliere alles.",
+        "mode_desc_penalty": "Alle 5 Fehler bekommst du ein neues Kartenpaar.",
+        "mode_desc_cobalt": "Ein Projekt, das 1983 abgebrochen wurde.",
+        "mode_desc_og": "Nostalgie.",
+        "mode_desc_hideAndSeek": "Das Brett ist kaputt, finde alle Karten, um zu gewinnen, keine Paare! Benutze den Hinweis, wenn du stecken bleibst!",
+        // ... Buttons ...
+        "play": "Spielen",
+        "play_mode_easy": 'Einfach',
+        "play_mode_hard": 'Schwer',
+        "play_mode_challenge": 'Herausforderung',
+        "play_mode_extreme": 'EXTREM',
+        "play_mode_timed": 'ZEITLICH',
+        "play_mode_void": "LEERE",
+        "play_mode_virus": "Virus",
+        "play_mode_penalty": "Strafe",
+        "play_mode_cobalt": "Cobalt",
+        "play_mode_hideAndSeek": "V. & S.",
+        // ... Settings ...
+        "title_settings_page": "EINSTELLUNGEN",
+        "setting_label_language": "Sprache",
+        "setting_label_musicType": "Musiktyp",
+        "setting_label_cardTextFontFamily": "Schriftart",
+        "setting_label_cardTextDecorationLine": "Linientyp",
+        "setting_label_cardTextDecoration": "Schriftstil (Linie)",
+        "setting_label_cardTextDecorationThicc": "Linienstärke",
+        "setting_label_fontSize": "Schriftgröße",
+        "setting_label_cardOutsideShape": "Außenform Typ",
+        "setting_label_cardShape": "Kartenform",
+        "setting_label_neonCard": "Neon-Karte",
+        "light_mode_warning": 'WARNUNG! Diese Option kann die Bildwiederholrate des Spiels beeinträchtigen.',
+        "default": "Standard",
+        "dashed": 'Gestrichelt',
+        "dotted": 'Gepunktet',
+        "wavy": 'Gewellt',
+        "double": 'Doppelt',
+        "old": 'Alt',
+        "fantasy": 'Fantastisch',
+        "scientific": 'Wissenschaftlich',
+        "ancient": 'Antik',
+        "weird": 'Seltsam',
+        "none": 'Keine',
+        "overline": 'Überstrich',
+        "underline": 'Unterstrichen',
+        "line_through": 'Durchgestrichen',
+        "overline_and_underline": 'Überstrich & Unterstrichen',
+        "square": 'Quadrat',
+        "rectangle_horizontal": 'Rechteck (horizontal)',
+        "rectangle_vertical": 'Rechteck (vertikal)',
+        // ... Achievements and Trophies ...
+        "ach_new_player": {
+            name: "Neuer Spieler",
+            desc: 'Willkommen im Spiel!'
+        },
+        "ach_first_combination": {
+            name: "Habe ich es geschafft?",
+            desc: 'Finde dein erstes Kartenpaar.'
+        },
+        "ach_first_special_card": {
+            name: 'Was war das?',
+            desc: 'Finde eine Spezialkarte.'
+        },
+        "ach_normal_mode_win": {
+            name: 'Easyman',
+            desc: 'Schlage den "einfach" Modus.'
+        },
+        "ach_hard_mode_win": {
+            name: 'Hardman',
+            desc: 'Schlage den "schwer" Modus.'
+        },
+        "ach_challenge_mode_win": {
+            name: 'Herausforderer',
+            desc: 'Schlage den "Herausforderung" Modus.'
+        },
+        "ach_extreme_mode_win": {
+            name: 'Rächer',
+            desc: 'Schlage den "extrem" Modus.'
+        },
+        "ach_pgn_finale_win": {
+            name: 'Pgn\'s Laptop',
+            desc: 'Schlage das Finale.'
+        },
+        "ach_beginner": {
+            name: 'Anfänger',
+            desc: 'Finde 10 Karten.',
+        },
+        "ach_10_tries": {
+            name: 'Der tödliche Fehler',
+            desc: 'Spiele 10 Versuche'
+        },
+        "ach_50_tries": {
+            name: 'Noch ein bisschen und ich werde...',
+            desc: 'Spiele 50 Versuche'
+        },
+        "ach_100_tries": {
+            name: 'AAAAA',
+            desc: 'Spiele 100 Versuche'
+        },
+        "ach_special_K_card": {
+            name: ':)',
+            desc: 'Finde die besondere "K"-Karte.'
+        },
+        'ach_win_any_20': {
+            name: 'Out of RAM',
+            desc: 'Gewinne 20 Mal',
+        },
+        'ach_win_any_50': {
+            name: 'Spieler aus Kurdistan',
+            desc: 'Gewinne 50 Mal',
+        },
+        'ach_lose_10': {
+            name: 'Was zum Teufel',
+            desc: 'Verliere 10 Mal',
+        },
+        'ach_lose_50': {
+            name: 'Ich kenne das Alphabet!',
+            desc: 'Verliere 50 Mal',
+        },
+        'ach_win_virus': {
+            name: 'Ein wenig Klebeband schadet nicht',
+            desc: 'Schlage den "Virus" Modus.',
+        },
+        'ach_score_100': {
+            name: 'Hundert auf der Karte',
+            desc: 'Sammle 100 Punkte'
+        },
+        'ach_somewhat_experienced': {
+            name: "Erfahren",
+            desc: 'Finde 50 Karten.',
+        },
+        'ach_2x05': {
+            name: "Ich erinnere mich irgendwo daran..",
+            desc: '???'
+        },
+        'ach_expert': {
+            name: "Experte",
+            desc: 'Finde 100 Karten.',
+        },
+        'ach_cross_card_found': {
+            name: "Ruhe in Frieden",
+            desc: "Finde die Karte mit dem Kreuz",
+        },
+        'ach_pgn_card_found': {
+            name: "Wow",
+            desc: "Der Titel erklärt alles.",
+        },
+        'ach_skill_issue': {
+            name: "Skill Issue",
+            desc: "Gewinne 3 Mal mit weniger als 10 Versuchen.",
+        },
+        'ach_boom_card_found': {
+            name: "T r i a n g l e",
+            desc: "Und du denkst, es gibt keinen 'schweren' Modus..",
+        },
+        'ach_xray_card_found': {
+            name: 'Hacker!!11',
+            desc: "WARUM HAST DU MEIN SPIEL GEHACKT!!11",
+        },
+        'ach_score_1k': {
+            name: 'Du kennst mich nicht gut..',
+            desc: "Sammle 1000 Punkte.",
+        },
+        'ach_pgn_finale_twice': {
+            name: 'Die Rückkehr von Pgn',
+            desc: 'Schlage das Finale zum zweiten Mal.',
+        },
+        'ach_impostor_card_found': {
+            name: 'SkinWalker',
+            desc: 'WAS STIMMT MIT DIESER KARTE NICHT?',
+        },
+        'ach_peter': {
+            name: 'Genau wie Peter',
+            desc: 'Finde 3 Kartenpaare hintereinander.',
+        },
+        'ach_timed_mode_win': {
+            name: 'SREEEEEEED',
+            desc: 'Schlage den "zeitlich begrenzten" Modus.',
+        },
+        'ach_timed_mode_slow_card': {
+            name: 'Schildkrötenmann',
+            desc: 'Finde die spezielle Karte, die die Zeit verlangsamt.',
+        },
+        'ach_timed_special_card': {
+            name: 'Welche Uhr ist das?',
+            desc: 'Finde die Uhr-Spezialkarte.',
+        },
+        'ach_memory_loss': {
+            name: 'Gedächtnisverlust',
+            desc: 'Fehler 404',
+        },
+        'ach_hunter': {
+            name: 'Jäger',
+            desc: 'Finde 15 Spezialkarten.',
+        },
+        'ach_sigma_card': {
+            name: 'Σ.. von.. Sotiris?',
+            desc: 'Finde das seltene Σ.',
+        },
+        'ach_deceiver': {
+            name: 'Täuscher',
+            desc: 'Finde 50 Spezialkarten.',
+        },
+        'ach_fantastic': {
+            name: 'Fantastisch',
+            desc: 'Gewinne ein Spiel im fantastischen Universum.',
+        },
+        // ... Trophies ...
+        'tr_master_of_cards': {
+            name: 'Meister der Karten',
+            desc: 'Finde 10000 Karten',
+        },
+
+        'tr_million_score': {
+            name: 'Millionär',
+            desc: 'Sammle 1000000 Punkte',
+        },
+
+        'tr_10k_tries': {
+            name: 'Wiedehopf',
+            desc: 'Spiele 10000 Versuche',
+        },
+
+        'tr_win_any_1k': {
+            name: 'Finde den richtigen Lehrer',
+            desc: 'Gewinne 1000 Mal',
+        }
     }
 ];
 
