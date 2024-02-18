@@ -29,6 +29,7 @@
     font-family: halloween;
     src: url(fonts/halloween.ttf);
 }
+
 /* ------------------------------------ */
 
 html {
@@ -342,7 +343,8 @@ progress {
     }
 }
 
-input, select {
+input,
+select {
     background: white;
 }
 
@@ -774,6 +776,9 @@ td {
     background: transparent;
     border: 10px solid #3498db;
     border-radius: 5.5%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     animation: loader 2s linear infinite;
 }
 
