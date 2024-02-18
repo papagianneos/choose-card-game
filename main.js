@@ -2479,23 +2479,23 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             break;
 
                         case 6: // Σάββατο
-                            /*eventModeData = {
+                            eventModeData = {
                                 name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
                                 color: 'blue',
                                 id: 'penalty'
+                            }
+                            break;
+
+                        case 0: // Κυριακή
+                            /*eventModeData = {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
+                                color: 'radial-gradient(red, black)',
+                                id: 'virus'
                             }*/
                             eventModeData = {
                                 name: 'HELL',
                                 color: 'conic-gradient(red, orange, black, maroon, red)',
                                 id: 'hell'
-                            }
-                            break;
-
-                        case 0: // Κυριακή
-                            eventModeData = {
-                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                                color: 'radial-gradient(red, black)',
-                                id: 'virus'
                             }
                             break;
                     }
