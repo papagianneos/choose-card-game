@@ -2217,7 +2217,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? !card.neverSpawn : card.exclusiveMode == 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed'|| card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2891,7 +2891,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                                 case hellModeEnabled:
                                     gameMusic.pause();
-                                    //music.hellModeMusic.pause();
+                                    music.hellModeMusic.pause();
 
                                 default:
                                     gameMusic.pause();
@@ -3105,6 +3105,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
                         if (lostByDeathCard) {
                             gameMusic.pause();
+                            music.hellModeMusic.pause();
                             timedModeMusic.pause();
                         }
 
