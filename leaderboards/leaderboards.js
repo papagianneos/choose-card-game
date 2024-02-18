@@ -1,13 +1,11 @@
 import { LANGUAGE_DATA, LANGUAGE_INDEX } from "../modules/languages.js";
 import { SERVER_ADDRESS } from "../modules/SERVER.js";
+import { createLoader } from "../modules/useful-functions.js";
 
 (() => {
     document.getElementsByTagName('body')[0].style.background = 'black';
 
-    let loader = document.createElement('div');
-    loader.className = 'loader';
-    document.body.appendChild(loader);
-
+    let loader = createLoader();
     (async () => {
         let FETCHED_DATA = [], serverDown = false;
 
@@ -21,7 +19,7 @@ import { SERVER_ADDRESS } from "../modules/SERVER.js";
             serverDown = true;
         }
 
-       //document.body.removeChild(loader);
+        document.body.removeChild(loader);
 
         let leaderboardHolder = document.createElement('div');
         leaderboardHolder.style.width = '100%';
