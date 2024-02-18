@@ -44,6 +44,7 @@ export let LANGUAGE_DATA = [
         "serverDownMsg": "Δεν λειτουργεί ο διακομιστής (server)",
         "noGamesMsg": "Κανένας δεν έπαιξε σήμερα.",
         "todaysGames": "ΣΗΜΕΡΙΝΑ ΠΑΙΧΝΙΔΙΑ",
+        "loading": "Φόρτωση",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
@@ -421,6 +422,7 @@ export let LANGUAGE_DATA = [
         "serverDownMsg": "Error: Server is not working.",
         "noGamesMsg": "No games were played today.",
         "todaysGames": "TODAY'S GAMES",
+        "loading": "Loading",
         // --------------------------------------
 
         // -----------------------------------------------------------------------------
@@ -794,6 +796,7 @@ export let LANGUAGE_DATA = [
         "serverDownMsg": "Fehler: Der Server funktioniert nicht.",
         "noGamesMsg": "Heute wurden keine Spiele gespielt.",
         "todaysGames": "SPIELE HEUTE",
+        "loading": "Wird geladen",
         // ... Skins ...
         "locked": "Gesperrt",
         "label_skin_no_skin": "Kein Skin",
@@ -850,6 +853,7 @@ export let LANGUAGE_DATA = [
         "play_mode_penalty": "Strafe",
         "play_mode_cobalt": "Cobalt",
         "play_mode_hideAndSeek": "V. & S.",
+        "play_mode_hell": "HÖLLE",
         // ... Settings ...
         "title_settings_page": "EINSTELLUNGEN",
         "setting_label_language": "Sprache",
@@ -1037,6 +1041,10 @@ export let LANGUAGE_DATA = [
         'ach_fantastic': {
             name: 'Fantastisch',
             desc: 'Gewinne ein Spiel im fantastischen Universum.',
+        },
+        'ach_win_hell': {
+            name: 'ENERGIEGETRÄNK',
+            desc: 'Beende den „Höllen“-Modus.'
         },
         // ... Trophies ...
         'tr_master_of_cards': {
