@@ -2218,6 +2218,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
                             cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed'|| card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
+                            console.log(cobaltModeCards);
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -3103,9 +3104,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         // Επίτευγμα: "Ξέρω την αλφάβητο!"
                         unlockAchievement('ach_lose_50');
 
-                        if (lostByDeathCard) {
+                        if (hellModeEnabled) {
                             gameMusic.pause();
                             music.hellModeMusic.pause();
+                        }// bug fix
+
+                        if (lostByDeathCard) {
+                            gameMusic.pause();
                             timedModeMusic.pause();
                         }
 
