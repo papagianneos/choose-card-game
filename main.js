@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -15,10 +15,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
     pageBody.style.backgroundSize = 'cover';
     pageBody.style.backgroundRepeat = 'no-repeat';
 
-    let loader = document.createElement('div');
-    loader.className = 'loader';
-    loader.innerText = 'Loading';
-    document.body.appendChild(loader);
+    let loader = createLoader();
 
     (async () => {
 
