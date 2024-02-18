@@ -17,6 +17,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
 
     let loader = document.createElement('div');
     loader.className = 'loader';
+    loader.innerText = 'Loading';
     document.body.appendChild(loader);
 
     (async () => {
@@ -2487,11 +2488,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                             break;
 
                         case 0: // Κυριακή
-                            /*eventModeData = {
-                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
-                                color: 'radial-gradient(red, black)',
-                                id: 'virus'
-                            }*/
                             eventModeData = {
                                 name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
                                 color: 'conic-gradient(red, orange, black, maroon, red)',
