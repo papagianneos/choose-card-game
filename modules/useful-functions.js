@@ -1,3 +1,5 @@
+import { LANGUAGE_DATA, LANGUAGE_INDEX } from "./languages.js";
+
 const irandom = i => {
     let max = Math.floor(i);
     return Math.floor(Math.random() * (max + 1));
@@ -30,6 +32,22 @@ export const generateRandomHexColor = () => {
     return hexColor;
 }
 
+export const createLoader = () => {
+    // Pgn card loader
+    let loader = document.createElement('div');
+    loader.className = 'loader';
+    loader.innerText = 'Loading';
+    
+    // Loading Text
+    let loadingText = document.createElement('h3');
+    loadingText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].loading));
+    loader.appendChild(loadingText);
+
+    document.body.appendChild(loader);
+    return loader;
+}
+
+// Performance Handle
 (function (window) {
 
     'use strict';
