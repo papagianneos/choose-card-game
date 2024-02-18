@@ -101,6 +101,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_cobalt": "Ένα project που ακυρώθηκε το 1983.",
         "mode_desc_og": "Σαν το παρελθόν!",
         "mode_desc_hideAndSeek": "Το ταμπλό χάλασε, βρες όλες τις κάρτες για να κερδίσεις, χωρίς ζευγάρια! Χρησιμοποίησε το κουμπί HINT εάν κολλήσεις!",
+        "mode_desc_hell": "Γιατί όχι! Χρόνος με όριο προσπάθειων!",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -479,6 +480,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_cobalt": "A project that was scrapped back in 1983.",
         "mode_desc_og": "Nostalgia.",
         "mode_desc_hideAndSeek": "The board has broke, find all the cards to win, no pairs! Use the hint if you get stuck!",
+        "mode_desc_hell": "Why not! Time with tries limit!",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -841,6 +843,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_cobalt": "Ein Projekt, das 1983 abgebrochen wurde.",
         "mode_desc_og": "Nostalgie.",
         "mode_desc_hideAndSeek": "Das Brett ist kaputt, finde alle Karten, um zu gewinnen, keine Paare! Benutze den Hinweis, wenn du stecken bleibst!",
+        "mode_desc_hell": "Warum nicht! Zeitlimit für Versuche!",
         // ... Buttons ...
         "play": "Spielen",
         "play_mode_easy": 'Einfach',
