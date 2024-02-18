@@ -19,7 +19,7 @@ import { createLoader } from "../modules/useful-functions.js";
             serverDown = true;
         }
 
-       // document.body.removeChild(loader);
+       document.body.removeChild(loader);
 
         let leaderboardHolder = document.createElement('div');
         leaderboardHolder.style.width = '100%';
