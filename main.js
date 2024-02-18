@@ -2218,7 +2218,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
                             cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed'|| card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
-                            console.log(cobaltModeCards);
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2277,8 +2276,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     if (hellModeEnabled) choseCard = true;
                                     sounds.timeSlower.play();
                                     if (!hellModeEnabled) pageBody.style.backgroundColor = '#080226';
-                                    selectedSpecialCardShape = cardDiv.innerHTML;
-                                    console.log(selectedSpecialCardShape);
+                                    selectedSpecialCardShape = cardDiv.innerText;
                                     document.body.removeChild(cobaltModeSelectMenu);
                                     startGame();
                                     createCards();
