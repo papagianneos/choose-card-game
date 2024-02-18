@@ -2278,6 +2278,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     sounds.timeSlower.play();
                                     if (!hellModeEnabled) pageBody.style.backgroundColor = '#080226';
                                     selectedSpecialCardShape = cardDiv.innerHTML;
+                                    console.log(selectedSpecialCardShape);
                                     document.body.removeChild(cobaltModeSelectMenu);
                                     startGame();
                                     createCards();
