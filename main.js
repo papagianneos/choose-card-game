@@ -2493,7 +2493,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                 id: 'virus'
                             }*/
                             eventModeData = {
-                                name: 'HELL',
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
                                 color: 'conic-gradient(red, orange, black, maroon, red)',
                                 id: 'hell'
                             }
@@ -2848,6 +2848,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     // Virus (made by Petercraft)
                                     case virusModeEnabled:
                                         achievementIDToCheckForUnlock = 'ach_win_virus';
+                                        break;
+
+                                    case hellModeEnabled:
+                                        achievementIDToCheckForUnlock = 'ach_win_hell';
                                         break;
 
                                     case penaltyModeEnabled:
