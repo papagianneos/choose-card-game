@@ -36,7 +36,7 @@ export const createLoader = () => {
     // Pgn card loader
     let loader = document.createElement('div');
     loader.className = 'loader';
-    loader.innerText = 'Loading';
+    loader.innerText = 'Pgn';
     
     // Loading Text
     let loadingText = document.createElement('h3');
