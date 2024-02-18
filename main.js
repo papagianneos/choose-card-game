@@ -2890,7 +2890,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor } from "./modules/us
                                     music.papagianneosFinaleMusic.pause();
 
                                 case hellModeEnabled:
-                                    music.hellModeMusic.pause();
+                                    gameMusic.pause();
+                                    //music.hellModeMusic.pause();
 
                                 default:
                                     gameMusic.pause();
