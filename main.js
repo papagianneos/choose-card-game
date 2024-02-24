@@ -53,8 +53,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
+            let testServer = true;
+
             // Events
-            let eventModeRotationEnabled = true;
+            let eventModeRotationEnabled = !testServer;
 
             // OG Mode
             let OG_modeEnabled = false,
@@ -2215,7 +2217,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed'|| card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
+                            cobaltModeCards = specialCardsConfig.filter(card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2488,6 +2490,38 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                     buttonsWrapper.appendChild(playButtonSecretMode);
                     buttonsWrapper.appendChild(playButtonHideAndSeek);
                     if (eventModeRotationEnabled) buttonsWrapper.appendChild(playEventModeBtn);
+                    if (testServer) {
+                        const eventModes = [
+                            {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_virus,
+                                color: 'radial-gradient(red, black)',
+                                id: 'virus'
+                            },
+                            {
+                                name: 'OG',
+                                color: 'radial-gradient(purple, white)',
+                                id: 'og'
+                            },
+                            {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
+                                color: 'radial-gradient(black, darkblue)',
+                                id: 'cobalt'
+                            },
+                            {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_penalty,
+                                color: 'blue',
+                                id: 'penalty'
+                            },
+                            {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
+                                color: 'conic-gradient(red, orange, black, maroon, red)',
+                                id: 'hell'
+                            },
+                        ];
+                        eventModes.forEach(event => {
+                            buttonsWrapper.appendChild(createButton(event.name, event.color, event.id));
+                        });
+                    }
                 }
                 // ----------------------------------------------------
 
