@@ -292,6 +292,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // BUG FIX: Αν έγινε click στην ίδια κάρτα..
                         // ----------------------------------------------------------------------------------------------------------------
                         if (card.getAttribute('anoixthcarta') || blockClicks || card.getAttribute('egineclick') || card.mazeWall) return;
+                        card.setAttribute('egineclick', 'nai');
                         // ----------------------------------------------------------------------------------------------------------------
 
                         if (!hideAndSeekModeEnabled) {
