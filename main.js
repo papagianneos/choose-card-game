@@ -1691,12 +1691,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 // ANIMATION: Εφέ όταν ο παίχτης χάνει προσπάθεια
                 // -------------------------------------------------------------------
                 if (gameStarted && (extremeModeEnabled && !startedExtremeModeMusic) || hellModeEnabled) {
-                    triesText.style.transition = '1s';
-                    triesText.style.transform = 'scale(1.5)';
+                    triesText.classList.toggle('warningTries');
 
                     setTimeoutWithRAF(() => {
-                        triesText.style.transform = 'scale(1)';
-                    }, 5e2);
+                        triesText.classList.toggle('warningTries');
+                    }, 6e2);
                 }
                 // --------------------------------------------------------------------
 
