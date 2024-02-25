@@ -470,6 +470,6 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
         achievementNotifBox.style.left = "-2500px";
         setTimeoutWithRAF(() => {
             document.body.removeChild(achievementNotifBox);
-        }, 4e3);
-    }, 3e3);
+        }, 3e3);
+    }, 5e3);
 }
