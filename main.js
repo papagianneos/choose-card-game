@@ -1745,7 +1745,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         if (pgnBirthday) card.style.backgroundSize = '250%';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
-                        if (card.savedText == specialCardsConfig[16].shape) {
+                        if (card.savedText == specialCardsConfig[16].shape && !card.classList.contains('sigmaEffectEnabled')) {
                             card.classList.toggle('sigmaEffectEnabled');
                         }
                     }
