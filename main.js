@@ -790,6 +790,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.cardOpen.play();
                             // ----------------------------------
 
+                            card.classList.toggle('hideAndSeekHint');
                             card.classList.toggle('openedHideAndSeek');
                             hideAndSeekFoundCount++;
                             updateFound();
@@ -1677,7 +1678,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 updateTries();
 
                 let randomlyChosenClosedCardElem = randomChoice(closedCardElems);
-                randomlyChosenClosedCardElem.style.boxShadow = 'cyan 0px 0px 60px';
+                randomlyChosenClosedCardElem.classList.toggle('hideAndSeekHint');
             }
 
             hideAndSeekHintButton.style.fontSize = '20px';
