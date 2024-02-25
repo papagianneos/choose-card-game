@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF, getFPS } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -42,7 +42,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            const CARDS_DELAY_MS = 1e3;
+            const CARDS_DELAY_MS = 2e3;
 
             const BROKEN_CARD_POLYGONS = [
                 'none',
@@ -1596,17 +1596,20 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
             let scoreText = document.createElement('h1'),
                 triesText = document.createElement('h1'),
+                fpsText = document.createElement('h1'),
                 hideAndSeekText = document.createElement('h1'),
                 hideAndSeekHintButton = document.createElement('button');
 
             // Φτιάξε το κείμενο για score και προσπάθειες
             scoreText.appendChild(document.createTextNode(`Score: ${score}`));
             triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
+            fpsText.appendChild(Document.createTextNode(`FPS: ${getFPS()}`));
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
             scoreText.style.fontSize = halloweenTime ? '30px' : '20px';
             triesText.style.fontSize = halloweenTime ? '30px' : '20px';
+            fpsText.style.fontSize = halloweenTime ? '30px' : '20px';
             hideAndSeekText.style.fontSize = halloweenTime ? '30px' : '20px';
             hideAndSeekText.style.display = 'none'; // bug fix
 
@@ -1650,6 +1653,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             scoreAndTriesHolder.appendChild(scoreText);
             scoreAndTriesHolder.appendChild(hideAndSeekText);
             scoreAndTriesHolder.appendChild(triesText);
+            scoreAndTriesHolder.appendChild(fpsText);
             scoreAndTriesHolder.appendChild(timeBar);
             scoreAndTriesHolder.appendChild(hideAndSeekHintButton);
             parentDiv.appendChild(scoreAndTriesHolder);
