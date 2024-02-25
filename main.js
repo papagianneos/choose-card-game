@@ -22,7 +22,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 prevTime = time;
                 frames = 0;
 
-                FPS = fps;
+                document.getElementById('FPS').innerText = `FPS: ${fps}`;
             }
 
             requestAnimationFrame(loop);
@@ -253,7 +253,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
             // global μεταβλητές
             let cardsData = [],
-                FPS,
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
@@ -1621,10 +1620,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 hideAndSeekText = document.createElement('h1'),
                 hideAndSeekHintButton = document.createElement('button');
 
+            fpsText.id = 'FPS';
+
             // Φτιάξε το κείμενο για score και προσπάθειες
             scoreText.appendChild(document.createTextNode(`Score: ${score}`));
             triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
-            fpsText.appendChild(document.createTextNode(`FPS: ${FPS}`));
+            fpsText.appendChild(document.createTextNode(`FPS: -`));
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
@@ -2758,7 +2759,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 // game loops
                 const winCheckLoop = (openedCards) => {
                     getFPS();
-                    fpsText.innerText = `FPS: ${FPS}`;
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
