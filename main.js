@@ -6,9 +6,29 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF, FPS } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
 
 (() => {
+
+    const getFPS = () => {
+        let prevTime = Date.now(),
+            frames = 0;
+
+        requestAnimationFrame(function loop() {
+            const time = Date.now();
+            frames++;
+            if (time > prevTime + 1000) {
+                let fps = Math.round((frames * 1000) / (time - prevTime));
+                prevTime = time;
+                frames = 0;
+
+                FPS = fps;
+            }
+
+            requestAnimationFrame(loop);
+        });
+    }
+
     const pageBody = document.getElementsByTagName('body')[0];
 
     pageBody.style.background = 'black';
@@ -233,6 +253,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
             // global μεταβλητές
             let cardsData = [],
+                FPS,
                 imaginaryCardsData = [],
                 hardModeEnabled = false, // "δύσκολο" mode απενεργοποιημένο από την αρχή
                 challengeModeEnabled = false,
@@ -2736,6 +2757,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // game loops
                 const winCheckLoop = (openedCards) => {
+                    getFPS();
                     fpsText.innerText = `FPS: ${FPS}`;
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
