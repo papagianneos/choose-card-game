@@ -51,6 +51,10 @@ html {
     }
 }
 
+.warningTries {
+    animation: grow 1s linear;
+}
+
 body {
     background-image: url(./img/game_bg.png);
     background-color: black;
