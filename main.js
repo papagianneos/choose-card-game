@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF, getFPS } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF, FPS } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -1603,7 +1603,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // Φτιάξε το κείμενο για score και προσπάθειες
             scoreText.appendChild(document.createTextNode(`Score: ${score}`));
             triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
-            fpsText.appendChild(document.createTextNode(`FPS: ${getFPS()}`));
+            fpsText.appendChild(document.createTextNode(`FPS: ${FPS}`));
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
@@ -2736,7 +2736,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // game loops
                 const winCheckLoop = (openedCards) => {
-                    fpsText.innerText = `FPS: ${getFPS()}`;
+                    fpsText.innerText = `FPS: ${FPS}`;
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
