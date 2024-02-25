@@ -100,6 +100,21 @@ body {
     vertical-align: top;
 }
 
+.mazeWall {
+    visibility: hidden;
+    cursor: default;
+}
+
+.openedHideAndSeek {
+    transform: rotateY(360deg);
+    pointer-events: none;
+    box-shadow: none;
+}
+
+.opened {
+    transform: rotateY(360deg);   
+}
+
 .howToPlayInfoCard:hover+.hidden,
 .gameModeBoxForHowToPlay:hover+.hidden {
     visibility: visible;
@@ -809,3 +824,27 @@ td {
         transform: translate(-50%, -50%) rotate(360deg);
     }*/
 }
+
+/* SAVED*/
+/* BTN
+#btnthing {
+    -webkit-animation-name: cobaltPulse;
+    border-bottom: 2px solid #1d252e;
+    box-shadow: inset 0 -2px #1d252e;
+    background: #2e3742;
+}
+@keyframes cobaltPulse {
+    from {
+      background-color: #2e3742;
+      -webkit-box-shadow: 0 0 9px #2e3742;
+    }
+    50% {
+      background-color: #4d5a68;
+      -webkit-box-shadow: 0 0 18px #4d5a68;
+    }
+    to {
+      background-color: #2e3742;
+      -webkit-box-shadow: 0 0 9px #2e3742;
+    }
+  }
+*/
