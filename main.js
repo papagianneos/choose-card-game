@@ -443,6 +443,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         if (!firstCard.specialCard && !secondCard.specialCard) {
                                             halloweenTime ? sounds.scoreHalloween.play() : (hardModeEnabled || extremeModeEnabled) ? sounds.scoreHardMode.play() : sounds.score.play();
                                         }
+
+                                        if (timedModeEnabled) {
+                                            timeLeft += 5;
+                                        }
                                     }
 
                                     currentSelected = [];
