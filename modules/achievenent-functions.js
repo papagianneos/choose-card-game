@@ -1,5 +1,6 @@
 import { sounds } from "./sounds.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./languages.js";
+import { setTimeoutWithRAF } from "./useful-functions.js";
 
 // Διάβασε πληροφορίες αρχικά
 export let FETCHED_ACHIEVEMENT_DATA = localStorage.getItem('achievementData') != null ? JSON.parse(localStorage.getItem('achievementData')) : [];
@@ -457,20 +458,18 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
     achievementNotifDesc.appendChild(document.createTextNode(text_here_lol));
     achievementNotifDesc.style.fontSize = '20px';
 
-    setTimeout(() => {
-        sounds.achievement.play();
-        tempDiv.appendChild(achievementNotifTitle);
-        achievementNotifBox.appendChild(tempDiv);
-        achievementNotifBox.appendChild(achievementNotifDesc);
-        document.body.appendChild(achievementNotifBox);
-        achievementNotifBox.style.left = "50%";
+    sounds.achievement.play();
+    tempDiv.appendChild(achievementNotifTitle);
+    achievementNotifBox.appendChild(tempDiv);
+    achievementNotifBox.appendChild(achievementNotifDesc);
+    document.body.appendChild(achievementNotifBox);
+    achievementNotifBox.style.left = "50%";
 
-        // Μετά από 9 δευτερόλεπτα, αφαίρεσέ το από την ιστοσελίδα.
-        setTimeout(() => {
-            achievementNotifBox.style.left = "-2500px";
-            setTimeout(() => {
-                document.body.removeChild(achievementNotifBox);
-            }, 4e3);
-        }, 5e3);
-    }, document.getElementsByClassName('achievementUnlockedNotification').length > 0 ? 3e3 * document.getElementsByClassName('achievementUnlockedNotification').length : 0);
+    // Μετά από 7 δευτερόλεπτα, αφαίρεσέ το από την ιστοσελίδα.
+    setTimeoutWithRAF(() => {
+        achievementNotifBox.style.left = "-2500px";
+        setTimeoutWithRAF(() => {
+            document.body.removeChild(achievementNotifBox);
+        }, 4e3);
+    }, 3e3);
 }
