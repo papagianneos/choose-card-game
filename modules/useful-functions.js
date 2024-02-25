@@ -116,7 +116,8 @@ export function shuffle(givenArray) {
     return givenArray;
 }
 
-export const getFPS = () => {
+export let FPS = 0;
+const getFPS = () => {
     let prevTime = Date.now(),
         frames = 0;
 
@@ -128,9 +129,10 @@ export const getFPS = () => {
             prevTime = time;
             frames = 0;
 
-            return fps;
+            FPS = fps;
         }
 
         requestAnimationFrame(loop);
     });
 }
+window.onload = () => getFPS();
