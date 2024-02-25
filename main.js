@@ -687,8 +687,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                     blockClicks = true;
                                     setTimeoutWithRAF(() => {
-                                        currentSelected[0].classList.toggle('opened');
-                                        currentSelected[1].classList.toggle('opened');
+                                        firstCard.classList.toggle('opened');
+                                        secondCard.classList.toggle('opened');
                                         blockClicks = false;
                                     }, CARDS_DELAY_MS);
                                 }
