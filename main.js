@@ -993,25 +993,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
                         generatedColorPalette.push(randomColor);
 
-                        // -------------------------------------------------------------
-                        // BUG FIX: Διαγραφή αντιγράφων
-                        // -------------------------------------------------------------
-                        generatedColorPalette = [...new Set(generatedColorPalette)];
-
-
-                        let checkDuplicateColorInterval = () => {
-                            const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
-                            generatedColorPalette.push(randomColor);
-                            generatedColorPalette = [...new Set(generatedColorPalette)];
-
-                            if (generatedColorPalette.length == 6) {
-                                window.cancelAnimationFrame(checkDuplicateColorInterval);
-                            }
-                            else window.requestAnimationFrame(checkDuplicateColorInterval);
-                        }
-                        window.requestAnimationFrame(checkDuplicateColorInterval);
-                        // -------------------------------------------------------------
-
                     }
                     COLOR_PALETTES.push(generatedColorPalette);
                 }
@@ -1030,27 +1011,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             color += Math.floor(Math.random() * 10);
                         }
                         imaginaryGeneratedColorPalette.push(color);
-
-                        // -------------------------------------------------------------
-                        // BUG FIX: Διαγραφή αντιγράφων
-                        // -------------------------------------------------------------
-                        imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
-
-                        let checkDuplicateColorInterval2 = () => {
-                            var color = '#';
-                            for (var i = 0; i < 6; i++) {
-                                color += Math.floor(Math.random() * 10);
-                            }
-                            imaginaryGeneratedColorPalette.push(color);
-                            imaginaryGeneratedColorPalette = [...new Set(imaginaryGeneratedColorPalette)];
-
-                            if (imaginaryGeneratedColorPalette.length == 6) {
-                                window.cancelAnimationFrame(checkDuplicateColorInterval2);
-                            }
-                            else window.requestAnimationFrame(checkDuplicateColorInterval2);
-                        }
-                        window.requestAnimationFrame(checkDuplicateColorInterval2);
-                        // -------------------------------------------------------------
 
                     }
                     IMAGINARY_COLOR_PALETTES.push(imaginaryGeneratedColorPalette);
