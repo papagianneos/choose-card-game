@@ -115,3 +115,22 @@ export function shuffle(givenArray) {
     }
     return givenArray;
 }
+
+export const getFPS = () => {
+    let prevTime = Date.now(),
+        frames = 0;
+
+    requestAnimationFrame(function loop() {
+        const time = Date.now();
+        frames++;
+        if (time > prevTime + 1000) {
+            let fps = Math.round((frames * 1000) / (time - prevTime));
+            prevTime = time;
+            frames = 0;
+
+            return fps;
+        }
+
+        requestAnimationFrame(loop);
+    });
+}
