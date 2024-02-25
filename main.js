@@ -1511,7 +1511,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                         resetCards(false);
                                         gameMusic.play();
-                                    }, 3e3);
+                                    }, 3e4);
                                 }
                                 break;
 
