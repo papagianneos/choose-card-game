@@ -326,7 +326,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // -------------------------------------------------------------------------------------------------------------------------------
                                 // ANIMATION. (Να μην υπάρχει στο OG mode)
                                 // --------------------------------------------------------------------------------------------------------------------------------
-                                card.style.transform = enabledImaginaryUniverse ? `rotateZ(${card.imaginaryRotationType}deg) rotateY(360deg)` : 'rotateY(360deg)';
+                                if (enabledImaginaryUniverse) {
+                                    card.style.transform = `rotateZ(${card.imaginaryRotationType}deg) rotateY(360deg)`;
+                                }
+                                else {
+                                    card.classList.toggle('opened');
+                                }
                                 // --------------------------------------------------------------------------------------------------------------------------------
                             }
 
@@ -773,14 +778,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             }
                         }
                         else { // Hide & Seek Setup
-                            card.style.boxShadow = 'none';
-
-                            // -------------------------------------------------------
-                            // BUG FIX: Αν μία κάρτα βρίσκεται πάνω στο HINT κουμπί.
-                            // -------------------------------------------------------
-                            card.style.pointerEvents = 'none';
-                            // -------------------------------------------------------
-
                             tries--; // bug fix
                             card.style.backgroundColor = card.savedBackgroundColor;
                             card.innerHTML = card.savedText;
@@ -791,14 +788,45 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.cardOpen.play();
                             // ----------------------------------
 
-                            card.style.transform = 'rotateY(360deg)';
+                            card.classList.toggle('openedHideAndSeek');
                             hideAndSeekFoundCount++;
                             updateFound();
                         }
 
                     }
                 });
-                // =======================================================
+
+                document.addEventListener('onmouseover', (event) => {
+                    if (event.target.classList.contains('card')) {
+                        const card = event.target;
+                        if (card.getAttribute('anoixthcarta') || blockClicks || card.getAttribute('egineclick')) return;
+                        if (C69Effect) {
+
+                            // Μόνο 8 φορές.
+                            c69EffectTurn++;
+                            if (c69EffectTurn > 8) {
+                                C69Effect = false;
+
+                                for (var card_ of document.getElementsByClassName('card')) {
+                                    card_.style.boxShadow = 'none';
+                                }
+                                return
+                            }
+
+                            let color = 10;
+
+                            var chance = Math.random();
+                            if (chance < 0.7) { // 20% πιθανότητα να είναι το σωστό χρώμα της κάρτας
+                                color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                            }
+                            else {
+                                color = card.savedBackgroundColor;
+                            }
+
+                            card.style.boxShadow = `${color} 0px 0px 60px`;
+                        }
+                    }
+                });
 
                 let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split(''),
                     IMAGINARY_CHARACTERS_SET = "πΣ∆∝⋂⋃≥≤φ⋊⊤⊥⊉⊈≣∟∧∐≙⊊⊯⊏≲≃≂∽∼∾∿≀∳∦∥∔∀∉∋∈∅ℯ∁∆∇∎−∤∣∺∷⊀⊁⊌⊍⊎⋔⋠⋡⋣⋢⋛⋚⋫⋪⋘⋙".split(''),
@@ -1697,15 +1725,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                     // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
                     if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
-                        // Δες αν ο παίχτης χρησιμοποιεί νέον
-                        //if (!secretSettingEnabled) {
                         card.style.background = resetColor;
-                        //}
-                        //else {
-                        //    card.style.background = 'radial-gradient(#240907, black)';
-                        //}
                         card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
-                        card.style.transform = enabledImaginaryUniverse ? `rotateZ(${card.imaginaryRotationType}deg)` : 'none';
+                        card.classList.toggle('opened');
                         card.style.backgroundSize = 'cover';
                         card.removeAttribute('egineclick');
 
@@ -1806,8 +1828,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // Walls.
                 if (card.mazeWall) {
-                    div.style.cursor = 'default';
-                    div.style.visibility = 'hidden';
+                    div.classList.toggle('mazeWall');
                     div.mazeWall = true;
                 }
 
@@ -1825,40 +1846,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         div.style.background = 'grey';
                     }
                 }
-
-                // =======================================================
-                // Mouse event listeners setup & game setup
-                // =======================================================
-
-                if (!div.mazeWall) div.onmouseover = () => {
-                    if (div.getAttribute('anoixthcarta') || blockClicks || div.getAttribute('egineclick')) return;
-                    if (C69Effect) {
-
-                        // Μόνο 8 φορές.
-                        c69EffectTurn++;
-                        if (c69EffectTurn > 8) {
-                            C69Effect = false;
-
-                            for (var card of document.getElementsByClassName('card')) {
-                                card.style.boxShadow = 'none';
-                            }
-                            return
-                        }
-
-                        let color = 10;
-
-                        var chance = Math.random();
-                        if (chance < 0.7) { // 20% πιθανότητα να είναι το σωστό χρώμα της κάρτας
-                            color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                        }
-                        else {
-                            color = div.savedBackgroundColor;
-                        }
-
-                        div.style.boxShadow = `${color} 0px 0px 60px`;
-                    }
-                }
-
                 // βάλε την κάρτα στο parentDiv ή στο imaginaryParentDiv
                 type == 'normal' ? parentDiv.appendChild(div) : imaginaryParentDiv.appendChild(div);
             }
