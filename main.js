@@ -42,7 +42,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            const CARDS_DELAY_MS = 250;
+            const CARDS_DELAY_MS = 350;
 
             const BROKEN_CARD_POLYGONS = [
                 'none',
