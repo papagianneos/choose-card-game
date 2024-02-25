@@ -100,7 +100,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // -----------------------------------------------------
             let timedModeEnabled = false,
                 timedModeStyleTagMade = false,
-                decreaseTimeBy = 1;
+                decreaseTimeBy = AMOUNT_OF_CARDS > 12 ? .5 : 1;
 
             const makePercentage = (partialValue, totalValue) => {
                 return (100 * partialValue) / totalValue;
@@ -444,8 +444,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                             halloweenTime ? sounds.scoreHalloween.play() : (hardModeEnabled || extremeModeEnabled) ? sounds.scoreHardMode.play() : sounds.score.play();
                                         }
 
+                                        // TIMED MODE: Δώσε χρόνο.
                                         if (timedModeEnabled) {
-                                            timeLeft += 15;
+                                            timeLeft += AMOUNT_OF_CARDS > 12 ? 25 : 30;
                                         }
                                     }
 
@@ -3055,6 +3056,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSelected = [];
                                 AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]);
                                 if (extremeModeEnabled) MAX_TRIES = (AMOUNT_OF_CARDS / 2) + 2;
+                                if (timedModeEnabled) decreaseTimeBy = AMOUNT_OF_CARDS > 12 ? .5 : 1;
 
                                 nonPairCardExists = false; // PLEASE WORK
                                 startGame();
