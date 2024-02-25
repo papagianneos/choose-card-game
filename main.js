@@ -1718,14 +1718,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
                         card.style.backgroundSize = 'cover';
 
-                        if (card.classList.contains('opened')) {
-                            if (enabledImaginaryUniverse) {
-                                card.style.transform = `rotateZ(${card.imaginaryRotationType}deg)`;
-                            }
-                            else {
-                                card.classList.toggle('opened');
-                            }
-                        }
+                        if (card.classList.contains('opened')) card.classList.toggle('opened');
 
                         card.removeAttribute('egineclick');
                         if (pgnBirthday) card.style.backgroundSize = '250%';
