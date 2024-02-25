@@ -9,26 +9,6 @@ import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
 import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
 
 (() => {
-
-    const getFPS = () => {
-        let prevTime = Date.now(),
-            frames = 0;
-
-        requestAnimationFrame(function loop() {
-            const time = Date.now();
-            frames++;
-            if (time > prevTime + 1000) {
-                let fps = Math.round((frames * 1000) / (time - prevTime));
-                prevTime = time;
-                frames = 0;
-
-                document.getElementById('FPS').innerText = `FPS: ${fps}`;
-            }
-
-            requestAnimationFrame(loop);
-        });
-    }
-
     const pageBody = document.getElementsByTagName('body')[0];
 
     pageBody.style.background = 'black';
@@ -1680,6 +1660,24 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             scoreAndTriesHolder.appendChild(hideAndSeekHintButton);
             parentDiv.appendChild(scoreAndTriesHolder);
 
+            let prevTime = Date.now(),
+                frames = 0;
+
+            requestAnimationFrame(function loop() {
+                const time = Date.now();
+                frames++;
+                if (time > prevTime + 1000) {
+                    let fps = Math.round((frames * 1000) / (time - prevTime));
+                    prevTime = time;
+                    frames = 0;
+
+                    fpsText.innerText = `FPS: ${fps}`;
+                }
+
+                requestAnimationFrame(loop);
+            });
+
+
             // Συναρτήσεις που ενημερώνουν το score και τις προσπάθειες του παίχτη
             const updateScore = () => scoreText.innerHTML = `Score: ${score}`;
             const updateFound = () => hideAndSeekText.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`;
@@ -2758,7 +2756,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // game loops
                 const winCheckLoop = (openedCards) => {
-                    getFPS();
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
