@@ -1725,16 +1725,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 const cardElements = document.querySelectorAll('.card');
                 cardElements.forEach((card) => {
                     // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
+                    if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
+                        card.style.background = resetColor;
+                        card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
+                        card.style.backgroundSize = 'cover';
+                        card.removeAttribute('egineclick');
+                        if (pgnBirthday) card.style.backgroundSize = '250%';
 
-                    card.style.background = resetColor;
-                    card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
-                    card.style.backgroundSize = 'cover';
-                    card.removeAttribute('egineclick');
-                    if (pgnBirthday) card.style.backgroundSize = '250%';
-
-                    // Ειδική περίπτωση: "Σ" κάρτα.
-                    if (card.savedText == specialCardsConfig[16].shape) {
-                        card.style.animation = 'none';
+                        // Ειδική περίπτωση: "Σ" κάρτα.
+                        if (card.savedText == specialCardsConfig[16].shape) {
+                            card.style.animation = 'none';
+                        }
                     }
                 });
             }
