@@ -536,7 +536,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                                     let child = parentDiv.children[e];
                                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                                    if (child.className == 'card') {
+                                                    if (child.className.includes('card')) {
                                                         cardsChildrenList.push(child);
                                                         cardShapesList.push(child.savedText);
                                                     }
@@ -665,14 +665,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         for (var e = 0; e < parentDiv.children.length; e++) {
                                             let child = parentDiv.children[e];
                                             // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                            if (child.className == 'card') {
+                                            if (child.className.includes('card')) {
                                                 cardsListToShuffle.push(child);
                                             }
                                         }
 
-                                        cardsListToShuffle.sort(() => {
-                                            return Math.random() - 0.5;
-                                        });
+                                        shuffle(cardsListToShuffle);
     
                                         cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                         cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
@@ -706,7 +704,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     for (var e = 0; e < parentDiv.children.length; e++) {
                                         let child = parentDiv.children[e];
                                         // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                        if (child.className == 'card') {
+                                        if (child.className.includes('card')) {
                                             cardElemsList.push(child);
                                             cardShapesList.push(child.savedText);
                                         }
@@ -1278,14 +1276,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     for (var e = 0; e < parentDiv.children.length; e++) {
                                         let child = parentDiv.children[e];
                                         // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                        if (child.className == 'card') {
+                                        if (child.className.includes('card')) {
                                             cardsListToShuffle.push(child);
                                         }
                                     }
 
-                                    cardsListToShuffle.sort(() => {
-                                        return Math.random() - 0.5;
-                                    });
+                                    shuffle(cardsListToShuffle);
 
                                     cardsListToShuffle = cardsListToShuffle.filter(elem => {
                                         return elem.innerHTML != specialCardsConfig[8].shape;
@@ -2322,14 +2318,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             for (var e = 0; e < parentDiv.children.length; e++) {
                                 let child = parentDiv.children[e];
                                 // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                if (child.className == 'card') {
+                                if (child.className.includes('card')) {
                                     cardsListToShuffle.push(child);
                                 }
                             }
 
-                            cardsListToShuffle.sort(() => {
-                                return Math.random() - 0.5;
-                            });
+                            shuffle(cardsListToShuffle);
 
                             cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                             cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
@@ -2627,14 +2621,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className == 'card') {
+                                    if (child.className.includes('card')) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
 
-                                cardsListToShuffle.sort(() => {
-                                    return Math.random() - 0.5;
-                                });
+                                shuffle(cardsListToShuffle);
 
                                 cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
