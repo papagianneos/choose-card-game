@@ -1695,7 +1695,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                     setTimeoutWithRAF(() => {
                         triesText.classList.toggle('warningTries');
-                    }, 5e3);
+                    }, 1e4);
                 }
                 // --------------------------------------------------------------------
 
