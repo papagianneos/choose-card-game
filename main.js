@@ -42,6 +42,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
 
+            let AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]); // μέγιστο είναι 36 κάρτες.
+
             const CARDS_DELAY_MS = 2e3;
 
             const BROKEN_CARD_POLYGONS = [
@@ -258,7 +260,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // ========================================================================
             // 1 - Σχήμα/σχέδιο και χρώμα των καρτών setup
             // ========================================================================
-            let AMOUNT_OF_CARDS = randomChoice([10, 12, 16, 20, 24, 26]); // μέγιστο είναι 36 κάρτες.
             const STANDARD_AMOUNT_OF_CARDS = (AMOUNT_OF_CARDS + 6);
 
             // ----------------------------------------------------
@@ -676,7 +677,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
 
                                         shuffle(cardsListToShuffle);
-    
+
                                         cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                         cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                         parentDiv.replaceChildren(...cardsListToShuffle);
