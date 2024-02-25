@@ -445,7 +445,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
 
                                         if (timedModeEnabled) {
-                                            timeLeft += 5;
+                                            timeLeft += 15;
                                         }
                                     }
 
