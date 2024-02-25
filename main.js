@@ -673,8 +673,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                             }
                                         }
 
-                                        shuffle(cardsListToShuffle);
-
+                                        cardsListToShuffle.sort(() => {
+                                            return Math.random() - 0.5;
+                                        });
+    
                                         cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                         cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                         parentDiv.replaceChildren(...cardsListToShuffle);
@@ -1284,7 +1286,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                     }
 
-                                    shuffle(cardsListToShuffle);
+                                    cardsListToShuffle.sort(() => {
+                                        return Math.random() - 0.5;
+                                    });
 
                                     cardsListToShuffle = cardsListToShuffle.filter(elem => {
                                         return elem.innerHTML != specialCardsConfig[8].shape;
@@ -1511,7 +1515,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                         resetCards(false);
                                         gameMusic.play();
-                                    }, 3e4);
+                                    }, 3e5);
                                 }
                                 break;
 
@@ -2326,7 +2330,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                             }
 
-                            shuffle(cardsListToShuffle);
+                            cardsListToShuffle.sort(() => {
+                                return Math.random() - 0.5;
+                            });
 
                             cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                             cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
@@ -2629,7 +2635,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     }
                                 }
 
-                                shuffle(cardsListToShuffle);
+                                cardsListToShuffle.sort(() => {
+                                    return Math.random() - 0.5;
+                                });
 
                                 cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
