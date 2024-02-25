@@ -116,6 +116,10 @@ body {
     box-shadow: none;
 }
 
+.hideAndSeekHint {
+    box-shadow: cyan 0px 0px 60px;
+}
+
 .opened {
     transform: rotateY(360deg);
 }
