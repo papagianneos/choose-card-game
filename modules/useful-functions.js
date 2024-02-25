@@ -37,7 +37,7 @@ export const createLoader = () => {
     let loader = document.createElement('div');
     loader.className = 'loader';
     loader.innerText = 'Pgn';
-    
+
     // Loading Text
     let loadingText = document.createElement('h3');
     loadingText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].loading));
@@ -91,3 +91,27 @@ export const createLoader = () => {
     window.cancelAnimationFrame = cancelAnimationFrame;
 
 })(window);
+
+export function setTimeoutWithRAF(callback, ms) {
+    let startTime = Date.now();
+    let remainingTime = ms;
+
+    function animate() {
+        if (remainingTime <= 0) {
+            return callback();
+        }
+
+        remainingTime -= (Date.now() - startTime);
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+}
+
+export function shuffle(givenArray) {
+    for (let i = givenArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [givenArray[i], givenArray[j]] = [givenArray[j], givenArray[i]];
+    }
+    return givenArray;
+}
