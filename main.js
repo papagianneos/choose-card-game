@@ -276,6 +276,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
             if (specialCardsEnabled) MAX_TRIES += 2;
             // ----------------------------------------
 
+            function shuffle(givenArray) {
+                for (let i = givenArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [givenArray[i], givenArray[j]] = [givenArray[j], givenArray[i]];
+                }
+                return givenArray;
+            }
+
+
             // ================================================================================
             // Ψ Υ Χ Ο Β Γ Α Λ Τ Η Σ
             // ================================================================================
@@ -666,9 +675,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                             }
                                         }
 
-                                        cardsListToShuffle.sort(() => {
-                                            return Math.random() - 0.5;
-                                        });
+                                        shuffle(cardsListToShuffle);
 
                                         cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                         cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
@@ -1295,9 +1302,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                         }
                                     }
 
-                                    cardsListToShuffle.sort(() => {
-                                        return Math.random() - 0.5;
-                                    });
+                                    shuffle(cardsListToShuffle);
 
                                     cardsListToShuffle = cardsListToShuffle.filter(elem => {
                                         return elem.innerHTML != specialCardsConfig[8].shape;
@@ -1562,9 +1567,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 }
 
                 // ανακάτεψε τις κάρτες
-                cardsData.sort(() => {
-                    return Math.random() - 0.5;
-                });
+                shuffle(cardsData);
 
                 for (var j = 0; j < STANDARD_AMOUNT_OF_CARDS; j++) {
                     const imcard = {
@@ -1580,9 +1583,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 }
 
                 // ανακάτεψε και τις φανταστικές κάρτες
-                imaginaryCardsData.sort(() => {
-                    return Math.random() - 0.5;
-                });
+                shuffle(imaginaryCardsData);
             }
             // ========================================================================
 
@@ -2357,9 +2358,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                 }
                             }
 
-                            cardsListToShuffle.sort(() => {
-                                return Math.random() - 0.5;
-                            });
+                            shuffle(cardsListToShuffle);
 
                             cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                             cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
@@ -2662,9 +2661,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                     }
                                 }
 
-                                cardsListToShuffle.sort(() => {
-                                    return Math.random() - 0.5;
-                                });
+                                shuffle(cardsListToShuffle);
 
                                 cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
