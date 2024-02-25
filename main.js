@@ -1654,12 +1654,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // Αν είναι hide and seek mode, μην βάλεις score αλλά πόσες κάρτες βρέθηκαν.
             scoreAndTriesHolder.appendChild(scoreText);
             scoreAndTriesHolder.appendChild(hideAndSeekText);
-            scoreAndTriesHolder.appendChild(triesText);
             scoreAndTriesHolder.appendChild(fpsText);
+            scoreAndTriesHolder.appendChild(triesText);
             scoreAndTriesHolder.appendChild(timeBar);
             scoreAndTriesHolder.appendChild(hideAndSeekHintButton);
             parentDiv.appendChild(scoreAndTriesHolder);
 
+            // ----------------------------------------------------------------------
+            // Μέτρα τα FPS.
+            // ----------------------------------------------------------------------
             let prevTime = Date.now(),
                 frames = 0;
 
@@ -1676,7 +1679,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 requestAnimationFrame(loop);
             });
-
+            // ----------------------------------------------------------------------
 
             // Συναρτήσεις που ενημερώνουν το score και τις προσπάθειες του παίχτη
             const updateScore = () => scoreText.innerHTML = `Score: ${score}`;
