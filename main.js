@@ -1746,7 +1746,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (card.savedText == specialCardsConfig[16].shape) {
-                            cardChildElem.classList.toggle('sigmaEffectEnabled');
+                            card.classList.toggle('sigmaEffectEnabled');
                         }
                     }
                 });
