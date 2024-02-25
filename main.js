@@ -327,12 +327,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // -------------------------------------------------------------------------------------------------------------------------------
                                 // ANIMATION. (Να μην υπάρχει στο OG mode)
                                 // --------------------------------------------------------------------------------------------------------------------------------
+                                card.classList.toggle('opened');
                                 if (enabledImaginaryUniverse) {
                                     card.style.transform = `rotateZ(${card.imaginaryRotationType}deg) rotateY(360deg)`;
-                                }
-                                else {
-                                    card.classList.toggle('opened');
-                                    card.classList.toggle('closed');
                                 }
                                 // --------------------------------------------------------------------------------------------------------------------------------
                             }
@@ -1515,7 +1512,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                         resetCards(false);
                                         gameMusic.play();
-                                    }, 3e5);
+                                    }, 3e4);
                                 }
                                 break;
 
