@@ -253,7 +253,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 enabledImaginaryUniverse = false,
                 modePlayed,
                 gameEnded = false,
-                fps = 0,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -1604,7 +1603,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // Φτιάξε το κείμενο για score και προσπάθειες
             scoreText.appendChild(document.createTextNode(`Score: ${score}`));
             triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
-            fpsText.appendChild(document.createTextNode(`FPS: ${fps}`));
+            fpsText.appendChild(document.createTextNode(`FPS: ${getFPS()}`));
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
@@ -2737,6 +2736,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // game loops
                 const winCheckLoop = (openedCards) => {
+                    fpsText.innerText = `FPS: ${getFPS()}`;
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
                         hideAndSeekWin || // Hide And Seek all cards found.
@@ -3133,7 +3133,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     }
                 } // end of checkLoseLoop
                 const gameLoop = () => {
-                    fps = getFPS();
                     let openedCards = [];
                     if (!hideAndSeekModeEnabled) {
                         // --------------------------------------------------------
