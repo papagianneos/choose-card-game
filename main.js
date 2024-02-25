@@ -1508,7 +1508,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                         resetCards(false);
                                         gameMusic.play();
-                                    }, 1e5);
+                                    }, 5e5);
                                 }
                                 break;
 
@@ -3014,7 +3014,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                     case 3: // TIMED mode.
                                         timeLeft = 750;
-                                        decreaseTimeBy = 4;
                                         document.getElementById('cardsHolder').removeAttribute('style');
                                         timedModeEnabled = true;
                                         gameMusic.pause();
