@@ -42,7 +42,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             const universeSpecialCardEnabled = localStorage.getItem('imaginaryCardActive') != null ? JSON.parse(localStorage.getItem('imaginaryCardActive')) : false;
             // -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-            const CARDS_DELAY_MS = 700;
+            const CARDS_DELAY_MS = 1e3;
 
             const BROKEN_CARD_POLYGONS = [
                 'none',
@@ -915,7 +915,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(randomlyChosenSpecialCard.shape);
+                            cardShapes.push(specialCardsConfig[16].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
@@ -1459,9 +1459,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                     for (var cardChildElem of document.getElementsByClassName('card')) {
                                         if (cardChildElem.savedText != specialCardsConfig[16].shape) {
-                                            cardChildElem.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+                                            cardChildElem.classList.toggle('sigmaEffectEnabled');
                                         }
-                                        else cardChildElem.style.animation = 'none';
+                                        else cardChildElem.classList.toggle('sigmaEffectEnabled');
                                     }
                                 }
                                 break;
@@ -1745,7 +1745,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (card.savedText == specialCardsConfig[16].shape) {
-                            card.style.animation = 'none';
+                            cardChildElem.classList.toggle('sigmaEffectEnabled');
                         }
                     }
                 });
@@ -1773,7 +1773,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 // Η "Σ" κάρτα είναι πολύχρωμη.
                 if (card.shape == specialCardsConfig[16].shape) {
-                    div.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+                    div.classList.toggle('sigmaEffectEnabled');
                 }
 
                 // Το "π" έχει animation.
@@ -2237,7 +2237,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                 // Η "Σ" κάρτα είναι πολύχρωμη.
                                 if (card.shape == specialCardsConfig[16].shape) {
-                                    cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
+                                    cardDiv.classList.toggle('sigmaEffectEnabled');
                                 }
 
                                 // Το "π" έχει animation.
