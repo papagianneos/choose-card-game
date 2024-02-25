@@ -326,26 +326,26 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                 // -------------------------------------------------------------------------------------------------------------------------------
                                 // ANIMATION. (Να μην υπάρχει στο OG mode)
                                 // --------------------------------------------------------------------------------------------------------------------------------
-                                div.style.transform = enabledImaginaryUniverse ? `rotateZ(${div.imaginaryRotationType}deg) rotateY(360deg)` : 'rotateY(360deg)';
+                                card.style.transform = enabledImaginaryUniverse ? `rotateZ(${card.imaginaryRotationType}deg) rotateY(360deg)` : 'rotateY(360deg)';
                                 // --------------------------------------------------------------------------------------------------------------------------------
                             }
 
                             // Εμφάνισε την κάρτα στον παίχτη
                             if (currentSelected.length <= 1) {
                                 // Δες αν ο παίχτης χρησιμοποιεί νέον
-                                div.style.background = div.savedBackgroundColor;
-                                div.innerHTML = div.savedText;
+                                card.style.background = card.savedBackgroundColor;
+                                card.innerHTML = card.savedText;
 
                                 // Ειδική περίπτωση του "π".
-                                div.style.backgroundSize = pgnBirthday && !div.specialCard ? '250%' : div.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
-                                div.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
+                                card.style.backgroundSize = pgnBirthday && !card.specialCard ? '250%' : card.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
+                                card.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
 
                                 // Ειδική περίπτωση: "Σ" κάρτα.
-                                if (div.savedText == specialCardsConfig[16].shape) {
-                                    div.style.animation = div.savedAnimation;
+                                if (card.savedText == specialCardsConfig[16].shape) {
+                                    card.style.animation = card.savedAnimation;
                                 }
 
-                                currentSelected.push(div);
+                                currentSelected.push(card);
                             }
 
                             // Αν άνοιξε 2 κάρτες ο παίχτης
