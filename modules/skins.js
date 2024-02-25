@@ -1,5 +1,6 @@
 import { sounds } from "./sounds.js";
 import { LANGUAGE_DATA, LANGUAGE_INDEX } from "./languages.js";
+import { setTimeoutWithRAF } from "./useful-functions.js";
 
 export const SKINS_CONFIG = {
     'no_skin': {
@@ -180,20 +181,18 @@ export const unlockSkin = (skinID, givenProgressToUpdate = 1) => {
     skinNotifDesc.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX][`label_skin_${skinThatWasUnlocked.id}`] ? LANGUAGE_DATA[LANGUAGE_INDEX][`label_skin_${skinThatWasUnlocked.id}`] : FETCHED_SKIN_DATA[skinThatWasUnlockedIndex].name));
     skinNotifDesc.style.fontSize = '20px';
 
-    setTimeout(() => {
-        sounds.achievement.play();
-        tempDiv.appendChild(skinNotifTitle);
-        skinNotifBox.appendChild(tempDiv);
-        skinNotifBox.appendChild(skinNotifDesc);
-        document.body.appendChild(skinNotifBox);
-        skinNotifBox.style.left = "50%";
+    sounds.achievement.play();
+    tempDiv.appendChild(skinNotifTitle);
+    skinNotifBox.appendChild(tempDiv);
+    skinNotifBox.appendChild(skinNotifDesc);
+    document.body.appendChild(skinNotifBox);
+    skinNotifBox.style.left = "50%";
 
-        // Μετά από 9 δευτερόλεπτα, αφαίρεσέ το από την ιστοσελίδα.
-        setTimeout(() => {
-            skinNotifBox.style.left = "-2500px";
-            setTimeout(() => {
-                document.body.removeChild(skinNotifBox);
-            }, 4e3);
-        }, 5e3);
-    }, document.getElementsByClassName('skinUnlockedNotification').length > 0 ? 3e3 * document.getElementsByClassName('skinUnlockedNotification').length : 0);
+    // Μετά από 9 δευτερόλεπτα, αφαίρεσέ το από την ιστοσελίδα.
+    setTimeoutWithRAF(() => {
+        skinNotifBox.style.left = "-2500px";
+        setTimeoutWithRAF(() => {
+            document.body.removeChild(skinNotifBox);
+        }, 4e3);
+    }, 5e3);
 }
