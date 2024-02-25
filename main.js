@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -276,15 +276,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
             if (specialCardsEnabled) MAX_TRIES += 2;
             // ----------------------------------------
 
-            function shuffle(givenArray) {
-                for (let i = givenArray.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [givenArray[i], givenArray[j]] = [givenArray[j], givenArray[i]];
-                }
-                return givenArray;
-            }
-
-
             // ================================================================================
             // Ψ Υ Χ Ο Β Γ Α Λ Τ Η Σ
             // ================================================================================
@@ -497,7 +488,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
 
                                         for (var cardDivElem of document.getElementsByClassName('card')) cardDivElem.removeAttribute('anoixthcarta');
 
-                                        setTimeout(() => {
+                                        setTimeoutWithRAF(() => {
                                             resetCards(false);
                                         }, CARDS_DELAY_MS);
                                     }
@@ -690,7 +681,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                     }
 
                                     blockClicks = true;
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         resetCards();
                                         blockClicks = false;
                                     }, CARDS_DELAY_MS);
@@ -769,7 +760,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                     currentSelected = [];
                                     blockClicks = true;
                                     sounds.cardOpenHardMode.play();
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         resetCards(false);
                                         blockClicks = false;
                                     }, 5e2);
@@ -1220,7 +1211,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                         pageBody.style.backgroundColor = '#c7c7c7';
                                         document.getElementById('cardsHolder').children[0].style.color = 'black';
                                         for (var card of document.getElementsByClassName('card')) card.style.boxShadow = 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px';
-                                        setTimeout(() => {
+                                        setTimeoutWithRAF(() => {
                                             $('#cardsHolder')
                                                 .fadeIn(300)
                                                 .fadeOut(300)
@@ -1243,7 +1234,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                     else gameMusic.pause();
 
                                     sounds.wow.play();
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         if (startedExtremeModeMusic) {
                                             extremeModeMusic.play();
                                         }
@@ -1269,7 +1260,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                         if (papagianneosFinaleEnabled) music.papagianneosFinaleMusic.pause();
                                         sounds.pgnFinaleKCardEffect.play();
                                         if (papagianneosFinaleEnabled) {
-                                            setTimeout(() => {
+                                            setTimeoutWithRAF(() => {
                                                 music.papagianneosFinaleMusic.play();
                                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                             }, 4e3);
@@ -1331,7 +1322,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                         }
                                     }
 
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         resetCards(false);
                                         blockClicks = false;
                                         document.getElementById('cardsHolder').style.transition = '1s';
@@ -1424,7 +1415,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                         cardDivElem.removeAttribute('anoixthcarta');
                                     }
 
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         resetCards(false);
                                     }, CARDS_DELAY_MS);
                                 }
@@ -1513,7 +1504,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                     sounds.universeSwap.play();
                                     document.getElementById('cardsHolder').style.animation = 'seismos .25s linear infinite';
                                     $('#cardsHolder').fadeOut(2e3);
-                                    setTimeout(() => {
+                                    setTimeoutWithRAF(() => {
                                         enabledImaginaryUniverse = true;
                                         document.body.removeChild(parentDiv);
                                         document.body.appendChild(imaginaryParentDiv);
@@ -1685,7 +1676,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                     triesText.style.transition = '1s';
                     triesText.style.transform = 'scale(1.5)';
 
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         triesText.style.transform = 'scale(1)';
                     }, 5e2);
                 }
@@ -1960,7 +1951,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 howToPlayBtn.appendChild(document.createTextNode('How To Play'));
                 howToPlayBtn.onclick = () => {
                     sounds.buttonClick.play();
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         window.location.href = '/how-to-play';
                     }, 5e2);
                 }
@@ -1971,7 +1962,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 achievementsMenuBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_achievements));
                 achievementsMenuBtn.onclick = () => {
                     sounds.buttonClick.play();
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         window.location.href = '/achievements';
                     }, 5e2);
                 }
@@ -1982,7 +1973,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 leaderboardMenuBtn.appendChild(document.createTextNode('Leaderboards'));
                 leaderboardMenuBtn.onclick = () => {
                     sounds.buttonClick.play();
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         window.location.href = '/leaderboards';
                     }, 5e2);
                 }
@@ -2000,7 +1991,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 customizePageLink.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_settings_page));
                 customizePageLink.onclick = () => {
                     sounds.buttonClick.play();
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         window.location.href = '/customize';
                     }, 5e2);
                 }
@@ -2203,7 +2194,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
 
                         // Όπως ήταν το παιχνίδι παλιά..
                         if (OG_modeEnabled || aprilFools) {
-                            setTimeout(() => {
+                            setTimeoutWithRAF(() => {
                                 $('#cardsHolder')
                                     .fadeOut(300)
                                     .fadeIn(300);
@@ -2309,7 +2300,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                                 document.getElementById('cardsHolder').style.animation = 'none';
 
 
-                                setTimeout(() => {
+                                setTimeoutWithRAF(() => {
                                     switch (getRandomInt(1, 4)) {
                                         case 1:
                                             document.getElementById('cardsHolder').style.transform = `rotateY(${randomChoice([-180, 180])}deg)`;
@@ -2554,7 +2545,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                 featuredYoutuberHolder.onclick = () => {
                     sounds.buttonClick.play();
                     // για να προλάβει να παίξει ο ήχος..
-                    setTimeout(() => {
+                    setTimeoutWithRAF(() => {
                         window.open(featuredYoutuber.link);
                     }, 5e2);
 
@@ -2635,7 +2626,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
-                            setTimeout(() => {
+                            setTimeoutWithRAF(() => {
                                 pageBody.style.transform = 'rotate(360deg)';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
@@ -2983,7 +2974,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                             playAgainButton.onclick = () => {
                                 sounds.buttonClick.play();
                                 // για να προλάβει να παίξει ο ήχος..
-                                setTimeout(() => {
+                                setTimeoutWithRAF(() => {
                                     window.location.reload();
                                 }, 5e2);
                             }
@@ -3162,7 +3153,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader } from
                         playAgainButton.onclick = () => {
                             sounds.buttonClick.play();
                             // για να προλάβει να παίξει ο ήχος..
-                            setTimeout(() => {
+                            setTimeoutWithRAF(() => {
                                 window.location.reload();
                             }, 5e2);
                         }
