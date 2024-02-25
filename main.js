@@ -1603,7 +1603,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // Φτιάξε το κείμενο για score και προσπάθειες
             scoreText.appendChild(document.createTextNode(`Score: ${score}`));
             triesText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].tries}: ${tries}`));
-            fpsText.appendChild(Document.createTextNode(`FPS: ${getFPS()}`));
+            fpsText.appendChild(document.createTextNode(`FPS: ${getFPS()}`));
             hideAndSeekText.appendChild(document.createTextNode(`${LANGUAGE_DATA[LANGUAGE_INDEX].found}: ${hideAndSeekFoundCount} / ${AMOUNT_OF_CARDS}`));
 
             // Άλλαξε το μέγεθος της γραμματοσειράς.
