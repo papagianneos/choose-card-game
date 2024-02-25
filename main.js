@@ -687,7 +687,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                     blockClicks = true;
                                     setTimeoutWithRAF(() => {
-                                        resetCards();
+                                        currentSelected[0].classList.toggle('opened');
+                                        currentSelected[1].classList.toggle('opened');
                                         blockClicks = false;
                                     }, CARDS_DELAY_MS);
                                 }
@@ -1720,25 +1721,22 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     tries += 1; // προσπάθειες του παίχτη
                     updateTries();
                 }
-                for (var card of document.getElementsByClassName('card')) {
+
+                const cardElements = document.querySelectorAll('.card');
+                cardElements.forEach((card) => {
                     // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
 
-                    // Αν ΔΕΝ έχει βρεθεί η συγκεκριμένη κάρτα από τον παίχτη
-                    if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
-                        card.style.background = resetColor;
-                        card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
-                        card.classList.toggle('opened');
-                        card.style.backgroundSize = 'cover';
-                        card.removeAttribute('egineclick');
+                    card.style.background = resetColor;
+                    card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
+                    card.style.backgroundSize = 'cover';
+                    card.removeAttribute('egineclick');
+                    if (pgnBirthday) card.style.backgroundSize = '250%';
 
-                        if (pgnBirthday) card.style.backgroundSize = '250%';
-
-                        // Ειδική περίπτωση: "Σ" κάρτα.
-                        if (card.savedText == specialCardsConfig[16].shape) {
-                            card.style.animation = 'none';
-                        }
+                    // Ειδική περίπτωση: "Σ" κάρτα.
+                    if (card.savedText == specialCardsConfig[16].shape) {
+                        card.style.animation = 'none';
                     }
-                }
+                });
             }
 
             // Δημιουργία καρτών
