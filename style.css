@@ -106,6 +106,10 @@ body {
     cursor: default;
 }
 
+.sigmaEffectEnabled {
+    animation: rainbowSigmaCard 2.5s linear infinite;
+}
+
 .openedHideAndSeek {
     transform: rotateY(360deg);
     pointer-events: none;
@@ -113,7 +117,7 @@ body {
 }
 
 .opened {
-    transform: rotateY(360deg);   
+    transform: rotateY(360deg);
 }
 
 .howToPlayInfoCard:hover+.hidden,
