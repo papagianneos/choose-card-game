@@ -2702,6 +2702,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         if (timeLeft <= 0) {
                             if (preventLose) {
                                 timeLeft += 400;
+                                const cards = document.querySelectorAll('.card');
+                                cards.forEach(cardElem => {
+                                    if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.style.filter = 'grayscale(1)';
+                                });
                                 sounds.saved.play();
                                 preventLose = false;
                                 return;
@@ -3069,6 +3073,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 updateTries();
                             }
 
+                            cards.forEach(cardElem => {
+                                if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.style.filter = 'grayscale(1)';
+                            });
                             sounds.saved.play();
                             preventLose = false;
                             return;
