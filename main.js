@@ -2192,7 +2192,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             cobaltModeSelectMenuTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].choose_special_card_menu_title));
                             cobaltModeSelectMenu.appendChild(cobaltModeSelectMenuTitle);
 
-                            for (var card of cobaltModeCards) {
+                            for (var card of Object.keys(cobaltModeCards)) {
+                                let cobaltCard = specialCardsConfig[card];
+
                                 // Για τα positions
                                 let cardDivWrapper = document.createElement('div');
                                 cardDivWrapper.style.display = 'inline-block';
@@ -2204,15 +2206,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // Κάρτα PLACEHOLDER
                                 let cardDiv = document.createElement('div');
                                 cardDiv.className = 'howToPlayInfoCard';
-                                cardDiv.style.background = card.color;
+                                cardDiv.style.background = cobaltCard.color;
 
                                 // Η "Σ" κάρτα είναι πολύχρωμη.
-                                if (card.shape == specialCardsConfig.sigma.shape) {
+                                if (cobaltCard.shape == specialCardsConfig.sigma.shape) {
                                     cardDiv.classList.toggle('sigmaEffectEnabled');
                                 }
 
                                 // Το "π" έχει animation.
-                                else if (card.shape == specialCardsConfig.pi.shape) {
+                                else if (cobaltCard.shape == specialCardsConfig.pi.shape) {
                                     cardDiv.style.animation = 'gradient 15s ease infinite';
                                     cardDiv.style.backgroundSize = '400% 400%';
                                 }
@@ -2222,14 +2224,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // ------------------------------------------------------------
                                 // Κείμενο για τις πληροφορίες της σπεσιαλ κάρτας
                                 // ------------------------------------------------------------
-                                cardDiv.appendChild(document.createTextNode(card.shape));
+                                cardDiv.appendChild(document.createTextNode(cobaltCard.shape));
 
                                 let hiddenInfoTxTWrapper = document.createElement('div');
                                 hiddenInfoTxTWrapper.className = 'hidden';
                                 hiddenInfoTxTWrapper.style.fontSize = '20px';
                                 hiddenInfoTxTWrapper.style.width = '150px'; // το μέγεθος κάθε κάρτας
                                 hiddenInfoTxTWrapper.style.marginLeft = '10px';
-                                hiddenInfoTxTWrapper.appendChild(document.createTextNode(card.info));
+                                hiddenInfoTxTWrapper.appendChild(document.createTextNode(cobaltCard.info));
                                 // ------------------------------------------------------------
 
                                 cardDivWrapper.appendChild(cardDiv);
