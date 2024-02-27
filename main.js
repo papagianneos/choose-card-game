@@ -229,10 +229,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
             // -----------------------------------
 
-            // Άνθρακας 69 Σπέσιαλ Κάρτα Εφέ.
-            let C69Effect = false,
-                c69EffectTurn = 0;
-
             // global μεταβλητές
             let cardsData = [],
                 imaginaryCardsData = [],
@@ -800,37 +796,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         }
 
                     }
-                });
-
-                document.addEventListener('onmouseover', (event) => {
-                    if (event.target.classList.contains('card') && C69Effect) {
-                        alert('on');
-                        const card = event.target;
-                        if (card.getAttribute('anoixthcarta') || blockClicks || card.getAttribute('egineclick')) return;
-
-                            // Μόνο 8 φορές.
-                            c69EffectTurn++;
-                            if (c69EffectTurn > 8) {
-                                C69Effect = false;
-
-                                for (var card_ of document.getElementsByClassName('card')) {
-                                    card_.style.boxShadow = 'none';
-                                }
-                                return
-                            }
-
-                            let color = 10;
-
-                            var chance = Math.random();
-                            if (chance < 0.7) { // 20% πιθανότητα να είναι το σωστό χρώμα της κάρτας
-                                color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                            }
-                            else {
-                                color = card.savedBackgroundColor;
-                            }
-
-                            card.style.boxShadow = `${color} 0px 0px 60px`;
-                        }
                 });
 
                 let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split(''),
@@ -1420,7 +1385,22 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             case specialCardsConfig.carbon69.shape: // Carbon 69
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play();
-                                    C69Effect = true;
+
+                                    const cards = document.querySelectorAll('.card');
+
+                                    cards.forEach(cardElem => {
+                                        let color = 10;
+
+                                        var chance = Math.random();
+                                        if (chance < 0.7) { // 20% πιθανότητα να είναι το σωστό χρώμα της κάρτας
+                                            color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                                        }
+                                        else {
+                                            color = card.savedBackgroundColor;
+                                        }
+
+                                        cardElem.style.boxShadow = `${color} 0px 0px 60px`;
+                                    });
                                 }
                                 break;
 
