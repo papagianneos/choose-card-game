@@ -1125,8 +1125,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         }
 
                         // Ψάξε για σπεσιαλ κάρτες
-                        for (var specialCardData of specialCardsConfig) {
-                            if (specialCardData.shape == card.shape) {
+                        for (var specialCardData of Object.keys(specialCardsConfig)) {
+                            if (specialCardsConfig[specialCardData].shape == card.shape) {
                                 specialCardDetected = true;
                                 break;
                             }
