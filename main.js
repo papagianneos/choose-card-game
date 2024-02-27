@@ -942,7 +942,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // Cobalt Mode: H special card του παίχτη (ο οποίος διάλεξε).
                         else {
                             // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
-                            cobaltModeCards = cobaltModeCards.filter(carde1 => { return carde1.shape == selectedSpecialCardShape })
+                            cobaltModeCards = Object.filter(cobaltModeCards, carde1 => { return carde1.shape == selectedSpecialCardShape })
 
                             cardShapes.push(specialCardsConfig[Object.keys(cobaltModeCards[0])[0]].shape);
                             AMOUNT_OF_CARDS += 2;
