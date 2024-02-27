@@ -2701,7 +2701,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // Κάνε τον παίχτη να χάσει αν τελείωσε ο χρόνος
                         if (timeLeft <= 0) {
                             if (preventLose) {
-                                timeLeft += 200;
+                                timeLeft += 400;
                                 sounds.saved.play();
                                 preventLose = false;
                                 return;
