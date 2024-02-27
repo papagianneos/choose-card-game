@@ -207,6 +207,10 @@ export const sounds = {
     wind: new Howl({
         src: ['/audio/wind.mp3'],
         loop: true
+    }),
+
+    saved: new Howl({
+        src: ['/audio/lifesaver.mp3'],
     })
 }
 
