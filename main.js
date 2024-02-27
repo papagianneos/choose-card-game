@@ -3059,7 +3059,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         if (preventLose) {
 
                             if (tries >= MAX_TRIES) {
-                                tries = MAX_TRIES - 2;
+                                tries = MAX_TRIES - 1;
+                                updateTries();
                             }
 
                             if (timeLeft <= 0) {
