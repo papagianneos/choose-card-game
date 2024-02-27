@@ -3083,7 +3083,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             music.hellModeMusic.pause();
                         }// bug fix
 
-                        if (lostByDeathCard) {
+                        if (lostByDeathCard && !preventLose) {
                             gameMusic.pause();
                             timedModeMusic.pause();
                         }
