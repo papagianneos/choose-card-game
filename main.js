@@ -884,7 +884,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(specialCardsConfig['lifesaver'].shape);
+                            cardShapes.push(specialCardsConfig['livesaver'].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
@@ -3051,14 +3051,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
-                    if (preventLose) {
-                        preventLose = false;
-                        sounds.lifesaver.play();
-                        return;
-                    }
 
                     // Δες αν έχασε ο παίχτης
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || ((extremeModeEnabled || hellModeEnabled) && tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
+
+                        // Αν έχει ενεργοποιήσει ο παίχτης το Lifesaver..
+                        if (preventLose) {
+                            preventLose = false;
+                            sounds.lifesaver.play();
+                            return;
+                        }
+
                         gameStarted = false;
 
                         // Επίτευγμα: "Τι σκατά"
