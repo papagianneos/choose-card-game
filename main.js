@@ -944,7 +944,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
                             cobaltModeCards = Object.filter(cobaltModeCards, carde1 => { return carde1.shape == selectedSpecialCardShape })
 
-                            cardShapes.push(specialCardsConfig[Object.keys(cobaltModeCards[0])[0]].shape);
+                            cardShapes.push(specialCardsConfig[Object.keys(cobaltModeCards)[0]].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // Δες αν υπάρχει troll κάρτα..
