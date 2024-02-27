@@ -803,10 +803,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 });
 
                 document.addEventListener('onmouseover', (event) => {
-                    if (event.target.classList.contains('card')) {
+                    if (event.target.classList.contains('card') && C69Effect) {
+                        alert('on');
                         const card = event.target;
                         if (card.getAttribute('anoixthcarta') || blockClicks || card.getAttribute('egineclick')) return;
-                        if (C69Effect) {
 
                             // Μόνο 8 φορές.
                             c69EffectTurn++;
@@ -831,7 +831,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             card.style.boxShadow = `${color} 0px 0px 60px`;
                         }
-                    }
                 });
 
                 let CHARACTERS_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split(''),
