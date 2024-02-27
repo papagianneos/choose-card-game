@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = true;
+            let testServer = false;
 
             // Events
             let eventModeRotationEnabled = !testServer;
@@ -146,6 +146,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 return countedTrolls;
             }
             // ----------------------------------------------------------------------
+
+            // useful function :D
+            Object.filter = (obj, predicate) =>
+                Object.keys(obj)
+                    .filter(key => predicate(obj[key]))
+                    .reduce((res, key) => (res[key] = obj[key], res), {});
 
             //secretSettingEnabled = false,
             let rot_ = 360;
@@ -342,11 +348,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 card.innerHTML = card.savedText;
 
                                 // Ειδική περίπτωση του "π".
-                                card.style.backgroundSize = pgnBirthday && !card.specialCard ? '250%' : card.savedText == specialCardsConfig[22].shape ? '400% 400%' : 'cover';
+                                card.style.backgroundSize = pgnBirthday && !card.specialCard ? '250%' : card.savedText == specialCardsConfig.pi.shape ? '400% 400%' : 'cover';
                                 card.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
 
                                 // Ειδική περίπτωση: "Σ" κάρτα.
-                                if (card.savedText == specialCardsConfig[16].shape) {
+                                if (card.savedText == specialCardsConfig.sigma.shape) {
                                     card.style.animation = card.savedAnimation;
                                 }
 
@@ -917,19 +923,19 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         if (!cobaltModeEnabled && !hellModeEnabled) {
                             const filteredSpecialCards_ = specialCardsConfig.filter(carde => { return !carde.exclusiveMode && !carde.neverSpawn })
 
-                            let randomlyChosenSpecialCard = randomChoice(filteredSpecialCards_);
+                            let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(randomlyChosenSpecialCard.shape);
+                            cardShapes.push(specialCardsConfig[randomlyChosenSpecialCard].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
                             if (getRandomInt(0, 19) == 19) {
-                                cardShapes.push(specialCardsConfig[24].shape);
+                                cardShapes.push(specialCardsConfig.redacted_D.shape);
                                 AMOUNT_OF_CARDS += 2;
                             }
 
                             if (universeSpecialCardEnabled) {
-                                cardShapes.push(specialCardsConfig[23].shape);
+                                cardShapes.push(specialCardsConfig.imaginary_unit.shape);
                                 AMOUNT_OF_CARDS += 2;
                             }
 
@@ -1134,8 +1140,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Όρισε το εφέ με βάση το σύμβολο της σπεσιαλ κάρτας.
                         switch (card.shape) {
-                            case specialCardsConfig[0].shape: // 10 Score (++)
-                                specialCardIndex = 0;
+                            case specialCardsConfig.plus_plus.shape: // 10 Score (++)
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play()
                                     score += 10;
@@ -1144,24 +1149,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[1].shape: // x2 Score
-                                specialCardIndex = 1;
+                            case specialCardsConfig.doubler.shape: // x2 Score
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play()
                                     score *= 2;
                                 }
                                 break;
 
-                            case specialCardsConfig[2].shape: // Half Score
-                                specialCardIndex = 2;
+                            case specialCardsConfig.halfer.shape: // Half Score
                                 card.specialCardEffect = () => {
                                     sounds.loss.play()
                                     score /= 2;
                                 }
                                 break;
 
-                            case specialCardsConfig[3].shape: // 2 λιγότερες προσπάθειες
-                                specialCardIndex = 3;
+                            case specialCardsConfig.tries_boost_2.shape: // 2 λιγότερες προσπάθειες
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play()
                                     tries -= 2;
@@ -1169,16 +1171,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[4].shape: // 10 λιγότερο score
-                                specialCardIndex = 4;
+                            case specialCardsConfig.minus_minus.shape: // 10 λιγότερο score
                                 card.specialCardEffect = () => {
                                     sounds.loss.play()
                                     score -= 10;
                                 }
                                 break;
 
-                            case specialCardsConfig[5].shape: // Πάει χάθηκε το παιχνίδι
-                                specialCardIndex = 5;
+                            case specialCardsConfig.death.shape: // Πάει χάθηκε το παιχνίδι
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: 'Rest in pepperoni'
                                     unlockAchievement('ach_cross_card_found');
@@ -1189,8 +1189,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[6].shape: // PAPAGIANNEOS SPEECH
-                                specialCardIndex = 6;
+                            case specialCardsConfig.pgn.shape: // PAPAGIANNEOS SPEECH
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Ουάου"
                                     unlockAchievement('ach_pgn_card_found');
@@ -1243,8 +1242,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[7].shape: // for my friend :)
-                                specialCardIndex = 7;
+                            case specialCardsConfig.redacted_K.shape: // for my friend :)
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: ":)"
                                     unlockAchievement('ach_special_K_card');
@@ -1267,8 +1265,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[8].shape: // KABOOOM
-                                specialCardIndex = 8;
+                            case specialCardsConfig.triangle.shape: // KABOOOM
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: 'T r i a n g l e'
                                     unlockAchievement('ach_boom_card_found');
@@ -1290,7 +1287,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     shuffle(cardsListToShuffle);
 
                                     cardsListToShuffle = cardsListToShuffle.filter(elem => {
-                                        return elem.innerHTML != specialCardsConfig[8].shape;
+                                        return elem.innerHTML != specialCardsConfig.triangle.shape;
                                     });
 
                                     cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
@@ -1299,8 +1296,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[9].shape: // X-Ray
-                                specialCardIndex = 9;
+                            case specialCardsConfig.omega.shape: // X-Ray
 
                                 // Εμφάνισε τις κάρτες για 1.8 δευτερόλεπτα.
                                 card.specialCardEffect = () => {
@@ -1325,8 +1321,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[10].shape: // The Eye
-                                specialCardIndex = 10;
+                            case specialCardsConfig.eye.shape: // The Eye
                                 card.specialCardEffect = () => {
                                     let question = confirm('The Eye wants to know your location.');
 
@@ -1340,8 +1335,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[11].shape: // NULL
-                                specialCardIndex = 11;
+                            case specialCardsConfig.null.shape: // NULL
                                 card.specialCardEffect = () => {
                                     underNullEffect = true;
                                     sounds.null.play();
@@ -1368,12 +1362,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[12].shape: // The Fake Card
+                            case specialCardsConfig.shapeshifter.shape: // The Fake Card
                                 // δεν κάνει τίποτα λολ
-                                specialCardIndex = 12;
                                 break;
 
-                            case specialCardsConfig[13].shape: // +60sec TIME Card
+                            case specialCardsConfig.clock.shape: // +60sec TIME Card
                                 specialCardIndex = 13;
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Τι ρολόι είναι αυτό ρε;"
@@ -1384,9 +1377,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[14].shape: // Αργότερος Χρόνος
-                                specialCardIndex = 14;
-
+                            case specialCardsConfig.time_slower.shape: // Αργότερος Χρόνος
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Χελωνάρας"
                                     unlockAchievement('ach_timed_mode_slow_card');
@@ -1396,9 +1387,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[15].shape: // Κρύβει τις κάρτες
-                                specialCardIndex = 15;
-
+                            case specialCardsConfig.lamda.shape: // Κρύβει τις κάρτες
                                 card.specialCardEffect = () => {
                                     sounds.loss.play();
 
@@ -1415,14 +1404,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[16].shape: // Σ (sigma)
-                                specialCardIndex = 16;
+                            case specialCardsConfig.sigma.shape: // Σ (sigma)
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Σ.. από.. Σωτήρης;"
                                     unlockAchievement('ach_sigma_card');
 
                                     for (var cardChildElem of document.getElementsByClassName('card')) {
-                                        if (cardChildElem.savedText != specialCardsConfig[16].shape) {
+                                        if (cardChildElem.savedText != specialCardsConfig.sigma.shape) {
                                             cardChildElem.classList.toggle('sigmaEffectEnabled');
                                         }
                                         else cardChildElem.classList.toggle('sigmaEffectEnabled');
@@ -1430,15 +1418,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[17].shape: // Engood's Card
-                                specialCardIndex = 17;
+                            case specialCardsConfig.engood.shape: // Engood's Card
                                 break;
 
                             // ---------------------------------------------------------
                             // COBALT MODE SPECIAL CARDS
                             // ----------------------------------------------------------
-                            case specialCardsConfig[18].shape: // Carbon 69
-                                specialCardIndex = 18;
+                            case specialCardsConfig.carbon69.shape: // Carbon 69
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play();
                                     C69Effect = true;
@@ -1446,12 +1432,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
 
-                            case specialCardsConfig[19].shape: // Infinity
-                                specialCardIndex = 19;
+                            case specialCardsConfig.infinity.shape: // Infinity
                                 break;
 
-                            case specialCardsConfig[20].shape: // 6 λιγότερες προσπάθειες
-                                specialCardIndex = 20;
+                            case specialCardsConfig.tries_boost_6.shape: // 6 λιγότερες προσπάθειες
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play()
                                     tries -= 6;
@@ -1459,8 +1443,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[21].shape: // Τετραπλό Score
-                                specialCardIndex = 21;
+                            case specialCardsConfig.quadupler.shape: // Τετραπλό Score
                                 card.specialCardEffect = () => {
                                     sounds.specialScore.play()
                                     score *= 4;
@@ -1468,8 +1451,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
 
-                            case specialCardsConfig[22].shape: // PI
-                                specialCardIndex = 22;
+                            case specialCardsConfig.pi.shape: // PI
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: 'π'
                                     unlockAchievement('ach_PI');
@@ -1490,8 +1472,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
                             // -----------------------------------------------------------
 
-                            case specialCardsConfig[23].shape: // Universe Swap
-                                specialCardIndex = 23;
+                            case specialCardsConfig.imaginary_unit.shape: // Universe Swap
                                 card.specialCardEffect = () => {
                                     if (extremeModeEnabled || voidModeEnabled) return;
                                     gameMusic.pause();
@@ -1518,20 +1499,30 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
-                            case specialCardsConfig[24].shape: // Petercraft [REDACTED]
-                                specialCardIndex = 24;
+                            case specialCardsConfig.redacted_D.shape: // Petercraft [REDACTED]
                                 card.specialCardEffect = () => deltaEffect = true;
                                 break;
                         }
 
                         // Δημιούργησε την σπεσιαλ κάρτα. (Αν βρέθηκε για να μην κάνει τις κανονικές σπεσιαλ)
                         if (specialCardDetected) {
-                            addToSpecialCardsArray(specialCardsConfig[specialCardIndex].shape);
-                            card.color = pgnBirthday ? `${specialCardsConfig[specialCardIndex].color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[specialCardIndex].color : `${specialCardsConfig[specialCardIndex].color}, ${skin.bg}`;
+
+                            // Ψάξε για το ποια είναι η τυχαία επιλεγμένη σπέσιαλ κάρτα.
+                            let currentSpecialCard;
+
+                            for (var objectName of Object.keys(specialCardsConfig)) {
+                                if (specialCardsConfig[objectName].shape == card.shape) {
+                                    currentSpecialCard = specialCardsConfig[objectName];
+                                    break;
+                                }
+                            }
+
+                            addToSpecialCardsArray(currentSpecialCard.shape);
+                            card.color = pgnBirthday ? `${currentSpecialCard.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? currentSpecialCard.color : `${currentSpecialCard.color}, ${skin.bg}`;
                             card.specialCard = true;
 
                             // Σε περίπτωση που είναι η troll card
-                            if (specialCardsConfig[specialCardIndex].shape == '[?]') {
+                            if (currentSpecialCard.shape == '[?]') {
                                 let fakeCardShapes = cardShapes;
 
                                 // Δημιούργησε μία ψεύτικη λίστα με τα σχήματα όλων των καρτών εκτός από το troll
@@ -1730,7 +1721,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         if (pgnBirthday) card.style.backgroundSize = '250%';
 
                         // Ειδική περίπτωση: "Σ" κάρτα.
-                        if (card.savedText == specialCardsConfig[16].shape) {
+                        if (card.savedText == specialCardsConfig.sigma.shape) {
                             card.style.animation = 'none';
                         }
                     }
@@ -1758,12 +1749,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 }
 
                 // Η "Σ" κάρτα είναι πολύχρωμη.
-                if (card.shape == specialCardsConfig[16].shape) {
+                if (card.shape == specialCardsConfig.sigma.shape) {
                     div.classList.toggle('sigmaEffectEnabled');
                 }
 
                 // Το "π" έχει animation.
-                else if (card.shape == specialCardsConfig[22].shape) {
+                else if (card.shape == specialCardsConfig.pi.shape) {
                     div.style.animation = 'gradient 15s ease infinite';
                     div.style.backgroundSize = '400% 400%';
                 }
@@ -1808,7 +1799,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 }
 
                 // Ειδική περίπτωση: "Σ" κάρτα.
-                if (card.shape == specialCardsConfig[16].shape) {
+                if (card.shape == specialCardsConfig.sigma.shape) {
                     div.savedAnimation = div.style.animation;
                 }
 
@@ -2222,12 +2213,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 cardDiv.style.background = card.color;
 
                                 // Η "Σ" κάρτα είναι πολύχρωμη.
-                                if (card.shape == specialCardsConfig[16].shape) {
+                                if (card.shape == specialCardsConfig.sigma.shape) {
                                     cardDiv.classList.toggle('sigmaEffectEnabled');
                                 }
 
                                 // Το "π" έχει animation.
-                                else if (card.shape == specialCardsConfig[22].shape) {
+                                else if (card.shape == specialCardsConfig.pi.shape) {
                                     cardDiv.style.animation = 'gradient 15s ease infinite';
                                     cardDiv.style.backgroundSize = '400% 400%';
                                 }
@@ -2306,8 +2297,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             // Φτιάξε "death" κάρτες
                             for (var index = 0; index < 15; index++) {
                                 createCard({
-                                    shape: specialCardsConfig[5].shape,
-                                    color: pgnBirthday ? `${specialCardsConfig[5].color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig[5].color : `${specialCardsConfig[5].color}, ${skin.bg}`,
+                                    shape: specialCardsConfig.death.shape,
+                                    color: pgnBirthday ? `${specialCardsConfig.death.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
                                     specialCard: true,
                                     specialCardEffect: () => {
                                         if (!papagianneosFinaleEnabled) {
