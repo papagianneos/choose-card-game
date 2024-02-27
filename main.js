@@ -3073,6 +3073,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 updateTries();
                             }
 
+                            const cards = document.querySelectorAll('.card');
                             cards.forEach(cardElem => {
                                 if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.style.filter = 'grayscale(1)';
                             });
