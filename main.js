@@ -2700,6 +2700,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Κάνε τον παίχτη να χάσει αν τελείωσε ο χρόνος
                         if (timeLeft <= 0) {
+                            if (preventLose) {
+                                timeLeft += 200;
+                                sounds.saved.play();
+                                preventLose = false;
+                                return;
+                            }
                             lostByDeathCard = true;
                             sounds.loss.play();
                         }
@@ -3063,9 +3069,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 updateTries();
                             }
 
-                            if (timeLeft <= 0) {
-                                timeLeft += 200;
-                            }
                             sounds.saved.play();
                             preventLose = false;
                             return;
@@ -3084,7 +3087,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             music.hellModeMusic.pause();
                         }// bug fix
 
-                        if (lostByDeathCard && !preventLose) {
+                        if (lostByDeathCard) {
                             gameMusic.pause();
                             timedModeMusic.pause();
                         }
