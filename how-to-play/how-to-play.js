@@ -63,7 +63,7 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
     specialCardsHTPWrapper.appendChild(specialCardsHTPSmallInfo);
 
     for (var card of Object.keys(specialCardsConfig)) {
-        specialCard = specialCardsConfig[card];
+        const specialCard = specialCardsConfig[card];
 
         // Για τα positions
         let cardDivWrapper = document.createElement('div');
