@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = true;
+            let testServer = false;
 
             // Events
             let eventModeRotationEnabled = !testServer;
@@ -250,6 +250,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 deltaEffect = false,
                 enabledImaginaryUniverse = false,
                 modePlayed,
+                preventLose = false, // for lifesaver
                 gameEnded = false,
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
@@ -883,7 +884,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(specialCardsConfig[randomlyChosenSpecialCard].shape);
+                            cardShapes.push(specialCardsConfig['lifesaver'].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
@@ -1377,6 +1378,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
                             case specialCardsConfig.engood.shape: // Engood's Card
+                                break;
+
+                            case specialCardsConfig.lifesaver.shape: // Lifesaver
+                                card.specialCardEffect = () => {
+                                    preventLose = true;
+                                    sounds.specialScore.play();
+                                }
                                 break;
 
                             // ---------------------------------------------------------
@@ -3043,6 +3051,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     }
                 } // end of winCheckLoop
                 const checkLoseLoop = () => {
+                    if (preventLose) {
+                        preventLose = false;
+                        sounds.lifesaver.play();
+                        return;
+                    }
+
                     // Δες αν έχασε ο παίχτης
                     if ((!lostExtremeModeEnabled && lostByDeathCard) || ((extremeModeEnabled || hellModeEnabled) && tries >= MAX_TRIES && !lostExtremeModeEnabled)) {
                         gameStarted = false;
