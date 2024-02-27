@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = false;
+            let testServer = true;
 
             // Events
             let eventModeRotationEnabled = !testServer;
@@ -944,7 +944,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
                             cobaltModeCards = cobaltModeCards.filter(carde1 => { return carde1.shape == selectedSpecialCardShape })
 
-                            cardShapes.push(cobaltModeCards[0].shape);
+                            cardShapes.push(specialCardsConfig[Object.keys(cobaltModeCards[0])[0]].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // Δες αν υπάρχει troll κάρτα..
