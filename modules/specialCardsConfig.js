@@ -180,5 +180,11 @@ export const specialCardsConfig = {
         color: 'radial-gradient(#292929, black)',
         info: 'TypeError: Aleph can\'t be described.',
         noSpawnInFinale: true,
+    },
+
+    lifesaver: {
+        shape: '♡',
+        color: 'conic-gradient(maroon, magenta, maroon)',
+        info: 'TODO',
     }
 };
