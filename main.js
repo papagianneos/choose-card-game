@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF, filterObject } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -915,7 +915,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     if (!papagianneosFinaleEnabled) {
 
                         if (!cobaltModeEnabled && !hellModeEnabled) {
-                            const filteredSpecialCards_ = filterObject(specialCardsConfig, carde => { return !carde.exclusiveMode && !carde.neverSpawn });
+                            const filteredSpecialCards_ = Object.filter(specialCardsConfig, carde => { return !carde.exclusiveMode && !carde.neverSpawn });
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
@@ -956,7 +956,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // Χρειάζεται timed card στο TIMED mode
                         if (timedModeEnabled) {
                             // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
-                            const timeModeCards = filterObject(specialCardsConfig, carde1 => { return carde1.exclusiveMode == 'timed' })
+                            const timeModeCards = Object.filter(specialCardsConfig, carde1 => { return carde1.exclusiveMode == 'timed' })
 
                             cardShapes.push(randomChoice(timeModeCards).shape);
                             AMOUNT_OF_CARDS += 2;
@@ -2180,7 +2180,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = filterObject(specialCardsConfig, card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
+                            cobaltModeCards = Object.filter(specialCardsConfig, card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
