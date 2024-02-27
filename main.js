@@ -3057,16 +3057,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Αν έχει ενεργοποιήσει ο παίχτης το Lifesaver..
                         if (preventLose) {
-                            preventLose = false;
 
                             if (tries >= MAX_TRIES) {
-                                tries = MAX_TRIES - 1;
+                                tries = MAX_TRIES - 2;
                             }
 
                             if (timeLeft <= 0) {
-                                timeLeft += 100;
+                                timeLeft += 200;
                             }
                             sounds.saved.play();
+                            preventLose = false;
                             return;
                         }
 
