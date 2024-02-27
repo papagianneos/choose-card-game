@@ -62,7 +62,9 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
     specialCardsHTPSmallInfo.style.fontSize = '16px';
     specialCardsHTPWrapper.appendChild(specialCardsHTPSmallInfo);
 
-    for (var card of specialCardsConfig) {
+    for (var card of Object.keys(specialCardsConfig)) {
+        specialCard = specialCardsConfig[card];
+
         // Για τα positions
         let cardDivWrapper = document.createElement('div');
         cardDivWrapper.style.display = 'inline-block';
@@ -74,18 +76,18 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
         // Κάρτα PLACEHOLDER
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
-        cardDiv.style.background = card.color;
+        cardDiv.style.background = specialCard.color;
         cardDiv.style.backgroundSize = 'cover';
 
         if (christmasDecorationsEnabled) cardDiv.style.boxShadow = 'rgba(255, 255, 255, 1) 0px 50px 50px inset, rgba(255, 255, 255, 1) 0px -8px 3px inset';
 
         // Η "Σ" κάρτα είναι πολύχρωμη.
-        if (card.shape == specialCardsConfig[16].shape) {
+        if (specialCard.shape == specialCardsConfig.sigma.shape) {
             cardDiv.style.animation = 'rainbowSigmaCard 2.5s linear infinite';
         }
 
         // Το "π" έχει animation.
-        else if (card.shape == specialCardsConfig[22].shape) {
+        else if (specialCard.shape == specialCardsConfig.pi.shape) {
             cardDiv.style.animation = 'gradient 15s ease infinite';
             cardDiv.style.backgroundSize = '400% 400%';
         }
@@ -111,14 +113,14 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
         // ------------------------------------------------------------
         // Κείμενο για τις πληροφορίες της σπεσιαλ κάρτας
         // ------------------------------------------------------------
-        cardDiv.appendChild(document.createTextNode(card.shape));
+        cardDiv.appendChild(document.createTextNode(specialCard.shape));
 
         let hiddenInfoTxTWrapper = document.createElement('div');
         hiddenInfoTxTWrapper.className = 'hidden';
         hiddenInfoTxTWrapper.style.fontSize = '20px';
         hiddenInfoTxTWrapper.style.width = '150px'; // το μέγεθος κάθε κάρτας
         hiddenInfoTxTWrapper.style.marginLeft = '10px';
-        hiddenInfoTxTWrapper.appendChild(document.createTextNode(card.info));
+        hiddenInfoTxTWrapper.appendChild(document.createTextNode(specialCard.info));
         // ------------------------------------------------------------
 
         cardDivWrapper.appendChild(cardDiv);
