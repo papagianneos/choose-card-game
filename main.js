@@ -958,7 +958,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             // Επέλεξε μία τυχαία σπέσιαλ κάρτα που είναι μόνο για το "TIMED" mode.
                             const timeModeCards = Object.filter(specialCardsConfig, carde1 => { return carde1.exclusiveMode == 'timed' })
 
-                            cardShapes.push(specialCardsConfig[Object.keys(randomChoice(timeModeCards))].shape);
+                            cardShapes.push(randomChoice(timeModeCards).shape);
                             AMOUNT_OF_CARDS += 2;
                         }
                     }
