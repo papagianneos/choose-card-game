@@ -884,7 +884,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(specialCardsConfig['aleph'].shape);
+                            cardShapes.push(specialCardsConfig[randomlyChosenSpecialCard].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
