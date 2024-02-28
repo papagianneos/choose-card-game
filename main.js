@@ -1342,7 +1342,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     unlockAchievement('ach_timed_mode_slow_card');
 
                                     sounds.timeSlower.play();
-                                    decreaseTimeBy -= .66;
+                                    decreaseTimeBy /= decreaseTimeBy;
                                 }
                                 break;
 
