@@ -215,6 +215,10 @@ export const sounds = {
 
     saved: new Howl({
         src: ['/audio/lifesaver.mp3'],
+    }),
+
+    alephEffect: new Howl({
+        src: ['/audio/really_bad.mp3']
     })
 }
 
