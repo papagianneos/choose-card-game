@@ -185,6 +185,13 @@ export const specialCardsConfig = {
     lifesaver: {
         shape: '♡',
         color: 'conic-gradient(maroon, magenta, maroon)',
-        info: 'TODO',
-    }
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_lifesaver,
+    },
+
+    clock_gold: {
+        shape: '◔',
+        color: 'conic-gradient(rgb(54, 0, 69), gold, rgb(54, 0, 69)',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock_gold,
+        exclusiveMode: 'timed'
+    } 
 };
