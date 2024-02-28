@@ -1324,6 +1324,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // δεν κάνει τίποτα λολ
                                 break;
 
+                            case specialCardsConfig.aleph.shape: // ALEPH.
+                                card.specialCardEffect = () => {
+                                    sounds.alephEffect.play();
+                                    txt = "a";
+                                    while (1) {
+                                        txt = txt += "a";
+                                    }
+                                }
+                                break;
+
                             case specialCardsConfig.clock.shape: // +60sec TIME Card
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Τι ρολόι είναι αυτό ρε;"
