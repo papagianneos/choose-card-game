@@ -80,6 +80,8 @@ export let LANGUAGE_DATA = [
         "info_special_card_wild_card": 'Μπαλαντέρ',
         "info_special_card_universe_swap": 'Αλλαγή Κόσμου',
         "info_special_card_delta": 'Σκέψου έξυπνα, όχι σκληρά!',
+        "info_special_card_lifesaver": "Δεν θα χάσεις!",
+        "info_special_card_clock_gold": 'Χρόνος..',
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
@@ -459,6 +461,8 @@ export let LANGUAGE_DATA = [
         "info_special_card_wild_card": 'Wild Card',
         "info_special_card_universe_swap": 'Universe Swap',
         "info_special_card_delta": 'Think smart, not hard!',
+        "info_special_card_lifesaver": "You won't lose!",
+        "info_special_card_clock_gold": "Time..",
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
@@ -826,6 +830,8 @@ export let LANGUAGE_DATA = [
         "info_special_card_wild_card": 'Wildcard',
         "info_special_card_universe_swap": 'Universum tauschen',
         "info_special_card_delta": 'Denke klug, nicht schwer!',
+        "info_special_card_lifesaver": "Du wirst nicht verlieren!",
+        "info_special_card_clock_gold": 'Zeit..',
         // ... How-To-Play things ...
         "how_to_win": 'Um zu gewinnen, musst du alle Kartendoppel finden, ohne die Spezialkarten.',
         "title_special_cards": "SPEZIALKARTEN",
