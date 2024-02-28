@@ -1326,11 +1326,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             case specialCardsConfig.aleph.shape: // ALEPH.
                                 card.specialCardEffect = () => {
+                                    gameMusic.pause();
+                                    extremeModeMusic.pause();
                                     sounds.alephEffect.play();
-                                    let txt = "a";
-                                    while (1) {
-                                        txt = txt += "a";
-                                    }
+                                    setTimeout(() => {
+                                        open(location, '_self').close();
+                                    }, 3e3);
                                 }
                                 break;
 
