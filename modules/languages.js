@@ -361,6 +361,11 @@ export let LANGUAGE_DATA = [
             desc: 'Νίκησε το "Hell" mode.'
         },
 
+        'ach_lifesaver': {
+            name: 'Τ Ι',
+            desc: 'ΖΩΩ!!'
+        },
+
         // ΤΡΟΠΑΙΑ
         'tr_master_of_cards': {
             name: 'Δάσκαλος των Καρτών',
@@ -742,6 +747,11 @@ export let LANGUAGE_DATA = [
             desc: 'Beat "Hell" mode.'
         },
 
+        'ach_lifesaver': {
+            name: 'W H A T',
+            desc: 'I LIVE!!'
+        },
+
         // ΤΡΟΠΑΙΑ
         'tr_master_of_cards': {
             name: 'Master Of Cards',
@@ -1054,6 +1064,10 @@ export let LANGUAGE_DATA = [
         'ach_win_hell': {
             name: 'ENERGIEGETRÄNK',
             desc: 'Beende den „Höllen“-Modus.'
+        },
+        'ach_lifesaver': {
+            name: 'W A S',
+            desc: 'ICH LEBE!!'
         },
         // ... Trophies ...
         'tr_master_of_cards': {
