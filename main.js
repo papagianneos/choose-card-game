@@ -1387,6 +1387,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             case specialCardsConfig.lifesaver.shape: // Lifesaver
                                 card.specialCardEffect = () => {
+                                    // Επίτευγμα: "ΖΩΩ!!"
+                                    unlockAchievement('ach_lifesaver');
+
                                     preventLose = true;
                                     sounds.specialScore.play();
                                 }
