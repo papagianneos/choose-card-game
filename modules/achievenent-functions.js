@@ -346,6 +346,12 @@ export let achievementsConfig = [
         unlocked: false
     },
 
+    {
+        id: 'ach_lifesaver',
+        color: 'conic-gradient(maroon, magenta, maroon)',
+        unlocked: false
+    },
+
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
     // ----------------------------------------------
@@ -471,5 +477,5 @@ export const unlockAchievement = (achievementID, givenProgressToUpdate = 1) => {
         setTimeoutWithRAF(() => {
             document.body.removeChild(achievementNotifBox);
         }, 4e3);
-    }, 5e3);
+    }, 3e3);
 }
