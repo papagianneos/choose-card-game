@@ -884,7 +884,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(specialCardsConfig['lifesaver'].shape);
+                            cardShapes.push(specialCardsConfig[randomlyChosenSpecialCard].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
@@ -1080,8 +1080,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     // Οι σπέσιαλ κάρτες έχουν συγκεκριμένο σταθερό χρώμα.
                     // --------------------------------------------------------
                     if (specialCardsEnabled) {
-                        let specialCardDetected = false,
-                            specialCardIndex = undefined;
+                        let specialCardDetected = false;
 
                         // SOS συνάρτηση
                         const addToSpecialCardsArray = (shape) => {
@@ -1326,7 +1325,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
                             case specialCardsConfig.clock.shape: // +60sec TIME Card
-                                specialCardIndex = 13;
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Τι ρολόι είναι αυτό ρε;"
                                     unlockAchievement('ach_timed_special_card');
@@ -1336,13 +1334,20 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
                                 break;
 
+                            case specialCardsConfig.clock_gold.shape: // OP CLOCK
+                                card.specialCardEffect = () => {
+                                    timeLeft = standardTimeLeft;
+                                    sounds.timeCardGoldEffect.play();
+                                }
+                                break;
+
                             case specialCardsConfig.time_slower.shape: // Αργότερος Χρόνος
                                 card.specialCardEffect = () => {
                                     // Επίτευγμα: "Χελωνάρας"
                                     unlockAchievement('ach_timed_mode_slow_card');
 
                                     sounds.timeSlower.play();
-                                    decreaseTimeBy /= decreaseTimeBy;
+                                    decreaseTimeBy = .25;
                                 }
                                 break;
 
