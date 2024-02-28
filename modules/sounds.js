@@ -177,7 +177,11 @@ export const sounds = {
     }),
 
     timeCardEffect: new Howl({
-        src: ['/audio/time_card_effect.mp3']
+        src: ['/audio/time_card_effect_01.mp3']
+    }),
+
+    timeCardGoldEffect: new Howl({
+        src: ['/audio/time_card_effect_02.mp3']
     }),
 
     timeSlower: new Howl({
