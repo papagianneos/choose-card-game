@@ -884,7 +884,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             let randomlyChosenSpecialCard = randomChoice(Object.keys(filteredSpecialCards_));
                             //cardShapes[cardShapes.length - 1] = randomlyChosenSpecialCard.shape; - OLD mechanic (replaces a card)
-                            cardShapes.push(specialCardsConfig[randomlyChosenSpecialCard].shape);
+                            cardShapes.push(specialCardsConfig['aleph'].shape);
                             AMOUNT_OF_CARDS += 2;
 
                             // 1 in 19 chance, spawn Δ card in game.
@@ -1327,7 +1327,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             case specialCardsConfig.aleph.shape: // ALEPH.
                                 card.specialCardEffect = () => {
                                     sounds.alephEffect.play();
-                                    txt = "a";
+                                    let txt = "a";
                                     while (1) {
                                         txt = txt += "a";
                                     }
