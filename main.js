@@ -1350,16 +1350,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     const temp = decreaseTimeBy;
                                     decreaseTimeBy = 0;
                                     sounds.freeze.play();
-                                    document.getElementById('cardsHolder').classList.toggle('frozen');
 
                                     setTimeout(() => {
                                         decreaseTimeBy = temp;
                                         sounds.freeze.play();
                                         const cards = document.querySelectorAll('.card');
                                         cards.forEach(cardElem => {
-                                            if (cardElem.savedText == specialCardsConfig.freezer.shape) cardElem.classList.toggle('dead');
+                                            if (cardElem.savedText == specialCardsConfig.freezer.shape) cardElem.style.filter = 'grayscale(1)';
                                         });
-                                        document.getElementById('cardsHolder').classList.toggle('frozen');
                                     }, 5e3);
                                 }
                                 break;
@@ -2742,7 +2740,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 timeLeft += 400;
                                 const cards = document.querySelectorAll('.card');
                                 cards.forEach(cardElem => {
-                                    if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.classList.toggle('dead');
+                                    if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.style.filter = 'grayscale(1)';
                                 });
                                 sounds.saved.play();
                                 preventLose = false;
@@ -3115,7 +3113,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             const cards = document.querySelectorAll('.card');
                             cards.forEach(cardElem => {
-                                if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.classList.toggle('dead');
+                                if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.style.filter = 'grayscale(1)';
                             });
                             sounds.saved.play();
                             preventLose = false;
