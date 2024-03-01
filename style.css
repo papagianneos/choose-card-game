@@ -139,7 +139,7 @@ body {
 }
 
 .opened {
-    transform: rotateZ(0deg), rotateY(360deg);
+    transform: rotateZ(0deg) rotateY(360deg);
 }
 
 .howToPlayInfoCard:hover+.hidden,
