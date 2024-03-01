@@ -444,7 +444,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                         // TIMED MODE: Δώσε χρόνο.
                                         if (timedModeEnabled) {
-                                            timeLeft += AMOUNT_OF_CARDS > 12 ? 25 : 30;
+                                            timeLeft += AMOUNT_OF_CARDS > 12 ? 25 : 50;
                                         }
                                     }
 
