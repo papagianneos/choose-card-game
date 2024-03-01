@@ -2852,6 +2852,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                 if (achievementIDToCheckForUnlock != 'no achievement') unlockAchievement(achievementIDToCheckForUnlock);
 
+                                if (timedModeEnabled) unlockAchievement('ach_timed_mode_win_10');
+
                                 // Επίτευγμα.
                                 if (papagianneosFinaleEnabled) {
                                     unlockAchievement('ach_pgn_finale_twice');
