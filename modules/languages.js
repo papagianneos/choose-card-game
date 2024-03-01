@@ -366,6 +366,11 @@ export let LANGUAGE_DATA = [
             desc: 'ΖΩΩ!!'
         },
 
+        'ach_timed_mode_win_10': {
+            name: 'Πιο γρήγορος δεν γίνεται!',
+            desc: 'Νίκησε το "TIMED" mode 10 φορές.'
+        },
+
         // ΤΡΟΠΑΙΑ
         'tr_master_of_cards': {
             name: 'Δάσκαλος των Καρτών',
@@ -752,6 +757,11 @@ export let LANGUAGE_DATA = [
             desc: 'I LIVE!!'
         },
 
+        'ach_timed_mode_win_10': {
+            name: 'Can\'t be faster!',
+            desc: 'Beat "TIMED" mode 10 times.'
+        },
+
         // ΤΡΟΠΑΙΑ
         'tr_master_of_cards': {
             name: 'Master Of Cards',
@@ -1068,6 +1078,10 @@ export let LANGUAGE_DATA = [
         'ach_lifesaver': {
             name: 'W A S',
             desc: 'ICH LEBE!!'
+        },
+        'ach_timed_mode_win_10': {
+            name: 'Schneller geht\'s nicht!',
+            desc: 'Schlagen Sie den „TIMED“-Modus 10 Mal durch.'
         },
         // ... Trophies ...
         'tr_master_of_cards': {
