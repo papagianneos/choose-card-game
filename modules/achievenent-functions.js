@@ -351,6 +351,14 @@ export let achievementsConfig = [
         color: 'conic-gradient(maroon, magenta, maroon)',
         unlocked: false
     },
+    
+    {
+        id: 'ach_timed_mode_win_10',
+        progress: 0,
+        requiredProgress: 10,
+        color: 'conic-gradient(rgb(54, 0, 69), gold, rgb(54, 0, 69)',
+        unlocked: false
+    },
 
     // ----------------------------------------------
     // ΤΡΟΠΑΙΑ
