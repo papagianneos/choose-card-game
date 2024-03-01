@@ -89,7 +89,7 @@ export const specialCardsConfig = {
         color: 'radial-gradient(#3d1406, #8ca7cf)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock,
         noSpawnInFinale: true,
-       // exclusiveMode: 'timed'
+        exclusiveMode: 'timed'
     },
 
     // slow down time
@@ -98,7 +98,7 @@ export const specialCardsConfig = {
         color: 'radial-gradient(#0800ff, #00ff77)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_slow,
         noSpawnInFinale: true,
-       // exclusiveMode: 'timed'
+        exclusiveMode: 'timed'
     },
 
     
@@ -106,13 +106,13 @@ export const specialCardsConfig = {
         shape: '◔',
         color: 'conic-gradient(rgb(54, 0, 69), gold, rgb(54, 0, 69)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock_gold,
-       // exclusiveMode: 'timed'
+        exclusiveMode: 'timed'
     },
 
     freezer: {
         shape: '⨍',
         color: 'conic-gradient(#465c8f, #92edf0, #465c8f, #92edf0, #465c8f, #92edf0, #465c8f)',
-        info: 'TODO',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_freezer,
         exclusiveMode: 'timed'
     },
     // ------------------------------------------------------------------------
