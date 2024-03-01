@@ -1354,10 +1354,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     setTimeout(() => {
                                         decreaseTimeBy = temp;
                                         sounds.freeze.play();
-                                        const cards = document.querySelectorAll('.card');
-                                        cards.forEach(cardElem => {
-                                            if (cardElem.savedText == specialCardsConfig.freezer.shape) cardElem.style.filter = 'grayscale(1)';
-                                        });
                                     }, 5e3);
                                 }
                                 break;
