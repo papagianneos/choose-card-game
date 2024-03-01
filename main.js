@@ -1270,12 +1270,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                     }
 
-                                    setTimeoutWithRAF(() => {
+                                    setTimeout(() => {
                                         resetCards(false);
                                         blockClicks = false;
                                         document.getElementById('cardsHolder').style.transition = '1s';
                                         document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
-                                    }, 2100);
+                                    }, 1800);
                                 }
                                 break;
 
@@ -1340,8 +1340,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     // Επίτευγμα: "Τι ρολόι είναι αυτό ρε;"
                                     unlockAchievement('ach_timed_special_card');
 
-                                    timeLeft += 60;
+                                    timeLeft += 120;
                                     sounds.timeCardEffect.play();
+                                }
+                                break;
+
+                            case specialCardsConfig.freezer.shape: // Time Freezer
+                                card.specialCardEffect = () => {
+                                    const temp = decreaseTimeBy;
+                                    decreaseTimeBy = 0;
+                                    sounds.freeze.play();
+
+                                    setTimeout(() => {
+                                        decreaseTimeBy = temp;
+                                        sounds.freeze.play();
+                                    }, 5e3);
                                 }
                                 break;
 
