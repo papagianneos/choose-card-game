@@ -337,6 +337,10 @@ progress {
     display: none;
 }
 
+.frozen {
+    filter: contrast(1000%);
+}
+
 @keyframes rainbowSigmaCard {
 
     100%,
