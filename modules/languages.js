@@ -82,6 +82,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_delta": 'Σκέψου έξυπνα, όχι σκληρά!',
         "info_special_card_lifesaver": "Δεν θα χάσεις!",
         "info_special_card_clock_gold": 'Χρόνος..',
+        "info_special_card_freezer": 'Δεν υπάρχει ο χρόνος για εμένα.',
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
@@ -473,6 +474,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_delta": 'Think smart, not hard!',
         "info_special_card_lifesaver": "You won't lose!",
         "info_special_card_clock_gold": "Time..",
+        "info_special_card_freezer": 'Time does not exist for me.',
         // -------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------------------
@@ -852,6 +854,7 @@ export let LANGUAGE_DATA = [
         "info_special_card_delta": 'Denke klug, nicht schwer!',
         "info_special_card_lifesaver": "Du wirst nicht verlieren!",
         "info_special_card_clock_gold": 'Zeit..',
+        "info_special_card_freezer": 'Zeit existiert für mich nicht.',
         // ... How-To-Play things ...
         "how_to_win": 'Um zu gewinnen, musst du alle Kartendoppel finden, ohne die Spezialkarten.',
         "title_special_cards": "SPEZIALKARTEN",
