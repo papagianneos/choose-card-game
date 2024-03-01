@@ -321,10 +321,6 @@ button:hover {
     border-bottom: 2px solid black;
 }
 
-.dead {
-    filter: grayscale(1);
-}
-
 progress {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -335,10 +331,6 @@ progress {
     border-radius: 2.5px;
     transform: skew(30deg);
     display: none;
-}
-
-.frozen {
-    filter: contrast(1000%);
 }
 
 @keyframes rainbowSigmaCard {
