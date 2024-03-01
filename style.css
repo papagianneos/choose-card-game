@@ -338,6 +338,7 @@ progress {
 }
 
 .frozen {
+    transition: 1s;
     filter: contrast(1000%);
 }
 
