@@ -219,6 +219,10 @@ export const sounds = {
 
     alephEffect: new Howl({
         src: ['/audio/really_bad.mp3']
+    }),
+
+    freeze: new Howl({
+        src: ['/audio/freeze_01.mp3']
     })
 }
 
