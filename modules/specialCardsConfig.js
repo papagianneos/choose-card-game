@@ -81,7 +81,9 @@ export const specialCardsConfig = {
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_troll
     },
 
-    // time card
+    // ------------------------------------------------------------------------
+    // TIMED Mode Cards.
+    // ------------------------------------------------------------------------
     clock: {
         shape: '◕',
         color: 'radial-gradient(#3d1406, #8ca7cf)',
@@ -98,6 +100,22 @@ export const specialCardsConfig = {
         noSpawnInFinale: true,
         exclusiveMode: 'timed'
     },
+
+    
+    clock_gold: {
+        shape: '◔',
+        color: 'conic-gradient(rgb(54, 0, 69), gold, rgb(54, 0, 69)',
+        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock_gold,
+        exclusiveMode: 'timed'
+    },
+
+    freezer: {
+        shape: '⨍',
+        color: 'conic-gradient(#465c8f, #92edf0, #465c8f, #92edf0, #465c8f, #92edf0, #465c8f)',
+        info: 'TODO',
+        exclusiveMode: 'timed'
+    },
+    // ------------------------------------------------------------------------
 
     lamda: {
         shape: 'Λ',
@@ -187,11 +205,4 @@ export const specialCardsConfig = {
         color: 'conic-gradient(maroon, magenta, maroon)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_lifesaver,
     },
-
-    clock_gold: {
-        shape: '◔',
-        color: 'conic-gradient(rgb(54, 0, 69), gold, rgb(54, 0, 69)',
-        info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_clock_gold,
-        exclusiveMode: 'timed'
-    } 
 };
