@@ -55,6 +55,12 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
             achievementDivHolder.style.background = achievement.color;
         }
 
+        let achievenentWrapper = document.createElement('div');
+        achievenentWrapper.style.display = 'flex';
+        achievenentWrapper.style.alignItems = 'center';
+        achievenentWrapper.style.justifyContent = 'center';
+        achievenentWrapper.style.flexDirection = 'column';
+
         // Τίτλος επιτεύγματος
         let achievementTitle = document.createElement('h1');
         achievementTitle.style.fontSize = '20px';
@@ -69,17 +75,18 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
             if (achievement.requiredProgress) {
                 let achievementFromStorage = searchForAchievement(achievement);
                 achievementDescription.innerHTML += `<br>
+                    <div style="background-color:grey">
                     <div style="background: green; width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
-
-                    </div>
+                    </div></div>
                 `;
                 //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
             }
             else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
         }
 
-        achievementDivHolder.appendChild(achievementTitle);
-        achievementDivHolder.appendChild(achievementDescription);
+        achievenentWrapper.appendChild(achievementTitle);
+        achievenentWrapper.appendChild(achievementDescription);
+        achievementDivHolder.appendChild(achievenentWrapper);
 
         // Αν δεν είναι τρόπαιο, βάλτο στα επιτεύγματα, αλλιώς στα τρόπαια.
         if (!achievement.trophy) {
