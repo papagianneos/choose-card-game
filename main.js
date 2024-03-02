@@ -55,10 +55,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = window.location.href.includes('-test');
+            const testServer = window.location.href.includes('-test');
 
             // Events
-            let eventModeRotationEnabled = !testServer;
+            const eventModeRotationEnabled = !testServer;
 
             // OG Mode
             let OG_modeEnabled = false,
@@ -1273,7 +1273,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     setTimeout(() => {
                                         resetCards(false);
                                         blockClicks = false;
-                                        document.getElementById('cardsHolder').style.transition = '1s';
+                                        document.getElementById('cardsHolder').style.transition = '.5s';
                                         document.getElementById('cardsHolder').style.transform = 'rotate(360deg)';
                                     }, 1800);
                                 }
@@ -1351,6 +1351,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     decreaseTimeBy = 0;
                                     sounds.freeze.play();
                                     document.getElementById('cardsHolder').classList.toggle('frozen');
+                                    document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${specialCardsConfig.freezer.color}; }`;
 
                                     setTimeout(() => {
                                         decreaseTimeBy = temp;
@@ -1358,7 +1359,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         const cards = document.querySelectorAll('.card');
                                         cards.forEach(cardElem => {
                                             if (cardElem.savedText == specialCardsConfig.freezer.shape) {
-                                                cardElem.style.transition = '1s';
+                                                cardElem.style.transition = '.5s';
                                                 cardElem.classList.toggle('dead');
                                             }
                                         });
@@ -2695,7 +2696,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     // ---------------------------------------------------------------
                     // TIMED Mode
                     // ---------------------------------------------------------------
-                    if (((choseCard && hellModeEnabled) || timedModeEnabled) && gameStarted) {
+                    if (((choseCard && hellModeEnabled) || timedModeEnabled) && gameStarted && decreaseTimeBy != 0) {
                         // Μείωσε τον χρόνο
                         timeLeft -= decreaseTimeBy;
                         timeBar.setAttribute("value", timeLeft.toFixed(2));
@@ -2746,7 +2747,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 const cards = document.querySelectorAll('.card');
                                 cards.forEach(cardElem => {
                                     if (cardElem.savedText == specialCardsConfig.lifesaver.shape) {
-                                        cardElem.style.transition = '1s';
+                                        cardElem.style.transition = '.5s';
                                         cardElem.classList.toggle('dead');
                                     }
                                 });
