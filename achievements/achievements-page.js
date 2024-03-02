@@ -1,4 +1,4 @@
-import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searchForAchievement } from "../modules/achievenent-functions.js";
+import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achievenent-functions.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
@@ -71,14 +71,21 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         achievementDescription.style.fontSize = '15px';
         achievementDescription.innerHTML = achievement.desc;
 
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // Progress Bar.
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        let progressBarGreySide = document.createElement('div');
+        progressBarGreySide.setAttribute('style', 'background-color: grey; margin-top: 10px; height: 10px;');
+
+        let progressBarFiller = document.createElement('div');
+        progressBarFiller.setAttribute('style', `"background: green; height:10px;width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%"`);
+
+        progressBarGreySide.appendChild(progressBarFiller);
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         if (!achievement.dontShowProgress) {
             if (achievement.requiredProgress) {
-                let achievementFromStorage = searchForAchievement(achievement);
-                achievementDescription.innerHTML += `<br>
-                    <div style="background-color: grey; margin-top: 10px; height: 10px;">
-                    <div style="background: green; height:10px;width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
-                    </div></div>
-                `;
+                achievementDescription.innerHTML += `<br>`;
                 //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
             }
             else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
@@ -86,6 +93,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
         achievenentWrapper.appendChild(achievementTitle);
         achievenentWrapper.appendChild(achievementDescription);
+        achievenentWrapper.appendChild(progressBarGreySide);
         achievementDivHolder.appendChild(achievenentWrapper);
 
         // Αν δεν είναι τρόπαιο, βάλτο στα επιτεύγματα, αλλιώς στα τρόπαια.
