@@ -76,7 +76,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
                 let achievementFromStorage = searchForAchievement(achievement);
                 achievementDescription.innerHTML += `<br>
                     <div style="background-color: grey; margin-top: 10px; height: 10px;">
-                    <div style="background: green; width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
+                    <div style="background: green; height:10px;width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
                     </div></div>
                 `;
                 //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
