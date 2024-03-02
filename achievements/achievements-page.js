@@ -81,6 +81,8 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
         const progressBarFiller = document.createElement('div');
         progressBarFiller.className = 'progress';
+        progressBarFiller.style.color = 'green';
+        progressBarFiller.style.width = `${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%`;
 
         progressBarGreySide.appendChild(progressBarFiller);
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
