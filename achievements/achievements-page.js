@@ -74,18 +74,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         let achievementDescription = document.createElement('h1');
         achievementDescription.style.fontSize = '15px';
         achievementDescription.innerHTML = achievement.desc;
-
-        if (!achievement.dontShowProgress) {
-            if (achievement.requiredProgress) {
-                let achievementFromStorage = searchForAchievement(achievement);
-                const progressBar = document.getElementById('progress-bar-' + achievementFromStorage.id);
-                progressBar.value = (achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100;
-                progressBar.textContent = `${(achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100}%`;
-                achievementDescription.progressElement.parentNode.insertBefore(progressContainer, achievementDescription.progressElement.nextSibling);
-                //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
-            }
-            else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
-        }
+        achievementDescription.progressElement.parentNode.insertBefore(progressContainer, achievementDescription.progressElement.nextSibling);
 
         achievementDivHolder.appendChild(achievementTitle);
         achievementDivHolder.appendChild(achievementDescription);
@@ -99,6 +88,18 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
     mainDivHolder.appendChild(achievementsMainHolder);
     mainDivHolder.appendChild(trophiesMainHolder);
+
+    if (!achievement.dontShowProgress) {
+        if (achievement.requiredProgress) {
+            let achievementFromStorage = searchForAchievement(achievement);
+            const progressBar = document.getElementById('progress-bar-' + achievementFromStorage.id);
+            progressBar.value = (achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100;
+            progressBar.textContent = `${(achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100}%`;
+            //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
+        }
+        else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
+    }
+    else document.getElementById('progress-bar-' + achievementFromStorage.id).style.display = 'none';
 
     // ------------------------------------------------------------------
     // Κουμπί για εναλλαγή τροπαίων - επιτευγμάτων
