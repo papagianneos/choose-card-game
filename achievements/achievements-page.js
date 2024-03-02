@@ -75,7 +75,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
             if (achievement.requiredProgress) {
                 let achievementFromStorage = searchForAchievement(achievement);
                 achievementDescription.innerHTML += `<br>
-                    <div style="background-color:grey">
+                    <div style="background-color: grey; margin-top: 10px; height: 10px;">
                     <div style="background: green; width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
                     </div></div>
                 `;
