@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = true;
+            let testServer = false;
 
             // Events
             let eventModeRotationEnabled = !testServer;
@@ -1357,7 +1357,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         sounds.freeze.play();
                                         const cards = document.querySelectorAll('.card');
                                         cards.forEach(cardElem => {
-                                            if (cardElem.savedText == specialCardsConfig.freezer.shape) cardElem.classList.toggle('dead');
+                                            if (cardElem.savedText == specialCardsConfig.freezer.shape) {
+                                                cardElem.style.transition = '1s';
+                                                cardElem.classList.toggle('dead');
+                                            }
                                         });
                                         document.getElementById('cardsHolder').classList.toggle('frozen');
                                     }, 5e3);
@@ -2205,7 +2208,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // βάλε το parentDiv στο σώμα της ιστοσελίδας.
                         if (cobaltModeEnabled || hellModeEnabled) {
                             menuMusic.pause();
-                            cobaltModeCards = Object.filter(specialCardsConfig, card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T')) : card.exclusiveMode == 'cobalt' });
+                            cobaltModeCards = Object.filter(specialCardsConfig, card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T') || card.shape == specialCardsConfig.lifesaver.shape) : card.exclusiveMode == 'cobalt' });
 
                             let cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
@@ -2742,7 +2745,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 timeLeft += 400;
                                 const cards = document.querySelectorAll('.card');
                                 cards.forEach(cardElem => {
-                                    if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.classList.toggle('dead');
+                                    if (cardElem.savedText == specialCardsConfig.lifesaver.shape) {
+                                        cardElem.style.transition = '1s';
+                                        cardElem.classList.toggle('dead');
+                                    }
                                 });
                                 sounds.saved.play();
                                 preventLose = false;
@@ -3115,7 +3121,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             const cards = document.querySelectorAll('.card');
                             cards.forEach(cardElem => {
-                                if (cardElem.savedText == specialCardsConfig.lifesaver.shape) cardElem.classList.toggle('dead');
+                                if (cardElem.savedText == specialCardsConfig.lifesaver.shape) {
+                                    cardElem.style.transition = '1s';
+                                    cardElem.classList.toggle('dead');
+                                }
                             });
                             sounds.saved.play();
                             preventLose = false;
