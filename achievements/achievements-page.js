@@ -77,16 +77,12 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         // Progress Bar.
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         const progressBarGreySide = document.createElement('div');
-        progressBarGreySide.setAttribute('style', `font-size:10px;background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 2px;`);
-
-        const progressBarTextContent = document.createElement('span');
-        progressBarTextContent.setAttribute('style', `position: absolute; transform: translate(-25%, 0%);`);
-        progressBarTextContent.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
+        progressBarGreySide.setAttribute('style', `background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 2px;`);
 
         const progressBarFiller = document.createElement('div');
-        progressBarFiller.setAttribute('style', `background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 2px;`);
+        progressBarFiller.setAttribute('style', `font-size:10px;background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 2px;`);
+        progressBarFiller.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
         
-        progressBarGreySide.appendChild(progressBarTextContent);
         progressBarGreySide.appendChild(progressBarFiller);
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
