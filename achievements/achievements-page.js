@@ -3,6 +3,11 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
 (() => {
+
+    const makePercentage = (partialValue, totalValue) => {
+        return (100 * partialValue) / totalValue;
+    }
+
     checkForMemoryRead();
 
     // Συνάρτηση ελέγχου ξεκλειδώματος επιτεύγματος
@@ -64,10 +69,8 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
             if (achievement.requiredProgress) {
                 let achievementFromStorage = searchForAchievement(achievement);
                 achievementDescription.innerHTML += `<br>
-                    <div class="progress-container">
-                    <progress id="progress-bar-${achievementFromStorage.id}" value="0" max="100">
-                    <span id="progress-${achievementFromStorage.id}">${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}</span>
-                    </progress>
+                    <div style="background: green; width:${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%">
+
                     </div>
                 `;
                 //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
