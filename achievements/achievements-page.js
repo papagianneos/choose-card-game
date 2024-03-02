@@ -63,23 +63,13 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         if (!achievement.dontShowProgress) {
             if (achievement.requiredProgress) {
                 let achievementFromStorage = searchForAchievement(achievement);
-                const progressBar = document.createElement('progress');
-                progressBar.id = 'progress-bar-' + achievementFromStorage.id;
-                progressBar.value = 0;
-                progressBar.max = 100;
-
-                const progressContainer = document.createElement('div');
-                progressContainer.classList.add('progress-container');
-
-                progressContainer.appendChild(progressBar);
-
-                achievementDescription.progressElement.parentNode.insertBefore(progressContainer, achievementDescription.progressElement.nextSibling);
-
-                const progressText = document.createElement('span');
-                progressText.id = 'progress-' + achievementFromStorage.id;
-                progressText.textContent = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
-
-                achievementDescription.progressElement.parentNode.insertBefore(progressText, achievementDescription.progressElement);
+                achievementDescription.innerHTML += `<br>
+                    <div class="progress-container">
+                    <progress id="progress-bar-${achievementFromStorage.id}" value="0" max="100">
+                    <span id="progress-${achievementFromStorage.id}">${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}</span>
+                    </progress>
+                    </div>
+                `;
                 //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
             }
             else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
