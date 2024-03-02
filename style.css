@@ -39,15 +39,15 @@ html {
 
 @keyframes grow {
     0% {
-        transform: scale(1);
+       transform: scale(1);
     }
 
     50% {
-        transform: scale(1.5);
+       transform: scale(1.5);
     }
-
+    
     100% {
-        transform: scale(1);
+       transform: scale(1);
     }
 }
 
@@ -883,31 +883,3 @@ td {
     }
   }
 */
-.progress-container {
-    display: inline-block;
-    position: relative;
-    margin: 0 5px;
-    width: 100px;
-}
-
-.progress-container::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 100%;
-    width: 2px;
-    height: 50%;
-    background-color: #888;
-}
-
-.progress-container:hover::after {
-    right: 105%;
-}
-
-.progress-bar {
-    height: 100%;
-    background-color: #f00;
-    border-radius: 5px;
-    transition: width 0.5s ease-in-out;
-}
