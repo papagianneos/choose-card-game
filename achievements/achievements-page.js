@@ -77,11 +77,11 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         // Progress Bar.
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         const progressBarGreySide = document.createElement('div');
-        progressBarGreySide.setAttribute('style', `background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 2px;`);
+        progressBarGreySide.setAttribute('style', `font-size:10px;background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 2px;`);
+        progressBarGreySide.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
 
         const progressBarFiller = document.createElement('div');
-        progressBarFiller.setAttribute('style', `font-size:10px;background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 2px;`);
-        progressBarFiller.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
+        progressBarFiller.setAttribute('style', `background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 2px;`);
         
         progressBarGreySide.appendChild(progressBarFiller);
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
