@@ -1,4 +1,4 @@
-import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA } from "../modules/achievenent-functions.js";
+import { checkForMemoryRead, achievementsConfig, FETCHED_ACHIEVEMENT_DATA, searchForAchievement } from "../modules/achievenent-functions.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
 
@@ -70,6 +70,8 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         let achievementDescription = document.createElement('h1');
         achievementDescription.style.fontSize = '15px';
         achievementDescription.innerHTML = achievement.desc;
+
+        const achievementFromStorage = searchForAchievement(achievement);
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // Progress Bar.
