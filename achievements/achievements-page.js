@@ -77,21 +77,10 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         // Progress Bar.
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         const progressBarGreySide = document.createElement('div');
-        progressBarGreySide.setAttribute('style', `
-            background-color: grey;
-            margin-top: 10px;
-            height: 10px;
-            width: 150px;
-            border-radius: 5px;
-        `);
+        progressBarGreySide.setAttribute('style', `background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 5px;`);
 
         const progressBarFiller = document.createElement('div');
-        progressBarFiller.setAttribute('style', `
-            background: green;
-            height: 10px;
-            width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;
-            border-radius: 5px;
-        `);
+        progressBarFiller.setAttribute('style', `background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 5px;`);
 
         progressBarGreySide.appendChild(progressBarFiller);
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +95,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
         achievenentWrapper.appendChild(achievementTitle);
         achievenentWrapper.appendChild(achievementDescription);
-        if (achievement.requiredProgress) achievenentWrapper.appendChild(progressBarGreySide);
+        if (achievement.requiredProgress && !achievement.dontShowProgress) achievenentWrapper.appendChild(progressBarGreySide);
         achievementDivHolder.appendChild(achievenentWrapper);
 
         // Αν δεν είναι τρόπαιο, βάλτο στα επιτεύγματα, αλλιώς στα τρόπαια.
