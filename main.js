@@ -1350,7 +1350,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     const temp = decreaseTimeBy;
                                     decreaseTimeBy = 0;
                                     sounds.freeze.play();
-                                    document.getElementById('cardsHolder').classList.toggle('frozen');
+                                    pageBody.classList.toggle('frozen');
                                     document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${specialCardsConfig.freezer.color}; }`;
 
                                     setTimeout(() => {
@@ -1363,7 +1363,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                                 cardElem.classList.toggle('dead');
                                             }
                                         });
-                                        document.getElementById('cardsHolder').classList.toggle('frozen');
+                                        pageBody.classList.toggle('frozen');
                                     }, 5e3);
                                 }
                                 break;
