@@ -78,11 +78,15 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         const progressBarGreySide = document.createElement('div');
         progressBarGreySide.setAttribute('style', `font-size:10px;background-color: grey;margin-top: 10px;height: 10px;width: 150px;border-radius: 2px;`);
-        progressBarGreySide.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
+
+        const progressBarTextContent = document.createElement('span');
+        progressBarTextContent.setAttribute('style', `position: absolute; transform: translate(-25%, 0%);`);
+        progressBarTextContent.innerText = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
 
         const progressBarFiller = document.createElement('div');
         progressBarFiller.setAttribute('style', `background: green;height: 10px;width: ${makePercentage(achievementFromStorage.progress, achievementFromStorage.requiredProgress)}%;border-radius: 2px;`);
         
+        progressBarGreySide.appendChild(progressBarTextContent);
         progressBarGreySide.appendChild(progressBarFiller);
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
