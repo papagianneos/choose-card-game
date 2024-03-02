@@ -323,6 +323,7 @@ button:hover {
 
 .dead {
     filter: grayscale(1);
+    transition-duration: 1s;
 }
 
 progress {
