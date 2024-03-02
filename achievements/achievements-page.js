@@ -35,21 +35,6 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
     // Δημιούργησε το κάθε επίτευγμα
     achievementsConfig.forEach(achievement => {
-
-        // ----------------------------------------------------------------------------------------------------------------
-        // Progress bar για κάθε επίτευγμα.
-        // ----------------------------------------------------------------------------------------------------------------
-        const progressContainer = document.createElement('div');
-        progressContainer.classList.add('progress-container');
-
-        const progressBar = document.createElement('progress');
-        progressBar.id = 'progress-bar-' + achievement.id;
-        progressBar.value = 0;
-        progressBar.max = 100;
-
-        progressContainer.appendChild(progressBar);
-        // ----------------------------------------------------------------------------------------------------------------
-
         // Δες αν το έχει ξεκλειδώσει ο παίχτης.
         achievement.unlocked = checkUnlock(achievement.id);
         achievementsConfig[achievementsConfig.indexOf(achievement)].unlocked = achievement.unlocked; // ανανέωσε τη λίστα
@@ -74,7 +59,31 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
         let achievementDescription = document.createElement('h1');
         achievementDescription.style.fontSize = '15px';
         achievementDescription.innerHTML = achievement.desc;
-        achievementDescription.progressElement.parentNode.insertBefore(progressContainer, achievementDescription.progressElement.nextSibling);
+
+        if (!achievement.dontShowProgress) {
+            if (achievement.requiredProgress) {
+                let achievementFromStorage = searchForAchievement(achievement);
+                const progressBar = document.createElement('progress');
+                progressBar.id = 'progress-bar-' + achievementFromStorage.id;
+                progressBar.value = 0;
+                progressBar.max = 100;
+
+                const progressContainer = document.createElement('div');
+                progressContainer.classList.add('progress-container');
+
+                progressContainer.appendChild(progressBar);
+
+                achievementDescription.progressElement.parentNode.insertBefore(progressContainer, achievementDescription.progressElement.nextSibling);
+
+                const progressText = document.createElement('span');
+                progressText.id = 'progress-' + achievementFromStorage.id;
+                progressText.textContent = `${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}`;
+
+                achievementDescription.progressElement.parentNode.insertBefore(progressText, achievementDescription.progressElement);
+                //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
+            }
+            else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
+        }
 
         achievementDivHolder.appendChild(achievementTitle);
         achievementDivHolder.appendChild(achievementDescription);
@@ -88,18 +97,6 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
     mainDivHolder.appendChild(achievementsMainHolder);
     mainDivHolder.appendChild(trophiesMainHolder);
-
-    if (!achievement.dontShowProgress) {
-        if (achievement.requiredProgress) {
-            let achievementFromStorage = searchForAchievement(achievement);
-            const progressBar = document.getElementById('progress-bar-' + achievementFromStorage.id);
-            progressBar.value = (achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100;
-            progressBar.textContent = `${(achievementFromStorage.progress / achievementFromStorage.requiredProgress) * 100}%`;
-            //achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">[${achievementFromStorage.progress}/${achievementFromStorage.requiredProgress}]</keimeno>`;
-        }
-        else achievementDescription.innerHTML += `<br><keimeno style="font-size:25px;">​</keimeno>`; // ειδικός κενός χαρακτήρας
-    }
-    else document.getElementById('progress-bar-' + achievementFromStorage.id).style.display = 'none';
 
     // ------------------------------------------------------------------
     // Κουμπί για εναλλαγή τροπαίων - επιτευγμάτων
