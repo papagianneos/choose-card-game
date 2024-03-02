@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            let testServer = true;
+            let testServer = window.location.href.includes('-test');
 
             // Events
             let eventModeRotationEnabled = !testServer;
