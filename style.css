@@ -322,7 +322,7 @@ button:hover {
 }
 
 .dead {
-    transition-duration: 1s;
+    filter: grayscale(1);
 }
 
 progress {
