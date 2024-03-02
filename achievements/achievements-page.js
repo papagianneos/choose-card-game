@@ -106,7 +106,7 @@ import { christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules
 
         achievenentWrapper.appendChild(achievementTitle);
         achievenentWrapper.appendChild(achievementDescription);
-        if (!achievement.dontShowProgress) achievenentWrapper.appendChild(progressBarGreySide);
+        if (achievement.requiredProgress) achievenentWrapper.appendChild(progressBarGreySide);
         achievementDivHolder.appendChild(achievenentWrapper);
 
         // Αν δεν είναι τρόπαιο, βάλτο στα επιτεύγματα, αλλιώς στα τρόπαια.
