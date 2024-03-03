@@ -891,3 +891,38 @@ td {
     width: 150px;
     border-radius: 2px;
 }
+
+#quests-section {
+    margin: 20px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+#quests-section h2 {
+    margin-bottom: 10px;
+}
+
+.quest {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quest-description {
+    margin-right: 20px;
+}
+
+.quest-progress {
+    width: 80px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.quest-progress-bar {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.5s ease;
+}
