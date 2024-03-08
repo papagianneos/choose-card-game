@@ -2299,7 +2299,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.animation = 'none';
 
 
-                                setTimeoutWithRAF(() => {
+                                setTimeout(() => {
                                     switch (getRandomInt(1, 4)) {
                                         case 1:
                                             document.getElementById('cardsHolder').style.transform = `rotateY(${randomChoice([-180, 180])}deg)`;
