@@ -2993,7 +2993,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 sounds.buttonClick.play();
                                 // για να προλάβει να παίξει ο ήχος..
                                 setTimeoutWithRAF(() => {
-                                    window.location.reload();
+                                    location.replace(location.href.split('#')[0]);
                                 }, 5e2);
                             }
 
