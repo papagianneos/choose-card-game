@@ -2298,6 +2298,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
                             pgnFinaleEffectsLoop = setInterval(() => {
+
+                                if (gameMusic.src == music.papagianneosFinaleStart.src) {
+                                    gameMusic.pause();
+                                    gameMusic = music.papagianneosFinaleMiddle;
+                                    gameMusic.play();
+                                }
+
                                 document.getElementById('cardsHolder').style.position = 'static';
                                 document.getElementById('cardsHolder').style.transition = '1s';
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
@@ -2689,14 +2696,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 gameMusic = music.papagianneosFinaleMusic;
                                 gameMusic.play();
                             }, 2e3);
-                        }
-
-                        else if (papagianneosFinaleEnabled && (closedCards.length <= 15 && gameStarted)) {
-                            if (gameMusic.src == music.papagianneosFinaleMiddle.src) return;
-
-                            gameMusic.pause();
-                            gameMusic = music.papagianneosFinaleMiddle;
-                            gameMusic.play();
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
