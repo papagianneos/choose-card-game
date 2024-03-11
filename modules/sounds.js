@@ -64,6 +64,16 @@ export const music = {
         loop: true
     }),
 
+    papagianneosFinaleStart: new Howl({
+        src: ['/audio/papagianneos_finale_01.mp3'],
+        loop: true
+    }),
+
+    papagianneosFinaleMiddle: new Howl({
+        src: ['/audio/papagianneos_finale_02.mp3'],
+        loop: true,
+    }),
+
     papagianneosFinaleMusic: new Howl({
         src: ['/audio/papagianneos_finale_03.mp3'],
         loop: true
