@@ -2307,7 +2307,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 });
 
                                 setTimeout(() => {
-                                    switch (getRandomInt(1, 4)) {
+                                    switch (4){//getRandomInt(1, 4)) {
                                         case 1:
                                             document.getElementById('cardsHolder').style.transform = `rotateY(${randomChoice([-180, 180])}deg)`;
                                             break;
