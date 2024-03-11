@@ -2303,6 +2303,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.animation = 'none';
                                 const cards = document.querySelectorAll('.card');
                                 cards.forEach(cardElem => {
+                                    cardElem.style.transition = '.5s ease';
                                     cardElem.style.clipPath = 'none';
                                 });
 
@@ -2327,6 +2328,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                             const cards = document.querySelectorAll('.card');
                                             cards.forEach(cardElem => {
                                                 const chosenDisplay = randomChoice(BROKEN_CARD_POLYGONS);
+                                                cardElem.style.transition = '.5s ease';
                                                 cardElem.style.clipPath = chosenDisplay;
                                             });
                                             break;
