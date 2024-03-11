@@ -176,6 +176,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             // ----------------------------------------------------------------------
             let papagianneosFinaleEnabled = false,
                 papagianneosFinaleAngryRun = false,
+                brokenCardIDK = false,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
 
@@ -2301,11 +2302,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.transition = '1s';
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                 document.getElementById('cardsHolder').style.animation = 'none';
-                                const cards = document.querySelectorAll('.card');
-                                cards.forEach(cardElem => {
-                                    cardElem.style.transition = '.5s ease';
-                                    cardElem.style.clipPath = 'none';
-                                });
+
+                                if (brokenCardIDK) {
+                                    const cards = document.querySelectorAll('.card');
+
+                                    cards.forEach(cardElem => {
+                                        cardElem.style.clipPath = 'none';
+                                    });
+                                    pageBody.style.transition = '1s';
+                                    pageBody.style.transform = 'rotate(0deg)';
+                                    brokenCardIDK = false;
+                                }
 
                                 setTimeout(() => {
                                     switch (4){//getRandomInt(1, 4)) {
@@ -2326,11 +2333,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                         case 4:
                                             const cards = document.querySelectorAll('.card');
+                                            pageBody.style.transition = '1s';
+                                            pageBody.style.transform = 'rotate(360deg)';
                                             cards.forEach(cardElem => {
                                                 const chosenDisplay = randomChoice(BROKEN_CARD_POLYGONS);
-                                                cardElem.style.transition = '.5s ease';
                                                 cardElem.style.clipPath = chosenDisplay;
                                             });
+                                            brokenCardIDK = true;
                                             break;
                                     } // end of switch
                                 }, 2e3);
