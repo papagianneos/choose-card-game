@@ -1878,7 +1878,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             break;
 
                         case papagianneosFinaleEnabled:
-                            gameMusic = music.papagianneosFinaleMusic;
+                            gameMusic = music.papagianneosFinaleStart;
                             break;
 
                         case hellModeEnabled:
@@ -2293,7 +2293,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             resetCards();
                         }
 
-                        // PAPAGIANNEOS FINALE - REMASTARED
+                        // PAPAGIANNEOS FINALE - REMASTERED
                         if (papagianneosFinaleEnabled) {
 
                             // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
@@ -2315,7 +2315,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 }
 
                                 setTimeout(() => {
-                                    switch (4){//getRandomInt(1, 4)) {
+                                    switch (getRandomInt(1, 4)) {
                                         case 1:
                                             document.getElementById('cardsHolder').style.transform = `rotateY(${randomChoice([-180, 180])}deg)`;
                                             break;
@@ -2651,7 +2651,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
-                            setTimeoutWithRAF(() => {
+                            setTimeout(() => {
                                 pageBody.style.transform = 'rotate(360deg)';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
@@ -2686,8 +2686,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSpecialCards.push('mazeWall');
                                 removedSpecialCardsFromFullCount.push(false);
                                 blockClicks = false;
+                                gameMusic = music.papagianneosFinaleMusic;
                                 gameMusic.play();
                             }, 2e3);
+                        }
+
+                        else if (papagianneosFinaleEnabled && (closedCards.length <= 15 && gameStarted)) {
+                            if (gameMusic.src == music.papagianneosFinaleMiddle.src) return;
+
+                            gameMusic.pause();
+                            gameMusic = music.papagianneosFinaleMiddle;
+                            gameMusic.play();
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
