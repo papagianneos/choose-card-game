@@ -2301,7 +2301,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.transition = '1s';
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                 document.getElementById('cardsHolder').style.animation = 'none';
-
+                                const cards = document.querySelectorAll('.card');
+                                cards.forEach(cardElem => {
+                                    cardElem.style.clipPath = 'none';
+                                });
 
                                 setTimeout(() => {
                                     switch (getRandomInt(1, 4)) {
@@ -2318,6 +2321,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                                 card.innerHTML = 'Pgn';
                                                 card.style.background = 'radial-gradient(#adfff1, #265175)';
                                             }
+                                            break;
+
+                                        case 4:
+                                            const cards = document.querySelectorAll('.card');
+                                            cards.forEach(cardElem => {
+                                                const chosenDisplay = randomChoice(BROKEN_CARD_POLYGONS);
+                                                cardElem.style.clipPath = chosenDisplay;
+                                            });
                                             break;
                                     } // end of switch
                                 }, 2e3);
