@@ -177,6 +177,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             let papagianneosFinaleEnabled = false,
                 papagianneosFinaleAngryRun = false,
                 brokenCardIDK = false,
+                changedMoosic = false,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
 
@@ -2299,10 +2300,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             // Κάθε 15 δευτερόλεπτα, τυχαίο εφέ.
                             pgnFinaleEffectsLoop = setInterval(() => {
 
-                                if (gameMusic.src == music.papagianneosFinaleStart.src) {
+                                if (!changedMoosic) {
                                     gameMusic.pause();
                                     gameMusic = music.papagianneosFinaleMiddle;
                                     gameMusic.play();
+                                    changedMoosic = true;
                                 }
 
                                 document.getElementById('cardsHolder').style.position = 'static';
