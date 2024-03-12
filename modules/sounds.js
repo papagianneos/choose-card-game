@@ -175,11 +175,15 @@ export const sounds = {
     }),
 
     pgnLaugh1: new Howl({
-        src: ['/audio/papagianneos_laugh.mp3'],
+        src: ['/audio/papagianneos_laugh_01.mp3'],
     }),
 
     pgnLaugh2: new Howl({
-        src: ['/audio/papagianneos_laugh_2.mp3'],
+        src: ['/audio/papagianneos_laugh_02.mp3'],
+    }),
+
+    pgnLaugh3: new Howl({
+        src: ['/audio/papagianneos_laugh_03.mp3'],
     }),
 
     null: new Howl({
