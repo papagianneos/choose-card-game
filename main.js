@@ -3192,8 +3192,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             clearInterval(pgnFinaleEffectsLoop);
                             music.papagianneosFinaleMusic.pause();
                             // Παίξε έναν τυχαίο ήχο..
-                            let which = randomChoice([1, 1, 2]);
-                            which == 1 ? sounds.pgnLaugh1.play() : sounds.pgnLaugh2.play();
+                            sounds[`pgnLaugh${getRandomInt(1, 3)}`].play();
                         }
 
                         extremeModeMusic.pause();
