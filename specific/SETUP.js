@@ -1,6 +1,6 @@
 import { sounds } from "../modules/sounds.js";
 
-(() => {
+//(() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     let playedRecording = false;
@@ -202,4 +202,4 @@ import { sounds } from "../modules/sounds.js";
         });
         window.requestAnimationFrame(updateStars);
     }
-})();
+//})();
