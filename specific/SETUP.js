@@ -6,19 +6,21 @@ import { sounds } from "../modules/sounds.js";
     let pass = '', e;
 
     const codecheck = () => {
-        if (pass == '++--PgnΚ>>') {
-            sounds.door.play();
-            setTimeout(() => {
-                cardWrapper.style.display = 'block';
-                buttonsHolder69.appendChild(playRecordingButton);
-                mainWrapper.appendChild(activateImaginaryCardButton);
-                mainWrapper.appendChild(buttonsHolder69);
-                clearInterval(e);
-            }, 8e3);
-        }
-        else if (pass.length >= 5) {
-            pass = '';
-            sounds.error.play();
+        if (pass.length >= 5) {
+            if (pass == '++--PgnΚ>>') {
+                sounds.door.play();
+                setTimeout(() => {
+                    cardWrapper.style.display = 'block';
+                    buttonsHolder69.appendChild(playRecordingButton);
+                    mainWrapper.appendChild(activateImaginaryCardButton);
+                    mainWrapper.appendChild(buttonsHolder69);
+                    clearInterval(e);
+                }, 8e3);
+            }
+            else {
+                pass = '';
+                sounds.error.play();
+            }
         }
     }
 
