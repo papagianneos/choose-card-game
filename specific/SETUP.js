@@ -1,9 +1,27 @@
 import { sounds } from "../modules/sounds.js";
 
-//(() => {
+(() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     let pass = '';
+
+    const codeProcess = (elem, thing) => {
+        pass += elem.innerText;
+        if (pass.length == thing.length && pass == '++--PgnΚ>>') {
+            sounds.door.play();
+            setTimeout(() => {
+                cardWrapper.style.display = 'block';
+                buttonsHolder69.appendChild(playRecordingButton);
+                mainWrapper.appendChild(activateImaginaryCardButton);
+                mainWrapper.appendChild(buttonsHolder69);
+            }, 8e3);
+        }
+        else if (pass.length == cardsToMake.length && pass != '++--PgnK>>') {
+            pass = '';
+            sounds.error.play();
+        }
+        console.log(pass);
+    }
 
     let playedRecording = false;
 
@@ -105,20 +123,7 @@ import { sounds } from "../modules/sounds.js";
             cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
             cardDiv2.onclick = () => {
                 sounds.buttonClick.play();
-                pass += cardDiv2.innerText;
-                if (pass.length == cardsToMake.length && pass == '++--PgnΚ>>') {
-                    sounds.door.play();
-                    setTimeout(() => {
-                        cardWrapper.style.display = 'block';
-                        buttonsHolder69.appendChild(playRecordingButton);
-                        mainWrapper.appendChild(activateImaginaryCardButton);
-                        mainWrapper.appendChild(buttonsHolder69);
-                    }, 8e3);
-                }
-                else if (pass.length == cardsToMake.length && pass != '++--PgnK>>') {
-                    pass = '';
-                    sounds.error.play();
-                }
+                codeProcess(cardDiv2, cardsToMake);
             }
 
             passwordDivHolder.appendChild(cardDiv2);
@@ -203,4 +208,4 @@ import { sounds } from "../modules/sounds.js";
         });
         window.requestAnimationFrame(updateStars);
     }
-//})();
+})();
