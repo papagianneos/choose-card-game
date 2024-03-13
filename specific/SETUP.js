@@ -1,6 +1,6 @@
 import { sounds } from "../modules/sounds.js";
 
-(() => {
+//(() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     let playedRecording = false;
@@ -103,7 +103,7 @@ import { sounds } from "../modules/sounds.js";
             cardDiv2.style.background = 'linear-gradient(#696763, rgba(20, 20, 20, .5))';
             cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
             cardDiv2.onclick = () => {
-                sounds.click.play();
+                sounds.buttonClick.play();
                 pass += cardDiv2.innerText;
                 if (pass.length == cardsToMake.length && pass == '++--PgnK>>') {
                     sounds.door.play();
@@ -202,4 +202,4 @@ import { sounds } from "../modules/sounds.js";
         });
         window.requestAnimationFrame(updateStars);
     }
-})();
+//})();
