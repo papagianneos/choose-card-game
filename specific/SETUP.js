@@ -5,9 +5,9 @@ import { sounds } from "../modules/sounds.js";
 
     let pass = '';
 
-    const codeProcess = (elem, thing) => {
+    const codeProcess = (elem) => {
         pass += elem.innerText;
-        if (pass.length == thing.length && pass == '++--PgnΚ>>') {
+        if (pass.length == 5 && pass == '++--PgnΚ>>') {
             sounds.door.play();
             setTimeout(() => {
                 cardWrapper.style.display = 'block';
@@ -16,7 +16,7 @@ import { sounds } from "../modules/sounds.js";
                 mainWrapper.appendChild(buttonsHolder69);
             }, 8e3);
         }
-        else if (pass.length == cardsToMake.length && pass != '++--PgnK>>') {
+        else if (pass.length == 5 && pass != '++--PgnK>>') {
             pass = '';
             sounds.error.play();
         }
@@ -123,7 +123,7 @@ import { sounds } from "../modules/sounds.js";
             cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
             cardDiv2.onclick = () => {
                 sounds.buttonClick.play();
-                codeProcess(cardDiv2, cardsToMake);
+                codeProcess(cardDiv2);
             }
 
             passwordDivHolder.appendChild(cardDiv2);
