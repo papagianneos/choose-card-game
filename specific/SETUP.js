@@ -6,7 +6,7 @@ import { sounds } from "../modules/sounds.js";
     let pass = '', e;
 
     const codecheck = () => {
-        if (pass.length >= 5) {
+        if (pass.length >= 10) {
             if (pass == '++--PgnΚ>>') {
                 sounds.door.play();
                 setTimeout(() => {
