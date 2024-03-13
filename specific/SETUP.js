@@ -12,7 +12,7 @@ import { sounds } from "../modules/sounds.js";
                 clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
-                    $('#thing').fadeOut(2000);
+                    $('#thing').fadeOut(500);
                     cardWrapper.style.display = 'block';
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
