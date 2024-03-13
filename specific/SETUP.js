@@ -1,6 +1,6 @@
 import { sounds } from "../modules/sounds.js";
 
-//(() => {
+(() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
     let playedRecording = false;
@@ -73,11 +73,11 @@ import { sounds } from "../modules/sounds.js";
     // --------------------------------------------------------------
 
     // ------------------------------------------------------
+    let pass = '';
+
     let button = document.createElement('button');
     button.appendChild(document.createTextNode('ENTER'));
     button.onclick = () => {
-        let pass = '';
-
         button.style.display = 'none';
         sounds.wind.play();
 
@@ -202,4 +202,4 @@ import { sounds } from "../modules/sounds.js";
         });
         window.requestAnimationFrame(updateStars);
     }
-//})();
+})();
