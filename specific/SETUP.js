@@ -3,6 +3,8 @@ import { sounds } from "../modules/sounds.js";
 //(() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
+    let pass = '';
+
     let playedRecording = false;
 
     let mainDiv = document.createElement('div');
@@ -73,7 +75,6 @@ import { sounds } from "../modules/sounds.js";
     // --------------------------------------------------------------
 
     // ------------------------------------------------------
-    let pass = '';
 
     let button = document.createElement('button');
     button.appendChild(document.createTextNode('ENTER'));
@@ -105,7 +106,7 @@ import { sounds } from "../modules/sounds.js";
             cardDiv2.onclick = () => {
                 sounds.buttonClick.play();
                 pass += cardDiv2.innerText;
-                if (pass.length == cardsToMake.length && pass == '++--PgnK>>') {
+                if (pass.length == cardsToMake.length && pass == '++--PgnΚ>>') {
                     sounds.door.play();
                     setTimeout(() => {
                         cardWrapper.style.display = 'block';
