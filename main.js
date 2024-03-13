@@ -2133,7 +2133,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             case 'papagianneosFinale': // LOL WHY I MADE THIS
                                 AMOUNT_OF_CARDS = 30;
                                 papagianneosFinaleEnabled = true;
-                                pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
                                 break;
 
                             /*case '???':
@@ -2394,6 +2393,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         document.body.removeChild(startScreen);
 
                         if (skin.pageBg != 'none') pageBody.style.backgroundImage = skin.pageBg;
+                        if (papagianneosFinaleEnabled) pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
                     }
 
                     return button;
