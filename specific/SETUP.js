@@ -12,14 +12,14 @@ import { sounds } from "../modules/sounds.js";
                 clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
-                    $('#thing').fadeOut(500);
                     cardWrapper.style.display = 'block';
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
+                    $('#thing').fadeOut(500);
                     $('#cardsHolder').fadeOut(0);
                     $('#cardsHolder').fadeIn(2000);
-                    document.body.removeChild(document.getElementById('thing'));
+                    setTimeout(() => { document.body.removeChild(document.getElementById('thing')); }, 3e3);
                 }, 6e3);
             }
             else {
