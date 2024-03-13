@@ -7,7 +7,7 @@ import { sounds } from "../modules/sounds.js";
 
     const codeProcess = (elem) => {
         pass += elem.innerText;
-        if (pass.length == 5 && pass == '++--PgnΚ>>') {
+        if (pass == '++--PgnΚ>>') {
             sounds.door.play();
             setTimeout(() => {
                 cardWrapper.style.display = 'block';
@@ -16,7 +16,7 @@ import { sounds } from "../modules/sounds.js";
                 mainWrapper.appendChild(buttonsHolder69);
             }, 8e3);
         }
-        else if (pass.length == 5 && pass != '++--PgnK>>') {
+        else if (pass.length >= 5) {
             pass = '';
             sounds.error.play();
         }
