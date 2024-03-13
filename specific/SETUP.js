@@ -17,6 +17,8 @@ import { sounds } from "../modules/sounds.js";
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
+                    $('#cardsHolder').fadeOut(0);
+                    $('#cardsHolder').fadeIn(2000);
                 }, 5e3);
             }
             else {
