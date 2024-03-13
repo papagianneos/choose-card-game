@@ -237,6 +237,10 @@ export const sounds = {
 
     freeze: new Howl({
         src: ['/audio/freeze_01.mp3']
+    }),
+
+    door: new Howl({
+        src: ['/audio/door_open.mp3']
     })
 }
 
