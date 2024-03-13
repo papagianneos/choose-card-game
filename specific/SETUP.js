@@ -11,7 +11,7 @@ import { sounds } from "../modules/sounds.js";
                 clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
-                    document.body.removeChidl(document.getElementById('thing'));
+                    document.body.removeChild(document.getElementById('thing'));
                     cardWrapper.style.display = 'block';
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
