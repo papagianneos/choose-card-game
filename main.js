@@ -2131,7 +2131,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
                             case 'papagianneosFinale': // LOL WHY I MADE THIS
-                                AMOUNT_OF_CARDS = 30;
+                                AMOUNT_OF_CARDS = 40;
                                 papagianneosFinaleEnabled = true;
                                 break;
 
