@@ -8,13 +8,14 @@ import { sounds } from "../modules/sounds.js";
     const codecheck = () => {
         if (pass.length >= 10) {
             if (pass == '++--PgnΚ>>') {
+                clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
+                    document.body.removeChidl(document.getElementById('thing'));
                     cardWrapper.style.display = 'block';
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
-                    clearInterval(e);
                 }, 8e3);
             }
             else {
@@ -27,7 +28,6 @@ import { sounds } from "../modules/sounds.js";
     e = setInterval(codecheck, 500);
     const codeProcess = (elem) => {
         pass += elem.innerText;
-        console.log(pass);
     }
 
     let playedRecording = false;
@@ -113,6 +113,7 @@ import { sounds } from "../modules/sounds.js";
         passwordDivHolder.style.transform = 'translate(-50%, -50%)';
         passwordDivHolder.style.top = '50%';
         passwordDivHolder.style.left = '50%';
+        passwordDivHolder.id = 'thing';
         passwordDivHolder.style.display = 'flex';
         passwordDivHolder.style.flexWrap = 'wrap';
         passwordDivHolder.style.alignItems = 'center';
