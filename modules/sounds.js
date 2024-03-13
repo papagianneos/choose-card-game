@@ -245,6 +245,14 @@ export const sounds = {
 
     error: new Howl({
         src: ['/audio/error.mp3']
+    }),
+
+    success: new Howl({
+        src: ['/audio/success.mp3']
+    }),
+
+    button: new Howl({
+        src: ['/audio/button_press.mp3']
     })
 }
 
