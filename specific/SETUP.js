@@ -8,6 +8,7 @@ import { sounds } from "../modules/sounds.js";
     const codecheck = () => {
         if (pass.length >= 10) {
             if (pass == '++--PgnΚ>>') {
+                sounds.success.play();
                 clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
@@ -16,11 +17,16 @@ import { sounds } from "../modules/sounds.js";
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
-                }, 8e3);
+                }, 5e3);
             }
             else {
                 pass = '';
                 sounds.error.play();
+                for (var card of document.getElementsByClassName('buttonCard')) {
+                    card.style.background = 'linear-gradient(#696763, rgba(20, 20, 20, .5))';
+                    card.style.pointerEvents = 'auto';
+                    sounds.button.play();
+                }
             }
         }
     }
@@ -128,9 +134,12 @@ import { sounds } from "../modules/sounds.js";
             const cardDiv2 = document.createElement('div');
             cardDiv2.className = 'card';
             cardDiv2.style.background = 'linear-gradient(#696763, rgba(20, 20, 20, .5))';
+            cardDiv2.classList.toggle('buttonCard');
             cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
             cardDiv2.onclick = () => {
-                sounds.buttonClick.play();
+                sounds.button.play();
+                cardDiv2.style.pointerEvents = 'none';
+                cardDiv.style.background = 'black';
                 codeProcess(cardDiv2);
             }
 
