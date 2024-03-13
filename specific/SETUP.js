@@ -19,7 +19,7 @@ import { sounds } from "../modules/sounds.js";
                     mainWrapper.appendChild(buttonsHolder69);
                     $('#cardsHolder').fadeOut(0);
                     $('#cardsHolder').fadeIn(2000);
-                }, 5e3);
+                }, 6e3);
             }
             else {
                 pass = '';
