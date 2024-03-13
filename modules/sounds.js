@@ -252,7 +252,7 @@ export const sounds = {
     }),
 
     button: new Howl({
-        src: ['/audio/button_press.mp3']
+        src: ['/audio/button_press_01.mp3']
     })
 }
 
