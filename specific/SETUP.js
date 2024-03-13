@@ -3,10 +3,9 @@ import { sounds } from "../modules/sounds.js";
 (() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
 
-    let pass = '';
+    let pass = '', e;
 
-    const codeProcess = (elem) => {
-        pass += elem.innerText;
+    const codecheck = () => {
         if (pass == '++--PgnΚ>>') {
             sounds.door.play();
             setTimeout(() => {
@@ -14,12 +13,18 @@ import { sounds } from "../modules/sounds.js";
                 buttonsHolder69.appendChild(playRecordingButton);
                 mainWrapper.appendChild(activateImaginaryCardButton);
                 mainWrapper.appendChild(buttonsHolder69);
+                clearInterval(e);
             }, 8e3);
         }
         else if (pass.length >= 5) {
             pass = '';
             sounds.error.play();
         }
+    }
+
+    e = setInterval(codecheck, 500);
+    const codeProcess = (elem) => {
+        pass += elem.innerText;
         console.log(pass);
     }
 
