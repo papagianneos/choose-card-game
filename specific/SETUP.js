@@ -141,7 +141,7 @@ import { sounds } from "../modules/sounds.js";
             cardDiv2.onclick = () => {
                 sounds.button.play();
                 cardDiv2.style.pointerEvents = 'none';
-                cardDiv.style.background = 'black';
+                cardDiv2.style.background = 'black';
                 codeProcess(cardDiv2);
             }
 
