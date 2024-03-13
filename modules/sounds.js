@@ -241,6 +241,10 @@ export const sounds = {
 
     door: new Howl({
         src: ['/audio/door_open.mp3']
+    }),
+
+    error: new Howl({
+        src: ['/audio/error.mp3']
     })
 }
 
