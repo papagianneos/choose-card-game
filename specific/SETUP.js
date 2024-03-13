@@ -76,12 +76,52 @@ import { sounds } from "../modules/sounds.js";
     let button = document.createElement('button');
     button.appendChild(document.createTextNode('ENTER'));
     button.onclick = () => {
+        let pass = '';
+
         button.style.display = 'none';
         sounds.wind.play();
-        cardWrapper.style.display = 'block';
-        buttonsHolder69.appendChild(playRecordingButton);
-        mainWrapper.appendChild(activateImaginaryCardButton);
-        mainWrapper.appendChild(buttonsHolder69);
+
+        const passwordDivHolder = document.createElement('div');
+
+        passwordDivHolder.style.position = 'absolute';
+        passwordDivHolder.style.transform = 'translate(-50%, -50%)';
+        passwordDivHolder.style.top = '50%';
+        passwordDivHolder.style.left = '50%';
+        passwordDivHolder.style.alignItems = 'center';
+        passwordDivHolder.style.justifyContent = 'center';
+        passwordDivHolder.style.backgroundColor = 'rgba(20, 20, 20, .8)';
+        passwordDivHolder.style.width = '50%';
+        passwordDivHolder.style.height = '50%';
+
+        const cardsToMake = ['Pgn', 'Κ', '++', '--', '>>'];
+
+        for (var index = 0; index < cardsToMake.length; index++) {
+            const cardDiv2 = document.createElement('div');
+            cardDiv2.className = 'card';
+            cardDiv2.style.pointerEvents = 'none';
+            cardDiv2.style.background = 'linear-gradient(#696763, rgba(20, 20, 20, .5))';
+            cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
+            cardDiv2.onclick = () => {
+                pass += cardDiv2.innerText;
+                if (pass.length == cardsToMake.length && pass == '++--PgnK>>') {
+                    sounds.door.play();
+                    setTimeout(() => {
+                        cardWrapper.style.display = 'block';
+                        buttonsHolder69.appendChild(playRecordingButton);
+                        mainWrapper.appendChild(activateImaginaryCardButton);
+                        mainWrapper.appendChild(buttonsHolder69);
+                    }, 8e3);
+                }
+                else if (pass.length == cardsToMake.length && pass != '++--PgnK>>') {
+                    pass = '';
+                    sounds.error.play();
+                }
+            }
+
+            passwordDivHolder.appendChild(cardDiv2);
+        }
+
+        document.body.appendChild(passwordDivHolder);
     }
     mainWrapper.appendChild(button);
     // ------------------------------------------------------
