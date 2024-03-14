@@ -6,8 +6,8 @@ import { sounds } from "../modules/sounds.js";
     let pass = '', e;
 
     const codecheck = () => {
-        if (pass.length >= 10) {
-            if (pass == '++--PgnΚ>>') {
+        if (pass.length >= 13) {
+            if (pass == '++--PgnKΩ>>Λ∞') {
                 for (var card of document.getElementsByClassName('buttonCard')) {
                     sounds.button.play();
                     card.style.background = 'linear-gradient(red, black)';
@@ -136,7 +136,7 @@ import { sounds } from "../modules/sounds.js";
         passwordDivHolder.style.width = '50%';
         passwordDivHolder.style.height = '50%';
 
-        const cardsToMake = ['Pgn', 'Κ', '++', '--', '>>'];
+        const cardsToMake = ['Pgn', 'Κ', '++', '--', 'Ω', '>>', 'Λ', '∞'];
 
         for (var index = 0; index < cardsToMake.length; index++) {
             const cardDiv2 = document.createElement('div');
