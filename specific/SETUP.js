@@ -8,19 +8,21 @@ import { sounds } from "../modules/sounds.js";
     const codecheck = () => {
         if (pass.length >= 10) {
             if (pass == '++--PgnΚ>>') {
-                for (var card of document.getElementsByClassName('buttonCard')) sounds.button.play();
-                sounds.success.play();
+                for (var card of document.getElementsByClassName('buttonCard')) {
+                    sounds.button.play();
+                    card.style.background = 'linear-gradient(red, black)';
+                }
+                setTimeout(() => { sounds.success.play(); }, 1e3);
                 clearInterval(e);
                 sounds.door.play();
                 setTimeout(() => {
-                    sounds.wind.play();
                     $('#thing').fadeOut(500);
                     cardWrapper.style.display = 'block';
                     buttonsHolder69.appendChild(playRecordingButton);
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
                     $('#cardsHolder').fadeOut(0);
-                    $('#cardsHolder').fadeIn(3000);
+                    $('#cardsHolder').fadeIn(4000);
                     setTimeout(() => { document.body.removeChild(document.getElementById('thing')); }, 3e3);
                 }, 5e3);
             }
@@ -115,6 +117,7 @@ import { sounds } from "../modules/sounds.js";
     let button = document.createElement('button');
     button.appendChild(document.createTextNode('ENTER'));
     button.onclick = () => {
+        sounds.wind.play();
         button.style.display = 'none';
 
         const passwordDivHolder = document.createElement('div');
