@@ -1,4 +1,5 @@
 import { sounds } from "../modules/sounds.js";
+import { randomChoice } from "../modules/useful-functions.js";
 
 (() => {
     document.getElementsByTagName('body')[0].style.backgroundImage = 'none';
@@ -136,21 +137,30 @@ import { sounds } from "../modules/sounds.js";
         passwordDivHolder.style.width = '50%';
         passwordDivHolder.style.height = '50%';
 
-        const cardsToMake = ['Pgn', 'Κ', '++', '--', 'Ω', '>>', 'Λ', '∞'];
+        const cardsToMake = ['Pgn', 'Κ', '++', '>>', '∞', '--', 'Λ', 'Ω'];
+
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('buttonCard')) {
+                const card = event.target;
+                sounds.button.play();
+                card.style.pointerEvents = 'none';
+                card.style.background = 'black';
+                codeProcess(card);
+            }
+        });
 
         for (var index = 0; index < cardsToMake.length; index++) {
             const cardDiv2 = document.createElement('div');
             cardDiv2.className = 'card';
             cardDiv2.style.background = 'linear-gradient(#696763, rgba(20, 20, 20, .5))';
             cardDiv2.classList.toggle('buttonCard');
-            cardDiv2.appendChild(document.createTextNode(cardsToMake[index]));
-            cardDiv2.onclick = () => {
-                sounds.button.play();
-                cardDiv2.style.pointerEvents = 'none';
-                cardDiv2.style.background = 'black';
-                codeProcess(cardDiv2);
-            }
 
+            const textElement = document.createElement('keimenolol');
+            textElement.innerText = cardsToMake[index];
+            textElement.style.transform = `rotate(${randomChoice(['45', '-45', '15', '15'])}deg)`;
+            cardDiv2.appendChild(textElement);
+
+            cardDiv2.appendChild(textElement);
             passwordDivHolder.appendChild(cardDiv2);
         }
 
