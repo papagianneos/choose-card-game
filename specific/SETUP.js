@@ -11,6 +11,7 @@ import { sounds } from "../modules/sounds.js";
                 for (var card of document.getElementsByClassName('buttonCard')) {
                     sounds.button.play();
                     card.style.background = 'linear-gradient(red, black)';
+                    card.innerText = '👁';
                 }
                 setTimeout(() => { sounds.success.play(); }, 1e3);
                 clearInterval(e);
