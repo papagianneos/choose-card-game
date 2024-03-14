@@ -20,7 +20,7 @@ import { sounds } from "../modules/sounds.js";
                     mainWrapper.appendChild(activateImaginaryCardButton);
                     mainWrapper.appendChild(buttonsHolder69);
                     $('#cardsHolder').fadeOut(0);
-                    $('#cardsHolder').fadeIn(2000);
+                    $('#cardsHolder').fadeIn(3000);
                     setTimeout(() => { document.body.removeChild(document.getElementById('thing')); }, 3e3);
                 }, 5e3);
             }
