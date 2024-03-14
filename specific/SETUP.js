@@ -158,6 +158,7 @@ import { randomChoice } from "../modules/useful-functions.js";
             const textElement = document.createElement('keimenolol');
             textElement.innerText = cardsToMake[index];
             textElement.style.transform = `rotate(${randomChoice(['45', '-45', '15', '15'])}deg)`;
+            textElement.style.pointerEvents = 'none';
             cardDiv2.appendChild(textElement);
 
             cardDiv2.appendChild(textElement);
