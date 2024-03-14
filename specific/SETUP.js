@@ -7,7 +7,7 @@ import { sounds } from "../modules/sounds.js";
 
     const codecheck = () => {
         if (pass.length >= 13) {
-            if (pass == '++--PgnKΩ>>Λ∞') {
+            if (pass == '++--PgnΚΩ>>Λ∞') {
                 for (var card of document.getElementsByClassName('buttonCard')) {
                     sounds.button.play();
                     card.style.background = 'linear-gradient(red, black)';
