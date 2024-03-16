@@ -3134,7 +3134,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 parentDiv.replaceChildren(...cardsListToShuffle);
 
                                 currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
-                                removedSpecialCardsFromFullCount.push(false);
+                                removedSpecialCardsFromFullCount.push(false, false, false);
                                 blockClicks = false;
                                 gameMusic = music.theTrueFinale;
                                 gameMusic.play();
