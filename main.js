@@ -1157,6 +1157,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             case specialCardsConfig.hammer.shape: // hammer
                                 card.specialCardEffect = () => {
+                                    sounds.hammer.play();
                                     pgnHealth -= 50;
                                     timeBar.setAttribute("value", pgnHealth);
                                     if (pgnHealth <= 0) BLOCK_WIN = false;
@@ -3058,21 +3059,54 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             }
                             gameEnded = true;
                         }
-                        else if (BLOCK_WIN) {
+                        else if (BLOCK_WIN) { // ANGRY PGN v2
                             gameMusic.pause();
                             blockClicks = true;
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
+                                BLOCK_WIN = true;
+                                scoreText.innerText = 'YOU WILL NOT WIN';
+                                scoreText.style.color = 'red';
+                                scoreText.style.fontSize = '30px';
+                                clearInterval(pgnFinaleEffectsLoop);
+                                document.getElementById('cardsHolder').style.position = 'static';
+                                document.getElementById('cardsHolder').style.transition = '1s';
+                                document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
+                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
-                                for (var index = 0; index < 15; index++) {
+                                timeBar.setAttribute("max", pgnHealth);
+                                timeBar.setAttribute("value", pgnHealth);
+                                document.getElementById('timeBar').style.display = 'block';
+                                for (var index = 0; index < 36; index++) {
                                     createCard({
                                         shape: 'mazeWall',
                                         color: 'transparent',
                                         mazeWall: true,
                                         specialCard: true,
                                         specialCardEffect: () => { }
+                                    });
+                                    createCard({
+                                        shape: specialCardsConfig.hammer.shape,
+                                        color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            sounds.hammer.play();
+                                            pgnHealth -= 50;
+                                            timeBar.setAttribute("value", pgnHealth);
+                                            if (pgnHealth <= 0) BLOCK_WIN = false;
+                                        }
+                                    });
+                                    createCard({
+                                        shape: '+H+',
+                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            pgnHealth += 10;
+                                            timeBar.setAttribute("value", pgnHealth);
+                                        }
                                     });
                                     resetCards(false);
                                 }
@@ -3085,7 +3119,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className.includes('card')) {
+                                    if (child.className.includes('card') && ['mazeWall', '+H+', specialCardsConfig.hammer.shape].includes(child.savedText)) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
@@ -3099,7 +3133,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSpecialCards.push('mazeWall');
                                 removedSpecialCardsFromFullCount.push(false);
                                 blockClicks = false;
-                                gameMusic = music.papagianneosFinaleMusic;
+                                gameMusic = music.theTrueFinale;
                                 gameMusic.play();
                             }, 2e3);
                         }
