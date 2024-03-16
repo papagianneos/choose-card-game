@@ -2673,19 +2673,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             setTimeout(() => {
                                 BLOCK_WIN = true;
                                 clearInterval(pgnFinaleEffectsLoop);
+                                document.getElementById('cardsHolder').style.position = 'static';
+                                document.getElementById('cardsHolder').style.transition = '1s';
+                                document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                 pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
+                                timeBar.setAttribute("max", pgnHealth);
                                 timeBar.setAttribute("value", pgnHealth);
                                 document.getElementById('timeBar').style.display = 'block';
                                 for (var index = 0; index < 15; index++) {
-                                    createCard({
-                                        shape: 'mazeWall',
-                                        color: 'transparent',
-                                        mazeWall: true,
-                                        specialCard: true,
-                                        specialCardEffect: () => { }
-                                    });
                                     createCard({
                                         shape: specialCardsConfig.hammer.shape,
                                         color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
@@ -2697,16 +2694,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         }
                                     });
                                     createCard({
-                                        shape: specialCardsConfig.aleph.shape,
-                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.aleph.color : `${specialCardsConfig.aleph.color}, ${skin.bg}`,
+                                        shape: '+H+',
+                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
                                         specialCard: true,
                                         specialCardEffect: () => {
-                                            gameMusic.pause();
-                                            extremeModeMusic.pause();
-                                            sounds.alephEffect.play();
-                                            setTimeout(() => {
-                                                open(location, '_self').close();
-                                            }, 3e3);
+                                            pgnHealth += 50;
+                                            timeBar.setAttribute("value", pgnHealth);
                                         }
                                     });
                                     resetCards(false);
@@ -2720,7 +2713,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className.includes('card') && [specialCardsConfig.death.shape, specialCardsConfig.hammer.shape].includes(child.savedText)) {
+                                    if (child.className.includes('card') && ['+H+', specialCardsConfig.death.shape, specialCardsConfig.hammer.shape].includes(child.savedText)) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
