@@ -3103,7 +3103,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     });
                                     createCard({
                                         shape: '+H+',
-                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
+                                        color: pgnBirthday ? `${specialCardsConfig.death.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
                                         specialCard: true,
                                         specialCardEffect: () => {
                                             pgnHealth += 10;
@@ -3132,7 +3132,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
                                 parentDiv.replaceChildren(...cardsListToShuffle);
 
-                                currentSpecialCards.push('mazeWall');
+                                currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
                                 removedSpecialCardsFromFullCount.push(false);
                                 blockClicks = false;
                                 gameMusic = music.theTrueFinale;
