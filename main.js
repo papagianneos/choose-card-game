@@ -2673,7 +2673,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             /*blockClicks = true;
                             sounds.angryPgnFinale.play();
                             pageBody.style.transition = '1s';*/
-                            setTimeout(() => {
+                            //setTimeout(() => {
                                /* pageBody.style.transform = 'rotate(360deg)';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
@@ -2710,7 +2710,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 blockClicks = false;*/
                                 gameMusic = music.papagianneosFinaleMusic;
                                 gameMusic.play();
-                            }, 2e3);
+                           // }, 2e3);
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
@@ -3081,6 +3081,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 pageBody.style.transform = 'rotate(360deg)';
                                 timeBar.setAttribute("max", pgnHealth);
                                 timeBar.setAttribute("value", pgnHealth);
+                                timeBar.style.width = '100%';
                                 document.getElementById('timeBar').style.display = 'block';
                                 for (var index = 0; index < 36; index++) {
                                     createCard({
