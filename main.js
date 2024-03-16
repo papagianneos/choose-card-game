@@ -180,6 +180,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 changedMoosic = false,
                 BLOCK_WIN = false,
                 pgnHealth = 200,
+                runCutscene = false,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
 
@@ -3060,7 +3061,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             }
                             gameEnded = true;
                         }
-                        else if (BLOCK_WIN) { // ANGRY PGN v2
+                        else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2
+                            runCutscene = true;
                             gameMusic.pause();
                             blockClicks = true;
                             sounds.angryPgnFinale.play();
