@@ -3084,10 +3084,18 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                 pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
+
+                                // ------------------------------------------------------------------------------------------------------------------------------------
+                                // Boss Health Bar.
+                                // ------------------------------------------------------------------------------------------------------------------------------------
                                 timeBar.setAttribute("max", pgnHealth);
                                 timeBar.setAttribute("value", pgnHealth);
+                                document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${specialCardsConfig.pgn.color}; }`;
                                 timeBar.style.width = '100%';
                                 document.getElementById('timeBar').style.display = 'block';
+                                document.getElementById('timeBar').style.transform = 'none';
+                                // ------------------------------------------------------------------------------------------------------------------------------------
+
                                 for (var index = 0; index < 36; index++) {
                                     createCard({
                                         shape: 'mazeWall',
