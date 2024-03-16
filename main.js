@@ -2669,9 +2669,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // ANGRY PGN
                         if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
                             gameMusic.pause();
+                            papagianneosFinaleAngryRun = true;
                             /*blockClicks = true;
                             sounds.angryPgnFinale.play();
-                            papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';*/
                             setTimeout(() => {
                                /* pageBody.style.transform = 'rotate(360deg)';
