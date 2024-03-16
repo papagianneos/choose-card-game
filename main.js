@@ -3090,7 +3090,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // ------------------------------------------------------------------------------------------------------------------------------------
                                 timeBar.setAttribute("max", pgnHealth);
                                 timeBar.setAttribute("value", pgnHealth);
-                                document.getElementsByTagName('style')[1].innerHTML = `::-webkit-progress-value { background: ${specialCardsConfig.pgn.color}; }`;
+                                let tempStyleTag2 = document.createElement('style');
+                                tempStyleTag2.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${specialCardsConfig.pgn.color}; }`));
+                                document.head.appendChild(tempStyleTag2);
+                                timedModeStyleTagMade = true;
                                 timeBar.style.width = '100%';
                                 document.getElementById('timeBar').style.display = 'block';
                                 document.getElementById('timeBar').style.transform = 'none';
