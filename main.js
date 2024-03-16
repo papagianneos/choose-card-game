@@ -178,6 +178,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 papagianneosFinaleAngryRun = false,
                 brokenCardIDK = false,
                 changedMoosic = false,
+                BLOCK_WIN = false,
+                pgnHealth = 200,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
 
@@ -1150,6 +1152,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         sounds.loss.play()
                                     }
                                     lostByDeathCard = true;
+                                }
+                                break;
+
+                            case specialCardsConfig.hammer.shape: // hammer
+                                card.specialCardEffect = () => {
+                                    pgnHealth -= 50;
+                                    timeBar.setAttribute("value", pgnHealth);
+                                    if (pgnHealth <= 0) BLOCK_WIN = false;
                                 }
                                 break;
 
@@ -2131,7 +2141,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 break;
 
                             case 'papagianneosFinale': // LOL WHY I MADE THIS
-                                AMOUNT_OF_CARDS = 34;
+                                AMOUNT_OF_CARDS = 32;
                                 papagianneosFinaleEnabled = true;
                                 break;
 
@@ -2661,7 +2671,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
+                                BLOCK_WIN = true;
+                                clearInterval(pgnFinaleEffectsLoop);
+                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
+                                timeBar.setAttribute("value", pgnHealth);
+                                document.getElementById('timeBar').style.display = 'block';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
                                         shape: 'mazeWall',
@@ -2669,6 +2685,29 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         mazeWall: true,
                                         specialCard: true,
                                         specialCardEffect: () => { }
+                                    });
+                                    createCard({
+                                        shape: specialCardsConfig.hammer.shape,
+                                        color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            pgnHealth -= 50;
+                                            timeBar.setAttribute("value", pgnHealth);
+                                            if (pgnHealth <= 0) BLOCK_WIN = false;
+                                        }
+                                    });
+                                    createCard({
+                                        shape: specialCardsConfig.aleph.shape,
+                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.aleph.color : `${specialCardsConfig.aleph.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            gameMusic.pause();
+                                            extremeModeMusic.pause();
+                                            sounds.alephEffect.play();
+                                            setTimeout(() => {
+                                                open(location, '_self').close();
+                                            }, 3e3);
+                                        }
                                     });
                                     resetCards(false);
                                 }
@@ -2681,7 +2720,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className.includes('card')) {
+                                    if (child.className.includes('card') && [specialCardsConfig.death.shape, specialCardsConfig.hammer.shape].includes(child.savedText)) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
@@ -2695,7 +2734,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSpecialCards.push('mazeWall');
                                 removedSpecialCardsFromFullCount.push(false);
                                 blockClicks = false;
-                                gameMusic = music.papagianneosFinaleMusic;
+                                gameMusic = music.theTrueFinale;
                                 gameMusic.play();
                             }, 2e3);
                         }
@@ -2824,11 +2863,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 const winCheckLoop = (openedCards) => {
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
-                        hideAndSeekWin || // Hide And Seek all cards found.
-                        wonBySpecialCard || // "K" card found
-                        (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
-                        (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
-                    ) {
+                        !BLOCK_WIN && (
+                            hideAndSeekWin || // Hide And Seek all cards found.
+                            wonBySpecialCard || // "K" card found
+                            (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
+                            (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
+                        )) {
                         // Αν δεν είναι VOID mode.
                         if (voidModeOver) {
 
@@ -2994,7 +3034,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             pageBody.style.backgroundSize = 'cover';
                             if (papagianneosFinaleEnabled) {
                                 sounds.pgnFinaleWin.play();
-                                clearInterval(pgnFinaleEffectsLoop);
                             }
 
                             // Κείμενο στην οθόνη (κέρδισες!) για score και προσπάθειες
