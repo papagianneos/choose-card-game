@@ -2672,6 +2672,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
                                 BLOCK_WIN = true;
+                                scoreText.innerText = 'YOU WILL NOT WIN';
                                 clearInterval(pgnFinaleEffectsLoop);
                                 document.getElementById('cardsHolder').style.position = 'static';
                                 document.getElementById('cardsHolder').style.transition = '1s';
@@ -2682,7 +2683,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 timeBar.setAttribute("max", pgnHealth);
                                 timeBar.setAttribute("value", pgnHealth);
                                 document.getElementById('timeBar').style.display = 'block';
-                                for (var index = 0; index < 15; index++) {
+                                for (var index = 0; index < 36; index++) {
                                     createCard({
                                         shape: 'mazeWall',
                                         color: 'transparent',
@@ -2705,7 +2706,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
                                         specialCard: true,
                                         specialCardEffect: () => {
-                                            pgnHealth += 50;
+                                            pgnHealth += 10;
                                             timeBar.setAttribute("value", pgnHealth);
                                         }
                                     });
