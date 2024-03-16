@@ -3128,6 +3128,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         specialCardEffect: () => {
                                             pgnHealth += 10;
                                             timeBar.setAttribute("value", pgnHealth);
+                                            sounds.loss.play();
                                         }
                                     });
                                     resetCards(false);
