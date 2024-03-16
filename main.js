@@ -1160,7 +1160,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             case specialCardsConfig.hammer.shape: // hammer
                                 card.specialCardEffect = () => {
                                     sounds.hammer.play();
-                                    pgnHealth -= 50;
+                                    pgnHealth -= 25;
                                     timeBar.setAttribute("value", pgnHealth);
                                     if (pgnHealth <= 0) {
                                         BLOCK_WIN = false;
@@ -3066,7 +3066,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             }
                             gameEnded = true;
                         }
-                        else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2
+                        else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2 (BOSS BATTLE)
                             runCutscene = true;
                             gameMusic.pause();
                             blockClicks = true;
@@ -3102,7 +3102,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         specialCard: true,
                                         specialCardEffect: () => {
                                             sounds.hammer.play();
-                                            pgnHealth -= 50;
+                                            pgnHealth -= 25;
                                             timeBar.setAttribute("value", pgnHealth);
                                             if (pgnHealth <= 0) {
                                                 BLOCK_WIN = false;
