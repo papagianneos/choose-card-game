@@ -2664,51 +2664,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // -------------------------------------------------------------------------
 
                         // ANGRY PGN
-                        if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
+                        /*if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
                             gameMusic.pause();
                             blockClicks = true;
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
-                                BLOCK_WIN = true;
-                                scoreText.innerText = 'YOU WILL NOT WIN';
-                                clearInterval(pgnFinaleEffectsLoop);
-                                document.getElementById('cardsHolder').style.position = 'static';
-                                document.getElementById('cardsHolder').style.transition = '1s';
-                                document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
-                                timeBar.setAttribute("max", pgnHealth);
-                                timeBar.setAttribute("value", pgnHealth);
-                                document.getElementById('timeBar').style.display = 'block';
-                                for (var index = 0; index < 36; index++) {
+                                for (var index = 0; index < 15; index++) {
                                     createCard({
                                         shape: 'mazeWall',
                                         color: 'transparent',
                                         mazeWall: true,
                                         specialCard: true,
                                         specialCardEffect: () => { }
-                                    });
-                                    createCard({
-                                        shape: specialCardsConfig.hammer.shape,
-                                        color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
-                                        specialCard: true,
-                                        specialCardEffect: () => {
-                                            pgnHealth -= 50;
-                                            timeBar.setAttribute("value", pgnHealth);
-                                            if (pgnHealth <= 0) BLOCK_WIN = false;
-                                        }
-                                    });
-                                    createCard({
-                                        shape: '+H+',
-                                        color: pgnBirthday ? `${specialCardsConfig.aleph.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
-                                        specialCard: true,
-                                        specialCardEffect: () => {
-                                            pgnHealth += 10;
-                                            timeBar.setAttribute("value", pgnHealth);
-                                        }
                                     });
                                     resetCards(false);
                                 }
@@ -2721,7 +2691,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className.includes('card') && ['mazeWall', '+H+', specialCardsConfig.hammer.shape].includes(child.savedText)) {
+                                    if (child.className.includes('card')) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
@@ -2735,13 +2705,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSpecialCards.push('mazeWall');
                                 removedSpecialCardsFromFullCount.push(false);
                                 blockClicks = false;
-                                gameMusic = music.theTrueFinale;
+                                gameMusic = music.papagianneosFinaleMusic;
                                 gameMusic.play();
                             }, 2e3);
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
-                        else if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
+                        else */if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
 
                             // Φτάνει με το παρόν, ώρα για το μέλλον.
                             if (OG_modeEnabled && !appliedOGModeEffect) {
@@ -2864,14 +2834,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 const winCheckLoop = (openedCards) => {
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
-                        !BLOCK_WIN && (
-                            hideAndSeekWin || // Hide And Seek all cards found.
-                            wonBySpecialCard || // "K" card found
-                            (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
-                            (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
-                        )) {
-                        // Αν δεν είναι VOID mode.
-                        if (voidModeOver) {
+                        hideAndSeekWin || // Hide And Seek all cards found.
+                        wonBySpecialCard || // "K" card found
+                        (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
+                        (enabledImaginaryUniverse && (openedCards.length / 2) == (STANDARD_AMOUNT_OF_CARDS / 2)) // Winning in Imaginary Universe
+                    ) {
+                        // Αν δεν είναι VOID mode ή Papagianneos Finale.
+                        if (voidModeOver && !BLOCK_WIN) {
 
                             // -------------------------------------------------------------------
                             // Επιτεύγματα για κάθε mode. Μην μετράς τις νίκες από την σπεσιαλ Κ
@@ -3089,7 +3058,52 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             }
                             gameEnded = true;
                         }
-                        else {
+                        else if (BLOCK_WIN) {
+                            gameMusic.pause();
+                            blockClicks = true;
+                            sounds.angryPgnFinale.play();
+                            papagianneosFinaleAngryRun = true;
+                            pageBody.style.transition = '1s';
+                            setTimeout(() => {
+                                pageBody.style.transform = 'rotate(360deg)';
+                                for (var index = 0; index < 15; index++) {
+                                    createCard({
+                                        shape: 'mazeWall',
+                                        color: 'transparent',
+                                        mazeWall: true,
+                                        specialCard: true,
+                                        specialCardEffect: () => { }
+                                    });
+                                    resetCards(false);
+                                }
+
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className.includes('card')) {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
+
+                                shuffle(cardsListToShuffle);
+
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
+
+                                currentSpecialCards.push('mazeWall');
+                                removedSpecialCardsFromFullCount.push(false);
+                                blockClicks = false;
+                                gameMusic = music.papagianneosFinaleMusic;
+                                gameMusic.play();
+                            }, 2e3);
+                        }
+                        else if (!voidModeOver) {
 
                             // Void Mode Setup
 
