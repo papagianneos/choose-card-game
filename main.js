@@ -179,6 +179,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 brokenCardIDK = false,
                 changedMoosic = false,
                 BLOCK_WIN = false,
+                beatenBoss = false,
                 pgnHealth = 200,
                 runCutscene = false,
                 pgnFinaleEffectsLoop;
@@ -1161,7 +1162,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     sounds.hammer.play();
                                     pgnHealth -= 50;
                                     timeBar.setAttribute("value", pgnHealth);
-                                    if (pgnHealth <= 0) BLOCK_WIN = false;
+                                    if (pgnHealth <= 0) {
+                                        BLOCK_WIN = false;
+                                        beatenBoss = true;
+                                    }
                                 }
                                 break;
 
@@ -2837,6 +2841,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 const winCheckLoop = (openedCards) => {
                     // Τσέκαρε για νίκη με διαφορετικές περιπτώσεις.
                     if (
+                        beatenBoss ||
                         hideAndSeekWin || // Hide And Seek all cards found.
                         wonBySpecialCard || // "K" card found
                         (!hideAndSeekModeEnabled && !enabledImaginaryUniverse && ((nonPairCardExists ? (openedCards.length + 1) : openedCards.length) / 2) >= (AMOUNT_OF_CARDS / 2)) ||
@@ -3099,7 +3104,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                             sounds.hammer.play();
                                             pgnHealth -= 50;
                                             timeBar.setAttribute("value", pgnHealth);
-                                            if (pgnHealth <= 0) BLOCK_WIN = false;
+                                            if (pgnHealth <= 0) {
+                                                BLOCK_WIN = false;
+                                                beatenBoss = true;
+                                            }
                                         }
                                     });
                                     createCard({
