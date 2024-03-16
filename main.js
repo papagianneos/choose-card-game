@@ -454,7 +454,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     }
 
                                     currentSelected = [];
-                                    updateScore();
+                                    if (!runCutscene) updateScore();
 
                                     // --------------------------------------------
                                     // εφόσον είναι το ίδιο κείμενο/σχήμα η κάρτα
