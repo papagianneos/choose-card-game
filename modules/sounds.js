@@ -258,7 +258,11 @@ export const sounds = {
 
     button: new Howl({
         src: ['/audio/button_press_01.mp3']
-    })
+    }),
+
+    hammer: new Howl({
+        src: ['/audio/hammer_hit_01.mp3']
+    }),
 }
 
 // --------------------------------------------------------------
