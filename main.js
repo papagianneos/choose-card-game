@@ -2667,14 +2667,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         // -------------------------------------------------------------------------
 
                         // ANGRY PGN
-                        /*if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
+                        if (papagianneosFinaleEnabled && (closedCards.length <= 6 && gameStarted)) {
                             gameMusic.pause();
-                            blockClicks = true;
+                            /*blockClicks = true;
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
-                            pageBody.style.transition = '1s';
+                            pageBody.style.transition = '1s';*/
                             setTimeout(() => {
-                                pageBody.style.transform = 'rotate(360deg)';
+                               /* pageBody.style.transform = 'rotate(360deg)';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
                                         shape: 'mazeWall',
@@ -2707,14 +2707,14 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                 currentSpecialCards.push('mazeWall');
                                 removedSpecialCardsFromFullCount.push(false);
-                                blockClicks = false;
+                                blockClicks = false;*/
                                 gameMusic = music.papagianneosFinaleMusic;
                                 gameMusic.play();
                             }, 2e3);
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
-                        else */if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
+                        else if (closedCards.length <= (OG_modeEnabled ? 4 : 6) && gameStarted) {
 
                             // Φτάνει με το παρόν, ώρα για το μέλλον.
                             if (OG_modeEnabled && !appliedOGModeEffect) {
