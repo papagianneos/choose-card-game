@@ -205,4 +205,11 @@ export const specialCardsConfig = {
         color: 'conic-gradient(maroon, magenta, maroon)',
         info: LANGUAGE_DATA[LANGUAGE_INDEX].info_special_card_lifesaver,
     },
+
+    hammer: {
+        shape: '■▬■',
+        color: 'linear-gradient(45deg, grey, black, grey)',
+        info: '$>%^?%?^?&',
+        neverSpawn: true
+    }
 };
