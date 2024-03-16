@@ -79,6 +79,11 @@ export const music = {
         loop: true
     }),
 
+    theTrueFinale: new Howl({
+        src: ['/audio/THE_TRUE_FINALE.mp3'],
+        loop: true
+    }),
+
     timeLevelMusicOG: new Howl({
         src: ['/audio/time_level_01.mp3'],
         loop: true,
