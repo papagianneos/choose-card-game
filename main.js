@@ -2684,6 +2684,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('timeBar').style.display = 'block';
                                 for (var index = 0; index < 15; index++) {
                                     createCard({
+                                        shape: 'mazeWall',
+                                        color: 'transparent',
+                                        mazeWall: true,
+                                        specialCard: true,
+                                        specialCardEffect: () => { }
+                                    });
+                                    createCard({
                                         shape: specialCardsConfig.hammer.shape,
                                         color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
                                         specialCard: true,
@@ -2713,7 +2720,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 for (var e = 0; e < parentDiv.children.length; e++) {
                                     let child = parentDiv.children[e];
                                     // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                    if (child.className.includes('card') && ['+H+', specialCardsConfig.death.shape, specialCardsConfig.hammer.shape].includes(child.savedText)) {
+                                    if (child.className.includes('card') && ['mazeWall', '+H+', specialCardsConfig.hammer.shape].includes(child.savedText)) {
                                         cardsListToShuffle.push(child);
                                     }
                                 }
