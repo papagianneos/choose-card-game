@@ -2144,6 +2144,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             case 'papagianneosFinale': // LOL WHY I MADE THIS
                                 AMOUNT_OF_CARDS = 32;
                                 papagianneosFinaleEnabled = true;
+                                BLOCK_WIN = true;
                                 break;
 
                             /*case '???':
@@ -3066,7 +3067,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
-                                BLOCK_WIN = true;
                                 scoreText.innerText = 'YOU WILL NOT WIN';
                                 scoreText.style.color = 'red';
                                 scoreText.style.fontSize = '30px';
