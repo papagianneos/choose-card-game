@@ -180,7 +180,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 changedMoosic = false,
                 BLOCK_WIN = false,
                 beatenBoss = false,
-                pgnHealth = 200,
+                pgnHealth = 300,
                 runCutscene = false,
                 pgnFinaleEffectsLoop;
             // ------------------------------------------------------------------------
@@ -3074,6 +3074,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             setTimeout(() => {
+                                challengeModeEnabled = true;
                                 scoreText.innerText = 'YOU WILL NOT WIN';
                                 scoreText.style.color = 'red';
                                 scoreText.style.fontSize = '30px';
