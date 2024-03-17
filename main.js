@@ -2678,43 +2678,43 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.angryPgnFinale.play();
                             pageBody.style.transition = '1s';*/
                             //setTimeout(() => {
-                            /* pageBody.style.transform = 'rotate(360deg)';
-                             for (var index = 0; index < 15; index++) {
-                                 createCard({
-                                     shape: 'mazeWall',
-                                     color: 'transparent',
-                                     mazeWall: true,
-                                     specialCard: true,
-                                     specialCardEffect: () => { }
-                                 });
-                                 resetCards(false);
-                             }
+                               /* pageBody.style.transform = 'rotate(360deg)';
+                                for (var index = 0; index < 15; index++) {
+                                    createCard({
+                                        shape: 'mazeWall',
+                                        color: 'transparent',
+                                        mazeWall: true,
+                                        specialCard: true,
+                                        specialCardEffect: () => { }
+                                    });
+                                    resetCards(false);
+                                }
 
-                             // ανακάτεψε τις κάρτες
-                             let cardsListToShuffle = [],
-                                 scoreAndTriesTextHolderChild = parentDiv.children[0];
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
 
-                             // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                             for (var e = 0; e < parentDiv.children.length; e++) {
-                                 let child = parentDiv.children[e];
-                                 // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                 if (child.className.includes('card')) {
-                                     cardsListToShuffle.push(child);
-                                 }
-                             }
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className.includes('card')) {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
 
-                             shuffle(cardsListToShuffle);
+                                shuffle(cardsListToShuffle);
 
-                             cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                             cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                             parentDiv.replaceChildren(...cardsListToShuffle);
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
 
-                             currentSpecialCards.push('mazeWall');
-                             removedSpecialCardsFromFullCount.push(false);
-                             blockClicks = false;*/
-                            gameMusic = music.papagianneosFinaleMusic;
-                            gameMusic.play();
-                            // }, 2e3);
+                                currentSpecialCards.push('mazeWall');
+                                removedSpecialCardsFromFullCount.push(false);
+                                blockClicks = false;*/
+                                gameMusic = music.papagianneosFinaleMusic;
+                                gameMusic.play();
+                           // }, 2e3);
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
@@ -3067,15 +3067,16 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             gameEnded = true;
                         }
                         else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2 (BOSS BATTLE)
+                            document.getElementById('cardsHolder').style.animation = 'none';
                             runCutscene = true;
                             gameMusic.pause();
                             blockClicks = true;
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
+                            sounds.finaleEnter.play();
                             $('#cardsHolder').fadeOut(300);
                             setTimeout(() => {
-                                sounds.finaleEnter.play();
                                 challengeModeEnabled = true;
                                 scoreText.innerText = 'YOU WILL NOT WIN';
                                 scoreText.style.color = 'red';
@@ -3084,7 +3085,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 document.getElementById('cardsHolder').style.position = 'static';
                                 document.getElementById('cardsHolder').style.transition = '1s';
                                 document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                document.getElementById('cardsHolder').style.animation = 'none';
                                 pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                 pageBody.style.transform = 'rotate(360deg)';
 
@@ -3159,12 +3160,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
                                 removedSpecialCardsFromFullCount.push(false, false, false);
                                 $('#cardsHolder').fadeIn(300);
-                                setTimeout(() => {
-                                    blockClicks = false;
-                                    gameMusic = music.theTrueFinale;
-                                    gameMusic.play();
-                                }, 1e3);
-                            }, 2e3);
+                                blockClicks = false;
+                                gameMusic = music.theTrueFinale;
+                                gameMusic.play();
+                            }, 8e3);
                         }
                         else if (!voidModeOver) {
 
