@@ -3075,6 +3075,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             pageBody.style.transition = '1s';
                             sounds.finaleEnter.play();
                             $('#cardsHolder').fadeOut(300);
+                            pageBody.style.background = 'radial-gradient(#ac86b0, #781f82)';
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 setTimeout(() => {
@@ -3087,7 +3088,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
                                     document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
-                                    pageBody.style.transform = 'rotate(360deg)';
+                                    pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
 
                                     // ------------------------------------------------------------------------------------------------------------------------------------
                                     // Boss Health Bar.
