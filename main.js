@@ -3075,7 +3075,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             pageBody.style.transition = '1s';
                             sounds.finaleEnter.play();
                             $('#cardsHolder')
-                            .fadeOut(8e3)
+                            .fadeOut(6e3)
                             .fadeIn(1e3);
                             pageBody.style.background = 'radial-gradient(#ac86b0, #781f82)';
                             setTimeout(() => {
