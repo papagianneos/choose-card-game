@@ -3074,12 +3074,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             sounds.finaleEnter.play();
-                            $('#cardsHolder').fadeOut(2e3);
                             pageBody.style.background = 'radial-gradient(#ac86b0, #781f82)';
+                            $('#cardsHolder').fadeOut(2e3);
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
+                                $('#cardsHolder').fadeIn(2e3);
                                 setTimeout(() => {
-                                    $('#cardsHolder').fadeIn(2e3);
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
