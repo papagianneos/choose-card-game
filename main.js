@@ -1955,7 +1955,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 // Μουσική Credits (Soundimage.org)
                 let musicCredit = document.createElement('h1');
                 musicCredit.style.fontSize = modifiedFontSize;
-                musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, DSTechnician, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
+                musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
                 // For my friends :)
                 let friendsWebsite = document.createElement('h1');
@@ -2678,43 +2678,43 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.angryPgnFinale.play();
                             pageBody.style.transition = '1s';*/
                             //setTimeout(() => {
-                            /* pageBody.style.transform = 'rotate(360deg)';
-                             for (var index = 0; index < 15; index++) {
-                                 createCard({
-                                     shape: 'mazeWall',
-                                     color: 'transparent',
-                                     mazeWall: true,
-                                     specialCard: true,
-                                     specialCardEffect: () => { }
-                                 });
-                                 resetCards(false);
-                             }
+                               /* pageBody.style.transform = 'rotate(360deg)';
+                                for (var index = 0; index < 15; index++) {
+                                    createCard({
+                                        shape: 'mazeWall',
+                                        color: 'transparent',
+                                        mazeWall: true,
+                                        specialCard: true,
+                                        specialCardEffect: () => { }
+                                    });
+                                    resetCards(false);
+                                }
 
-                             // ανακάτεψε τις κάρτες
-                             let cardsListToShuffle = [],
-                                 scoreAndTriesTextHolderChild = parentDiv.children[0];
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
 
-                             // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                             for (var e = 0; e < parentDiv.children.length; e++) {
-                                 let child = parentDiv.children[e];
-                                 // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                 if (child.className.includes('card')) {
-                                     cardsListToShuffle.push(child);
-                                 }
-                             }
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className.includes('card')) {
+                                        cardsListToShuffle.push(child);
+                                    }
+                                }
 
-                             shuffle(cardsListToShuffle);
+                                shuffle(cardsListToShuffle);
 
-                             cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                             cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                             parentDiv.replaceChildren(...cardsListToShuffle);
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
 
-                             currentSpecialCards.push('mazeWall');
-                             removedSpecialCardsFromFullCount.push(false);
-                             blockClicks = false;*/
-                            gameMusic = music.papagianneosFinaleMusic;
-                            gameMusic.play();
-                            // }, 2e3);
+                                currentSpecialCards.push('mazeWall');
+                                removedSpecialCardsFromFullCount.push(false);
+                                blockClicks = false;*/
+                                gameMusic = music.papagianneosFinaleMusic;
+                                gameMusic.play();
+                           // }, 2e3);
                         }
 
                         // Αν υπάρχουν λιγότερο από 6 κλειστές κάρτες, βάλε το εφέ
@@ -3067,105 +3067,98 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             gameEnded = true;
                         }
                         else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2 (BOSS BATTLE)
-                            document.getElementById('cardsHolder').style.animation = 'none';
                             runCutscene = true;
                             gameMusic.pause();
                             blockClicks = true;
+                            sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
-                            sounds.finaleEnter.play();
-                            pageBody.style.background = 'radial-gradient(#ac86b0, #781f82)';
-                            $('#cardsHolder').fadeOut(2e3);
                             setTimeout(() => {
-                                sounds.angryPgnFinale.play();
-                                $('#cardsHolder').fadeIn(2e3);
-                                setTimeout(() => {
-                                    scoreText.innerText = 'YOU WILL NOT WIN';
-                                    scoreText.style.color = 'red';
-                                    scoreText.style.fontSize = '30px';
-                                    clearInterval(pgnFinaleEffectsLoop);
-                                    document.getElementById('cardsHolder').style.position = 'static';
-                                    document.getElementById('cardsHolder').style.transition = '1s';
-                                    document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                    pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
-                                    pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
+                                scoreText.innerText = 'YOU WILL NOT WIN';
+                                scoreText.style.color = 'red';
+                                scoreText.style.fontSize = '30px';
+                                clearInterval(pgnFinaleEffectsLoop);
+                                document.getElementById('cardsHolder').style.position = 'static';
+                                document.getElementById('cardsHolder').style.transition = '1s';
+                                document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
+                                document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                                pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
+                                pageBody.style.transform = 'rotate(360deg)';
 
-                                    // ------------------------------------------------------------------------------------------------------------------------------------
-                                    // Boss Health Bar.
-                                    // ------------------------------------------------------------------------------------------------------------------------------------
-                                    timeBar.setAttribute("max", pgnHealth);
-                                    timeBar.setAttribute("value", pgnHealth);
-                                    let tempStyleTag2 = document.createElement('style');
-                                    tempStyleTag2.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${specialCardsConfig.pgn.color}; }`));
-                                    document.head.appendChild(tempStyleTag2);
-                                    timedModeStyleTagMade = true;
-                                    timeBar.style.width = '100%';
-                                    document.getElementById('timeBar').style.display = 'block';
-                                    document.getElementById('timeBar').style.transform = 'none';
-                                    // ------------------------------------------------------------------------------------------------------------------------------------
+                                // ------------------------------------------------------------------------------------------------------------------------------------
+                                // Boss Health Bar.
+                                // ------------------------------------------------------------------------------------------------------------------------------------
+                                timeBar.setAttribute("max", pgnHealth);
+                                timeBar.setAttribute("value", pgnHealth);
+                                let tempStyleTag2 = document.createElement('style');
+                                tempStyleTag2.appendChild(document.createTextNode(`::-webkit-progress-value { background: ${specialCardsConfig.pgn.color}; }`));
+                                document.head.appendChild(tempStyleTag2);
+                                timedModeStyleTagMade = true;
+                                timeBar.style.width = '100%';
+                                document.getElementById('timeBar').style.display = 'block';
+                                document.getElementById('timeBar').style.transform = 'none';
+                                // ------------------------------------------------------------------------------------------------------------------------------------
 
-                                    for (var index = 0; index < 36; index++) {
-                                        createCard({
-                                            shape: 'mazeWall',
-                                            color: 'transparent',
-                                            mazeWall: true,
-                                            specialCard: true,
-                                            specialCardEffect: () => { }
-                                        });
-                                        createCard({
-                                            shape: specialCardsConfig.hammer.shape,
-                                            color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
-                                            specialCard: true,
-                                            specialCardEffect: () => {
-                                                sounds.hammer.play();
-                                                pgnHealth -= 25;
-                                                timeBar.setAttribute("value", pgnHealth);
-                                                if (pgnHealth <= 0) {
-                                                    BLOCK_WIN = false;
-                                                    beatenBoss = true;
-                                                }
+                                for (var index = 0; index < 36; index++) {
+                                    createCard({
+                                        shape: 'mazeWall',
+                                        color: 'transparent',
+                                        mazeWall: true,
+                                        specialCard: true,
+                                        specialCardEffect: () => { }
+                                    });
+                                    createCard({
+                                        shape: specialCardsConfig.hammer.shape,
+                                        color: pgnBirthday ? `${specialCardsConfig.hammer.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.hammer.color : `${specialCardsConfig.hammer.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            sounds.hammer.play();
+                                            pgnHealth -= 25;
+                                            timeBar.setAttribute("value", pgnHealth);
+                                            if (pgnHealth <= 0) {
+                                                BLOCK_WIN = false;
+                                                beatenBoss = true;
                                             }
-                                        });
-                                        createCard({
-                                            shape: '+H+',
-                                            color: pgnBirthday ? `${specialCardsConfig.death.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
-                                            specialCard: true,
-                                            specialCardEffect: () => {
-                                                pgnHealth += 10;
-                                                timeBar.setAttribute("value", pgnHealth);
-                                                sounds.loss.play();
-                                            }
-                                        });
-                                        resetCards(false);
-                                    }
-
-                                    // ανακάτεψε τις κάρτες
-                                    let cardsListToShuffle = [],
-                                        scoreAndTriesTextHolderChild = parentDiv.children[0];
-
-                                    // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                    for (var e = 0; e < parentDiv.children.length; e++) {
-                                        let child = parentDiv.children[e];
-                                        // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                        if (child.className.includes('card') && ['mazeWall', '+H+', specialCardsConfig.hammer.shape].includes(child.savedText)) {
-                                            cardsListToShuffle.push(child);
                                         }
+                                    });
+                                    createCard({
+                                        shape: '+H+',
+                                        color: pgnBirthday ? `${specialCardsConfig.death.color}, url(/img/confeti.png)` : ['gradient', 'no_skin'].includes(skin.id) ? specialCardsConfig.death.color : `${specialCardsConfig.death.color}, ${skin.bg}`,
+                                        specialCard: true,
+                                        specialCardEffect: () => {
+                                            pgnHealth += 10;
+                                            timeBar.setAttribute("value", pgnHealth);
+                                            sounds.loss.play();
+                                        }
+                                    });
+                                    resetCards(false);
+                                }
+
+                                // ανακάτεψε τις κάρτες
+                                let cardsListToShuffle = [],
+                                    scoreAndTriesTextHolderChild = parentDiv.children[0];
+
+                                // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
+                                for (var e = 0; e < parentDiv.children.length; e++) {
+                                    let child = parentDiv.children[e];
+                                    // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
+                                    if (child.className.includes('card') && ['mazeWall', '+H+', specialCardsConfig.hammer.shape].includes(child.savedText)) {
+                                        cardsListToShuffle.push(child);
                                     }
+                                }
 
-                                    shuffle(cardsListToShuffle);
+                                shuffle(cardsListToShuffle);
 
-                                    cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
-                                    cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
-                                    parentDiv.replaceChildren(...cardsListToShuffle);
+                                cardsListToShuffle[(cardsListToShuffle.length)] = cardsListToShuffle[0];
+                                cardsListToShuffle[0] = scoreAndTriesTextHolderChild;
+                                parentDiv.replaceChildren(...cardsListToShuffle);
 
-                                    currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
-                                    removedSpecialCardsFromFullCount.push(false, false, false);
-                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
-                                    blockClicks = false;
-                                    gameMusic = music.theTrueFinale;
-                                    gameMusic.play();
-                                }, 2e3);
-                            }, 9e3);
+                                currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
+                                removedSpecialCardsFromFullCount.push(false, false, false);
+                                blockClicks = false;
+                                gameMusic = music.theTrueFinale;
+                                gameMusic.play();
+                            }, 2e3);
                         }
                         else if (!voidModeOver) {
 
