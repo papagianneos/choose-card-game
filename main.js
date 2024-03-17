@@ -3074,7 +3074,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
                             sounds.finaleEnter.play();
-                            $('#cardsHolder').fadeOut(300);
+                            $('#cardsHolder')
+                            .fadeOut(300)
+                            .fadeIn(18e3);
                             pageBody.style.background = 'radial-gradient(#ac86b0, #781f82)';
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
@@ -3086,7 +3088,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     document.getElementById('cardsHolder').style.position = 'static';
                                     document.getElementById('cardsHolder').style.transition = '1s';
                                     document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                     pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
 
@@ -3160,7 +3161,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                     currentSpecialCards.push('mazeWall', '+H+', specialCardsConfig.hammer.shape);
                                     removedSpecialCardsFromFullCount.push(false, false, false);
-                                    $('#cardsHolder').fadeIn(300);
+                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     blockClicks = false;
                                     gameMusic = music.theTrueFinale;
                                     gameMusic.play();
