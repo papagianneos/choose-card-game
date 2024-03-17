@@ -3078,7 +3078,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 setTimeout(() => {
-                                    challengeModeEnabled = true;
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
@@ -3086,7 +3085,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     document.getElementById('cardsHolder').style.position = 'static';
                                     document.getElementById('cardsHolder').style.transition = '1s';
                                     document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                    document.getElementById('cardsHolder').style.animation = 'none';
+                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                     pageBody.style.transform = 'rotate(360deg)';
 
