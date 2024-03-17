@@ -263,6 +263,10 @@ export const sounds = {
     hammer: new Howl({
         src: ['/audio/hammer_hit_01.mp3']
     }),
+
+    finaleEnter: new Howl({
+        src: ['/audio/true_finale_cutscene.mp3']
+    })
 }
 
 // --------------------------------------------------------------
