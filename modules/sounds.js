@@ -80,7 +80,7 @@ export const music = {
     }),
 
     theTrueFinale: new Howl({
-        src: ['/audio/THE_TRUE_FINALE.mp3'],
+        src: ['/audio/THE_TRUE_FINALE_V2.mp3'],
         loop: true
     }),
 
