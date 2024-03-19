@@ -34,12 +34,19 @@ export const generateRandomHexColor = () => {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
-  
+
+    // Ensure that RGB values are not equal
+    while (r === g || g === b || r === b) {
+        r = Math.floor(Math.random() * 256);
+        g = Math.floor(Math.random() * 256);
+        b = Math.floor(Math.random() * 256);
+    }
+
     // Convert the RGB values to hexadecimal format
     let hexR = r.toString(16).padStart(2, '0');
     let hexG = g.toString(16).padStart(2, '0');
     let hexB = b.toString(16).padStart(2, '0');
-  
+
     return `#${hexR}${hexG}${hexB}`;
 }
 
