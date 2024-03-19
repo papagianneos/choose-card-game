@@ -3071,7 +3071,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             document.getElementById('cardsHolder').style.position = 'static';
                             document.getElementById('cardsHolder').style.transition = '1s';
                             document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
+                            document.getElementById('cardsHolder').style.animation = 'none';
                             document.body.style.backgroundImage = 'url(./img/game_bg.png)';
                             gameMusic.pause();
                             sounds.finaleEnter.play();
@@ -3079,10 +3079,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             blockClicks = true;
                             document.body.style.transition = '1s';
                             document.body.style.background = 'url(./img/game_bg.png) rgb(0, 0, 0)';
+                            document.body.style.backgroundSize = 'cover';
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 papagianneosFinaleAngryRun = true;
                                 setTimeout(() => {
+                                    document.body.style.backgroundRepeat = 'repeat-y';
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
@@ -3164,7 +3166,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     gameMusic.play();
                                     document.body.style.transition = '1s';
                                     document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)';
-                                    pageBody.style.backgroundRepeat = 'repeat-y';
+                                    document.body.style.backgroundRepeat = 'repeat-y';
+                                    document.body.style.backgroundSize = 'cover';
+                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     document.body.style.transition = '2.5s';
                                 }, 2e3);
                             }, 8500);
