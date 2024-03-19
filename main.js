@@ -968,8 +968,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 for (var n = 0; n < 4; n++) {
                     generatedColorPalette = [];
                     for (var l = 0; l < (AMOUNT_OF_CARDS / 2); l++) {
-                        const randomColor = generateRandomHexColor(); // τυχαίο χρώμα σε hexadecimal (HEX)
-                        generatedColorPalette.push(randomColor);
+                        // τυχαίο χρώμα σε hexadecimal (HEX)
+                        generatedColorPalette.push(generateRandomHexColor());
 
                     }
                     COLOR_PALETTES.push(generatedColorPalette);
@@ -983,12 +983,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 for (var n = 0; n < 4; n++) {
                     imaginaryGeneratedColorPalette = [];
                     for (var l = 0; l < (STANDARD_AMOUNT_OF_CARDS / 2); l++) {
-
-                        var color = '#';
-                        for (var i = 0; i < 6; i++) {
-                            color += Math.floor(Math.random() * 10);
-                        }
-                        imaginaryGeneratedColorPalette.push(color);
+                        imaginaryGeneratedColorPalette.push(generateRandomHexColor());
 
                     }
                     IMAGINARY_COLOR_PALETTES.push(imaginaryGeneratedColorPalette);
@@ -1000,15 +995,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     // Gradient Skin Special Effect
                     case 'gradient': {
                         for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
-                            cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${'#' + Math.floor(Math.random() * 16777215).toString(16)}, ${cardColors[cardColorIndex]})`;
+                            cardColors[cardColorIndex] = `conic-gradient(${cardColors[cardColorIndex]}, ${generateRandomHexColor()}, ${cardColors[cardColorIndex]})`;
                         }
 
                         for (var imaginaryCardColorIndex = 0; imaginaryCardColorIndex < imaginaryCardColors.length; imaginaryCardColorIndex++) {
-                            var color = '#';
-                            for (var i = 0; i < 6; i++) {
-                                color += Math.floor(Math.random() * 10);
-                            }
-                            imaginaryCardColors[imaginaryCardColorIndex] = `conic-gradient(${imaginaryCardColors[imaginaryCardColorIndex]}, ${color}, ${imaginaryCardColors[imaginaryCardColorIndex]})`;
+                            imaginaryCardColors[imaginaryCardColorIndex] = `conic-gradient(${imaginaryCardColors[imaginaryCardColorIndex]}, ${generateRandomHexColor()}, ${imaginaryCardColors[imaginaryCardColorIndex]})`;
                         }
                     }
                         break;
