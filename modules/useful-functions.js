@@ -17,27 +17,32 @@ export function getRandomInt(min, max) {
 }
 
 export const generateRandomHexColor = () => {
-   /* const HEX_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
-
-    let hexColor = "#";
-
-    // ---------------------------------------------------------------------------
-    // Επειδή υπάρχει περίπτωση να μην γίνει σωστά το generation χρώματος.
-    // ---------------------------------------------------------------------------
-    while (hexColor.length < 7) {
-        hexColor += randomChoice(HEX_DIGITS);
-    }
-    // ---------------------------------------------------------------------------
-
-    return hexColor;*/
+    /* const HEX_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+ 
+     let hexColor = "#";
+ 
+     // ---------------------------------------------------------------------------
+     // Επειδή υπάρχει περίπτωση να μην γίνει σωστά το generation χρώματος.
+     // ---------------------------------------------------------------------------
+     while (hexColor.length < 7) {
+         hexColor += randomChoice(HEX_DIGITS);
+     }
+     // ---------------------------------------------------------------------------
+ 
+     return hexColor;*/
     // NEW
-    let r = Math.floor(Math.random() * 256).toString(16); // red
-    if (r.length == 1) r = '0' + r;
-    let g = Math.floor(Math.random() * 256).toString(16); // green
-    if (g.length == 1) g = '0' + g;
-    let b = Math.floor(Math.random() * 256).toString(16); // blue
-    if (b.length == 1) b = '0' + b;
-    return '#' + r + g + b;
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+
+    // Ensure that RGB values are not equal
+    while (r === g || g === b || r === b) {
+        r = Math.floor(Math.random() * 256);
+        g = Math.floor(Math.random() * 256);
+        b = Math.floor(Math.random() * 256);
+    }
+
+    return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 }
 
 export const createLoader = () => {
