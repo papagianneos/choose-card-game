@@ -17,7 +17,7 @@ export function getRandomInt(min, max) {
 }
 
 export const generateRandomHexColor = () => {
-    const HEX_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+   /* const HEX_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
 
     let hexColor = "#";
 
@@ -29,7 +29,15 @@ export const generateRandomHexColor = () => {
     }
     // ---------------------------------------------------------------------------
 
-    return hexColor;
+    return hexColor;*/
+    // NEW
+    let r = Math.floor(Math.random() * 256).toString(16); // red
+    if (r.length == 1) r = '0' + r;
+    let g = Math.floor(Math.random() * 256).toString(16); // green
+    if (g.length == 1) g = '0' + g;
+    let b = Math.floor(Math.random() * 256).toString(16); // blue
+    if (b.length == 1) b = '0' + b;
+    return '#' + r + g + b;
 }
 
 export const createLoader = () => {
