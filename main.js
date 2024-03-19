@@ -3067,6 +3067,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             gameEnded = true;
                         }
                         else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2 (BOSS BATTLE)
+                            clearInterval(pgnFinaleEffectsLoop);
+                            document.getElementById('cardsHolder').style.position = 'static';
+                            document.getElementById('cardsHolder').style.transition = '1s';
+                            document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
+                            document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                             document.body.style.backgroundImage = 'url(./img/game_bg.png)';
                             gameMusic.pause();
                             sounds.finaleEnter.play();
@@ -3077,16 +3082,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 papagianneosFinaleAngryRun = true;
-                                pageBody.style.backgroundRepeat = 'repeat-y';
                                 setTimeout(() => {
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
-                                    clearInterval(pgnFinaleEffectsLoop);
-                                    document.getElementById('cardsHolder').style.position = 'static';
-                                    document.getElementById('cardsHolder').style.transition = '1s';
-                                    document.getElementById('cardsHolder').style.transform = 'rotateX(0deg) rotateY(0deg)';
-                                    document.getElementById('cardsHolder').style.animation = 'seismos 1s linear infinite';
                                     pageBody.style.backgroundColor = 'rgb(25, 0, 0)';
                                     pageBody.style.transform = 'rotate(360deg)';
 
@@ -3165,6 +3164,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     gameMusic.play();
                                     document.body.style.transition = '1s';
                                     document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)';
+                                    pageBody.style.backgroundRepeat = 'repeat-y';
+                                    document.body.style.transition = '2.5s';
                                 }, 2e3);
                             }, 8500);
                         }
