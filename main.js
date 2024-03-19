@@ -3067,21 +3067,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             gameEnded = true;
                         }
                         else if (BLOCK_WIN && !runCutscene) { // ANGRY PGN v2 (BOSS BATTLE)
+                            document.body.style.backgroundImage = 'url(./img/game_bg.png)';
                             gameMusic.pause();
                             sounds.finaleEnter.play();
                             runCutscene = true;
                             blockClicks = true;
                             document.body.style.transition = '1s';
-                            document.body.style.background = 'black url(./img/game_bg.png)'
+                            document.body.style.background = 'url(./img/game_bg.png) rgb(0, 0, 0)';
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 papagianneosFinaleAngryRun = true;
                                 pageBody.style.transition = '1s';
-                                pageBody.style.backgroundImage = 'url(./img/game_bg.png)';
                                 pageBody.style.backgroundRepeat = 'repeat-y';
                                 setTimeout(() => {
                                     document.body.style.transition = '1s';
-                                    document.body.style.background = 'red url(./img/game_bg.png)'
+                                    document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)'
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
@@ -3167,7 +3167,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     gameMusic = music.theTrueFinale;
                                     gameMusic.play();
                                 }, 2e3);
-                            }, 7e3);
+                            }, 8500);
                         }
                         else if (!voidModeOver) {
 
