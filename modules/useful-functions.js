@@ -47,7 +47,10 @@ export const generateRandomHexColor = () => {
     let hexG = g.toString(16).padStart(2, '0');
     let hexB = b.toString(16).padStart(2, '0');
 
-    return `#${hexR}${hexG}${hexB}`;
+    // Combine the hexadecimal values to form the 6-character color code
+    const colorCode = `#${hexR}${hexG}${hexB.substring(0, 1)}`;
+
+    return colorCode;
 }
 
 export const createLoader = () => {
