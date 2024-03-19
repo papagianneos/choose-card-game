@@ -18,18 +18,22 @@ export function getRandomInt(min, max) {
 
 export const generateRandomHexColor = () => {
     const HEX_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
- 
-     let hexColor = "#";
- 
-     // ---------------------------------------------------------------------------
-     // Επειδή υπάρχει περίπτωση να μην γίνει σωστά το generation χρώματος.
-     // ---------------------------------------------------------------------------
-     while (hexColor.length < 7) {
-         hexColor += randomChoice(HEX_DIGITS);
-     }
-     // ---------------------------------------------------------------------------
- 
-     return hexColor;
+
+    let hexColor = "#";
+
+    // ---------------------------------------------------------------------------
+    // Επειδή υπάρχει περίπτωση να μην γίνει σωστά το generation χρώματος.
+    // ---------------------------------------------------------------------------
+    /*while (hexColor.length < 7) {
+        hexColor += randomChoice(HEX_DIGITS);
+    }*/
+
+    for (let i = 0; i < 6; i++) {
+        hexColor += HEX_DIGITS[Math.floor(Math.random() * HEX_DIGITS.length)];
+    }
+    // ---------------------------------------------------------------------------
+
+    return hexColor;
 }
 
 export const createLoader = () => {
