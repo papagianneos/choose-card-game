@@ -3073,6 +3073,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             sounds.angryPgnFinale.play();
                             papagianneosFinaleAngryRun = true;
                             pageBody.style.transition = '1s';
+                            pageBody.style.backgroundImage = 'url(./img/game_bg.png)';
                             setTimeout(() => {
                                 scoreText.innerText = 'YOU WILL NOT WIN';
                                 scoreText.style.color = 'red';
