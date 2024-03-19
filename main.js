@@ -3077,11 +3077,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             setTimeout(() => {
                                 sounds.angryPgnFinale.play();
                                 papagianneosFinaleAngryRun = true;
-                                pageBody.style.transition = '1s';
                                 pageBody.style.backgroundRepeat = 'repeat-y';
                                 setTimeout(() => {
-                                    document.body.style.transition = '1s';
-                                    document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)'
                                     scoreText.innerText = 'YOU WILL NOT WIN';
                                     scoreText.style.color = 'red';
                                     scoreText.style.fontSize = '30px';
@@ -3166,6 +3163,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                     blockClicks = false;
                                     gameMusic = music.theTrueFinale;
                                     gameMusic.play();
+                                    document.body.style.transition = '1s';
+                                    document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)';
                                 }, 2e3);
                             }, 8500);
                         }
