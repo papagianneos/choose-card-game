@@ -1955,7 +1955,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 // Μουσική Credits (Soundimage.org)
                 let musicCredit = document.createElement('h1');
                 musicCredit.style.fontSize = modifiedFontSize;
-                musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
+                musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, DSTechnician, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
                 // For my friends :)
                 let friendsWebsite = document.createElement('h1');
@@ -3222,7 +3222,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                         papagianneosFinaleEnabled = true;
                                         extremeModeEnabled = false;
                                         //pageBody.style.animation = 'none';
-                                        pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
+                                        pageBody.style.backgroundImage = 'url(./img/game_bg.png)';
                                         if (startedExtremeModeMusic) {
                                             extremeModeMusic.pause();
                                         }
