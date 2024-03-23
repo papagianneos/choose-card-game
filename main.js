@@ -225,6 +225,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 gameStarted = false;
             // ------------------------------------------------------------------------------------------------------------------------
 
+            // --------------------------------------------
+            // FALL Gamemode.
+            // --------------------------------------------
+            let fallModeEnabled = true;
+            // --------------------------------------------
+
             // ---------------------------------------
             // Extreme Gamemode
             // ---------------------------------------
@@ -1844,6 +1850,17 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 div.realShape = card.realShape;
                 div.appendChild(document.createTextNode(card.shape)); // βάλε το κείμενο στη κάρτα
 
+                if (fallModeEnabled) {
+                    div.addEventListener('transitionend', () => {
+                        clearTimeout(card.timeout);
+                        card.timeout = setTimeout(() => {
+                            card.style.transform = `translateY(-100px)`;
+                            card.classList.remove('falling');
+                            fallCards();
+                        }, 2000);
+                    });
+                }
+
                 // Για τις φανταστικές κάρτες μόνο
                 if (type == 'imaginary') {
                     div.imaginaryRotationType = getRandomInt(1, 345);
@@ -1904,6 +1921,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                     // στείλε τις πληροφορίες στην συνάρτηση
                     createCard(card);
+                }
+
+                if (fallModeEnabled) {
+                    document.querySelectorAll('.card').forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.transform = `translateY(0px)`;
+                            card.classList.add('falling');
+                        }, 500 * index);
+                    });
                 }
             }
 
