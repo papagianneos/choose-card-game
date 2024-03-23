@@ -1856,7 +1856,12 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         div.timeout = setTimeout(() => {
                             div.style.transform = `translateY(-100px)`;
                             div.classList.remove('falling');
-                            fallCards();
+                            document.querySelectorAll('.card').forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.style.transform = `translateY(0px)`;
+                                    card.classList.add('falling');
+                                }, 500 * index);
+                            });
                         }, 2000);
                     });
                 }
