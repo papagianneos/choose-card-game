@@ -1852,10 +1852,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                 if (fallModeEnabled) {
                     div.addEventListener('transitionend', () => {
-                        clearTimeout(card.timeout);
-                        card.timeout = setTimeout(() => {
-                            card.style.transform = `translateY(-100px)`;
-                            card.classList.remove('falling');
+                        clearTimeout(div.timeout);
+                        div.timeout = setTimeout(() => {
+                            div.style.transform = `translateY(-100px)`;
+                            div.classList.remove('falling');
                             fallCards();
                         }, 2000);
                     });
