@@ -41,6 +41,7 @@ export const SKINS_CONFIG = {
         pageBg: 'conic-gradient(black, grey, black)',
         progress: 0,
         requiredProgress: 25,
+        useCardColors: true,
         locked: true
     },
 
@@ -60,7 +61,7 @@ export const SKINS_CONFIG = {
         id: 'emerald',
         bg: 'linear-gradient(to right, #348F50, #56B4D3)',
         displayBg: 'linear-gradient(to right, #348F50, #56B4D3) center',
-        pageBg: 'none',
+        pageBg: 'linear-gradient(to left top, #000000, #166D3B)',
         progress: 0,
         requiredProgress: 15,
         useCardColors: true,
