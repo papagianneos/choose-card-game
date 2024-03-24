@@ -266,6 +266,10 @@ export const sounds = {
 
     finaleEnter: new Howl({
         src: ['/audio/true_finale_cutscene.mp3']
+    }),
+
+    turn: new Howl({
+        src: ['/audio/turn_01.mp3']
     })
 }
 
