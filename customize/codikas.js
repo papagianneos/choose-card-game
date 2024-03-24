@@ -298,10 +298,10 @@ import { FETCHED_SKIN_DATA, SKINS_CONFIG } from "../modules/skins.js";
                     value: 1
                 },
 
-                {
+                /*{
                     name: 'Deutsch (German)',
                     value: 2
-                }
+                }*/
             ],
             setup: (languageIndexVal) => LANGUAGE_INDEX = languageIndexVal
         }
