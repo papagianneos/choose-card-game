@@ -56,6 +56,7 @@ export let LANGUAGE_DATA = [
         "label_skin_metal": "Μεταλλικό",
         "label_skin_gradient": "Ξεχωριστά Χρώματα",
         "label_skin_window": "Παράθυρο",
+        "label_skin_emerald": "Σμαράγδι",
         "label_skin_crystal": "Κρυσταλλικό",
         "label_skin_radian": "Ακτίνια",
         "label_skin_target": "Στόχος",
@@ -448,6 +449,7 @@ export let LANGUAGE_DATA = [
         "label_skin_metal": "Metallic",
         "label_skin_gradient": "Super Gradient",
         "label_skin_window": "Window",
+        "label_skin_emerald": "Emerald",
         "label_skin_crystal": "Crystallic",
         "label_skin_radian": "Radians",
         "label_skin_target": "Target",
@@ -787,7 +789,7 @@ export let LANGUAGE_DATA = [
         // ------------------------------------------------------------------------------------------------
     },
 
-    { // German
+    /*{ // German (Scrapped)
         "page_title": "Finde die richtige Karte",
         "play_again": "Erneut<br>spielen",
         "amount_of_cards": 'Anzahl der Karten',
@@ -832,6 +834,7 @@ export let LANGUAGE_DATA = [
         "label_skin_metal": "Metallisch",
         "label_skin_gradient": "Super Gradient",
         "label_skin_window": "Fenster",
+        "label_skin_emerald": "TO DO",
         "label_skin_crystal": "Kristallin",
         "label_skin_radian": "Radian",
         "label_skin_target": "Ziel",
@@ -1106,7 +1109,7 @@ export let LANGUAGE_DATA = [
             name: 'Finde den richtigen Lehrer',
             desc: 'Gewinne 1000 Mal',
         }
-    }
+    }*/
 ];
 
 // Μετάφρασε το όνομα της σελίδας
