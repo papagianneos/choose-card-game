@@ -6,7 +6,7 @@ import { LANGUAGE_INDEX, LANGUAGE_DATA } from "./modules/languages.js";
 import { unlockSkin, SKINS_CONFIG } from "./modules/skins.js";
 import { skinsDisabled, pgnBirthday, christmasDecorationsEnabled, aprilFools, halloweenTime } from "./modules/events.js";
 import { SERVER_ADDRESS, sendToServer } from "./modules/SERVER.js";
-import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
+import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreenHexColor, createLoader, shuffle, setTimeoutWithRAF } from "./modules/useful-functions.js";
 
 (() => {
     const pageBody = document.getElementsByTagName('body')[0];
@@ -55,7 +55,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 'polygon(200px 70px, 0% 0%, 0px 0px, 0px 120px)'
             ];
 
-            const testServer = window.location.href.includes('-test');
+            const testServer = window.location.href.includes('-test') || window.location.href.startsWith('http://localhost:') || window.location.href.startsWith('http://127.0.0.1');
 
             // Events
             const eventModeRotationEnabled = !testServer;
@@ -225,6 +225,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 gameStarted = false;
             // ------------------------------------------------------------------------------------------------------------------------
 
+
             // ---------------------------------------
             // Extreme Gamemode
             // ---------------------------------------
@@ -346,7 +347,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                                 // Ειδική περίπτωση του "π".
                                 card.style.backgroundSize = pgnBirthday && !card.specialCard ? '250%' : card.savedText == specialCardsConfig.pi.shape ? '400% 400%' : 'cover';
-                                card.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
+                                card.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
                                 // Ειδική περίπτωση: "Σ" κάρτα.
                                 if (card.savedText == specialCardsConfig.sigma.shape) {
@@ -792,7 +793,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                             // Ειδική περίπτωση του "π".
                             card.style.backgroundSize = pgnBirthday && !card.specialCard ? '250%' : card.savedText == specialCardsConfig.pi.shape ? '400% 400%' : 'cover';
-                            card.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
+                            card.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
                             // ----------------------------------
                             // Ήχος κάρτας.
@@ -1027,6 +1028,23 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         }
                     }
                         break;
+
+                    // Emerald Skin Effect
+                    case 'emerald':
+                        for (var cardColorIndex = 0; cardColorIndex < cardColors.length; cardColorIndex++) {
+                            const green1 = generateRandomGreenHexColor(50, 255);
+                            const green2 = generateRandomGreenHexColor(50, 255);
+                            const green3 = generateRandomGreenHexColor(50, 255);
+                            cardColors[cardColorIndex] = `conic-gradient(${green1}, ${green2}, ${green3}, ${green2}, ${green1}, ${green2}, ${green3}, ${green1})`;
+                        }
+
+                        for (var imaginaryCardColorIndex = 0; imaginaryCardColorIndex < imaginaryCardColors.length; imaginaryCardColorIndex++) {
+                            const green1 = generateRandomGreenHexColor(30, 80);
+                            const green2 = generateRandomGreenHexColor(30, 80);
+                            const green3 = generateRandomGreenHexColor(30, 80);
+                            imaginaryCardColors[imaginaryCardColorIndex] = `conic-gradient(${green1}, ${green2}, ${green3}, ${green2}, ${green1}, ${green2}, ${green3}, ${green1})`;
+                        }
+                        break;
                 }
 
                 cardColors.push(...cardColors); // duplicate
@@ -1056,7 +1074,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     const card = {
                         shape: cardShapes[j],
                         realShape: cardShapes[j],
-                        color: ['no_skin', 'gradient', 'radian', 'target'].includes(skin.id) ? cardColors[j] : skin.bg,
+                        color: skin.useCardColors ? cardColors[j] : skin.bg,
                         specialCard: false,
                         specialCardEffect: () => { }
                     }
@@ -1585,7 +1603,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     const imcard = {
                         shape: imaginaryCardShapes[j],
                         realShape: imaginaryCardShapes[j],
-                        color: ['no_skin', 'gradient', 'radian', 'target'].includes(skin.id) ? imaginaryCardColors[j] : skin.bg,
+                        color: skin.useCardColors ? imaginaryCardColors[j] : skin.bg,
                         specialCard: false,
                         specialCardEffect: () => { }
                     }
@@ -1768,19 +1786,25 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
             // Συνάρτηση που δημιουργεί κάρτα
             const createCard = (data, type = 'normal') => {
-                let card = data;
+                const card = data;
 
                 // <div> για κάθε κάρτα
-                let div = document.createElement('div');
+                const div = document.createElement('div');
                 div.className = 'card';
                 div.style.background = card.color;
                 div.style.backgroundSize = pgnBirthday && card.shape != 'Eng' ? '250%' : 'cover';
-                div.style.backgroundBlendMode = ['crystal', 'radian', 'target'].includes(skin.id) ? 'multiply' : 'darken';
+                div.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
+                // Τοποθέτησε σε τυχαίο σημείο της οθόνης.
                 if (hideAndSeekModeEnabled) {
                     div.style.position = 'absolute';
-                    div.style.top = `${getRandomInt(0, window.innerHeight)}px`;
-                    div.style.left = `${getRandomInt(0, window.innerWidth)}px`;
+                    const minTop = 0;
+                    const maxTop = window.innerHeight - div.clientHeight;
+                    const minLeft = 0;
+                    const maxLeft = window.innerWidth - div.clientWidth;
+
+                    div.style.top = `${Math.max(minTop, Math.min(maxTop, getRandomInt(minTop, maxTop)))}px`;
+                    div.style.left = `${Math.max(minLeft, Math.min(maxLeft, getRandomInt(minLeft, maxLeft)))}px`;
                     div.style.cursor = 'default';
                 }
 
@@ -1869,6 +1893,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                         div.style.background = 'grey';
                     }
                 }
+
                 // βάλε την κάρτα στο parentDiv ή στο imaginaryParentDiv
                 type == 'normal' ? parentDiv.appendChild(div) : imaginaryParentDiv.appendChild(div);
             }
@@ -1911,15 +1936,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
             (() => {
 
                 // Εμφάνισε αρχική οθόνη (μενού).
-                let startScreen = document.createElement('div');
+                const startScreen = document.createElement('div');
                 startScreen.id = 'screen';
 
                 // ---------------------------------------------------------------------------------------------------------
                 // Όνομα Παίχτη.
                 // ---------------------------------------------------------------------------------------------------------
-                let playerNameInputHolder = document.createElement('div');
+                const playerNameInputHolder = document.createElement('div');
 
-                let playerNameInput = document.createElement('input');
+                const playerNameInput = document.createElement('input');
                 playerNameInput.placeholder = LANGUAGE_DATA[LANGUAGE_INDEX].nickname;
                 playerNameInput.id = 'playerNameInput';
                 playerNameInput.addEventListener('input', () => {
@@ -1932,31 +1957,31 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 // ---------------------------------------------------------------------------------------------------------
 
                 // Τίτλος
-                let startScreenText = document.createElement('h1');
+                const startScreenText = document.createElement('h1');
                 startScreenText.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_game_name));
                 startScreenText.style.margin = '0';
 
                 const modifiedFontSize = halloweenTime ? '30px' : '20px';
 
                 // λολ
-                let developerNameLol = document.createElement('h1');
+                const developerNameLol = document.createElement('h1');
                 developerNameLol.style.fontSize = modifiedFontSize;
                 developerNameLol.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].developer));
 
                 // Μουσική Credits (Soundimage.org)
-                let musicCredit = document.createElement('h1');
+                const musicCredit = document.createElement('h1');
                 musicCredit.style.fontSize = modifiedFontSize;
                 musicCredit.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_music_credit} Petercraft#7530, DSTechnician, <a href="https://pixabay.com/">Pixabay.com</a>, <a href="https://soundimage.org/">Soundimage.org</a> & <a href="https://www.soundhelix.com/">Soundhelix.com</a>.`;
 
                 // For my friends :)
-                let friendsWebsite = document.createElement('h1');
+                const friendsWebsite = document.createElement('h1');
                 friendsWebsite.style.fontSize = modifiedFontSize;
                 friendsWebsite.innerHTML = `${LANGUAGE_DATA[LANGUAGE_INDEX].label_friends_project} <a href="https://2x05.surge.sh/">2x05</a>`;
                 // Επίτευγμα: "Κάπου το θυμάμαι αυτό.."
                 friendsWebsite.onclick = () => unlockAchievement('ach_2x05');
 
                 // Τελευταία Τροποποίηση
-                let howToPlayBtn = document.createElement('button');
+                const howToPlayBtn = document.createElement('button');
                 howToPlayBtn.style.fontSize = '25px';
                 howToPlayBtn.appendChild(document.createTextNode('How To Play'));
                 howToPlayBtn.onclick = () => {
@@ -1967,7 +1992,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 }
 
                 // Επιτεύγματα
-                let achievementsMenuBtn = document.createElement('button');
+                const achievementsMenuBtn = document.createElement('button');
                 achievementsMenuBtn.style.fontSize = '25px';
                 achievementsMenuBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].label_achievements));
                 achievementsMenuBtn.onclick = () => {
@@ -1978,7 +2003,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                 }
 
                 // Σημερινά Παιχνίδια
-                let leaderboardMenuBtn = document.createElement('button');
+                const leaderboardMenuBtn = document.createElement('button');
                 leaderboardMenuBtn.style.fontSize = '25px';
                 leaderboardMenuBtn.appendChild(document.createTextNode('Leaderboards'));
                 leaderboardMenuBtn.onclick = () => {
@@ -1988,7 +2013,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     }, 5e2);
                 }
 
-                let creditsBtn = document.createElement('button');
+                const creditsBtn = document.createElement('button');
                 creditsBtn.style.fontSize = '25px';
                 creditsBtn.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_credits));
                 creditsBtn.onclick = () => {
@@ -1996,7 +2021,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     document.body.appendChild(infoHolder);
                 }
 
-                let customizePageLink = document.createElement('button');
+                const customizePageLink = document.createElement('button');
                 customizePageLink.style.fontSize = '25px';
                 customizePageLink.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].title_settings_page));
                 customizePageLink.onclick = () => {
@@ -2006,7 +2031,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                     }, 5e2);
                 }
 
-                let screenLogo = document.createElement('img');
+                const screenLogo = document.createElement('img');
                 screenLogo.src = aprilFools ? './img/game-logo-old.png' : './img/game-logo.png';
 
                 // Φτιάξε και όρισε τα χαρακτηριστικά της εικόνας
@@ -2053,7 +2078,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                     if (aprilFools) label = LANGUAGE_DATA[LANGUAGE_INDEX].play;
 
-                    let button = document.createElement('button');
+                    const button = document.createElement('button');
 
                     // CSS.
                     button.style.background = bgColor;
@@ -2224,21 +2249,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                             menuMusic.pause();
                             cobaltModeCards = Object.filter(specialCardsConfig, card => { return hellModeEnabled ? (card.exclusiveMode == 'cobalt' || card.exclusiveMode == 'timed' || card.shape.startsWith('T') || card.shape == specialCardsConfig.lifesaver.shape) : card.exclusiveMode == 'cobalt' });
 
-                            let cobaltModeSelectMenu = document.createElement('div');
+                            const cobaltModeSelectMenu = document.createElement('div');
                             cobaltModeSelectMenu.className = 'modalBox';
                             cobaltModeSelectMenu.style.overflow = 'scroll';
                             cobaltModeSelectMenu.style.height = '600px';
 
                             // Τίτλος μενού πληροφοριών
-                            let cobaltModeSelectMenuTitle = document.createElement('h1');
+                            const cobaltModeSelectMenuTitle = document.createElement('h1');
                             cobaltModeSelectMenuTitle.appendChild(document.createTextNode(LANGUAGE_DATA[LANGUAGE_INDEX].choose_special_card_menu_title));
                             cobaltModeSelectMenu.appendChild(cobaltModeSelectMenuTitle);
 
                             for (var card of Object.keys(cobaltModeCards)) {
-                                let cobaltCard = specialCardsConfig[card];
+                                const cobaltCard = specialCardsConfig[card];
 
                                 // Για τα positions
-                                let cardDivWrapper = document.createElement('div');
+                                const cardDivWrapper = document.createElement('div');
                                 cardDivWrapper.style.display = 'inline-block';
                                 cardDivWrapper.style.verticalAlign = 'top';
                                 cardDivWrapper.style.alignItems = 'center';
@@ -2246,7 +2271,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 cardDivWrapper.style.textAlign = 'center';
 
                                 // Κάρτα PLACEHOLDER
-                                let cardDiv = document.createElement('div');
+                                const cardDiv = document.createElement('div');
                                 cardDiv.className = 'howToPlayInfoCard';
                                 cardDiv.style.background = cobaltCard.color;
 
@@ -2268,7 +2293,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
                                 // ------------------------------------------------------------
                                 cardDiv.appendChild(document.createTextNode(cobaltCard.shape));
 
-                                let hiddenInfoTxTWrapper = document.createElement('div');
+                                const hiddenInfoTxTWrapper = document.createElement('div');
                                 hiddenInfoTxTWrapper.className = 'hidden';
                                 hiddenInfoTxTWrapper.style.fontSize = '20px';
                                 hiddenInfoTxTWrapper.style.width = '150px'; // το μέγεθος κάθε κάρτας
@@ -3290,6 +3315,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, createLoader, shuff
 
                         // Επίτευγμα: "Ξέρω την αλφάβητο!"
                         unlockAchievement('ach_lose_50');
+
+                        // Skin: "Emerald"
+                        unlockSkin('emerald');
+
 
                         if (hellModeEnabled) {
                             gameMusic.pause();
