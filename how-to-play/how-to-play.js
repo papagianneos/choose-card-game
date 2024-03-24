@@ -79,7 +79,7 @@ import { SKINS_CONFIG } from "../modules/skins.js";
         // Κάρτα PLACEHOLDER
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
-        cardDiv.style.background = `${specialCard.color}, ${skin.bg}`;
+        cardDiv.style.background = skin.id == 'no_skin' ? specialCard.color :  `${specialCard.color}, ${skin.bg}`;
         cardDiv.style.backgroundSize = 'cover';
         cardDiv.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
