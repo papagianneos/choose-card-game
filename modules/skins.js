@@ -2,12 +2,15 @@ import { sounds } from "./sounds.js";
 import { LANGUAGE_DATA, LANGUAGE_INDEX } from "./languages.js";
 import { setTimeoutWithRAF } from "./useful-functions.js";
 
+localStorage.getItem('selectedSkin') == null ? localStorage.setItem('selectedSkin', 'no_skin') : null;
+
 export const SKINS_CONFIG = {
     'no_skin': {
         name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_no_skin,
         id: 'no_skin',
         bg: 'grey',
         pageBg: 'none',
+        useCardColors: true
     },
 
     'woody': {
@@ -52,12 +55,26 @@ export const SKINS_CONFIG = {
         locked: true
     },
 
+    'emerald': {
+        name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_emerald,
+        id: 'emerald',
+        bg: 'linear-gradient(to right, #348F50, #56B4D3)',
+        displayBg: 'linear-gradient(to right, #348F50, #56B4D3) center',
+        pageBg: 'none',
+        progress: 0,
+        requiredProgress: 15,
+        useCardColors: true,
+        blendType: 'multiply',
+        locked: true
+    },
+
     'crystal': {
         name: LANGUAGE_DATA[LANGUAGE_INDEX].label_skin_crystal,
         id: 'crystal',
         bg: 'conic-gradient(from 60deg, blue, #68a0b1, #7fdffa, blue)',
         pageBg: 'url(/img/crystal_bg.png)',
         displayBg: 'url(/img/crystal_bg.png)',
+        blendType: 'multiply',
         locked: true
     },
 
@@ -67,6 +84,8 @@ export const SKINS_CONFIG = {
         bg: 'repeating-linear-gradient(45deg, red, transparent 20px)',
         displayBg: 'repeating-linear-gradient(45deg, red, transparent 20px)',
         pageBg: 'none',
+        blendType: 'multiply',
+        useCardColors: true,
         locked: true
     },
 
@@ -76,6 +95,8 @@ export const SKINS_CONFIG = {
         bg: 'repeating-radial-gradient(grey, transparent 40px)',
         displayBg: 'repeating-radial-gradient(grey, transparent 40px)',
         pageBg: 'none',
+        blendType: 'multiply',
+        useCardColors: true,
         locked: true
     },
 };
