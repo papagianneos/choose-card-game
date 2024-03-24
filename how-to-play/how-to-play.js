@@ -1,8 +1,11 @@
 import { specialCardsConfig } from "../modules/specialCardsConfig.js";
 import { LANGUAGE_INDEX, LANGUAGE_DATA } from "../modules/languages.js";
 import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } from "../modules/events.js";
+import { SKINS_CONFIG } from "../modules/skins.js";
 
 (() => {
+
+    const skin = localStorage.getItem('selectedSkin') != null && localStorage.getItem('selectedSkin') in SKINS_CONFIG ? SKINS_CONFIG[localStorage.getItem('selectedSkin')] : SKINS_CONFIG['no_skin'];
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
     // Διάβασε τα εφέ που επέλεξε ο χρήστης.
@@ -76,8 +79,9 @@ import { halloweenTime, christmasDecorationsEnabled, idkSomeFunctionSoItRuns } f
         // Κάρτα PLACEHOLDER
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
-        cardDiv.style.background = specialCard.color;
+        cardDiv.style.background = `${specialCard.color}, ${skin.bg}`;
         cardDiv.style.backgroundSize = 'cover';
+        cardDiv.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
         if (christmasDecorationsEnabled) cardDiv.style.boxShadow = 'rgba(255, 255, 255, 1) 0px 50px 50px inset, rgba(255, 255, 255, 1) 0px -8px 3px inset';
 
