@@ -2427,6 +2427,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                         if (skin.pageBg != 'none') pageBody.style.backgroundImage = skin.pageBg;
                         if (papagianneosFinaleEnabled) pageBody.style.backgroundImage = 'radial-gradient(cyan, black)';
+                        document.body.style.backgroundRepeat = 'repeat-y';
+                        document.body.style.backgroundSize = 'cover';
                     }
 
                     return button;
