@@ -36,6 +36,12 @@ export const generateRandomHexColor = () => {
     return hexColor;
 }
 
+export const generateRandomGreenHexColor = (min, max) => {
+    const green = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return `rgb(0, ${green}, 0)`;
+}
+
 export const createLoader = () => {
     // Pgn card loader
     let loader = document.createElement('div');
