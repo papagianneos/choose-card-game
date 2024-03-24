@@ -259,6 +259,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 modePlayed,
                 preventLose = false, // for lifesaver
                 gameEnded = false,
+                // για την τρολ κάρτα
+                trollCardUsedShapes = [],
+                trollCardUsedColors = [],
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -371,30 +374,36 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                     // Άλλαξε το σχήμα της troll κάρτας αν βρέθηκε το ζευγάρι καρτών που το σχήμα το είχε η troll
                                     // --------------------------------------------------------------------------------------------------
                                     if (nonPairCardExists) {
-                                        let cardShapes_revived = [],
-                                            cardsList = [];
+                                        trollCardUsedShapes.push(firstCard.savedText);
+                                        trollCardUsedColors.push(firstCard.savedBackgroundColor);
+
+                                        let cardShapes_revived = [], cardColors_revived = [];
+
+                                        document.querySelectorAll('.card').forEach(card => {
+                                            cardShapes_revived.push(card.savedText);
+                                            cardColors_revived.push(card.savedBackgroundColor);
+                                        });
 
                                         // Για κάθε "παιδί" που έχει το cardsHolder/parentDiv
-                                        for (var e = 0; e < parentDiv.children.length; e++) {
-                                            let child = parentDiv.children[e];
-                                            // Για να βρούμε ποιο είναι κάρτα και ποιο κείμενο, διαβάζουμε το class του.
-                                            cardShapes_revived.push(child.savedText);
-                                            cardsList.push(child);
-                                        }
-
-                                        for (var cardElem of cardsList) {
-                                            if (cardElem.savedText == firstCard.savedText && cardElem.impostorCard) {
+                                        document.querySelectorAll('.card').forEach(card => {
+                                            if (card.savedText == firstCard.savedText && card.impostorCard) {
                                                 let fakeCardShapes = cardShapes_revived;
+                                                let fakeCardColors = cardColors_revived;
 
                                                 // Να μην χρησημοποιηθεί το ίδιο σχήμα
                                                 fakeCardShapes = fakeCardShapes.filter(item => {
-                                                    return item != cardElem.savedText && item != undefined;
+                                                    return !trollCardUsedShapes.includes(item);
+                                                });
+
+                                                fakeCardColors = fakeCardColors.filter(item => {
+                                                    return !trollCardUsedColors.includes(item)
                                                 });
 
                                                 // Επέλεξε τυχαίο σχήμα.
-                                                cardElem.savedText = randomChoice(fakeCardShapes);
+                                                card.savedText = randomChoice(fakeCardShapes);
+                                                card.savedBackgroundColor = fakeCardColors[fakeCardShapes.indexOf(card.savedText)];
                                             }
-                                        }
+                                        });
                                     }
                                     // --------------------------------------------------------------------------------------------------
 
@@ -1061,7 +1070,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 }
                 // -----------------------------------------------------------------------
 
-                // check cards length
+                // check cards length (DEBUG)
                 if (!hideAndSeekModeEnabled) if ((nonPairCardExists ? (cardShapes.length + 1) : cardShapes.length) != AMOUNT_OF_CARDS || (nonPairCardExists ? (cardColors.length + 1) : cardColors.length) != AMOUNT_OF_CARDS) {
                     console.log(countTrollCards(cardShapes));
                     console.log(`AMOUNT_OF_CARDS = ${AMOUNT_OF_CARDS}`);
@@ -1586,6 +1595,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                                 // Επέλεξε τυχαίο σχήμα.
                                 card.shape = randomChoice(fakeCardShapes);
+                                card.color = cardColors[fakeCardShapes.indexOf(card.shape)];
                                 card.impostorCard = true;
                                 nonPairCardExists = true;
                             }
