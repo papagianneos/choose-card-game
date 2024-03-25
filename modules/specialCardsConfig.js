@@ -216,7 +216,7 @@ export const specialCardsConfig = {
     turnY: {
         shape: '↸',
         color: 'radial-gradient(#c7c7c7, blue)',
-        info: 'Y',
+        info: '<- Y ->',
         exclusiveMode: 'dimensions',
         amountToSpawn: 1,
         neverSpawn: true
@@ -225,7 +225,7 @@ export const specialCardsConfig = {
     turnX: {
         shape: '↹',
         color: 'radial-gradient(#c7c7c7, brown)',
-        info: 'X',
+        info: '<- X ->',
         exclusiveMode: 'dimensions',
         amountToSpawn: 1,
         neverSpawn: true
@@ -234,7 +234,7 @@ export const specialCardsConfig = {
     turnZ: {
         shape: '↗',
         color: 'radial-gradient(#c7c7c7, purple)',
-        info: 'Z',
+        info: '<- Z ->',
         exclusiveMode: 'dimensions',
         amountToSpawn: 1,
         neverSpawn: true
