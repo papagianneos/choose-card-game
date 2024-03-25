@@ -449,7 +449,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                                     // Αν είναι σπέσιαλ κάρτα..
                                     if (firstCard.specialCard && secondCard.specialCard) {
-                                        if (!deltaEffect) firstCard.specialCardEffect();
+                                        if (!deltaEffect && !firstCard.isDimensionSpecialCard) firstCard.specialCardEffect();
 
                                         // Επίτευγμα: "Τι ήταν αυτό;"
                                         unlockAchievement('ach_first_special_card');
