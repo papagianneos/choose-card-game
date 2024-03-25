@@ -2586,9 +2586,9 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                     switch (new Date().getDay()) {
                         case 1: // Δευτέρα
                             eventModeData = {
-                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_cobalt,
-                                color: 'radial-gradient(black, darkblue)',
-                                id: 'cobalt'
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_dimensions,
+                                color: 'radial-gradient(#c7c7c7, blue)',
+                                id: 'dimensions'
                             }
                             break;
 
