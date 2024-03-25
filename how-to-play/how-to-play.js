@@ -79,7 +79,7 @@ import { SKINS_CONFIG } from "../modules/skins.js";
         // Κάρτα PLACEHOLDER
         let cardDiv = document.createElement('div');
         cardDiv.className = 'howToPlayInfoCard';
-        cardDiv.style.background = skin.id == 'no_skin' ? specialCard.color :  `${specialCard.color}, ${skin.bg}`;
+        cardDiv.style.background = skin.id == 'no_skin' ? specialCard.color : `${specialCard.color}, ${skin.bg}`;
         cardDiv.style.backgroundSize = 'cover';
         cardDiv.style.backgroundBlendMode = skin.blendType == 'multiply' ? 'multiply' : 'darken';
 
@@ -219,6 +219,12 @@ import { SKINS_CONFIG } from "../modules/skins.js";
             label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
             color: 'conic-gradient(red, orange, black, maroon, red)',
             info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_hell,
+        },
+
+        {
+            label: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_dimensions,
+            color: 'radial-gradient(#c7c7c7, blue)',
+            info: LANGUAGE_DATA[LANGUAGE_INDEX].mode_desc_dimensions,
         },
 
         {
