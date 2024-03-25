@@ -106,7 +106,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_og": "Σαν το παρελθόν!",
         "mode_desc_hideAndSeek": "Το ταμπλό χάλασε, βρες όλες τις κάρτες για να κερδίσεις, χωρίς ζευγάρια! Χρησιμοποίησε το κουμπί HINT εάν κολλήσεις!",
         "mode_desc_hell": "Γιατί όχι! Χρόνος με όριο προσπάθειων!",
-        "mode_desc_dimensions": "Κάποιες κάρτες δεν είναι στην σωστή διάσταση! Χρησιμοποίησε τις ειδικές σπέσιαλ κάρτες για να αλλάξεις την διάσταση του επιπέδου.",
+        "mode_desc_dimensions": "Κάποιες κάρτες δεν βρίσκονται στην σωστή διάσταση! Χρησιμοποίησε τις ειδικές σπέσιαλ κάρτες για να αλλάξεις την διάσταση του επιπέδου.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -501,7 +501,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_og": "Nostalgia.",
         "mode_desc_hideAndSeek": "The board has broke, find all the cards to win, no pairs! Use the hint if you get stuck!",
         "mode_desc_hell": "Why not! Time with tries limit!",
-        "mode_desc_dimensions": "Some cards are not the right size! Use the special special cards to change the dimension of the level.",
+        "mode_desc_dimensions": "Some cards are not in the right dimension! Use the special special cards to change the dimension of the level.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
