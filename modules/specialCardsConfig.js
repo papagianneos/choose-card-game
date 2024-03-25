@@ -211,5 +211,32 @@ export const specialCardsConfig = {
         color: 'linear-gradient(45deg, grey, black, grey)',
         info: '$>%^?%?^?&',
         neverSpawn: true
+    },
+
+    turnY: {
+        shape: '↸',
+        color: 'radial-gradient(#c7c7c7, blue)',
+        info: 'Y-90deg',
+        exclusiveMode: 'dimensions',
+        amountToSpawn: 1,
+        neverSpawn: true
+    },
+
+    turnX: {
+        shape: '↹',
+        color: 'radial-gradient(#c7c7c7, brown)',
+        info: 'X-90deg',
+        exclusiveMode: 'dimensions',
+        amountToSpawn: 1,
+        neverSpawn: true
+    },
+
+    turnZ: {
+        shape: '↗',
+        color: 'radial-gradient(#c7c7c7, purple)',
+        info: 'X-90deg',
+        exclusiveMode: 'dimensions',
+        amountToSpawn: 1,
+        neverSpawn: true
     }
 };
