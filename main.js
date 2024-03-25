@@ -449,7 +449,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                                     // Αν είναι σπέσιαλ κάρτα..
                                     if (firstCard.specialCard && secondCard.specialCard) {
-                                        if (!deltaEffect && !firstCard.isDimensionSpecialCard) firstCard.specialCardEffect();
+                                        if (deltaEffect) {
+                                            if (firstCard.isDimensionSpecialCard) firstCard.specialCardEffect();
+                                        }
+                                        else firstCard.specialCardEffect();
 
                                         // Επίτευγμα: "Τι ήταν αυτό;"
                                         unlockAchievement('ach_first_special_card');
@@ -1953,7 +1956,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                     div.specialCard = true;
                     div.specialCardEffect = card.specialCardEffect;
 
-                    if (dimensionsModeEnabled && card.exclusiveMode == 'dimensions') {
+                    if (dimensionsModeEnabled && (card.color.includes(specialCardsConfig.turnX.color) || card.color.includes(specialCardsConfig.turnY.color) || card.color.includes(specialCardsConfig.turnZ.color))) {
                         div.isDimensionSpecialCard = true;
                     }
                 }
