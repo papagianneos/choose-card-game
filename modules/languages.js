@@ -106,6 +106,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_og": "Σαν το παρελθόν!",
         "mode_desc_hideAndSeek": "Το ταμπλό χάλασε, βρες όλες τις κάρτες για να κερδίσεις, χωρίς ζευγάρια! Χρησιμοποίησε το κουμπί HINT εάν κολλήσεις!",
         "mode_desc_hell": "Γιατί όχι! Χρόνος με όριο προσπάθειων!",
+        "mode_desc_dimensions": "Κάποιες κάρτες δεν είναι στην σωστή διάσταση! Χρησιμοποίησε τις ειδικές σπέσιαλ κάρτες για να αλλάξεις την διάσταση του επιπέδου.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -123,6 +124,7 @@ export let LANGUAGE_DATA = [
         "play_mode_cobalt": "Κοβάλτιο",
         "play_mode_hideAndSeek": "Κρυφτό",
         "play_mode_hell": "HELL",
+        "play_mode_dimensions": "Διαστάσεις",
         // --------------------------------------
 
         // ------------------------------------------------------------------------
@@ -499,6 +501,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_og": "Nostalgia.",
         "mode_desc_hideAndSeek": "The board has broke, find all the cards to win, no pairs! Use the hint if you get stuck!",
         "mode_desc_hell": "Why not! Time with tries limit!",
+        "mode_desc_dimensions": "Some cards are not the right size! Use the special special cards to change the dimension of the level.",
         // --------------------------------------------------------------------------------------------
 
         // --------------------------------------
@@ -516,6 +519,7 @@ export let LANGUAGE_DATA = [
         "play_mode_cobalt": "Cobalt",
         "play_mode_hideAndSeek": "H. & S.",
         "play_mode_hell": "HELL",
+        "play_mode_dimensions": "Dimension",
         // --------------------------------------
 
         // -----------------------------------------------------
@@ -876,6 +880,7 @@ export let LANGUAGE_DATA = [
         "mode_desc_og": "Nostalgie.",
         "mode_desc_hideAndSeek": "Das Brett ist kaputt, finde alle Karten, um zu gewinnen, keine Paare! Benutze den Hinweis, wenn du stecken bleibst!",
         "mode_desc_hell": "Warum nicht! Zeitlimit für Versuche!",
+        "mode_desc_dimensions": "TO DO"
         // ... Buttons ...
         "play": "Spielen",
         "play_mode_easy": 'Einfach',
@@ -889,6 +894,7 @@ export let LANGUAGE_DATA = [
         "play_mode_cobalt": "Cobalt",
         "play_mode_hideAndSeek": "V. & S.",
         "play_mode_hell": "HÖLLE",
+        "play_mode_dimensions": "TO DO",
         // ... Settings ...
         "title_settings_page": "EINSTELLUNGEN",
         "setting_label_language": "Sprache",
