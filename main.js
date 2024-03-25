@@ -1871,7 +1871,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                         }
                     }
 
-                    if (dimensionsModeEnabled) {
+                    if (dimensionsModeEnabled && !card.specialCard) {
                         if (card.classList.contains('opened')) {
                             if (activeDimension != card.dimension) {
                                 card.innerHTML = '​';
