@@ -1866,7 +1866,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                             card.style.animation = 'none';
                         }
 
-                        if (dimensionsModeEnabled && dimensionColors[activeDimension] == card.savedBackgroundColor) {
+                        if (dimensionsModeEnabled && card.savedBackgroundColor.includes(dimensionColors[activeDimension])) {
                             card.style.backgroundImage = 'none';
                             card.style.background = 'black';
                         }
