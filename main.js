@@ -247,15 +247,15 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                         card.removeAttribute('egineclick');
                     }
 
-                    if (!card.classList.contains('opened')) {
-                        if (activeDimension == card.dimension) {
-                            card.style.background = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : skin.bg;
-                        }
-
-                        else {
-                            card.style.background = dimensionColors[card.dimension];
-                        }
+                    //if (!card.classList.contains('opened')) {
+                    if (activeDimension == card.dimension) {
+                        card.style.background = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : skin.bg;
                     }
+
+                    else {
+                        card.style.background = dimensionColors[card.dimension];
+                    }
+                    //}
                 });
 
                 resetCards(false);
@@ -1868,6 +1868,20 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                         if (dimensionsModeEnabled && dimensionColors[activeDimension] == card.savedBackgroundColor) {
                             card.style.background = 'black';
+                        }
+                    }
+
+                    if (dimensionsModeEnabled) {
+                        if (card.classList.contains('opened')) {
+                            if (activeDimension != card.dimension) {
+                                card.innerHTML = '​';
+                                card.style.background = dimensionColors[card.dimension];
+                            }
+
+                            else {
+                                card.innerHTML = card.savedText;
+                                card.style.background = card.savedBackgroundColor;
+                            }
                         }
                     }
                 });
