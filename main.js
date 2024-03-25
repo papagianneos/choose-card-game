@@ -225,6 +225,44 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 gameStarted = false;
             // ------------------------------------------------------------------------------------------------------------------------
 
+            // --------------------------------------------------
+            // Dimensions Mode
+            // --------------------------------------------------
+            const dimensionColors = {
+                X: specialCardsConfig.turnX.color,
+                Y: specialCardsConfig.turnY.color,
+                Z: specialCardsConfig.turnZ.color
+            };
+
+            let dimensionsModeEnabled = false,
+                activeDimension = 'X';
+
+            const changeDimension = (dimension) => {
+                sounds.turn.play();
+                activeDimension = dimension;
+
+                document.querySelectorAll('.card').forEach(card => {
+                    if (card.savedText == specialCardsConfig.turnX.shape || card.savedText == specialCardsConfig.turnY.shape || card.savedText == specialCardsConfig.turnZ.shape) {
+                        card.removeAttribute('anoixthcarta');
+                        card.removeAttribute('egineclick');
+                    }
+
+                    if (!card.classList.contains('opened')) {
+                        if (activeDimension == card.dimension) {
+                            card.style.background = PI_EFFECT_LOL ? 'url(./img/PI.jpg)' : hideAndSeekModeEnabled ? 'transparent' : pgnBirthday ? 'grey url(/img/confeti.png) no-repeat' : skin.bg;
+                        }
+
+                        else {
+                            card.style.background = dimensionColors[card.dimension];
+                        }
+                    }
+                });
+
+                resetCards(false);
+                document.body.style.background = dimensionColors[activeDimension];
+                document.getElementById('cardsHolder').style.transition = '1s';
+            }
+            // --------------------------------------------------
 
             // ---------------------------------------
             // Extreme Gamemode
@@ -262,6 +300,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 // για την τρολ κάρτα
                 trollCardUsedShapes = [],
                 trollCardUsedColors = [],
+                cardDimensions = [],
                 CHARACTERS_SET_PENALTY_MODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]{}#@!%&()><?/=€^£×÷+-—¦¿¡§•‗±ツ★✵❆".split('');
 
             // ========================================================================
@@ -295,6 +334,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 document.addEventListener('click', (event) => {
                     if (event.target.classList.contains('card')) {
                         const card = event.target;
+
+                        if (dimensionsModeEnabled && card.dimension && card.dimension != undefined && activeDimension != card.dimension) return;
 
                         // ---------------------------------------------------------------------------------------------------------------
                         // BUG FIX: Αν έγινε click στην ίδια κάρτα..
@@ -344,7 +385,6 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                             // Εμφάνισε την κάρτα στον παίχτη
                             if (currentSelected.length <= 1) {
-                                // Δες αν ο παίχτης χρησιμοποιεί νέον
                                 card.style.background = card.savedBackgroundColor;
                                 card.innerHTML = card.savedText;
 
@@ -897,6 +937,19 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 if (specialCardsEnabled) {
                     // Εμφάνισε τουλάχιστον μία σπεσιαλ κάρτα, παίρνοντας μία τυχαία.
                     // αν δεν παίζει ο παίχτης το FINALE.
+
+                    // Ειδικές σπέσιαλ κάρτες για το Future mode.
+                    if (dimensionsModeEnabled) {
+                        const filteredSpecialCards_ = Object.filter(specialCardsConfig, carde => { return carde.exclusiveMode == 'dimensions' });
+
+                        Object.keys(filteredSpecialCards_).forEach(specialFutureCard => {
+                            for (var i = 0; i < specialCardsConfig[specialFutureCard].amountToSpawn; i++) {
+                                cardShapes.push(specialCardsConfig[specialFutureCard].shape);
+                                AMOUNT_OF_CARDS += 2;
+                            }
+                        });
+                    }
+
                     if (!papagianneosFinaleEnabled) {
 
                         if (!cobaltModeEnabled && !hellModeEnabled) {
@@ -964,6 +1017,13 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                     }*/
                 }
                 // ----------------------------------------------------------------------------------------------
+
+                if (dimensionsModeEnabled) {
+                    for (var i = 0; i < cardShapes.length; i++) {
+                        cardDimensions.push(randomChoice(['X', 'Y', 'Z']));
+                    }
+                    cardDimensions.push(...cardDimensions);
+                }
 
                 if (!hideAndSeekModeEnabled) {
                     cardShapes.push(...cardShapes); // duplicate
@@ -1067,6 +1127,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                     let index = cardShapes.indexOf('[?]') == -1 ? cardShapes.indexOf('∞') : cardShapes.indexOf('[?]');
                     cardShapes.splice(index, 1);
                     cardColors.splice(index, 1);
+                    if (dimensionsModeEnabled) cardDimensions.splice(index, 1);
                 }
                 // -----------------------------------------------------------------------
 
@@ -1085,8 +1146,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                         realShape: cardShapes[j],
                         color: skin.useCardColors ? cardColors[j] : skin.bg,
                         specialCard: false,
-                        specialCardEffect: () => { }
+                        specialCardEffect: () => { },
                     }
+
+                    if (dimensionsModeEnabled) card.dimension = cardDimensions[j];
 
                     // Ψάξε για walls.
                     if (card.shape == 'mazeWall') {
@@ -1185,6 +1248,20 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                         beatenBoss = true;
                                     }
                                 }
+                                break;
+
+                            case specialCardsConfig.turnY.shape: // Turn Y
+                                card.specialCardEffect = () => changeDimension('Y');
+                                break;
+
+
+                            case specialCardsConfig.turnX.shape: // Turn X
+                                card.specialCardEffect = () => changeDimension('X');
+                                break;
+
+
+                            case specialCardsConfig.turnZ.shape: // Turn Z
+                                card.specialCardEffect = () => changeDimension('Z');
                                 break;
 
                             case specialCardsConfig.pgn.shape: // PAPAGIANNEOS SPEECH
@@ -1772,7 +1849,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 cardElements.forEach((card) => {
                     // card.innerHTML είναι το σχέδιο/κείμενο κάθε κάρτας
                     if (!card.getAttribute('anoixthcarta') && card.savedText != '∞' && !card.mazeWall) {
-                        card.style.background = resetColor;
+                        card.style.background = dimensionsModeEnabled && activeDimension != card.dimension && !card.specialCard ? dimensionColors[card.dimension] : resetColor;
                         card.innerHTML = PI_EFFECT_LOL ? Math.PI : '​'; // κενό/whitespace
                         card.style.backgroundSize = 'cover';
 
@@ -1787,6 +1864,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                         // Ειδική περίπτωση: "Σ" κάρτα.
                         if (card.savedText == specialCardsConfig.sigma.shape) {
                             card.style.animation = 'none';
+                        }
+
+                        if (dimensionsModeEnabled && dimensionColors[activeDimension] == card.savedBackgroundColor) {
+                            card.style.background = 'black';
                         }
                     }
                 });
@@ -1856,6 +1937,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                 if (card.specialCard) {
                     div.specialCard = true;
                     div.specialCardEffect = card.specialCardEffect;
+
+                    if (dimensionsModeEnabled && card.exclusiveMode == 'dimensions') {
+                        div.isDimensionSpecialCard = true;
+                    }
                 }
 
                 if (card.impostorCard) div.impostorCard = true;
@@ -1902,6 +1987,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                         div.innerHTML = div.savedText;
                         div.style.background = 'grey';
                     }
+                }
+
+                if (dimensionsModeEnabled) {
+                    div.dimension = card.specialCard ? undefined : card.dimension;
                 }
 
                 // βάλε την κάρτα στο parentDiv ή στο imaginaryParentDiv
@@ -2205,6 +2294,10 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                 specialCardsEnabled = false;
                                 break;
 
+                            case 'dimensions':
+                                dimensionsModeEnabled = true;
+                                break;
+
                             case 'hideAndSeek':
                                 scoreText.style.display = 'none';
                                 hideAndSeekText.style.display = '';
@@ -2335,6 +2428,8 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                             document.body.appendChild(parentDiv);
                             resetCards();
                         }
+
+                        if (dimensionsModeEnabled) document.body.style.background = dimensionColors[activeDimension];
 
                         // PAPAGIANNEOS FINALE - REMASTERED
                         if (papagianneosFinaleEnabled) {
@@ -2588,6 +2683,11 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                 name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_hell,
                                 color: 'conic-gradient(red, orange, black, maroon, red)',
                                 id: 'hell'
+                            },
+                            {
+                                name: LANGUAGE_DATA[LANGUAGE_INDEX].play_mode_dimensions,
+                                color: 'radial-gradient(#c7c7c7, blue)',
+                                id: 'dimensions'
                             },
                         ];
                         eventModes.forEach(event => {
