@@ -14,13 +14,8 @@ export const music = {
         loop: true,
     }),
 
-    menuMusicHalloween: new Howl({
-        src: ['/audio/main_menu_03.mp3'],
-        loop: true
-    }),
-
     menuMusicChristmas: new Howl({
-        src: ['/audio/main_menu_04.mp3'],
+        src: ['/audio/main_menu_03.mp3'],
         loop: true
     }),
 
@@ -36,11 +31,6 @@ export const music = {
 
     birthdayMusic: new Howl({
         src: ['/audio/game_music_03.mp3'],
-        loop: true
-    }),
-
-    gameMusicHalloween: new Howl({
-        src: ['/audio/game_music_04.mp3'],
         loop: true
     }),
 
@@ -96,11 +86,6 @@ export const music = {
 
     timeLevelMusicBirthday: new Howl({
         src: ['/audio/time_level_03.mp3'],
-        loop: true
-    }),
-
-    timeLevelMusicHalloween: new Howl({
-        src: ['/audio/time_level_04.mp3'],
         loop: true
     }),
 }
