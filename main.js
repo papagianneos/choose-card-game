@@ -203,22 +203,21 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
             let wrongSound = halloweenTime ? sounds.wrongHalloween : playersEffect ? playersEffect.musicType == 'OG' ? sounds.wrongOG : sounds.wrong : sounds.wrongOG;
 
             // TIMED mode music
-            let timedModeMusic = halloweenTime ? music.timeLevelMusicHalloween : pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
+            let timedModeMusic = pgnBirthday ? music.timeLevelMusicBirthday : playersEffect ? playersEffect.musicType == 'OG' ? music.timeLevelMusicOG : music.timeLevelMusic : music.timeLevelMusicOG;
 
             // ------------------------------------------------------------------------------------------------------------------------
             // Μουσική για το παιχνίδι
             // ------------------------------------------------------------------------------------------------------------------------
             let menuMusic =
                 christmasDecorationsEnabled ? music.menuMusicChristmas :
-                    halloweenTime ? music.menuMusicHalloween :
                         playersEffect ? playersEffect.musicType == 'OG' ? music.menuMusicOG : music.menuMusic : music.menuMusicOG,
 
                 gameMusic =
-                    halloweenTime ? music.gameMusicHalloween :
                         pgnBirthday ? music.birthdayMusic :
                             playersEffect ? playersEffect.musicType == 'OG' ? music.gameMusicOG : music.gameMusic : music.gameMusicOG;
 
             menuMusic.play();
+            if (halloweenTime) menuMusic.rate("0.86");
 
             // Extreme mode μουσικη
             let startedExtremeModeMusic = false,
@@ -269,7 +268,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
             // ---------------------------------------
             let extremeModeEnabled = false,
                 lostExtremeModeEnabled = false,
-                extremeModeMusic = halloweenTime ? music.extremeModeGameMusicHalloween : pgnBirthday ? music.extremeModeGameMusicBirthday : music.extremeModeGameMusic;
+                extremeModeMusic = pgnBirthday ? music.extremeModeGameMusicBirthday : music.extremeModeGameMusic;
             // ----------------------------------------
 
             // -----------------------------------
@@ -2038,6 +2037,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
 
                     gameMusic.play();
                     musicStarted = true;
+                    if (halloweenTime) gameMusic.rate(timedModeEnabled ? "0.7" : "0.5");
                 }
                 // ----------------------------------
 
@@ -2459,6 +2459,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                     gameMusic.pause();
                                     gameMusic = music.papagianneosFinaleMiddle;
                                     gameMusic.play();
+                                    if (halloweenTime) gameMusic.rate("0.5");
                                     changedMoosic = true;
                                 }
 
@@ -2860,6 +2861,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                              blockClicks = false;*/
                             gameMusic = music.papagianneosFinaleMusic;
                             gameMusic.play();
+                            if (halloweenTime) gameMusic.rate("0.5");
                             // }, 2e3);
                         }
 
@@ -2977,6 +2979,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                 startedExtremeModeMusic = true;
                                 gameMusic.pause();
                                 extremeModeMusic.play();
+                                if (halloweenTime) extremeModeMusic.rate("0.8");
                             }
                         }
                     }
@@ -3310,6 +3313,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                     blockClicks = false;
                                     gameMusic = music.theTrueFinale;
                                     gameMusic.play();
+                                    if (halloweenTime) gameMusic.rate("0.5");
                                     document.body.style.transition = '1s';
                                     document.body.style.background = 'url(./img/game_bg.png) rgb(255, 0, 0)';
                                     document.body.style.backgroundRepeat = 'repeat-y';
@@ -3361,6 +3365,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                         timedModeEnabled = true;
                                         gameMusic.pause();
                                         timedModeMusic.play();
+                                        if (halloweenTime) timedModeMusic.rate("0.7");
                                         break;
 
                                     case 4: // Extreme mode.
@@ -3387,6 +3392,7 @@ import { randomChoice, getRandomInt, generateRandomHexColor, generateRandomGreen
                                         }
                                         else gameMusic.pause();
                                         music.papagianneosFinaleMusic.play();
+                                        if (halloweenTime) music.papagianneosFinaleMusic.rate("0.5");
                                         break;
                                 }
 
